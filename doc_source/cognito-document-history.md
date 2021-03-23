@@ -15,6 +15,7 @@ The following table describes the documentation for this release of Amazon Cogni
 
 | Change | Description | Date | 
 | --- | --- | --- | 
+| Publication of guide markdown to GitHub | As with all of AWS documentation, this guide now has markdown available to review and comment on in at [https://github.com/awsdocs/amazon-cognito-developer-guide](https://github.com/awsdocs/amazon-cognito-developer-guide)\. | March 23, 2021 | 
 | Multi\-tenant nest practices |  Best practices for multi\-tenant applications were added to the documentation\.  | March 4, 2021 | 
 | Attributes for access control | Amazon Cognito Identity Pools provide attributes for access control \(AFAC\) as a way for customers to grant users access to AWS resources\. Authorization can be done based on users' attributes from the identity provider which they used to federate with Amazon Cognito\.  | January 15, 2021 | 
 | Custom SMS Sender Lambda Trigger and Custom Email Sender Lambda Trigger | The Custom SMS Sender Lambda Trigger and Custom Email Sender Lambda Trigger allow you to enable a third\-party provider to send email and SMS notifications to your users from within your Lambda function code\.  | November 2020 | 
