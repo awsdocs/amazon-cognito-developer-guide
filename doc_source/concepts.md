@@ -1,0 +1,10 @@
+# Identity Pools Concepts \(Federated Identities\)<a name="concepts"></a>
+
+ Amazon Cognito identity pools enable you to create unique identities for your users and authenticate them with identity providers\. With an identity, you can obtain temporary, limited\-privilege AWS credentials to access other AWS services\. Amazon Cognito identity pools support public identity providers—Amazon, Apple, Facebook, and Google—as well as unauthenticated identities\. It also supports developer authenticated identities, which let you register and authenticate users via your own back\-end authentication process\. 
+
+For information about Amazon Cognito identity pools Region availability, see [AWS Service Region Availability](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)\. For more information about Amazon Cognito identity pools concepts, see the following topics\.
+
+**Topics**
++ [Identity Pools \(Federated Identities\) Authentication Flow](authentication-flow.md)
++ [IAM Roles](iam-roles.md)
++ [Role Trust and Permissions](role-trust-and-permissions.md)

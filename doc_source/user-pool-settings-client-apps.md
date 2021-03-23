@@ -1,0 +1,58 @@
+# Configuring a User Pool App Client<a name="user-pool-settings-client-apps"></a>
+
+An app is an entity within a user pool that has permission to call unauthenticated API operations \(operations that do not have an authenticated user\)\. Examples include operations to register, sign in, and handle forgotten passwords\. To call these API operations, you need an app client ID and an optional client secret\. It is your responsibility to secure any app client IDs or secrets so that only authorized client apps can call these unauthenticated operations\.
+
+You can create multiple apps for a user pool\. Generally an app corresponds to the platform of an app\. For example, you might create an app for a server\-side application and a different Android app\. Each app has its own app client ID\.
+
+When you create an app, you can optionally choose to create a secret for that app\. If a secret is created for the app, the secret must be provided to use the app\. Browser\-based applications written in JavaScript might not need an app with a secret\.
+
+Secrets cannot be changed after an app is created\. You can create a new app with a new secret if you want to rotate the secret that you are using\. You can also delete an app to block access from apps that use that app client ID\.
+
+**To create an app client \(console\)**
+
+1. On the user pool dashboard, select **Create a user pool**\.
+
+1. Enter a **Pool name**\.
+
+1. Choose **Review defaults**\.
+
+1. Choose **Add app client**\.
+
+1. Choose **Add an app client**\.
+
+1. Enter a **App client name**\.
+
+1. Specify the app's **Refresh token expiration**\. The default value is 30\. You can change it to any value between 1 hour and 10 years\.
+
+1. Specify the app's **Access token expiration**\. The default value is 1 hour\. You can change it to any value between 5 minutes and 24 hours\.
+
+1. Specify the app's **ID token expiration**\. The default value is 1 hour\. You can change it to any value between 5 minutes and 24 hours\.
+**Important**  
+If you use Hosted UI and setup tokens less than an hour, the end user will be able to get new tokens based on their session cookie which is currently fixed at one hour\.
+
+1. By default, user pools generate a client secret for your app\. If you don't want that to happen, clear **Generate client secret**\.
+
+1. If your server app requires developer credentials \(using [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html)\) and doesn't use [Secure Remote Password \(SRP\) authentication](http://srp.stanford.edu/) select **Enable username password auth for admin APIs for authentication \(ALLOW\_ADMIN\_USER\_PASSWORD\_AUTH\) ** to enable server\-side authentication\. For more information, see [Admin authentication flow](amazon-cognito-user-pools-authentication-flow.md#amazon-cognito-user-pools-admin-authentication-flow)\. 
+
+1. Under **Prevent User Existence Errors**, choose **Legacy** or **Enabled**\. For more information, see [Managing error response](https://docs.aws.amazon.com//cognito/latest/developerguide/cognito-user-pool-managing-errors.html)\. 
+
+1. By default, user pools allow your app to read and write all attributes\. If you want to set different permissions for your app, perform the following steps or choose **Create app client** to finish\.
+
+   1. Choose **Set attribute read and write permissions**\.
+
+   1. Do either of the following to set read and write permissions: 
+      + Choose one or more scopes\. Each scope is a set of standard attributes\. For more information, see the list of [standard OIDC scopes](http://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims)\.
+      + Choose individual standard or custom attributes\.
+**Note**  
+You cannot remove required attributes from write permissions in any app\.
+
+1. Choose **Create app client**\.
+
+1. If you want to create another app, choose **Add an app**\.
+
+1. Once you've created all the apps you want, choose **Return to pool details**, update any other fields, and then choose **Create pool**\.
+
+**To create and update app clients in a user pool \(API, AWS CLI\)**  
+Do one of the following: 
++ **API** – Use the [CreateUserPoolClient](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateUserPoolClient.html) and [UpdateUserPoolClient](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UpdateUserPoolClient.html) operations\.
++ **AWS CLI** – At the command line, run the `create-user-pool-client` and `update-user-pool-client` commands\.

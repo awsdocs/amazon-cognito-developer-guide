@@ -1,0 +1,3 @@
+# Custom attribute\-based multi\-tenancy<a name="custom-attribute-based-multi-tenancy"></a>
+
+With custom attribute\-based multi\-tenancy, you can store tenant identification data like `tenant_id` as a [ custom attribute](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html#user-pool-settings-custom-attributes) in a user’s profile\. You then handle all multi\-tenancy logic in your application and backend services\. This approach allows you to use a unified sign\-up and sign\-in experience for all users\. You can also identify the user’s tenant in your application by checking this custom attribute\. 
