@@ -1,18 +1,13 @@
-## My Project
+# Amazon Cognito Developer Guide Docs
 
-TODO: Fill this README out!
+The open source version of the AWS Cognito Developer Guide documentation. You can submit feedback and requests for changes by submitting issues in this repo or by making proposed changes and submitting a pull request.
 
-Be sure to:
-
-* Change the title in this README
-* Edit your repository description on GitHub
-
-## Security
-
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+## Default branch
+The default branch for this repo is `main`. 
 
 ## License Summary
 
 The documentation is made available under the Creative Commons Attribution-ShareAlike 4.0 International License. See the LICENSE file.
 
-The sample code within this documentation is made available under the MIT-0 license. See the LICENSE-SAMPLECODE file.
+The sample code within this documentation is made available under a modified MIT license. See the LICENSE-SAMPLECODE file.
+
