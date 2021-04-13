@@ -124,6 +124,7 @@ This section describes each Amazon Cognito Lambda triggerSource parameter, and i
 | --- | --- | --- | 
 | Pre sign\-up | PreSignUp\_SignUp | Pre sign\-up\. | 
 | Pre sign\-up | PreSignUp\_AdminCreateUser | Pre sign\-up when an admin creates a new user\. | 
+| Pre sign\-up | PreSignUp\_ExternalProvider | Pre sign\-up when external user creates a new user\. | 
 | Post confirmation | PostConfirmation\_ConfirmSignUp | Post sign\-up confirmation\. | 
 | Post confirmation | PostConfirmation\_ConfirmForgotPassword | Post Forgot Password confirmation\. | 
 | Pre authentication | PreAuthentication\_Authentication | Pre authentication\. | 
