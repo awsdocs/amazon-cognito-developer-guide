@@ -4,7 +4,7 @@ Multi\-factor authentication \(MFA\) increases security for your app by adding a
 
 With adaptive authentication, you can configure your user pool to require second factor authentication in response to an increased risk level\. To add adaptive authentication to your user pool, see [Adding Advanced Security to a User Pool](cognito-user-pool-settings-advanced-security.md)\.
 
-When multi\-factor authentication \(MFA\) is set to `required`for a user pool, all users must complete MFA to sign in\. Each user needs at least one MFA factor such as SMS or TOTP setup to sign in\. To avoid having users blocked from signing in when MFA is `required`, you must include the MFA setup in user onboarding\.
+When multi\-factor authentication \(MFA\) is set to `required` for a user pool, all users must complete MFA to sign in\. Each user needs at least one MFA factor such as SMS or TOTP setup to sign in\. To avoid having users blocked from signing in when MFA is `required`, you must include the MFA setup in user onboarding\.
 
 If you enable SMS as an MFA factor, you can require phone numbers and have them verified during sign\-up\. If you have MFA set to `required` and only support SMS as a factor, most users will need to have a phone number\. Users without phone numbers will need your support to add a phone number to their profile before they can sign in\. You can use unverified phone numbers for SMS MFA\. These numbers will have a verified status after multi\-factor authentication succeeds\.
 
