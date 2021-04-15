@@ -37,7 +37,7 @@ These are the parameters required by this Lambda function in addition to the [co
             "string": "string",
             . . .
         },
-        "groupConfiguration": {
+        "groupConfiguration": {},
         "groupsToOverride": ["string", . . .],
         "iamRolesToOverride": ["string", . . .],
         "preferredRole": "string",
