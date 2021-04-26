@@ -164,7 +164,6 @@ Content-Type: application/json
 
 {
  "access_token":"eyJz9sdfsdfsdfsd", 
- "refresh_token":"dn43ud8uj32nk2je",
  "id_token":"dmcxd329ujdmkemkd349r",
  "token_type":"Bearer", 
  "expires_in":3600
