@@ -149,7 +149,7 @@ The authorization server redirects back to your app with access token and ID tok
 
 ```
 HTTP/1.1 302 Found
-Location: https://YOUR_APP/redirect_ur#id_token=ID_TOKEN&access_token=ACCESS_TOKEN&token_type=bearer&expires_in=3600&state=STATE
+Location: https://YOUR_APP/redirect_uri#id_token=ID_TOKEN&access_token=ACCESS_TOKEN&token_type=bearer&expires_in=3600&state=STATE
 ```
 
 ### Examples of Negative Responses<a name="get-authorize-negative"></a>
