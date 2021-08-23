@@ -159,7 +159,7 @@ exports.handler = (event, context, callback) => {
     }
 
     // Return to Amazon Cognito
-    callback(null, event);
+    return event;
 };
 ```
 
@@ -231,7 +231,7 @@ exports.handler = (event, context, callback) => {
     }
 
     // Return to Amazon Cognito
-    callback(null, event);
+    return event;
 };
 ```
 
