@@ -35,6 +35,11 @@ An opaque value the clients adds to the initial request\. The authorization serv
 This value must be used by the client to prevent [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) attacks\.  
 Optional but strongly recommended\.
 
+*nonce*  
+A random value which is created by the client and adds to the initial request\. 
+This value must be used to associate a client session with an `id_token`. When this is used, same value should be included in the `id_token` and client should validate that value to prevent  replay attacks\.
+Optional but recommended\.
+
 *identity\_provider*  
 Used by the developer to directly authenticate with a specific provider\.  
 + For social sign\-in the valid values are **Facebook**, **Google**, **LoginWithAmazon**, and **SignInWithApple**\.
