@@ -95,7 +95,7 @@ The `use` parameter describes the intended use of the public key\. For this exam
    ```
    var jwt = require('jsonwebtoken');
    var jwkToPem = require('jwk-to-pem');
-   var pem = jwkToPem(jwk);
+   var pem = jwkToPem(jwt);
    jwt.verify(token, pem, { algorithms: ['RS256'] }, function(err, decodedToken) {
    });
    ```
