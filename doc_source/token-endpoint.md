@@ -201,4 +201,4 @@ Authorization code has been consumed already or does not exist\.
 Client is not allowed for code grant flow or for refreshing tokens\. 
 
 *unsupported\_grant\_type*  
-Returned if `grant_type` is anything other than `authorization_code` or `refresh_token`\. 
+Returned if `grant_type` is anything other than `authorization_code` or `refresh_token` or `client_credentials`\. 
