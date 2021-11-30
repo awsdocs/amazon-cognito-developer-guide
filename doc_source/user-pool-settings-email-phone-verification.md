@@ -1,6 +1,6 @@
 # Configuring Email or Phone Verification<a name="user-pool-settings-email-phone-verification"></a>
 
-You can choose settings for email or phone verification in the **MFA and verifications** tab\. For more information on MFA,see [SMS Text Message MFA](user-pool-settings-mfa-sms-text-message.md)
+You can choose settings for email or phone verification in the **MFA and verifications** tab\. For more information on MFA, see [SMS Text Message MFA](user-pool-settings-mfa-sms-text-message.md)
 
 Amazon Cognito can automatically verify email addresses or mobile phone numbers by sending a verification code—or, for email, a verification link\. For email addresses, the code or link is sent in an email message\. For phone numbers, the code is sent in an SMS text message\.
 
