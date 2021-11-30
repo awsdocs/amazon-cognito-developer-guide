@@ -27,7 +27,7 @@ SMS messages from Amazon Cognito user pools are routed through Amazon SNS in the
 | --- | --- | 
 | US East \(Ohio\) us\-east\-2 | us\-east\-1 | 
 | Asia Pacific \(Mumbai\) ap\-south\-1 | ap\-southeast\-1 | 
-| Asia Pacific \(Seoul\) ap\-northeast\-2 | ap\-notheast\-1 | 
+| Asia Pacific \(Seoul\) ap\-northeast\-2 | ap\-northeast\-1 | 
 | Canada\(Central\) ca\-central\-1 | us\-east\-1 | 
 | Europe \(Frankfurt\) eu\-central\-1 | eu\-west\-1 | 
 | Europe \(London\) eu\-west\-2 | eu\-west\-1 | 
