@@ -1,4 +1,4 @@
-# Amazon Cognito Sync API Reference<a name="cognito-sync-api-reference"></a>
+# Amazon Cognito sync API reference<a name="cognito-sync-api-reference"></a>
 
 Amazon Cognito Sync is an AWS service and client library that enables cross\-device syncing of application\-related user data\.
 

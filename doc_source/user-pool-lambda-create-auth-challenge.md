@@ -1,4 +1,4 @@
-# Create Auth Challenge Lambda Trigger<a name="user-pool-lambda-create-auth-challenge"></a>
+# Create Auth challenge Lambda trigger<a name="user-pool-lambda-create-auth-challenge"></a>
 
 ![\[Challenge Lambda triggers\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Challenge Lambda triggers\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Challenge Lambda triggers\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
@@ -10,10 +10,10 @@ This Lambda trigger is invoked to create a challenge to present to the user\. Th
 The challenge loop will repeat until all challenges are answered\.
 
 **Topics**
-+ [Create Auth Challenge Lambda Trigger Parameters](#cognito-user-pools-lambda-trigger-syntax-create-auth-challenge)
-+ [Create Auth Challenge Example](#aws-lambda-triggers-create-auth-challenge-example)
++ [Create Auth challenge Lambda trigger parameters](#cognito-user-pools-lambda-trigger-syntax-create-auth-challenge)
++ [Create Auth challenge example](#aws-lambda-triggers-create-auth-challenge-example)
 
-## Create Auth Challenge Lambda Trigger Parameters<a name="cognito-user-pools-lambda-trigger-syntax-create-auth-challenge"></a>
+## Create Auth challenge Lambda trigger parameters<a name="cognito-user-pools-lambda-trigger-syntax-create-auth-challenge"></a>
 
 These are the parameters required by this Lambda function in addition to the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-sample-event-parameter-shared)\.
 
@@ -54,7 +54,7 @@ These are the parameters required by this Lambda function in addition to the [co
 
 ------
 
-### Create Auth Challenge Request Parameters<a name="cognito-user-pools-lambda-trigger-syntax-create-auth-challenge-request"></a>
+### Create Auth challenge request parameters<a name="cognito-user-pools-lambda-trigger-syntax-create-auth-challenge-request"></a>
 
 **userAttributes**  
 One or more name\-value pairs representing user attributes\.
@@ -77,7 +77,7 @@ Your name for the custom challenge\. Used only if `challengeName` is `"CUSTOM_CH
 **clientMetadata**  
 One or more key\-value pairs that you can provide as custom input to the Lambda function that you specify for the create auth challenge trigger\. You can pass this data to your Lambda function by using the ClientMetadata parameter in the [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) and [RespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html) API actions\.
 
-### Create Auth Challenge Response Parameters<a name="cognito-user-pools-lambda-trigger-syntax-create-auth-challenge-response"></a>
+### Create Auth challenge response parameters<a name="cognito-user-pools-lambda-trigger-syntax-create-auth-challenge-response"></a>
 
 **publicChallengeParameters**  
 One or more key\-value pairs for the client app to use in the challenge to be presented to the user\. This parameter should contain all of the necessary information to accurately present the challenge to the user\.
@@ -88,7 +88,7 @@ This parameter is only used by the Verify Auth Challenge Response Lambda trigger
 **challengeMetadata**  
 Your name for the custom challenge, if this is a custom challenge\.
 
-## Create Auth Challenge Example<a name="aws-lambda-triggers-create-auth-challenge-example"></a>
+## Create Auth challenge example<a name="aws-lambda-triggers-create-auth-challenge-example"></a>
 
 A CAPTCHA is created as a challenge to the user\. The URL for the CAPTCHA image is added to the public challenge parameters as "`captchaUrl`", and the expected answer is added to the private challenge parameters\.
 
@@ -105,7 +105,7 @@ exports.handler = (event, context, callback) => {
         event.response.challengeMetadata = 'CAPTCHA_CHALLENGE';
     }
 
-    Return to Amazon Cognito
+    //Return to Amazon Cognito.
     callback(null, event);
 }
 ```

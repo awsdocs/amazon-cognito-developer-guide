@@ -1,9 +1,7 @@
-# Amazon Cognito API References<a name="cognito-reference"></a>
+# Amazon Cognito API references<a name="cognito-reference"></a>
 
-For information about Amazon Cognito API references, see the following topics:
-
-**Topics**
-+ [Amazon Cognito User Pools API Reference](cognito-userpools-api-reference.md)
-+ [Amazon Cognito user pools Auth API Reference](cognito-userpools-server-contract-reference.md)
-+ [Amazon Cognito Identity Pools \(Federated Identities\) API Reference](cognito-federatedidentities-api-reference.md)
-+ [Amazon Cognito Sync API Reference](cognito-sync-api-reference.md)
+Use the following links to go to the related API reference pages\.
++ [ Amazon Cognito user pools API reference ](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/Welcome.html)
++ [ Amazon Cognito identity pools \(federated identities\) API reference ](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-federatedidentities-api-reference.html)
++ [ Amazon Cognito Sync API reference ](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-sync-api-reference.html)
++ [ Amazon Cognito user pools Auth API reference ](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html)

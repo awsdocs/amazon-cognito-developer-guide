@@ -1,10 +1,10 @@
-# Sign in with Apple \(Identity Pools\)<a name="apple"></a>
+# Sign in with Apple \(identity pools\)<a name="apple"></a>
 
 Amazon Cognito integrates with Sign in with Apple to provide federated authentication for your mobile application and web application users\. This section explains how to register and set up your application using Sign in with Apple as an identity provider\.
 
 Adding Sign in with Apple as an authentication provider to an identity pool is a two\-step process\. First you integrate Sign in with Apple in an application, and then you configure Sign in with Apple in identity pools\. 
 
-## Set Up Sign in with Apple<a name="login-with-apple-setup"></a>
+## Set up Sign in with Apple<a name="login-with-apple-setup"></a>
 
 To configure Sign in with Apple as an identity provider, you must register your application with the Apple to receive client ID\.
 
@@ -72,7 +72,7 @@ To configure Sign in with Apple as an identity provider, you must register your 
 To integrate Sign in with Apple with a native iOS application, see [ Implementing User Authentication with Sign in with Apple\. ](https://developer.apple.com/documentation/authenticationservices/implementing_user_authentication_with_sign_in_with_apple)  
 To integrate Sign in with Apple in a platform other than native iOS, see [ Sign in with Apple JS\.](https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_js) 
 
-## Configure the External provider in the Amazon Cognito Federated Identities Console<a name="login-with-apple-configure-provider"></a>
+## Configure the external provider in the Amazon Cognito federated identities console<a name="login-with-apple-configure-provider"></a>
 
 Use the following procedure to configure your external provider\.
 
@@ -90,7 +90,7 @@ Use the following procedure to configure your external provider\.
 
 1. If you use Sign in with Apple with native iOS applications, enter the `BundleID` you obtained from developer\.apple\.com\. Or if you use Sign in with Apple with web or other applications, enter the service ID\. Then choose **Save Changes**\.
 
-## Sign in with Apple as a Provider in the Amazon Cognito Federated Identities CLI Examples<a name="sign-in-with-apple-cli-examples"></a>
+## Sign in with Apple as a provider in the Amazon Cognito federated identities CLI examples<a name="sign-in-with-apple-cli-examples"></a>
 
 This example creates an identity pool named `MyIdentityPool` with Sign in with Apple as an identity provider\.
 
@@ -117,7 +117,7 @@ For more information, see [get\-credentials\-for\-identity](https://docs.aws.ama
 Apple doesn't provide an SDK that supports Sign in with Apple for Android\. You can use the web flow in a web view instead\.
 + To configure Sign in with Apple in your application, follow [Configuring Your Web page for Sign In with Apple](https://developer.apple.com/documentation/signinwithapplejs/configuring_your_webpage_for_sign_in_with_apple) in the Apple documentation\.
 + To add a **Sign in with Apple** button to your Android user interface, follow [Displaying and Configuring Sign In with Apple Buttons](https://developer.apple.com/documentation/signinwithapplejs/displaying_and_configuring_sign_in_with_apple_buttons) in the Apple documentation\.
-+ To securely authenticate users using Sign in with Apple, follow [Configuring Your webpage for Sign In with Apple](https://developer.apple.com/documentation/signinwithapplerestapi/authenticating_users_with_sign_in_with_apple) in the Apple documentation\.
++ To securely authenticate users using Sign in with Apple, follow [Authenticating Users with Sign in with Apple](https://developer.apple.com/documentation/signinwithapplerestapi/authenticating_users_with_sign_in_with_apple) in the Apple documentation\.
 
 Sign in with Apple uses a session object to track its state\. Amazon Cognito uses the ID token from this session object to authenticate the user, generate the unique identifier, and, if needed, grant the user access to other AWS resources\.
 

@@ -1,4 +1,4 @@
-# Viewing Advanced Security Metrics<a name="user-pool-settings-viewing-advanced-security-metrics"></a>
+# Viewing advanced security metrics<a name="user-pool-settings-viewing-advanced-security-metrics"></a>
 
 Amazon Cognito publishes metrics for advanced security features to your account in Amazon CloudWatch\. The advanced security metrics are grouped together by risk level and also by request level\.
 

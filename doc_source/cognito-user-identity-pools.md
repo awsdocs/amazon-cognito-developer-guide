@@ -14,19 +14,20 @@ After successfully authenticating a user, Amazon Cognito issues JSON web tokens 
 
 ![\[Authentication overview\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Authentication overview\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Authentication overview\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
-Amazon Cognito provides token handling through the Amazon Cognito user pools Identity SDKs for JavaScript, Android, and iOS\. See [Getting Started with User Pools](getting-started-with-cognito-user-pools.md) and [Using Tokens with User Pools](amazon-cognito-user-pools-using-tokens-with-identity-providers.md)\.
+Amazon Cognito provides token handling through the Amazon Cognito user pools Identity SDKs for JavaScript, Android, and iOS\. See [Getting started with user pools](getting-started-with-cognito-user-pools.md) and [Using tokens with user pools](amazon-cognito-user-pools-using-tokens-with-identity-providers.md)\.
 
-The two main components of Amazon Cognito are user pools and identity pools\. Identity pools provide AWS credentials to grant your users access to other AWS services\. To enable users in your user pool to access AWS resources, you can configure an identity pool to exchange user pool tokens for AWS credentials\. For more information see [Accessing AWS Services Using an Identity Pool After Sign\-in](amazon-cognito-integrating-user-pools-with-identity-pools.md) and [Getting Started with Amazon Cognito Identity Pools \(Federated Identities\)](getting-started-with-identity-pools.md)\.
+The two main components of Amazon Cognito are user pools and identity pools\. Identity pools provide AWS credentials to grant your users access to other AWS services\. To enable users in your user pool to access AWS resources, you can configure an identity pool to exchange user pool tokens for AWS credentials\. For more information see [Accessing AWS services using an identity pool after sign\-in](amazon-cognito-integrating-user-pools-with-identity-pools.md) and [Getting started with Amazon Cognito identity pools \(federated identities\)](getting-started-with-identity-pools.md)\.
 
 **Topics**
-+ [Getting Started with User Pools](getting-started-with-cognito-user-pools.md)
-+ [Using the Amazon Cognito Hosted UI for Sign\-Up and Sign\-In](cognito-user-pools-app-integration.md)
-+ [Adding User Pool Sign\-in Through a Third Party](cognito-user-pools-identity-federation.md)
-+ [Customizing User Pool Workflows with Lambda Triggers](cognito-user-identity-pools-working-with-aws-lambda-triggers.md)
-+ [Using Amazon Pinpoint Analytics with Amazon Cognito User Pools](cognito-user-pools-pinpoint-integration.md)
-+ [Managing Users in User Pools](managing-users.md)
-+ [Email Settings for Amazon Cognito User Pools](user-pool-email.md)
-+ [Using Tokens with User Pools](amazon-cognito-user-pools-using-tokens-with-identity-providers.md)
-+ [Accessing Resources After a Successful User Pool Authentication](accessing-resources.md)
-+ [User Pools Reference \(AWS Management Console\)](cognito-user-pools-getting-started-step-through-settings.md)
++ [Getting started with user pools](getting-started-with-cognito-user-pools.md)
++ [Using the Amazon Cognito hosted UI for sign\-up and sign\-in](cognito-user-pools-app-integration.md)
++ [Adding user pool sign\-in through a third party](cognito-user-pools-identity-federation.md)
++ [Customizing user pool workflows with Lambda triggers](cognito-user-identity-pools-working-with-aws-lambda-triggers.md)
++ [Using Amazon Pinpoint analytics with Amazon Cognito user pools](cognito-user-pools-pinpoint-integration.md)
++ [Managing users in your user pool](managing-users.md)
++ [Email settings for Amazon Cognito user pools](user-pool-email.md)
++ [SMS message settings for Amazon Cognito user pools](user-pool-sms-settings.md)
++ [Using tokens with user pools](amazon-cognito-user-pools-using-tokens-with-identity-providers.md)
++ [Accessing resources after a successful user pool authentication](accessing-resources.md)
++ [User pools reference \(AWS Management Console\)](cognito-user-pools-getting-started-step-through-settings.md)
 + [Managing error responses](cognito-user-pool-managing-errors.md)

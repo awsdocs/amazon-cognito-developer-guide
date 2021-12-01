@@ -1,15 +1,17 @@
-# To Configure an App Client \(AWS CLI and AWS API\)<a name="cognito-user-pools-app-idp-settings-cli-api"></a>
+# To configure an app client \(AWS CLI and AWS API\)<a name="cognito-user-pools-app-idp-settings-cli-api"></a>
 
 You can use the AWS CLI to update, create, describe, and delete your user pool app client\.
 
-Replace "MyUserPoolID" and "MyAppClientID" with your user pool and app client ID values in these examples\. Likewise, your parameter values might be different than those used in these examples\.
+Replace "*MyUserPoolID*" and "*MyAppClientID*" with your user pool and app client ID values in these examples\. Likewise, your parameter values might be different than those used in these examples\.
 
 **Note**  
 Use JSON format for callback and logout URLs to prevent the CLI from treating them as remote parameter files:  
-\-\-callback\-urls "\["https://example\.com"\]"  
-\-\-logout\-urls "\["https://example\.com"\]"
+`--callback-urls "["https://example.com"]"`  
+`--logout-urls "["https://example.com"]"`
 
-## Updating a User Pool App Client \(AWS CLI and AWS API\)<a name="cognito-user-pools-app-idp-settings-cli-api-update-user-pool-client"></a>
+## Updating a user pool app client \(AWS CLI and AWS API\)<a name="cognito-user-pools-app-idp-settings-cli-api-update-user-pool-client"></a>
+
+At the AWS CLI, enter the following command:
 
 ```
 aws cognito-idp update-user-pool-client --user-pool-id  "MyUserPoolID" --client-id "MyAppClientID" --allowed-o-auth-flows-user-pool-client --allowed-o-auth-flows "code" "implicit" --allowed-o-auth-scopes "openid" --callback-urls "["https://example.com"]" --supported-identity-providers "["MySAMLIdP", "LoginWithAmazon"]"
@@ -49,7 +51,7 @@ See the AWS CLI command reference for more information: [update\-user\-pool\-cli
 
 AWS API: [UpdateUserPoolClient](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UpdateUserPoolClient.html)
 
-## Creating a User Pool App Client \(AWS CLI and AWS API\)<a name="cognito-user-pools-app-idp-settings-cli-api-create-user-pool-client"></a>
+## Creating a user pool app client \(AWS CLI and AWS API\)<a name="cognito-user-pools-app-idp-settings-cli-api-create-user-pool-client"></a>
 
 ```
 aws cognito-idp create-user-pool-client --user-pool-id MyUserPoolID --client-name myApp
@@ -59,7 +61,7 @@ See the AWS CLI command reference for more information: [create\-user\-pool\-cli
 
 AWS API: [CreateUserPoolClient](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateUserPoolClient.html)
 
-## Getting Information about a User Pool App Client \(AWS CLI and AWS API\)<a name="cognito-user-pools-app-idp-settings-cli-api-describe-user-pool-client"></a>
+## Getting information about a user pool app client \(AWS CLI and AWS API\)<a name="cognito-user-pools-app-idp-settings-cli-api-describe-user-pool-client"></a>
 
 ```
 aws cognito-idp describe-user-pool-client --user-pool-id MyUserPoolID --client-id MyClientID
@@ -69,7 +71,7 @@ See the AWS CLI command reference for more information: [describe\-user\-pool\-c
 
 AWS API: [DescribeUserPoolClient](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_DescribeUserPoolClient.html)
 
-## Listing All App Client Information in a User Pool \(AWS CLI and AWS API\)<a name="cognito-user-pools-app-idp-settings-cli-api-list-user-pool-clients"></a>
+## Listing all app client information in a user pool \(AWS CLI and AWS API\)<a name="cognito-user-pools-app-idp-settings-cli-api-list-user-pool-clients"></a>
 
 ```
 aws cognito-idp list-user-pool-clients --user-pool-id "MyUserPoolID" --max-results 3
@@ -79,7 +81,7 @@ See the AWS CLI command reference for more information: [list\-user\-pool\-clien
 
 AWS API: [ListUserPoolClients](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ListUserPoolClients.html)
 
-## Deleting a User Pool App Client \(AWS CLI and AWS API\)<a name="cognito-user-pools-app-idp-settings-cli-api-delete-user-pool-client"></a>
+## Deleting a user pool app client \(AWS CLI and AWS API\)<a name="cognito-user-pools-app-idp-settings-cli-api-delete-user-pool-client"></a>
 
 ```
 aws cognito-idp delete-user-pool-client --user-pool-id "MyUserPoolID" --client-id "MyAppClientID"

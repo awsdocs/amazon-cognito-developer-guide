@@ -1,4 +1,4 @@
-# Getting Started with Amazon Cognito Identity Pools \(Federated Identities\)<a name="getting-started-with-identity-pools"></a>
+# Getting started with Amazon Cognito identity pools \(federated identities\)<a name="getting-started-with-identity-pools"></a>
 
 Amazon Cognito identity pools enable you to create unique identities and assign permissions for users\. Your identity pool can include: 
 + Users in an Amazon Cognito user pool
@@ -8,13 +8,13 @@ Amazon Cognito identity pools enable you to create unique identities and assign 
  With an identity pool, you can obtain temporary AWS credentials with permissions you define to directly access other AWS services or to access resources through Amazon API Gateway\.
 
 **Topics**
-+ [Sign Up for an AWS Account](#aws-sign-up-identity-pools)
-+ [Create an Identity Pool in Amazon Cognito](#create-identity-pool)
++ [Sign up for an AWS account](#aws-sign-up-identity-pools)
++ [Create an identity pool in Amazon Cognito](#create-identity-pool)
 + [Install the Mobile or JavaScript SDK](#install-the-mobile-or-javascript-sdk)
-+ [Integrate the Identity Providers](#integrate-the-identity-providers)
-+ [Get Credentials](#get-credentials)
++ [Integrate the identity providers](#integrate-the-identity-providers)
++ [Get credentials](#get-credentials)
 
-## Sign Up for an AWS Account<a name="aws-sign-up-identity-pools"></a>
+## Sign up for an AWS account<a name="aws-sign-up-identity-pools"></a>
 
 To use Amazon Cognito identity pools, you need an AWS account\. If you don't already have one, use the following procedure to sign up: 
 
@@ -26,7 +26,7 @@ To use Amazon Cognito identity pools, you need an AWS account\. If you don't alr
 
    Part of the sign\-up procedure involves receiving a phone call and entering a verification code on the phone keypad\.
 
-## Create an Identity Pool in Amazon Cognito<a name="create-identity-pool"></a>
+## Create an identity pool in Amazon Cognito<a name="create-identity-pool"></a>
 
 You can create an identity pool through the Amazon Cognito console, or you can use the AWS Command Line Interface \(CLI\) or the Amazon Cognito APIs\.
 
@@ -57,16 +57,16 @@ To use Amazon Cognito identity pools, you must install and configure the AWS Mob
 + [Set Up the AWS Mobile SDK for Unity](http://docs.aws.amazon.com/mobile/sdkforunity/developerguide/setup-unity.html)
 + [Set Up the AWS Mobile SDK for \.NET and Xamarin](http://docs.aws.amazon.com/mobile/sdkforxamarin/developerguide/index.html)
 
-## Integrate the Identity Providers<a name="integrate-the-identity-providers"></a>
+## Integrate the identity providers<a name="integrate-the-identity-providers"></a>
 
-Amazon Cognito identity pools \(federated identities\) support user authentication through Amazon Cognito user pools, federated identity providers—including Amazon, Facebook, Google, Apple, and SAML identity providers—as well as unauthenticated identities\. This feature also supports [Developer Authenticated Identities \(Identity Pools\)](developer-authenticated-identities.md), which lets you register and authenticate users via your own back\-end authentication process\.
+Amazon Cognito identity pools \(federated identities\) support user authentication through Amazon Cognito user pools, federated identity providers—including Amazon, Facebook, Google, Apple, and SAML identity providers—as well as unauthenticated identities\. This feature also supports [Developer authenticated identities \(identity pools\)](developer-authenticated-identities.md), which lets you register and authenticate users via your own back\-end authentication process\.
 
-To learn more about using an Amazon Cognito user pool to create your own user directory, see [Amazon Cognito user pools](cognito-user-identity-pools.md) and [Accessing AWS Services Using an Identity Pool After Sign\-in](amazon-cognito-integrating-user-pools-with-identity-pools.md)\.
+To learn more about using an Amazon Cognito user pool to create your own user directory, see [Amazon Cognito user pools](cognito-user-identity-pools.md) and [Accessing AWS services using an identity pool after sign\-in](amazon-cognito-integrating-user-pools-with-identity-pools.md)\.
 
-To learn more about using external identity providers, see [Identity Pools \(Federated Identities\) External Identity Providers](external-identity-providers.md)\.
+To learn more about using external identity providers, see [Identity pools \(federated identities\) external identity providers](external-identity-providers.md)\.
 
-To learn more about integrating your own back\-end authentication process, see [Developer Authenticated Identities \(Identity Pools\)](developer-authenticated-identities.md)\.
+To learn more about integrating your own back\-end authentication process, see [Developer authenticated identities \(identity pools\)](developer-authenticated-identities.md)\.
 
-## Get Credentials<a name="get-credentials"></a>
+## Get credentials<a name="get-credentials"></a>
 
-Amazon Cognito identity pools provide temporary AWS credentials for users who are guests \(unauthenticated\) and for users who have authenticated and received a token\. With those AWS credentials your app can securely access a back end in AWS or outside AWS through Amazon API Gateway\. See [Getting Credentials](getting-credentials.md)\.
+Amazon Cognito identity pools provide temporary AWS credentials for users who are guests \(unauthenticated\) and for users who have authenticated and received a token\. With those AWS credentials your app can securely access a back end in AWS or outside AWS through Amazon API Gateway\. See [Getting credentials](getting-credentials.md)\.

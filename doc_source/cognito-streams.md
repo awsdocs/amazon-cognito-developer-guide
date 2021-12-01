@@ -8,7 +8,7 @@ Amazon Cognito Streams gives developers control and insight into their data stor
 
 Using Amazon Cognito Streams, you can move all of your Sync data to Kinesis, which can then be streamed to a data warehouse tool such as Amazon Redshift for further analysis\. To learn more about Kinesis, see [Getting Started Using Amazon Kinesis](https://docs.aws.amazon.com/kinesis/latest/dev/getting-started.html)\.
 
-**Configuring Streams**
+**Configuring streams**
 
 You can set up Amazon Cognito Streams in the Amazon Cognito console\. To enable Amazon Cognito Streams in the Amazon Cognito console, you need to select the Kinesis stream to publish to and an IAM role that grants Amazon Cognito permission to put events in the selected stream\.
 
@@ -28,7 +28,7 @@ From the [console home page](https://console.aws.amazon.com/cognito/home):
 
 After you've successfully configured Amazon Cognito streams, all subsequent updates to datasets in this identity pool will be sent to the stream\.
 
-**Stream Contents**
+**Stream contents**
 
 Each record sent to the stream represents a single synchronization\. Here is an example of a record sent to the stream:
 
@@ -60,7 +60,7 @@ For updates that are larger than the Kinesis maximum payload size of 50 KB, a pr
 
 After you have configured Amazon Cognito streams, if you delete the Kinesis stream or change the role trust permission so that it can no longer be assumed by Amazon Cognito Sync, Amazon Cognito streams will be disabled\. You will need to either recreate the Kinesis stream or fix the role, and then you will need to reenable the stream\.
 
-**Bulk Publishing**
+**Bulk publishing**
 
 Once you have configured Amazon Cognito streams, you will be able to execute a bulk publish operation for the existing data in your identity pool\. After you initiate a bulk publish operation, either via the console or directly via the API, Amazon Cognito will start publishing this data to the same stream that is receiving your updates\.
 

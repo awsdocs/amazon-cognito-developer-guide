@@ -1,4 +1,4 @@
-# Google \(Identity Pools\)<a name="google"></a>
+# Google \(identity pools\)<a name="google"></a>
 
 Amazon Cognito integrates with Google to provide federated authentication for your mobile application users\. This section explains how to register and set up your application with Google as an identity provider\.
 

@@ -9,6 +9,3 @@ With this design, you can create a user pool for each tenant in your application
  **Effort level** 
 
 The development and operation effort to use this approach is high\. You need to build tenant onboarding and administration components into your application that uses Amazon Cognito API operations and automation tools\. These components are necessary to create the required resources for each tenant\. You also need to implement a tenant\-matching user interface\. In addition, you must add logic to your application that allows users to sign up and sign in to their corresponding tenant’s user pool\. 
-
-**Note**  
-The [SaaS identity and isolation with Amazon Cognito quick start](http://aws.amazon.com/quickstart/saas/identity-with-cognito/) provides reference architecture and sample implementation for the user\-pool\-per\-tenant approach\. 

@@ -1,9 +1,9 @@
-# Custom sender Lambda Triggers<a name="user-pool-lambda-custom-sender-triggers"></a>
+# Custom sender Lambda triggers<a name="user-pool-lambda-custom-sender-triggers"></a>
 
-Amazon Cognito user pools provide two Lambda triggers `CustomEmailSender` and `CustomSMSSender` to enable third\-party email and SMS notifications\. You can Use your choice of SMS and email providers to send notifications to users from within your Lambda function code\. These trigger your configured Lambda functions when notifications like confirmation codes, verification codes, or temporary passwords need to be sent to users\. Amazon Cognito sends the code and temporary passwords \(secrets\) to your triggered Lambda functions\. The secrets will be encrypted using a AWS KMS customer managed key and the AWS Encryption SDK\. The The AWS Encryption SDK is a client\-side encryption library that helps you to encrypt and decrypt generic data\.
+Amazon Cognito user pools provide two Lambda triggers `CustomEmailSender` and `CustomSMSSender` to activate third\-party email and SMS notifications\. You can use your choice of SMS and email providers to send notifications to users from within your Lambda function code\. These trigger your configured Lambda functions when notifications like confirmation codes, verification codes, or temporary passwords need to be sent to users\. Amazon Cognito sends the code and temporary passwords \(secrets\) to your triggered Lambda functions\. The secrets are encrypted using an AWS KMS customer managed key and the AWS Encryption SDK\. The AWS Encryption SDK is a client\-side encryption library that helps you to encrypt and decrypt generic data\.
 
 **Note**  
-You can use the AWS CLI or SDK to configure your user pools to use these Lambda triggers\. These configurations are not available from Amazon Cognito console\.
+You can use the AWS CLI or SDK to configure your user pools to use these Lambda triggers\. These configurations aren't available from Amazon Cognito console\.
 
 **[CustomEmailSender](user-pool-lambda-custom-email-sender.md)**  
 Amazon Cognito invokes this trigger to send email notifications to users\. 

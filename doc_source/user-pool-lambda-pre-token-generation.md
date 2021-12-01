@@ -1,18 +1,35 @@
-# Pre Token Generation Lambda Trigger<a name="user-pool-lambda-pre-token-generation"></a>
+# Pre token generation Lambda trigger<a name="user-pool-lambda-pre-token-generation"></a>
 
-Amazon Cognito invokes this trigger before token generation allowing you to customize identity token claims\.
+Amazon Cognito invokes this trigger before token generation which allows you to customize identity token claims\.
 
-This Lambda trigger allows you to customize an identity token before it is generated\. You can use this trigger to add new claims, update claims, or suppress claims in the identity token\. To use this feature, you can associate a Lambda function from the Amazon Cognito user pools console or by updating your user pool through the AWS CLI\.
+This Lambda trigger allows you to customize an identity token before it is generated\. You can use this trigger to add new claims, update claims, or suppress claims in the identity token\. To use this feature, associate a Lambda function from the Amazon Cognito user pools console or update your user pool through the AWS CLI\.
 
-There are some claims which cannot be modified\. These include `acr`, `amr`, `aud`, `auth_time`, `azp`, `exp`, `iat`, `identities`, `iss`, `sub`, `token_use`, `nonce`, `at_hash`, and `cognito:username`\.
+You can not modify the following claims:
++ `acr`
++ `amr`
++ `aud`
++ `at_hash`
++ `auth_time`
++ `azp`
++ `cognito:username`
++ `exp`
++ `iat`
++ `identities`
++ `iss`
++ `jti`
++ `nbf`
++ `nonce`
++ `origin_jti`
++ `sub`
++ `token_use`
 
 **Topics**
-+ [Pre Token Generation Lambda Trigger Sources](#user-pool-lambda-pre-token-generation-trigger-source)
-+ [Pre Token Generation Lambda Trigger Parameters](#cognito-user-pools-lambda-trigger-syntax-pre-token-generation)
-+ [Pre Token Generation Example: Add a New Claim and Suppress an Existing Claim](#aws-lambda-triggers-pre-token-generation-example-1)
-+ [Pre Token Generation Example: Modify the User's Group Membership](#aws-lambda-triggers-pre-token-generation-example-2)
++ [Pre token generation Lambda trigger sources](#user-pool-lambda-pre-token-generation-trigger-source)
++ [Pre token generation Lambda trigger parameters](#cognito-user-pools-lambda-trigger-syntax-pre-token-generation)
++ [Pre token generation example: Add a new claim and suppress an existing claim](#aws-lambda-triggers-pre-token-generation-example-1)
++ [Pre token generation example: Modify the user's group membership](#aws-lambda-triggers-pre-token-generation-example-2)
 
-## Pre Token Generation Lambda Trigger Sources<a name="user-pool-lambda-pre-token-generation-trigger-source"></a>
+## Pre token generation Lambda trigger sources<a name="user-pool-lambda-pre-token-generation-trigger-source"></a>
 
 
 | triggerSource value | Triggering event | 
@@ -23,7 +40,7 @@ There are some claims which cannot be modified\. These include `acr`, `amr`, `au
 | TokenGeneration\_AuthenticateDevice | Called at the end of the authentication of a user device\. | 
 | TokenGeneration\_RefreshTokens | Called when a user tries to refresh the identity and access tokens\. | 
 
-## Pre Token Generation Lambda Trigger Parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-token-generation"></a>
+## Pre token generation Lambda trigger parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-token-generation"></a>
 
 These are the parameters required by this Lambda function in addition to the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-sample-event-parameter-shared)\.
 
@@ -33,30 +50,38 @@ These are the parameters required by this Lambda function in addition to the [co
 ```
 {
     "request": {
-        "userAttributes": {
-            "string": "string",
-            . . .
-        },
-        "groupConfiguration": {
-        "groupsToOverride": ["string", . . .],
-        "iamRolesToOverride": ["string", . . .],
-        "preferredRole": "string",
-        "clientMetadata": {
-            "string": "string",
-            . . .
-        }
+        "userAttributes": {"string": "string"},
+        "groupConfiguration": [
+            {
+                "groupsToOverride": [
+                    "string",
+                    "string"
+                ],
+                "iamRolesToOverride": [
+                    "string",
+                    "string"
+                ],
+                "preferredRole": "string"
+            }
+        ],
+        "clientMetadata": {"string": "string"}
     },
     "response": {
         "claimsOverrideDetails": {
-            "claimsToAddOrOverride": {
-                "string": "string",
-                . . .
-            },
-            "claimsToSuppress": ["string", . . .],
-
+            "claimsToAddOrOverride": {"string": "string"},
+            "claimsToSuppress": [
+                "string",
+                "string"
+            ],
             "groupOverrideDetails": {
-                "groupsToOverride": ["string", . . .],
-                "iamRolesToOverride": ["string", . . .],
+                "groupsToOverride": [
+                    "string",
+                    "string"
+                ],
+                "iamRolesToOverride": [
+                    "string",
+                    "string"
+                ],
                 "preferredRole": "string"
             }
         }
@@ -66,7 +91,7 @@ These are the parameters required by this Lambda function in addition to the [co
 
 ------
 
-### Pre Token Generation Request Parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-token-generation-request"></a>
+### Pre token generation request parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-token-generation-request"></a>
 
 **groupConfiguration**  
 The input object containing the current group configuration\. It includes `groupsToOverride`, `iamRolesToOverride`, and `preferredRole`\.
@@ -83,7 +108,7 @@ A string indicating the preferred IAM role\.
 **clientMetadata**  
 One or more key\-value pairs that you can provide as custom input to the Lambda function that you specify for the pre token generation trigger\. You can pass this data to your Lambda function by using the ClientMetadata parameter in the [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) and [RespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html) API actions\.
 
-### Pre Token Generation Response Parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-token-generation-response"></a>
+### Pre token generation response parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-token-generation-response"></a>
 
 **claimsToAddOrOverride**  
 A map of one or more key\-value pairs of claims to add or override\. For group related claims, use groupOverrideDetails instead\.
@@ -94,9 +119,10 @@ If a value is both suppressed and replaced, then it will be suppressed\.
 
 **groupOverrideDetails**  
 The output object containing the current group configuration\. It includes `groupsToOverride`, `iamRolesToOverride`, and `preferredRole`\.  
-The groupOverrideDetails object is replaced with the one you provide\. If you provide an empty or null object in the response, then the groups are suppressed\. To leave the existing group configuration as is, copy the value of the request's groupConfiguration object to the groupOverrideDetails object in the response, and pass it back to the service\.
+The groupOverrideDetails object is replaced with the one you provide\. If you provide an empty or null object in the response, then the groups are suppressed\. To leave the existing group configuration as is, copy the value of the request's groupConfiguration object to the groupOverrideDetails object in the response, and pass it back to the service\.  
+Amazon Cognito ID and access tokens both contain the `cognito:groups` claim\. Your groupOverrideDetails object will replace the `cognito:groups` claim in access tokens as well as ID tokens\.
 
-## Pre Token Generation Example: Add a New Claim and Suppress an Existing Claim<a name="aws-lambda-triggers-pre-token-generation-example-1"></a>
+## Pre token generation example: Add a new claim and suppress an existing claim<a name="aws-lambda-triggers-pre-token-generation-example-1"></a>
 
 This example uses the Pre Token Generation Lambda to add a new claim and suppresses an existing one\.
 
@@ -136,7 +162,7 @@ Amazon Cognito passes event information to your Lambda function\. The function t
 
 ------
 
-## Pre Token Generation Example: Modify the User's Group Membership<a name="aws-lambda-triggers-pre-token-generation-example-2"></a>
+## Pre token generation example: Modify the user's group membership<a name="aws-lambda-triggers-pre-token-generation-example-2"></a>
 
 This example uses the Pre Token Generation Lambda to modify the user's group membership\.
 

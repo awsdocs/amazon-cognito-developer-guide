@@ -1,4 +1,4 @@
-# Push Sync<a name="push-sync"></a>
+# Push sync<a name="push-sync"></a>
 
 ****  
 If you're new to Amazon Cognito Sync, use [AWS AppSync](https://aws.amazon.com/appsync/)\. Like Amazon Cognito Sync, AWS AppSync is a service for synchronizing application data across devices\.  
@@ -11,11 +11,11 @@ Push sync is not supported for JavaScript, Unity, or Xamarin\.
 
 Before you can use push sync, you must first set up your account for push sync and enable push sync in the Amazon Cognito console\.
 
-## Create an Amazon Simple Notification Service \(Amazon SNS\) App<a name="create-an-amazon-SNS-app"></a>
+## Create an Amazon Simple Notification Service \(Amazon SNS\) app<a name="create-an-amazon-SNS-app"></a>
 
 Create and configure an Amazon SNS app for your supported platforms, as described in the [SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html)\.
 
-## Enable Push Sync in the Amazon Cognito console<a name="enable-push-sync-in-the-amazon-cognito-console"></a>
+## Enable push sync in the Amazon Cognito console<a name="enable-push-sync-in-the-amazon-cognito-console"></a>
 
 You can enable push sync via the Amazon Cognito console\. From the [console home page](https://console.aws.amazon.com/cognito/home):
 
@@ -31,9 +31,34 @@ You can enable push sync via the Amazon Cognito console\. From the [console home
 
 1. Grant SNS Access to Your Application
 
-In the [IAM console](https://console.aws.amazon.com/iam/), configure your IAM roles to have full SNS access, or create a new role that trusts cognito\-sync and has full SNS access\. To learn more about IAM roles, see [Roles \(Delegation and Federation\)](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html)\.
+In the AWS Identity and Access Management console, configure your IAM roles to have full Amazon SNS access, or create a new role that has full Amazon SNS access\. The following example role trust policy grants Amazon Cognito Sync a limited ability to assume an IAM role\. Amazon Cognito Sync can only assume the role when it does so on behalf of both the identity pool in the `aws:SourceArn` condition and the account in the `aws:SourceAccount` condition\.
 
-## Use Push Sync in Your App: Android<a name="push-sync-1.android"></a>
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "cognito-sync.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole",
+            "Condition": {
+                "StringEquals": {
+                    "AWS:SourceAccount": "123456789012"
+                },
+                "ArnLike": {
+                    "AWS:SourceArn": "arn:aws:cognito-identity:us-east-1:123456789012:identitypool/us-east-1:177a950c-2c08-43f0-9983-28727EXAMPLE"
+                }
+            }
+        }
+    ]
+}
+```
+
+To learn more about IAM roles, see [Roles \(Delegation and Federation\)](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html)\.
+
+## Use push sync in your app: Android<a name="push-sync-1.android"></a>
 
 Your application will need to import the Google Play services\. You can download the latest version of the Google Play SDK via the [Android SDK manager](http://developer.android.com/tools/help/sdk-manager.html)\. Follow the Android documentation on [Android Implementation](https://developers.google.com/instance-id/guides/android-implementation) to register your app and receive a registration ID from GCM\. Once you have the registration ID, you need to register the device with Amazon Cognito, as shown in the snippet below:
 
@@ -118,7 +143,7 @@ The following keys are available in the push notification payload:
 + `datasetName`: The name of the dataset that was updated\. This is available for the sake of the openOrCreateDataset call\.
 + `syncCount`: The sync count for the remote dataset\. You can use this as a way to make sure that the local dataset is out of date, and that the incoming synchronization is new\.
 
-## Use Push Sync in Your App: iOS \- Objective\-C<a name="push-sync-1.ios-objc"></a>
+## Use push sync in your app: iOS \- Objective\-C<a name="push-sync-1.ios-objc"></a>
 
 To obtain a device token for your app, follow the Apple documentation on Registering for Remote Notifications\. Once you've received the device token as an NSData object from APNs, you'll need to register the device with Amazon Cognito using the `registerDevice:` method of the sync client, as shown below:
 
@@ -221,7 +246,7 @@ The following keys are available in the push notification payload:
 + `datasetName`: The name of the dataset that was updated\. This is available for the sake of the `openOrCreateDataset` call\.
 + `syncCount`: The sync count for the remote dataset\. You can use this as a way to make sure that the local dataset is out of date, and that the incoming synchronization is new\.
 
-## Use Push Sync in Your App: iOS \- Swift<a name="push-sync-1.ios-swift"></a>
+## Use push sync in your app: iOS \- Swift<a name="push-sync-1.ios-swift"></a>
 
 To obtain a device token for your app, follow the Apple documentation on Registering for Remote Notifications\. Once you've received the device token as an NSData object from APNs, you'll need to register the device with Amazon Cognito using the registerDevice: method of the sync client, as shown below:
 

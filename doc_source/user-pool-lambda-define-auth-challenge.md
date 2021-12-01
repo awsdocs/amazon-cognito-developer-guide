@@ -1,4 +1,4 @@
-# Define Auth Challenge Lambda Trigger<a name="user-pool-lambda-define-auth-challenge"></a>
+# Define Auth challenge Lambda trigger<a name="user-pool-lambda-define-auth-challenge"></a>
 
 ![\[Challenge Lambda triggers\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Challenge Lambda triggers\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Challenge Lambda triggers\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
@@ -22,10 +22,10 @@ The request for this Lambda trigger contains `session`, which is an array that c
 1. The challenge loop repeats until all challenges are answered\.
 
 **Topics**
-+ [Define Auth Challenge Lambda Trigger Parameters](#cognito-user-pools-lambda-trigger-syntax-define-auth-challenge)
-+ [Define Auth Challenge Example](#aws-lambda-triggers-define-auth-challenge-example)
++ [Define Auth challenge Lambda trigger parameters](#cognito-user-pools-lambda-trigger-syntax-define-auth-challenge)
++ [Define Auth challenge example](#aws-lambda-triggers-define-auth-challenge-example)
 
-## Define Auth Challenge Lambda Trigger Parameters<a name="cognito-user-pools-lambda-trigger-syntax-define-auth-challenge"></a>
+## Define Auth challenge Lambda trigger parameters<a name="cognito-user-pools-lambda-trigger-syntax-define-auth-challenge"></a>
 
 These are the parameters required by this Lambda function in addition to the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-sample-event-parameter-shared)\.
 
@@ -58,7 +58,7 @@ These are the parameters required by this Lambda function in addition to the [co
 
 ------
 
-### Define Auth Challenge Request Parameters<a name="cognito-user-pools-lambda-trigger-syntax-define-auth-challenge-request"></a>
+### Define Auth challenge request parameters<a name="cognito-user-pools-lambda-trigger-syntax-define-auth-challenge-request"></a>
 
  These are the parameters provided to your Lambda function when it is invoked\.
 
@@ -81,7 +81,7 @@ Your name for the custom challenge\. Used only if `challengeName` is `CUSTOM_CHA
 **clientMetadata**  
 One or more key\-value pairs that you can provide as custom input to the Lambda function that you specify for the define auth challenge trigger\. You can pass this data to your Lambda function by using the `ClientMetadata` parameter in the [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) and [RespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html) API operations\.
 
-### Define Auth Challenge Response Parameters<a name="cognito-user-pools-lambda-trigger-syntax-define-auth-challenge-response"></a>
+### Define Auth challenge response parameters<a name="cognito-user-pools-lambda-trigger-syntax-define-auth-challenge-response"></a>
 
 In the response, you can return the next stage of the authentication process\.
 
@@ -94,7 +94,7 @@ Set to `true` if you determine that the user has been sufficiently authenticated
 **failAuthentication**  
 Set to `true` if you want to terminate the current authentication process, or `false` otherwise\.
 
-## Define Auth Challenge Example<a name="aws-lambda-triggers-define-auth-challenge-example"></a>
+## Define Auth challenge example<a name="aws-lambda-triggers-define-auth-challenge-example"></a>
 
 This example defines a series of challenges for authentication and issues tokens only if all of the challenges are successfully completed\.
 

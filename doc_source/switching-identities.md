@@ -1,4 +1,4 @@
-# Switching Unauthenticated Users to Authenticated Users \(Identity Pools\)<a name="switching-identities"></a>
+# Switching unauthenticated users to authenticated users \(identity pools\)<a name="switching-identities"></a>
 
 Amazon Cognito identity pools support both authenticated and unauthenticated users\. Unauthenticated users receive access to your AWS resources even if they aren't logged in with any of your identity providers \(IdPs\)\. This degree of access is useful to display content to users before they log in\. Each unauthenticated user has a unique identity in the identity pool, even though they haven't been individually logged in and authenticated\.
 
@@ -17,7 +17,7 @@ public void identityChanged(String oldIdentityId, String newIdentityId) {
 }
 ```
 
-## iOS \- Objective\-C<a name="switching-identities-1.ios-objc"></a>
+## iOS \- objective\-C<a name="switching-identities-1.ios-objc"></a>
 
 Users can log in to your application as unauthenticated guests\. Eventually they might decide to log in using one of the supported IdPs\. Amazon Cognito makes sure that an old identity retains the same unique identifier as the new one, and that the profile data is merged automatically\.
 
@@ -37,7 +37,7 @@ Users can log in to your application as unauthenticated guests\. Eventually they
 }
 ```
 
-## iOS \- Swift<a name="switching-identities-1.ios-swift"></a>
+## iOS \- swift<a name="switching-identities-1.ios-swift"></a>
 
 Users can log in to your application as unauthenticated guests\. Eventually they might decide to log in using one of the supported IdPs\. Amazon Cognito makes sure that an old identity retains the same unique identifier as the new one, and that the profile data is merged automatically\.
 
@@ -59,7 +59,7 @@ func identityDidChange(notification: NSNotification!) {
 
 ## JavaScript<a name="switching-identities-1.javascript"></a>
 
-### Initially Unauthenticated User<a name="switching-identities-1.javascript-unauth"></a>
+### Initially unauthenticated user<a name="switching-identities-1.javascript-unauth"></a>
 
 Users typically start with the unauthenticated role\. For this role, you set the credentials property of your configuration object without a Logins property\. In this case, your default configuration might look like the following:
 
@@ -71,7 +71,7 @@ var creds = new AWS.CognitoIdentityCredentials({
 AWS.config.credentials = creds;
 ```
 
-### Switch to Authenticated User<a name="switching-identities-1.javascript-auth"></a>
+### Switch to authenticated user<a name="switching-identities-1.javascript-auth"></a>
 
 When an unauthenticated user logs in to an IdP and you have a token, you can switch the user from unauthenticated to authenticated by calling a custom function that updates the credentials object and adds the Logins token:
 
@@ -86,7 +86,7 @@ function userLoggedIn(providerName, token) {
 }
 ```
 
-You can also create a `CognitoIdentityCredentials` object\. If you do, you must reset the credentials properties of any existing service objects to reflect the updated credentials configuration information\. See [Using the Global Configuration Object](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/global-config-object.html)\.
+You can also create a `CognitoIdentityCredentials` object\. If you do, you must reset the credentials properties of any existing service objects to reflect the updated credentials configuration information\. See [Using the global configuration object](https://docs.aws.amazon.com/sdk-for-javascript/latest/developer-guide/global-config-object.html)\.
 
 For more information about the `CognitoIdentityCredentials` object, see [AWS\.CognitoIdentityCredentials](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityCredentials.html) in the AWS SDK for JavaScript API Reference\.
 

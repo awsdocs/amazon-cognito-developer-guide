@@ -1,4 +1,4 @@
-# Recovering User Accounts<a name="how-to-recover-a-user-account"></a>
+# Recovering user accounts<a name="how-to-recover-a-user-account"></a>
 
 The `AccountRecoverySetting` parameter enables you to customize which method a user can use to recover their password when they call the [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html) API\. `ForgotPassword` sends a recovery code to a verified email or a verified phone number\. When you specify `AccountRecoverySetting`, the preferred setting is chosen from the priorities defined by `AccountRecoverySetting`\.
 
@@ -10,6 +10,6 @@ If you do not specify `AccountRecoverySetting`, Amazon Cognito uses the legacy m
 
 For more information about `AccountRecoverySetting`, see [CreateUserPool](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateUserPool.html) and [UpdateUserPool](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UpdateUserPool.html) in the *Amazon Cognito Identity Provider API Reference*\.
 
-## Forgot Password Behavior<a name="forgot-password"></a>
+## Forgot password behavior<a name="forgot-password"></a>
 
 In a given hour, we allow between 5 and 20 attempts for a user to request or enter a password reset code as part of forgot\-password and confirm\-forgot\-password actions\. The exact value depends on the risk parameters associated with the requests\. Please note that this behavior is subject to change\. 

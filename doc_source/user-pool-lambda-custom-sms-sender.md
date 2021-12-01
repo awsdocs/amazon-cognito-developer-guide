@@ -1,4 +1,4 @@
-# Custom SMS Sender Lambda Trigger<a name="user-pool-lambda-custom-sms-sender"></a>
+# Custom SMS sender Lambda trigger<a name="user-pool-lambda-custom-sms-sender"></a>
 
 The `CustomSMSSender` trigger is invoked from within your Lambda function code to enable a third\-party provider to send SMS notifications to your users\. Using this trigger involves five main steps:
 
@@ -18,7 +18,7 @@ For additional security you must configure a symmetric customer master key in AW
 You can enable the `CustomSMSSender` trigger using a Lambda function\.
 
 **Step 1: Create a Lambda function**  
- Create a Lambda function for the `CustomSMSSender` trigger\. Amazon Cognito uses the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/introduction.html) to encrypt the secrets \(temporary passwords or authorization codes\)\.
+ Create a Lambda function for the `CustomSMSSender` trigger\. Amazon Cognito uses the [AWS encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/introduction.html) to encrypt the secrets \(temporary passwords or authorization codes\)\.
 
 **Step 2: Create an encryption key in AWS KMS**  
 Create an encryption key in AWS KMS\. This key will be used to encrypt temporary passwords and authorization codes that Amazon Cognito generates\. You can then decrypt these secrets in the custom sender Lambda function to be able to send them to the end user in plaintext\.
@@ -31,7 +31,7 @@ Use the following command to grant access to the Lambda function:
 ```
 
 **Step 4: Edit the code to use custom sender**  
-Amazon Cognito uses AWS Encryption SDK to encrypt secrets \(temporary passwords and authorization codes\) before sending them to the custom sender Lambda function\. You need to decrypt these secrets before sending them to end users using the custom provider of your choice\. To use the AWS Encryption SDK with your Lambda function, you need to package the SDK with your function\. For information, see [Installing the AWS Encryption SDK for JavaScript](encryption-sdk/latest/developer-guide/javascript-installation.html)\. You can also update the Lambda package by completing the following steps\.
+Amazon Cognito uses AWS Encryption SDK to encrypt secrets \(temporary passwords and authorization codes\) before sending them to the custom sender Lambda function\. You need to decrypt these secrets before sending them to end users using the custom provider of your choice\. To use the AWS Encryption SDK with your Lambda function, you need to package the SDK with your function\. For information, see [Installing the AWS encryption SDK for JavaScript](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/javascript-installation.html)\. You can also update the Lambda package by completing the following steps\.
 
 1. Export the Lambda function package from the console
 

@@ -1,4 +1,4 @@
-# Creating and Managing a SAML Identity Provider for a User Pool \(AWS CLI and AWS API\)<a name="cognito-user-pools-managing-saml-idp-cli-api"></a>
+# Creating and managing a SAML identity provider for a user pool \(AWS CLI and AWS API\)<a name="cognito-user-pools-managing-saml-idp-cli-api"></a>
 
 Use the following commands to create and manage a SAML provider\.
 

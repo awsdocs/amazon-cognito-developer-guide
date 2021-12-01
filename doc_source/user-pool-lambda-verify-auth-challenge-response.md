@@ -1,4 +1,4 @@
-# Verify Auth Challenge Response Lambda Trigger<a name="user-pool-lambda-verify-auth-challenge-response"></a>
+# Verify Auth challenge response Lambda trigger<a name="user-pool-lambda-verify-auth-challenge-response"></a>
 
 ![\[Challenge Lambda triggers\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Challenge Lambda triggers\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Challenge Lambda triggers\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
@@ -12,10 +12,10 @@ The response contains the `answerCorrect` attribute, which is set to `true` if t
 The challenge loop will repeat until all challenges are answered\.
 
 **Topics**
-+ [Verify Auth Challenge Lambda Trigger Parameters](#cognito-user-pools-lambda-trigger-syntax-verify-auth-challenge)
-+ [Verify Auth Challenge Response Example](#aws-lambda-triggers-verify-auth-challenge-response-example)
++ [Verify Auth challenge Lambda trigger parameters](#cognito-user-pools-lambda-trigger-syntax-verify-auth-challenge)
++ [Verify Auth challenge response example](#aws-lambda-triggers-verify-auth-challenge-response-example)
 
-## Verify Auth Challenge Lambda Trigger Parameters<a name="cognito-user-pools-lambda-trigger-syntax-verify-auth-challenge"></a>
+## Verify Auth challenge Lambda trigger parameters<a name="cognito-user-pools-lambda-trigger-syntax-verify-auth-challenge"></a>
 
 These are the parameters required by this Lambda function in addition to the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-sample-event-parameter-shared)\.
 
@@ -51,7 +51,7 @@ These are the parameters required by this Lambda function in addition to the [co
 
 ------
 
-### Verify Auth Challenge Request Parameters<a name="cognito-user-pools-lambda-trigger-syntax-verify-auth-challenge-request"></a>
+### Verify Auth challenge request parameters<a name="cognito-user-pools-lambda-trigger-syntax-verify-auth-challenge-request"></a>
 
 **userAttributes**  
 One or more name\-value pairs representing user attributes\.
@@ -69,12 +69,12 @@ The answer from the user's response to the challenge\.
 **clientMetadata**  
 One or more key\-value pairs that you can provide as custom input to the Lambda function that you specify for the verify auth challenge trigger\. You can pass this data to your Lambda function by using the ClientMetadata parameter in the [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) and [RespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html) API actions\.
 
-### Verify Auth Challenge Response Parameters<a name="cognito-user-pools-lambda-trigger-syntax-verify-auth-challenge-response"></a>
+### Verify Auth challenge response parameters<a name="cognito-user-pools-lambda-trigger-syntax-verify-auth-challenge-response"></a>
 
 **answerCorrect**  
 Set to `true` if the user has successfully completed the challenge, or `false` otherwise\. 
 
-## Verify Auth Challenge Response Example<a name="aws-lambda-triggers-verify-auth-challenge-response-example"></a>
+## Verify Auth challenge response example<a name="aws-lambda-triggers-verify-auth-challenge-response-example"></a>
 
 In this example, the Lambda function checks whether the user's response to a challenge matches the expected response\. The `answerCorrect` parameter is set to `true` if the user's response matches the expected response\.
 

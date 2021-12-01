@@ -1,8 +1,8 @@
-# Facebook \(Identity Pools\)<a name="facebook"></a>
+# Facebook \(identity pools\)<a name="facebook"></a>
 
  Amazon Cognito identity pools integrate with Facebook to provide federated authentication for your mobile application users\. This section explains how to register and set up your application with Facebook as an identity provider\. 
 
-## Set Up Facebook<a name="set-up-facebook"></a>
+## Set up Facebook<a name="set-up-facebook"></a>
 
  You need to register your application with Facebook before you can start authenticating Facebook users and interacting with Facebook APIs\. 
 
@@ -42,7 +42,7 @@
 +  [Facebook iOS SDK by Xamarin](http://components.xamarin.com/view/facebookios) 
 +  [Facebook Android SDK by Xamarin](http://components.xamarin.com/view/facebookandroid) 
 
-## Configure the External Provider in the Amazon Cognito Federated Identities Console<a name="configure-the-external-provider-in-the-amazon-cognito-console"></a>
+## Configure the external provider in the Amazon Cognito federated identities console<a name="configure-the-external-provider-in-the-amazon-cognito-console"></a>
 
 Use the following procedure to configure your external provider\.
 

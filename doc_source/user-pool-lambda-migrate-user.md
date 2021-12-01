@@ -1,15 +1,15 @@
-# Migrate User Lambda Trigger<a name="user-pool-lambda-migrate-user"></a>
+# Migrate user Lambda trigger<a name="user-pool-lambda-migrate-user"></a>
 
-Amazon Cognito invokes this trigger when a user does not exist in the user pool at the time of sign\-in with a password, or in the forgot\-password flow\. After the Lambda function returns successfully, Amazon Cognito creates the user in the user pool\. For details on the authentication flow with the user migration Lambda trigger see [Importing Users into User Pools With a User Migration Lambda Trigger](cognito-user-pools-import-using-lambda.md)\.
+Amazon Cognito invokes this trigger when a user does not exist in the user pool at the time of sign\-in with a password, or in the forgot\-password flow\. After the Lambda function returns successfully, Amazon Cognito creates the user in the user pool\. For details on the authentication flow with the user migration Lambda trigger see [Importing users into user pools with a user migration Lambda trigger](cognito-user-pools-import-using-lambda.md)\.
 
 You can migrate users from your existing user directory into Amazon Cognito user pools at the time of sign\-in, or during the forgot\-password flow with this Lambda trigger\.
 
 **Topics**
-+ [Migrate User Lambda Trigger Sources](#user-pool-lambda-migrate-user-trigger-source)
-+ [Migrate User Lambda Trigger Parameters](#cognito-user-pools-lambda-trigger-syntax-user-migration)
-+ [Example: Migrate a User with an Existing Password](#aws-lambda-triggers-user-migration-example-1)
++ [Migrate user Lambda trigger sources](#user-pool-lambda-migrate-user-trigger-source)
++ [Migrate user Lambda trigger parameters](#cognito-user-pools-lambda-trigger-syntax-user-migration)
++ [Example: Migrate a user with an existing password](#aws-lambda-triggers-user-migration-example-1)
 
-## Migrate User Lambda Trigger Sources<a name="user-pool-lambda-migrate-user-trigger-source"></a>
+## Migrate user Lambda trigger sources<a name="user-pool-lambda-migrate-user-trigger-source"></a>
 
 
 | triggerSource value | Triggering event | 
@@ -17,7 +17,7 @@ You can migrate users from your existing user directory into Amazon Cognito user
 | UserMigration\_Authentication | User migration at the time of sign in\. | 
 | UserMigration\_ForgotPassword | User migration during forgot\-password flow\. | 
 
-## Migrate User Lambda Trigger Parameters<a name="cognito-user-pools-lambda-trigger-syntax-user-migration"></a>
+## Migrate user Lambda trigger parameters<a name="cognito-user-pools-lambda-trigger-syntax-user-migration"></a>
 
 These are the parameters required by this Lambda function in addition to the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-sample-event-parameter-shared)\.
 
@@ -53,7 +53,7 @@ These are the parameters required by this Lambda function in addition to the [co
 
 ------
 
-### Migrate User Request Parameters<a name="cognito-user-pools-lambda-trigger-syntax-user-migration-request"></a>
+### Migrate user request parameters<a name="cognito-user-pools-lambda-trigger-syntax-user-migration-request"></a>
 
 **userName**  
 The username entered by the user\.
@@ -67,7 +67,7 @@ One or more key\-value pairs containing the validation data in the user's sign\-
 **clientMetadata**  
 One or more key\-value pairs that you can provide as custom input to the Lambda function that you specify for the migrate user trigger\. You can pass this data to your Lambda function by using the ClientMetadata parameter in the [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) and [ForgotPassword](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html) API actions\.
 
-### Migrate User Response Parameters<a name="cognito-user-pools-lambda-trigger-syntax-user-migration-response"></a>
+### Migrate user response parameters<a name="cognito-user-pools-lambda-trigger-syntax-user-migration-response"></a>
 
 **userAttributes**  
 This field is required\.   
@@ -78,7 +78,7 @@ In order for users to reset their passwords in the forgot\-password flow, they m
 **finalUserStatus**  
 During sign\-in, this attribute can be set to `CONFIRMED`, or not set, to auto\-confirm your users and allow them to sign\-in with their previous passwords\. This is the simplest experience for the user\.  
 If this attribute is set to RESET\_REQUIRED, the user is required to change his or her password immediately after migration at the time of sign\-in, and your client app needs to handle the `PasswordResetRequiredException` during the authentication flow\.  
-The password policy for the new user pool should not be stronger than the password policy from your existing user directory\. 
+The password strength policy that is configured for the user pool will not be enforced during migration using Lambda trigger\. If the password doesn't meet the configured password policy, it will still be accepted to allow user migration to continue\. To enforce password strength policy and reject passwords that don't meet the policy, validate the password strength in your code\. Then set finalUserStatus to RESET\_REQUIRED if the password doesn't meet the policy\. 
 
 **messageAction**  
 This attribute can be set to "SUPPRESS" to suppress the welcome message usually sent by Amazon Cognito to new users\. If this attribute is not returned, the welcome message will be sent\.
@@ -91,7 +91,7 @@ If this parameter is set to "true" and the phone number or email address specifi
 If this attribute is set to "false" and the alias exists, the user will not be migrated, and an error is returned to the client app\.  
 If this attribute is not returned, it is assumed to be "false"\.
 
-## Example: Migrate a User with an Existing Password<a name="aws-lambda-triggers-user-migration-example-1"></a>
+## Example: Migrate a user with an existing password<a name="aws-lambda-triggers-user-migration-example-1"></a>
 
 This example Lambda function migrates the user with an existing password and suppresses the welcome message from Amazon Cognito\.
 

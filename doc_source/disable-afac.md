@@ -10,7 +10,7 @@ Follow this procedure to disable attributes for access control\.
 
 1. On the dashboard, choose the name of the identity pool whose attributes for access control you want to disable\.
 
-1. Choose **Edit identity pool**\.
+1. Choose **Edit identity pool** in the upper\-right corner of the page\.
 
 1. Expand the **Authentication providers** section\.
 

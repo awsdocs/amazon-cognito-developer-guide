@@ -1,8 +1,8 @@
-# Role\-Based Access Control<a name="role-based-access-control"></a>
+# Role\-based access control<a name="role-based-access-control"></a>
 
 Amazon Cognito identity pools assign your authenticated users a set of temporary, limited privilege credentials to access your AWS resources\. The permissions for each user are controlled through [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) that you create\. You can define rules to choose the role for each user based on claims in the user's ID token\. You can define a default role for authenticated users\. You can also define a separate IAM role with limited permissions for guest users who are not authenticated\.
 
-## Creating Roles for Role Mapping<a name="creating-roles-for-role-mapping"></a>
+## Creating roles for role mapping<a name="creating-roles-for-role-mapping"></a>
 
 It is important to add the appropriate trust policy for each role so that it can only be assumed by Amazon Cognito for authenticated users in your identity pool\. Here is an example of such a trust policy:
 
@@ -32,7 +32,7 @@ It is important to add the appropriate trust policy for each role so that it can
 
 This policy allows federated users from `cognito-identity.amazonaws.com` \(the issuer of the OpenID Connect token\) to assume this role\. Additionally, the policy restricts the `aud` of the token, in this case the identity pool ID, to match the identity pool\. Finally, the policy specifies that the `amr` of the token contains the value `authenticated`\.
 
-## Granting Pass Role Permission<a name="granting-pass-role-permission"></a>
+## Granting pass role permission<a name="granting-pass-role-permission"></a>
 
 To allow an IAM user to set roles with permissions in excess of the user's existing permissions on an identity pool, you grant that user `iam:PassRole` permission to pass the role to the `set-identity-pool-roles` API\. For example, if the user cannot write to Amazon S3, but the IAM role that the user sets on the identity pool grants write permission to Amazon S3, the user can only set this role if `iam:PassRole` permission is granted for the role\. The following example policy shows how to allow `iam:PassRole` permission\.
 
@@ -59,7 +59,7 @@ In this policy example, the `iam:PassRole` permission is granted for the `myS3Wr
 **Note**  
 Lambda functions use resource\-based policy, where the policy is attached directly to the Lambda function itself\. When creating a rule that invokes a Lambda function, you do not pass a role, so the user creating the rule does not need the `iam:PassRole` permission\. For more information about Lambda function authorization, see [Manage Permissions: Using a Lambda Function Policy](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#intro-permission-model-access-policy)\.
 
-## Using Tokens to Assign Roles to Users<a name="using-tokens-to-assign-roles-to-users"></a>
+## Using tokens to assign roles to users<a name="using-tokens-to-assign-roles-to-users"></a>
 
 For users who log in through Amazon Cognito user pools, roles can be passed in the ID token that was assigned by the user pool\. The roles appear in the following claims in the ID token:
 + The `cognito:preferred_role` claim is the role ARN\.
@@ -74,7 +74,7 @@ When using tokens to assign roles, if there are multiple roles that can be assig
 + If the `cognito:preferred_role` claim is set, use it\.
 + If the `cognito:preferred_role` claim is not set, the `cognito:roles` claim is set, and `CustomRoleArn` is not specified in the call to `GetCredentialsForIdentity`, then the **Role resolution** setting in the console or the `AmbiguousRoleResolution` field \(in the `RoleMappings` parameter of the [SetIdentityPoolRoles](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_SetIdentityPoolRoles.html) API\) is used to determine the role to be assigned\.
 
-## Using Rule\-Based Mapping to Assign Roles to Users<a name="using-rules-to-assign-roles-to-users"></a>
+## Using rule\-based mapping to assign roles to users<a name="using-rules-to-assign-roles-to-users"></a>
 
 Rules allow you to map claims from an identity provider token to IAM roles\.
 
@@ -83,7 +83,7 @@ Each rule specifies a token claim \(such as a user attribute in the ID token fro
 **Note**  
 In the rule settings, custom attributes require the `custom:` prefix to distinguish them from standard attributes\.
 
-Rules are evaluated in order, and the IAM role for the first matching rule is used, unless `CustomRoleArn` is specified to override the order\. For more information about user attributes in Amazon Cognito user pools, see [Configuring User Pool Attributes](user-pool-settings-attributes.md)\.
+Rules are evaluated in order, and the IAM role for the first matching rule is used, unless `CustomRoleArn` is specified to override the order\. For more information about user attributes in Amazon Cognito user pools, see [User pool attributes](user-pool-settings-attributes.md)\.
 
 You can set multiple rules for an authentication provider in the identity pool \(federated identities\) console\. Rules are applied in order\. You can drag the rules to change their order\. The first matching rule takes precedence\. If the match type is `NotEqual` and the claim doesn't exist, the rule is not evaluated\. If no rules match, the **Role resolution** setting is applied to either **Use default Authenticated role** or **DENY**\.
 
@@ -91,7 +91,7 @@ In the API and CLI, you can specify the role to be assigned when no rules match 
 
 For each user pool or other authentication provider configured for an identity pool, you can create up to 25 rules\. If you need more than 25 rules for a provider, please open a [Service Limit Increase](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html) support case\.
 
-## Token Claims to Use in Rule\-Based Mapping<a name="token-claims-for-role-based-access-control"></a>
+## Token claims to use in rule\-based mapping<a name="token-claims-for-role-based-access-control"></a>
 
 **Amazon Cognito**
 
@@ -130,7 +130,7 @@ All of the claims in the Open Id token are available for rule\-based mapping\. F
 
 Claims are parsed from the received SAML assertion\. All the claims that are available in the SAML assertion can be used in rule\-based mapping\.
 
-## Best Practices for Role\-Based Access Control<a name="best-practices-for-role-based-access-control"></a>
+## Best practices for role\-based access control<a name="best-practices-for-role-based-access-control"></a>
 
 **Important**  
 If the claim that you are mapping to a role can be modified by the end user, any end user can assume your role and set the policy accordingly\. Only map claims that cannot be directly set by the end user to roles with elevated permissions\. In an Amazon Cognito user pool, you can set per\-app read and write permissions for each user attribute\.

@@ -1,4 +1,4 @@
-# Reviewing Your User Pool Creation Settings<a name="review"></a>
+# Reviewing your user pool creation settings<a name="review"></a>
 
 Before you create your user pool, you can review the different settings and edit them in the AWS Management Console\. Amazon Cognito validates the user pool settings and warns you if something needs to be changed\. For example:
 

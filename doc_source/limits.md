@@ -2,7 +2,7 @@
 
 Amazon Cognito limits the number of operations that you can perform in your account\. Amazon Cognito also limits the number and size of Amazon Cognito resources\.
 
-**[Operation Quotas](#operation-quotas)**
+**[Operation quotas](#operation-quotas)**
 + [Quota categorization](#quota-categorization)
 + [Operation special handling](#api-operation-special-handling)
 + [Category operations](#category_operations)
@@ -13,13 +13,13 @@ Amazon Cognito limits the number of operations that you can perform in your acco
 
 **[Resource quotas](#resource-quotas)**
 
-## Operation Quotas<a name="operation-quotas"></a>
+## Operation quotas<a name="operation-quotas"></a>
 
 ## Quota categorization<a name="quota-categorization"></a>
 
 Amazon Cognito limits the number of operations, such as `InitiateAuth` or `RespondToAuthChallenge`, that you can use to perform certain user actions in your applications\. These operations are grouped into categories of common use cases, such as `UserAuthentication` or `UserCreation`\. For a list of categorized operations, see [Category operations](#category_operations)\. The categories make it easier to monitor usage and request quota increases\.
 
- Operation quotas are defined as the number of allowed requests per second \(RPS\) for all operations within a category\. The Amazon Cognito user pools service applies quotas to all operations in each category\. For example, the category `UserCreation`, includes four operations, `SignUp`, `ConfirmSignUp`, `AdminCreateUser`, and `AdminConfirmSignUp`\. It's allocated with a combined quota of 30 RPS\. Each operation within this category can call up to 30 RPS separately or combined if multiple operations take place at the same time\. 
+ Operation quotas are defined as the number of allowed requests per second \(RPS\) for all operations within a category\. The Amazon Cognito user pools service applies quotas to all operations in each category\. For example, the category `UserCreation`, includes four operations, `SignUp`, `ConfirmSignUp`, `AdminCreateUser`, and `AdminConfirmSignUp`\. It's allocated with a combined quota of 50 RPS\. Each operation within this category can call up to 50 RPS separately or combined if multiple operations take place at the same time\. 
 
 **Note**  
 The category quota is enforced for each AWS account across all user pools in an account and region\.
@@ -34,7 +34,7 @@ For example, if your quota for the `UserAuthentication` category is 80 RPS, you 
 
 ## Category operations<a name="category_operations"></a>
 
-You can find the mappings between operations and their respective categories in the following table\. All categories listed in this table have adjustable quotas, which can be increased upon customer requests\. For more information, see [API request rate quotas](#api-request-rate-quotas)\. Adjustable quotas are applied at the account level\. There are some category operations that are subject to more constrained quota rules with a lower limit threshold at the user pool level\. You can find these categories with an asterisk in the table and their quotas in the note below the table\.
+You can find the mappings between operations and their respective categories in the following table\. Only adjustable category limits can be increased on customer request\. For more information, see [API request rate quotas](#api-request-rate-quotas)\. Adjustable quotas are applied at the account level\. There are some category operations that are subject to more constrained quota rules with a lower limit threshold at the user pool level\. You can find these categories with an asterisk in the table and their quotas in the note below the table\.
 
 **Note**  
 The rate limit for each category depends on Monthly Active Users \(MAUs\)\. The default limits support up to two million MAUs\. It's not recommended to submit a limit increase request if you have less than one million MAUs\. 
@@ -42,49 +42,53 @@ The rate limit for each category depends on Monthly Active Users \(MAUs\)\. The 
 Category operation quotas, are applied across all users in a user pool\. There are also per\-user quotas that apply to each user\. For each user, you can make up to ten requests per second that are "read" operations including signing in or getting profile or device information\. You can also make up to ten requests per second that are "write" operations, including updating profile information or MFA settings\. You can't change per\-user quotas\.
 
 
-| Category name | Operations | Description | Default quota \(in requests per second\) | 
-| --- | --- | --- | --- | 
-| UserAuthentication |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that authenticate \(sign\-in\) a user\. These operations are subject to [Operation special handling](#api-operation-special-handling)\. | 120 | 
-| UserCreation |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that create or confirm a native Amazon Cognito user\. Native users are users who are created and verified directly by your Cognito user pools\. | 50 | 
-| UserFederation | Amazon Cognito managed operations to federate a user via a third party IdP into Cognito\. | Operations that federate \(authenticate\) users with a third\-party identity provider into your Cognito user pools\. | 25 | 
-| UserAccountRecovery |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that recover a user's account or change or update a user's password\. | 30 | 
-| UserRead |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that retrieve a user from your user pools\. | 120 | 
-| UserUpdate |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  |  The operations that customers use to manage users and user attributes,  | 25 | 
-| UserResourceRead |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that retrieve user resource information from Amazon Cognito such as device or group\. | 50 | 
-| UserResourceUpdate |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that update user resource information, such as group\. | 25 | 
-| UserList |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that return a list of users\. | 30 | 
-| UserPoolRead |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that read your user pools\. | 15 | 
-| UserPoolUpdate |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that create, update, and delete your user pools\. | 15 | 
-| UserPoolResourceRead |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that retrieve a resource from a user pool, such as group\.\* | 20 | 
-| UserPoolResourceUpdate |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that update resource information for a user pool, such as group\.\* | 15 | 
-|  `UserPoolClientRead`  |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that list your user pool clients\.\* | 15 | 
-| UserPoolClientUpdate |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that create, update, and delete your user pool clients\.\* | 15 | 
+| Category name | Operations | Description | Default quota \(in requests per second\) | Adjustable | 
+| --- | --- | --- | --- | --- | 
+| UserAuthentication |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that authenticate \(sign\-in\) a user\. These operations are subject to [Operation special handling](#api-operation-special-handling)\. | 120 | Yes | 
+| UserCreation |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that create or confirm a native Amazon Cognito user\. Native users are users who are created and verified directly by your Cognito user pools\.  | 50 | Yes | 
+| UserFederation | Amazon Cognito managed operations to federate a user via a third party IdP into Cognito\. | Operations that federate \(authenticate\) users with a third\-party identity provider into your Cognito user pools\. | 25 | Yes | 
+| UserAccountRecovery |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that recover a user's account or change or update a user's password\. | 30 | No | 
+| UserRead |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that retrieve a user from your user pools\.  | 120 | Yes | 
+| UserUpdate |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  |  The operations that customers use to manage users and user attributes,  | 25 | No | 
+| UserResourceRead |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that retrieve user resource information from Amazon Cognito such as device or group\. | 50 | Yes | 
+| UserResourceUpdate |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that update user resource information, such as group\. | 25 | No | 
+| UserList |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that return a list of users\. | 30 | No | 
+| UserPoolRead |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that read your user pools\. | 15 | No | 
+| UserPoolUpdate |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that create, update, and delete your user pools\. | 15 | No | 
+| UserPoolResourceRead |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that retrieve a resource from a user pool, such as group\.\* | 20 | No | 
+| UserPoolResourceUpdate |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that update resource information for a user pool, such as group\.\* | 15 | No | 
+|  `UserPoolClientRead`  |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that list your user pool clients\.\* | 15 | No | 
+| UserPoolClientUpdate |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that create, update, and delete your user pool clients\.\* | 15 | No | 
+| UserToken |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)  | Operations that create, update, and delete your tokens\. | 120 | No | 
 
 \*Any individual operation in this category has a constraint that prevents the operation from being called at a rate higher than 5 RPS for a single user pool\.
 
 ## Track quota usage<a name="track-quota-usage"></a>
 
-Each API category has both `CallCount` and `ThrottleCount` CloudWatch metrics which are applied at the account level\. You can use `CallCount` to track the total number of calls customers made related to a category\. You can use `ThrottleCount` to track the total number of throttled calls related to a category\. You can use the `CallCount` and `ThottleCount` metrics with the `Sum` statistic to count the total number of calls in a category\. For more information on the CloudWatch usage metrics, see [CloudWatch usage metrics](AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)\.
+Each API category has both `CallCount` and `ThrottleCount` CloudWatch metrics which are applied at the account level\. You can use `CallCount` to track the total number of calls customers made related to a category\. You can use `ThrottleCount` to track the total number of throttled calls related to a category\. You can use the `CallCount` and `ThottleCount` metrics with the `Sum` statistic to count the total number of calls in a category\. For more information on the CloudWatch usage metrics, see [CloudWatch usage metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/working_with_metrics.html)\.
 
 Utilization and usage are two terms that may help you understand service quota monitoring\. Utilization is the percentage of a service quota in use\. For example, if the quota value is 200 resources and 150 resources are in use, the utilization is 75%\. Usage is the number of resources or operations in use for a service quota\.
 
 **Tracking usage through CloudWatch metrics**
 
-You can track and collect Amazon Cognito user pools utilization metrics using CloudWatch\. The CloudWatch dashboard will display metrics about every AWS service you use\. You can use CloudWatch to create metric alarms\. The alarms can be setup to send you notifications or make a change to a specific resource that you are monitoring\. For more information on CloudWatch metrics, For more information on Service Quotas, see [Track your CloudWatch usage metrics](cognito/latest/developerguide/monitoring-available-cw-metrics.html)\.
+You can track and collect Amazon Cognito user pools utilization metrics using CloudWatch\. The CloudWatch dashboard will display metrics about every AWS service you use\. You can use CloudWatch to create metric alarms\. The alarms can be setup to send you notifications or make a change to a specific resource that you are monitoring\. For more information on CloudWatch metrics, For more information on Service Quotas, see [Track your CloudWatch usage metrics](tracking-quotas-and-usage-in-cloud-watch-and-service-quotas.md)\.
 
 **Tracking utilization through Service Quotas metrics**
 
 Amazon Cognito user pools is integrated with Service Quotas, which is a browser\-based interface that you can use to view and manage your service quota usage\. In the Service Quotas console, you can look up the value of a specific quota, view monitoring information, request a quota increase, and setup CloudWatch alarms\. After your account has been active a while, you can view a graph of your resource utilization\.
 
-For more information on viewing quotas in the Service Quotas console, see [Viewing Service Quotas](servicequotas/latest/userguide/gs-request-quota.html)\. 
+For more information on viewing quotas in the Service Quotas console, see [Viewing Service Quotas](https://docs.aws.amazon.com/servicequotas/latest/userguide/gs-request-quota.html)\. 
 
 ## Identify quota requirements<a name="identify-quota-requirements"></a>
 
+**Important**  
+If you increase Amazon Cognito quotas for categories such as `UserAuthentication`, `UserCreation`, and `AccountRecovery`, you may need to increase quotas for other services\. For example, messages that Amazon Cognito sends with Amazon Simple Notification Service and Amazon Simple Email Service can fail if request rate quotas are insufficient in those services\.
+
 To calculate quota requirements, determine how many active users will interact with your application in a specific time period\. For example, if your application expects an average of 1 million active users to sign\-in within an 8\-hour period, then you would need to be able to authenticate an average of 35 users per second\. 
 
-In addition, if you assume the average user session is two hours, and tokens are configured to expire after an hour, each user has to refresh their tokens once during this session\. Then the required average quota for the UserAuthentication category to support this load is 70 RPS\.
+In addition, if you assume the average user session is two hours, and you configure tokens to expire after an hour, each user has to refresh their tokens once during their session\. Then, the required average quota for the `UserAuthentication` category to support this load is 70 RPS\.
 
- If you assume a peak\-to\-average ratio of 3:1 by accounting the variance of user sign\-in frequency during the eight hour period, then you need the desired UserAuthentication quota of 200 RPS\. 
+If you assume a peak\-to\-average ratio of 3:1 by accounting for the variance of user sign\-in frequency during the 8\-hour period, then you need the desired `UserAuthentication` quota of 200 RPS\. 
 
 **Note**  
 If you call multiple operations for each user action, you need to sum up the individual operation call rates at the category level\.
@@ -121,7 +125,7 @@ Resource quotas are quotas that limit the number and size of your resources\. Yo
 
 The following tables provide the adjustable resource quotas for Amazon Cognito\. These quotas can be changed\.
 
-**User Pools resource quotas **
+**User pools resource quotas **
 
 
 | Resource | Quota | 
@@ -133,6 +137,15 @@ The following tables provide the adjustable resource quotas for Amazon Cognito\.
 | Maximum number of resource servers per user pool | 25 | 
 | Maximum number of users per user pool | 40,000,000 | 
 
+**User pools hosted UI request rate quotas**
+
+
+| Request rate | Quota \(requests per second\) | 
+| --- | --- | 
+| Maximum requests per app client | 300 | 
+| Maximum requests per user pool domain | 500 | 
+| Maximum requests per IP address | 300 | 
+
 **Identity pools \(federated users\) resource quotas **
 
 
@@ -140,7 +153,6 @@ The following tables provide the adjustable resource quotas for Amazon Cognito\.
 | --- | --- | 
 | Maximum number of identity pools per account | 1,000 | 
 | Maximum Amazon Cognito user pool providers per identity pool | 50 | 
-| Maximum number of rules for role\-based access control \(RBAC\) | 25 | 
 
 **Sync resource quotas**
 
@@ -155,7 +167,7 @@ The following tables provide the adjustable resource quotas for Amazon Cognito\.
 
 The following tables describe Amazon Cognito non\-adjustable quotas\. These quotas cannot be changed\.
 
-**User Pools token validity quotas **
+**User pools token validity quotas **
 
 
 | Token | Quota | 
@@ -164,7 +176,7 @@ The following tables describe Amazon Cognito non\-adjustable quotas\. These quot
 | Refresh token | 1 hour – 3,650 days | 
 | Access token | 5 minutes – 1 day | 
 
-**User Pools resource quotas**
+**User pools resource quotas**
 
 
 | Resource | Quota | 
@@ -189,9 +201,9 @@ The following tables describe Amazon Cognito non\-adjustable quotas\. These quot
 | Maximum number of groups that each user can belong to | 100 | 
 | Maximum number of groups per user pool | 10,000 | 
 
-¹This quota applies only if you are using the default email feature for an Amazon Cognito User Pool\. To enable a higher email delivery volume, configure your user pool to use your Amazon SES email configuration\. For more information, see [Email Settings for Amazon Cognito User Pools](user-pool-email.md)\.
+¹This quota applies only if you are using the default email feature for an Amazon Cognito User Pool\. To enable a higher email delivery volume, configure your user pool to use your Amazon SES email configuration\. For more information, see [Email settings for Amazon Cognito user pools](user-pool-email.md)\.
 
-**User Pools code validity resource quotas**
+**User pools code validity resource quotas**
 
 
 | Resource | Quota | 
@@ -201,16 +213,24 @@ The following tables describe Amazon Cognito non\-adjustable quotas\. These quot
 | Multi\-factor authentication code | 3 minutes | 
 | Forgot password code | 1 hour | 
 
+**User pools hosted UI request rate quotas**
+
+
+| Request rate | Quota \(requests per second\) | 
+| --- | --- | 
+| Maximum client credentials requests | 150 | 
+
 **Identity pools \(federated users\) resource quotas**
 
 
 | Resource | Quota | 
 | --- | --- | 
-| Maximum number of identities per identity pool | Unlimited | 
 | Maximum character length for identity pool name | 128 bytes | 
 | Maximum character length for login provider name | 2,048 bytes | 
-| Maximum number of results from a single list or lookup call | 60 | 
+| Maximum number of identities per identity pool | Unlimited | 
 | Maximum number of identity providers for which role mappings can be specified  | 10 | 
+| Maximum number of results from a single list or lookup call | 60 | 
+| Maximum number of role\-based access control \(RBAC\) rules | 25 | 
 
 **Sync resource quotas**
 

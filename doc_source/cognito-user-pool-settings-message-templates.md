@@ -1,4 +1,4 @@
-# Message Templates<a name="cognito-user-pool-settings-message-templates"></a>
+# Message templates<a name="cognito-user-pool-settings-message-templates"></a>
 
 Message templates allow you to insert a field into your message using a placeholder that will be replaced with the corresponding value\.
 

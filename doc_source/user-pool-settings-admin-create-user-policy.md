@@ -1,4 +1,4 @@
-# Configuring an Admin Create User Policy<a name="user-pool-settings-admin-create-user-policy"></a>
+# Configuring an admin create user policy<a name="user-pool-settings-admin-create-user-policy"></a>
 
 You can specify the following policies for Admin Create User:
 + Specify whether to allow users to sign themselves up\. This option is set by default\. If it is not set, only administrators can create users in this pool and calls to the [SignUp](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignUp.html) API fail with `NotAuthorizedException`\.

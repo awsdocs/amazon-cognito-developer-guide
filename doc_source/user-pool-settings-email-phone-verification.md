@@ -1,18 +1,23 @@
-# Configuring Email or Phone Verification<a name="user-pool-settings-email-phone-verification"></a>
+# Configuring email or phone verification<a name="user-pool-settings-email-phone-verification"></a>
 
-You can choose settings for email or phone verification in the **MFA and verifications** tab\. For more information on MFA, see [SMS Text Message MFA](user-pool-settings-mfa-sms-text-message.md)
+**Note**  
+In the new Amazon Cognito console experience, you can manage verification in the **Sign\-up experience** tab of your user pool\.
+
+You can choose settings for email or phone verification in the **MFA and verifications** tab\. For more information on MFA, see [SMS Text Message MFA](user-pool-settings-mfa-sms-text-message.md)\.
+
+Amazon Cognito uses Amazon SNS to send SMS text messages\. If you have never sent an SMS message from Amazon Cognito or any other AWS service, Amazon SNS might place your account in the SMS sandbox\. AWS recommends that you test sending a message to a verified phone number before removing your account from the sandbox to production\. Additionally, if you plan to send SMS messages to U\.S\. destination phone numbers, you must obtain an origination or sender ID from Amazon Pinpoint\. To configure your Amazon Cognito user pool for SMS, see [SMS message settings for Amazon Cognito user pools](user-pool-sms-settings.md)\.
 
 Amazon Cognito can automatically verify email addresses or mobile phone numbers by sending a verification code—or, for email, a verification link\. For email addresses, the code or link is sent in an email message\. For phone numbers, the code is sent in an SMS text message\.
 
-Verification of a phone or email is necessary to automatically confirm users and enable recovery from forgotten passwords\. Alternatively, you can automatically confirm users with the pre\-sign up Lambda trigger or by using the [AdminConfirmSignUp](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/AdminConfirmSignUp.html) API\. For more information, see [Signing Up and Confirming User Accounts](signing-up-users-in-your-app.md)\.
+Verification of a phone or email is necessary to automatically confirm users and enable recovery from forgotten passwords\. Alternatively, you can automatically confirm users with the pre\-sign up Lambda trigger or by using the [AdminConfirmSignUp](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminConfirmSignUp.html) API\. For more information, see [Signing up and confirming user accounts](signing-up-users-in-your-app.md)\.
 
 The verification code or link is valid for 24 hours\.
 
 If verification is selected as required for email or phone, the verification code or link is automatically sent when a user signs up\.
 
 **Notes**  
-Use of SMS text messaging for verifying phone numbers is charged separately by Amazon SNS\. \(There is no charge for sending verification codes to email addresses\.\) For information about Amazon SNS pricing, see [Worldwide SMS Pricing](https://aws.amazon.com/sns/sms-pricing/)\. For the current list of countries where SMS messaging is available, see [Supported Regions and Countries](https://docs.aws.amazon.com/sns/latest/dg/sms_supported-countries.html)\. 
-When you test actions in your app that initiate emails from Amazon Cognito, use a real email address that Amazon Cognito can send to without incurring hard bounces\. For more information, see [Sending Emails While Testing Your App](signing-up-users-in-your-app.md#managing-users-accounts-email-testing)\.
+Use of SMS text messaging for verifying phone numbers is charged separately by Amazon SNS\. \(There is no charge for sending verification codes to email addresses\.\) For information about Amazon SNS pricing, see [Worldwide SMS pricing](https://aws.amazon.com/sns/sms-pricing/)\. For the current list of countries where SMS messaging is available, see [Supported regions and countries](https://docs.aws.amazon.com/sns/latest/dg/sms_supported-countries.html)\. 
+When you test actions in your app that initiate emails from Amazon Cognito, use a real email address that Amazon Cognito can send to without incurring hard bounces\. For more information, see [Sending emails while testing your app](signing-up-users-in-your-app.md#managing-users-accounts-email-testing)\.
 The forgotten password flow requires either the user's email or the user's phone number to be verified\.
 
 **Important**  
@@ -23,11 +28,11 @@ Spend limits can be specified for an AWS account and for individual messages, an
 SMS messages from Amazon Cognito user pools are routed through Amazon SNS in the same region unless noted in the following table\.
 
 
-| Amazon Cognito Region | Supported SNS Regions | 
+| Amazon Cognito Region | Supported SNS regions | 
 | --- | --- | 
 | US East \(Ohio\) us\-east\-2 | us\-east\-1 | 
 | Asia Pacific \(Mumbai\) ap\-south\-1 | ap\-southeast\-1 | 
-| Asia Pacific \(Seoul\) ap\-northeast\-2 | ap\-northeast\-1 | 
+| Asia Pacific \(Seoul\) ap\-northeast\-2 | ap\-notheast\-1 | 
 | Canada\(Central\) ca\-central\-1 | us\-east\-1 | 
 | Europe \(Frankfurt\) eu\-central\-1 | eu\-west\-1 | 
 | Europe \(London\) eu\-west\-2 | eu\-west\-1 | 
@@ -36,6 +41,6 @@ SMS messages from Amazon Cognito user pools are routed through Amazon SNS in the
 
 **Example: **If your Cognito user pool is in ap\-south\-1 region, you can update the Amazon SNS limit in ap\-southeast\-1 region\.
 
-## Authorizing Amazon Cognito to Send SMS Messages on Your Behalf<a name="user-pool-settings-verifications-iam-role-for-sms"></a>
+## Authorizing Amazon Cognito to send SMS messages on your behalf<a name="user-pool-settings-verifications-iam-role-for-sms"></a>
 
 To send SMS messages to your users on your behalf, Amazon Cognito needs your permission\. To grant that permission, you can create an AWS Identity and Access Management \(IAM\) role in the **MFA and verifications** tab of the Amazon Cognito console by choosing **Create role**\.

@@ -1,27 +1,27 @@
-# Pre Sign\-up Lambda Trigger<a name="user-pool-lambda-pre-sign-up"></a>
+# Pre sign\-up Lambda trigger<a name="user-pool-lambda-pre-sign-up"></a>
 
 The pre sign\-up Lambda function is triggered just before Amazon Cognito signs up a new user\. It allows you to perform custom validation to accept or deny the registration request as part of the sign\-up process\.
 
 **Topics**
-+ [Pre Sign\-up Lambda Flows](#user-pool-lambda-pre-sign-up-flows)
-+ [Pre Sign\-up Lambda Trigger Parameters](#cognito-user-pools-lambda-trigger-syntax-pre-signup)
-+ [Sign\-up Tutorials](#aws-lambda-triggers-pre-registration-tutorials)
-+ [Pre Sign\-up Example: Auto\-Confirm Users from a Registered Domain](#aws-lambda-triggers-pre-registration-example)
-+ [Pre Sign\-up Example: Auto\-Confirm and Auto\-Verify all Users](#aws-lambda-triggers-pre-registration-example-2)
++ [Pre sign\-up Lambda flows](#user-pool-lambda-pre-sign-up-flows)
++ [Pre sign\-up Lambda trigger parameters](#cognito-user-pools-lambda-trigger-syntax-pre-signup)
++ [Sign\-up tutorials](#aws-lambda-triggers-pre-registration-tutorials)
++ [Pre sign\-up example: Auto\-confirm users from a registered domain](#aws-lambda-triggers-pre-registration-example)
++ [Pre sign\-up example: Auto\-confirm and auto\-verify all users](#aws-lambda-triggers-pre-registration-example-2)
 
-## Pre Sign\-up Lambda Flows<a name="user-pool-lambda-pre-sign-up-flows"></a>
+## Pre sign\-up Lambda flows<a name="user-pool-lambda-pre-sign-up-flows"></a>
 
-### Client Sign\-up Flow<a name="user-pool-lambda-pre-sign-up-1"></a>
+### Client sign\-up flow<a name="user-pool-lambda-pre-sign-up-1"></a>
 
 ![\[Pre sign-up Lambda trigger - client flow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Pre sign-up Lambda trigger - client flow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Pre sign-up Lambda trigger - client flow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
-### Server Sign\-up Flow<a name="user-pool-lambda-pre-sign-up-2"></a>
+### Server sign\-up flow<a name="user-pool-lambda-pre-sign-up-2"></a>
 
 ![\[Pre sign-up Lambda trigger - server flow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Pre sign-up Lambda trigger - server flow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Pre sign-up Lambda trigger - server flow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
 The request includes validation data from the client which comes from the `ValidationData` values passed to the user pool SignUp and AdminCreateUser API methods\.
 
-## Pre Sign\-up Lambda Trigger Parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-signup"></a>
+## Pre sign\-up Lambda trigger parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-signup"></a>
 
 These are the parameters required by this Lambda function in addition to the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-sample-event-parameter-shared)\.
 
@@ -55,7 +55,7 @@ These are the parameters required by this Lambda function in addition to the [co
 
 ------
 
-### Pre Sign\-up Request Parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-signup-request"></a>
+### Pre sign\-up request parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-signup-request"></a>
 
 **userAttributes**  
 One or more name\-value pairs representing user attributes\. The attribute names are the keys\.
@@ -66,22 +66,25 @@ One or more name\-value pairs containing the validation data in the request to r
 **clientMetadata**  
 One or more key\-value pairs that you can provide as custom input to the Lambda function that you specify for the pre sign\-up trigger\. You can pass this data to your Lambda function by using the ClientMetadata parameter in the following API actions: [AdminCreateUser](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminCreateUser.html), [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html), [ForgotPassword](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html), and [SignUp](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignUp.html)\.
 
-### Pre Sign\-up Response Parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-signup-response"></a>
+### Pre sign\-up response parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-signup-response"></a>
 
 In the response, you can set `autoConfirmUser` to `true` if you want to auto\-confirm the user\. You can set `autoVerifyEmail` to `true` to auto\-verify the user's email\. You can set `autoVerifyPhone` to `true` to auto\-verify the user's phone number\.
+
+**Note**  
+Response parameters `autoVerifyPhone`, `autoVerifyEmail` and `autoConfirmUser` are ignored by Amazon Cognito when the Pre Sign\-up lambda is triggered by the `AdminCreateUser` API\.
 
 **autoConfirmUser**  
 Set to `true` to auto\-confirm the user, or `false` otherwise\.
 
 **autoVerifyEmail**  
 Set to `true` to set as verified the email of a user who is signing up, or `false` otherwise\. If `autoVerifyEmail` is set to `true`, the `email` attribute must have a valid, non\-null value\. Otherwise an error will occur and the user will not be able to complete sign\-up\.  
-If the `email` attribute is selected as an alias, an alias will be created for the user's email when `autoVerifyEmail` is set\. If an alias with that email already exists, the alias will be moved to the new user and the previous user's email will be marked as unverified\. For more information, see [Overview of Aliases](user-pool-settings-attributes.md#user-pool-settings-aliases)\.
+If the `email` attribute is selected as an alias, an alias will be created for the user's email when `autoVerifyEmail` is set\. If an alias with that email already exists, the alias will be moved to the new user and the previous user's email will be marked as unverified\. For more information, see [Aliases](user-pool-settings-attributes.md#user-pool-settings-aliases)\.
 
 **autoVerifyPhone**  
 Set to `true` to set as verified the phone number of a user who is signing up, or `false` otherwise\. If `autoVerifyPhone` is set to `true`, the `phone_number` attribute must have a valid, non\-null value\. Otherwise an error will occur and the user will not be able to complete sign\-up\.  
-If the `phone_number` attribute is selected as an alias, an alias will be created for the user's phone number when `autoVerifyPhone` is set\. If an alias with that phone number already exists, the alias will be moved to the new user and the previous user's phone number will be marked as unverified\. For more information, see [Overview of Aliases](user-pool-settings-attributes.md#user-pool-settings-aliases)\.
+If the `phone_number` attribute is selected as an alias, an alias will be created for the user's phone number when `autoVerifyPhone` is set\. If an alias with that phone number already exists, the alias will be moved to the new user and the previous user's phone number will be marked as unverified\. For more information, see [Aliases](user-pool-settings-attributes.md#user-pool-settings-aliases)\.
 
-## Sign\-up Tutorials<a name="aws-lambda-triggers-pre-registration-tutorials"></a>
+## Sign\-up tutorials<a name="aws-lambda-triggers-pre-registration-tutorials"></a>
 
 The pre sign\-up Lambda function is triggered before user sign\-up\. See these Amazon Cognito sign\-up tutorials for JavaScript, Android, and iOS\.
 
@@ -92,7 +95,7 @@ The pre sign\-up Lambda function is triggered before user sign\-up\. See these A
 | Android Identity SDK | [Sign up users with Android](https://docs.aws.amazon.com/cognito/latest/developerguide/tutorial-integrating-user-pools-android.html#tutorial-integrating-user-pools-sign-up-users-android) | 
 | iOS Identity SDK | [Sign up users with iOS](https://docs.aws.amazon.com/cognito/latest/developerguide/tutorial-integrating-user-pools-ios.html#tutorial-integrating-user-pools-sign-up-users-ios) | 
 
-## Pre Sign\-up Example: Auto\-Confirm Users from a Registered Domain<a name="aws-lambda-triggers-pre-registration-example"></a>
+## Pre sign\-up example: Auto\-confirm users from a registered domain<a name="aws-lambda-triggers-pre-registration-example"></a>
 
 With the pre sign\-up Lambda trigger, You can add custom logic to validate new users signing up for your user pool\. This is a sample JavaScript program that demonstrates how to sign up a new user\. It will invoke a pre sign\-up Lambda trigger as part of the authentication\.
 
@@ -204,7 +207,7 @@ Amazon Cognito passes event information to your Lambda function\. The function t
 
 ------
 
-## Pre Sign\-up Example: Auto\-Confirm and Auto\-Verify all Users<a name="aws-lambda-triggers-pre-registration-example-2"></a>
+## Pre sign\-up example: Auto\-confirm and auto\-verify all users<a name="aws-lambda-triggers-pre-registration-example-2"></a>
 
 This example confirms all users and sets the user's `email` and `phone_number` attributes to verified if the attribute is present\. Also, if aliasing is enabled, aliases will be created for `phone_number` and `email` when auto\-verify is set\. 
 

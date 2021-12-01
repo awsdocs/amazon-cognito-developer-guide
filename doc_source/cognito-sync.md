@@ -11,9 +11,9 @@ It enables user data like app preferences or game state to be synchronized\. It 
 To learn more about Amazon Cognito Sync, see the following topics\.
 
 **Topics**
-+ [Getting Started with Amazon Cognito Sync](getting-started-with-cognito-sync.md)
-+ [Synchronizing Data](synchronizing-data.md)
-+ [Handling Callbacks](handling-callbacks.md)
-+ [Push Sync](push-sync.md)
++ [Getting started with Amazon Cognito Sync](getting-started-with-cognito-sync.md)
++ [Synchronizing data](synchronizing-data.md)
++ [Handling callbacks](handling-callbacks.md)
++ [Push sync](push-sync.md)
 + [Amazon Cognito Streams](cognito-streams.md)
 + [Amazon Cognito Events](cognito-events.md)

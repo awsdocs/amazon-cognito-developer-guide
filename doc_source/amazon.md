@@ -1,4 +1,4 @@
-# Login with Amazon \(Identity Pools\)<a name="amazon"></a>
+# Login with Amazon \(identity pools\)<a name="amazon"></a>
 
 Amazon Cognito integrates with Login with Amazon to provide federated authentication for your mobile application and web application users\. This section explains how to register and set up your application using Login with Amazon as an identity provider\.
 
@@ -12,13 +12,13 @@ For Xamarin, follow the [Xamarin Getting Started Guide](https://developer.xamari
 **Note**  
 Login with Amazon integration is not natively supported on the Unity platform\. Integration currently requires the use of a web view to go through the browser sign\-in flow\.
 
-## Setting Up Login with Amazon<a name="login-with-amazon-setup"></a>
+## Setting up login with Amazon<a name="login-with-amazon-setup"></a>
 
 To implement Login with Amazon, do one of the following:
 + Create a Security Profile ID for your application through the [Amazon Developer Portal](https://developer.amazon.com/login-with-amazon)\. Use this method if you want to let your end users authenticate with Amazon, but you don’t have a Seller Central account\. The Developer Portal [Login with Amazon](https://developer.amazon.com/public/apis/engage/login-with-amazon/content/documentation.html) documentation takes you through the process of setting up Login with Amazon in your application, downloading the client SDK, and declaring your application on the Amazon developer platform\. Make a note of the Security Profile ID, as you'll need to enter it as the Amazon App ID when you create an Amazon Cognito identity pool, as described in [Getting Credentials](getting-credentials.md)\.
 + Create an Application ID for your application through Seller Central using [http://login\.amazon\.com/](http://login.amazon.com/)\. Use this method if you are a retail merchant that uses Seller Central\. The Seller Central [Login with Amazon](http://login.amazon.com/documentation) documentation takes you through the process of setting up Login with Amazon in your application, downloading the client SDK, and declaring your application on the Amazon developer platform\. Make a note of the Application ID, as you'll need to enter it as the Amazon App ID when you create an Amazon Cognito identity pool, as described in [Getting Credentials](getting-credentials.html)\.
 
-## Configure the External Provider in the Amazon Cognito Console<a name="login-with-amazon-configure-provider"></a>
+## Configure the external provider in the Amazon Cognito console<a name="login-with-amazon-configure-provider"></a>
 
 Choose **Manage Identity Pools** from the [Amazon Cognito console home page](https://console.aws.amazon.com/cognito/home):
 

@@ -1,4 +1,4 @@
-# Requiring Imported Users to Reset Their Passwords<a name="cognito-user-pools-using-import-tool-password-reset"></a>
+# Requiring imported users to reset their passwords<a name="cognito-user-pools-using-import-tool-password-reset"></a>
 
 The first time each imported user signs in, he or she is required to enter a new password as follows:
 

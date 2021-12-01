@@ -11,7 +11,7 @@ The steps below will guide you through setting up a Lambda function that execute
 **Note**  
 When using Amazon Cognito events, you can only use the credentials obtained from Amazon Cognito Identity\. If you have an associated Lambda function, but you call `UpdateRecords` with AWS account credentials \(developer credentials\), your Lambda function will not be invoked\.
 
-**Creating a Function in AWS Lambda**
+**Creating a function in AWS Lambda**
 
 To integrate Lambda with Amazon Cognito, you first need to create a function in Lambda\. To do so:
 
@@ -24,6 +24,36 @@ To integrate Lambda with Amazon Cognito, you first need to create a function in 
 1. On the Select blueprint screen, search for and select "cognito\-sync\-trigger\."
 
 1. On the Configure event sources screen, leave the Event source type set to "Cognito Sync Trigger" and select your identity pool\. Click Next\.
+**Note**  
+When configuring a Amazon Cognito Sync trigger outside of the console, you must add Lambda resource\-based permissions to allow Amazon Cognito to invoke the function\. You can add this permission from the Lambda console \(see [Using resource\-based policies for AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html)\) or by using the Lambda [AddPermission](https://docs.aws.amazon.com/lambda/latest/dg/API_AddPermission.html) operation\.  
+**Example Lambda Resource\-Based Policy**  
+The following AWS Lambda resource\-based policy grants Amazon Cognito a limited ability to invoke a Lambda function\. Amazon Cognito can only invoke the function on behalf of the identity pool in the `aws:SourceArn` condition and the account in the `aws:SourceAccount` condition\.  
+
+   ```
+   {
+       "Version": "2012-10-17",
+       "Id": "default",
+       "Statement": [
+           {
+               "Sid": "lambda-allow-cognito-my-function",
+               "Effect": "Allow",
+               "Principal": {
+                   "Service": "cognito-sync.amazonaws.com"
+               },
+               "Action": "lambda:InvokeFunction",
+               "Resource": "<your Lambda function ARN>",
+               "Condition": {
+                   "StringEquals": {
+                       "AWS:SourceAccount": "<your account number>"
+                   },
+                   "ArnLike": {
+                       "AWS:SourceArn": "<your identity pool ARN>"
+                   }
+               }
+           }
+       ]
+   }
+   ```
 
 1. On the Configure function screen, enter a name and description for your function\. Leave Runtime set to "Node\.js\." Leave the code unchanged for our example\. The default example makes no changes to the data being synced\. It only logs the fact that the Amazon Cognito Sync Trigger event occurred\. Leave Handler name set to "index\.handler\." For Role, select an IAM role that grants your code permission to access AWS Lambda\. To modify roles, see the IAM console\. Leave Advanced settings unchanged\. Click Next\.
 
@@ -45,7 +75,7 @@ From the console home page:
 
 Now, your Lambda function will be executed each time a dataset is synchronized\. The next section explains how you can read and modify the data in your function as it is being synchronized\.
 
-**Writing a Lambda Function for Sync Triggers**
+**Writing a Lambda function for sync triggers**
 
 Sync triggers follow the service provider interface programming paradigm\. Amazon Cognito will provide input in the following JSON format to your Lambda function\.
 
@@ -86,7 +116,7 @@ Some key points to keep in mind when writing functions for the Sync Trigger even
 + To add a record, simply add a new record to the datasetRecords array\.
 + Any omitted record in the response will be ignored for the update\.
 
-**Sample Lambda Function**
+**Sample Lambda function**
 
 Here is a sample Lambda function showing how to access, modify and remove the data\.
 

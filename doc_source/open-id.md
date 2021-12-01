@@ -1,12 +1,12 @@
-# Open ID Connect Providers \(Identity Pools\)<a name="open-id"></a>
+# Open ID Connect providers \(identity pools\)<a name="open-id"></a>
 
 [OpenID Connect](http://openid.net/connect/) is an open standard for authentication that is supported by a number of login providers\. Amazon Cognito supports linking of identities with OpenID Connect providers that are configured through [AWS Identity and Access Management](http://aws.amazon.com/iam/)\.
 
-**Adding an OpenID Connect Provider**
+**Adding an OpenID Connect provider**
 
 For information on how to create an OpenID Connect Provider, see the [IAM documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/identity-providers-oidc.html)\.
 
-**Associating a Provider with Amazon Cognito**
+**Associating a provider with Amazon Cognito**
 
 Once you've created an OpenID Connect provider in the IAM Console, you can associate it with an identity pool\. All configured providers will be visible in the Edit Identity Pool screen in the Amazon Cognito Console under the OpenID Connect Providers header\.
 
@@ -20,7 +20,7 @@ Refer to your provider's documentation for how to login and receive an ID token\
 
 Once you have a token, add the token to the logins map, using the URI of your provider as the key\.
 
-**Validating an OpenID Connect Token**
+**Validating an OpenID Connect token**
 
 When first integrating with Amazon Cognito, you may receive an `InvalidToken` exception\. It is important to understand how Amazon Cognito validates OpenID Connect tokens\.
 

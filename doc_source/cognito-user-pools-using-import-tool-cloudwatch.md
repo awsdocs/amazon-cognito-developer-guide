@@ -1,12 +1,12 @@
-# Viewing the User Pool Import Results in the CloudWatch Console<a name="cognito-user-pools-using-import-tool-cloudwatch"></a>
+# Viewing the user pool import results in the CloudWatch console<a name="cognito-user-pools-using-import-tool-cloudwatch"></a>
 
 You can view the results of your import job in the Amazon CloudWatch console\.
 
 **Topics**
-+ [Viewing the Results](#cognito-user-pools-using-import-tool-viewing-the-results)
-+ [Interpreting the Results](#cognito-user-pools-using-import-tool-interpreting-the-results)
++ [Viewing the results](#cognito-user-pools-using-import-tool-viewing-the-results)
++ [Interpreting the results](#cognito-user-pools-using-import-tool-interpreting-the-results)
 
-## Viewing the Results<a name="cognito-user-pools-using-import-tool-viewing-the-results"></a>
+## Viewing the results<a name="cognito-user-pools-using-import-tool-viewing-the-results"></a>
 
 The following steps describe how to view the user pool import results\.
 
@@ -23,7 +23,7 @@ The following steps describe how to view the user pool import results\.
    + `[SKIPPED] Line Number 5956 - The user already exists.`
    + `[FAILED] Line Number 5956 - The User Record does not set any of the auto verified attributes to true. (Example: email_verified to true).`
 
-## Interpreting the Results<a name="cognito-user-pools-using-import-tool-interpreting-the-results"></a>
+## Interpreting the results<a name="cognito-user-pools-using-import-tool-interpreting-the-results"></a>
 
 Successfully imported users have their status set to "PasswordReset"\.
 

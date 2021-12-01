@@ -1,4 +1,4 @@
-# Amazon Cognito Identity Pools \(Federated Identities\) API Reference<a name="cognito-federatedidentities-api-reference"></a>
+# Amazon Cognito identity pools \(federated identities\) API reference<a name="cognito-federatedidentities-api-reference"></a>
 
 With an Amazon Cognito identity pool, your web and mobile app users can obtain temporary, limited\-privilege AWS credentials enabling them to access other AWS services\.
 

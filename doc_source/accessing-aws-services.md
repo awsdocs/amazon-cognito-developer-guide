@@ -1,4 +1,4 @@
-# Accessing AWS Services<a name="accessing-aws-services"></a>
+# Accessing AWS services<a name="accessing-aws-services"></a>
 
  Once the Amazon Cognito credentials provider is initialized and refreshed, you can pass it directly to the initializer for an AWS client\. For example, the following snippet initializes an Amazon DynamoDB client: 
 

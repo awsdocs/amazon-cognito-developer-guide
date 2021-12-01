@@ -1,4 +1,4 @@
-# Using Amazon Pinpoint Analytics with Amazon Cognito User Pools<a name="cognito-user-pools-pinpoint-integration"></a>
+# Using Amazon Pinpoint analytics with Amazon Cognito user pools<a name="cognito-user-pools-pinpoint-integration"></a>
 
 Amazon Cognito User Pools are integrated with Amazon Pinpoint to provide analytics for Amazon Cognito user pools and to enrich the user data for Amazon Pinpoint campaigns\. Amazon Pinpoint provides analytics and targeted campaigns to drive user engagement in mobile apps using push notifications\. With Amazon Pinpoint analytics support in Amazon Cognito user pools, you can track user pool sign\-ups, sign\-ins, failed authentications, daily active users \(DAUs\), and monthly active users \(MAUs\) in the Amazon Pinpoint console\. You can drill into the data for different date ranges or attributes, such as device platform, device locale, and app version\.
 
@@ -20,7 +20,7 @@ The following table shows Region mappings between Amazon Cognito and Amazon Pinp
 **Note**  
 Amazon Pinpoint is available in several AWS Regions in North America, Europe, Asia, and Oceania\. Besides the exceptions in the table, Amazon Cognito will only support in\-Region Amazon Pinpoint integrations\. If Amazon Pinpoint is available the same Region as Amazon Cognito, then Amazon Cognito sends events to Amazon Pinpoint projects within the same Region\. If Amazon Pinpoint isn't available in the Region, then Amazon Cognito doesn't support Amazon Pinpoint integrations in that Region until Amazon Pinpoint becomes available\. For Amazon Pinpoint detailed Region information, see [Amazon Pinpoint endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/pinpoint.html)\.
 
-### Specifying Amazon Pinpoint Analytics Settings \(AWS Management Console\)<a name="cognito-user-pools-pinpoint-integration-console"></a>
+### Specifying Amazon Pinpoint analytics settings \(AWS Management Console\)<a name="cognito-user-pools-pinpoint-integration-console"></a>
 
 **To specify analytics settings**
 
@@ -42,7 +42,7 @@ In Amazon Pinpoint, each project should be a single app\. For example, if a game
 
 1. Choose **Share user attribute data with Amazon Pinpoint** if you want Amazon Cognito to send email addresses and phone numbers to Amazon Pinpoint in order to create additional endpoints for users\. After the account phone number and email address are verified, they are only shared with Amazon Pinpoint if they are available to the user account\.
 **Note**  
-An *endpoint* uniquely identifies a user device to which you can send push notifications with Amazon Pinpoint\. For more information about endpoints, see [Adding Endpoints](https://docs.aws.amazon.com/pinpoint/latest/developerguide/endpoints.html) in the *Amazon Pinpoint Developer Guide*\.
+An *endpoint* uniquely identifies a user device to which you can send push notifications with Amazon Pinpoint\. For more information about endpoints, see [Adding endpoints](https://docs.aws.amazon.com/pinpoint/latest/developerguide/endpoints.html) in the *Amazon Pinpoint Developer Guide*\.
 
 1. Choose **Save changes**\.
 
@@ -50,7 +50,7 @@ An *endpoint* uniquely identifies a user device to which you can send push notif
 
 1. Choose **Save changes**\.
 
-### Specifying Amazon Pinpoint Analytics Settings \(AWS CLI and AWS API\)<a name="cognito-user-pools-pinpoint-integration-cli-api"></a>
+### Specifying Amazon Pinpoint analytics settings \(AWS CLI and AWS API\)<a name="cognito-user-pools-pinpoint-integration-cli-api"></a>
 
 Use the following commands to specify Amazon Pinpoint analytics settings for your user pool\.
 

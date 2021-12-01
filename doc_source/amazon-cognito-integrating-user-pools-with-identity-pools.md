@@ -1,24 +1,27 @@
-# Accessing AWS Services Using an Identity Pool After Sign\-in<a name="amazon-cognito-integrating-user-pools-with-identity-pools"></a>
+# Accessing AWS services using an identity pool after sign\-in<a name="amazon-cognito-integrating-user-pools-with-identity-pools"></a>
 
 You can enable your users to sign\-in with a user pool, and then access AWS services using an identity pool\.
 
-After a successful authentication, your web or mobile app will receive user pool tokens from Amazon Cognito\. You can use those tokens to retrieve AWS credentials that allow your app to access other AWS services\. For more information, see [Getting Started with Amazon Cognito Identity Pools \(Federated Identities\)](getting-started-with-identity-pools.md)\.
+After a successful authentication, your web or mobile app will receive user pool tokens from Amazon Cognito\. You can use those tokens to retrieve AWS credentials that allow your app to access other AWS services\. For more information, see [Getting started with Amazon Cognito identity pools \(federated identities\)](getting-started-with-identity-pools.md)\.
 
 ![\[Accessing AWS credentials through a user pool with an identity pool\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Accessing AWS credentials through a user pool with an identity pool\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Accessing AWS credentials through a user pool with an identity pool\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
-For more information about using identity pools together with user pool groups to control access your AWS resources see [Adding Groups to a User Pool](cognito-user-pools-user-groups.md) and [Role\-Based Access Control](role-based-access-control.md)\. See also [Identity Pools Concepts \(Federated Identities\) ](concepts.md) for more information about identity pools and AWS Identity and Access Management\.
+For more information about using identity pools together with user pool groups to control access your AWS resources see [Adding groups to a user pool](cognito-user-pools-user-groups.md) and [Role\-based access control](role-based-access-control.md)\. See also [Identity pools concepts \(federated identities\) ](concepts.md) for more information about identity pools and AWS Identity and Access Management\.
 
-## Setting Up a User Pool with the AWS Management Console<a name="amazon-cognito-integrating-user-pools-with-identity-pools-setting-up"></a>
+## Setting up a user pool with the AWS Management Console<a name="amazon-cognito-integrating-user-pools-with-identity-pools-setting-up"></a>
 
-Create an Amazon Cognito user pool and make a note of the **User Pool ID** and **App Client ID** for each of your client apps\. For more information about creating user pools, see [Getting Started with User Pools](getting-started-with-cognito-user-pools.md)\.
+Create an Amazon Cognito user pool and make a note of the **User Pool ID** and **App Client ID** for each of your client apps\. For more information about creating user pools, see [Getting started with user pools](getting-started-with-cognito-user-pools.md)\.
 
-## Setting Up an Identity Pool with the AWS Management Console<a name="amazon-cognito-integrating-user-pools-with-identity-pools-configuring"></a>
+## Setting up an identity pool with the AWS Management Console<a name="amazon-cognito-integrating-user-pools-with-identity-pools-configuring"></a>
 
 The following procedure describes how to use the AWS Management Console to integrate an identity pool with one or more user pools and client apps\.
 
+------
+#### [ Original console ]
+
 **To configure your identity pool**
 
-1. Open the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\.
+1. Open the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\. If prompted, enter your AWS credentials\.
 
 1. Choose **Manage Identity Pools**\.
 
@@ -30,17 +33,42 @@ The following procedure describes how to use the AWS Management Console to integ
 
 1. Choose **Cognito**\.
 
-1. Type the **User Pool ID**\.
+1. Enter the **User Pool ID**\.
 
-1. Type the **App Client ID**\. This must be the same client app ID that you received when you created the app in the **Your User Pools** section of the AWS Management Console for Amazon Cognito\.
+1. Enter the **App Client ID**\. This must be the same client app ID that you received when you created the app in the **Your User Pools** section of the AWS Management Console for Amazon Cognito\.
 
-1. If you have additional apps or user pools, choose **Add Another Provider** and type the **User Pool ID** and **App Client ID** for each app in each user pool\.
+1. If you have additional apps or user pools, choose **Add Another Provider** and enter the **User Pool ID** and **App Client ID** for each app in each user pool\.
 
-1. When you have no more apps or user pools to add, choose **Save Changes**\.
+1. When you have no more apps or user pools to add, choose **Save Changes**\. If successful, you will see a **Changes saved successfully** message on the **Dashboard** page\.
 
-   If successful, you will see **Changes saved successfully\.** on the **Dashboard** page\.
+------
+#### [ New console ]
 
-## Integrating a User Pool with an Identity Pool<a name="amazon-cognito-integrating-user-pools-with-identity-pools-using"></a>
+**To configure your identity pool**
+
+1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\. If prompted, enter your AWS credentials\.
+
+1. Choose **Federated identities**\.
+
+1. Choose the name of the identity pool for which you want to enable Amazon Cognito user pools as a provider\.
+
+1. On the **Dashboard** page, choose **Edit identity pool**\.
+
+1. Expand the **Authentication providers** section\.
+
+1. Choose **Cognito**\.
+
+1. Enter the **User Pool ID**\.
+
+1. Enter the **App Client ID**\. This must be the same client app ID that you received when you created the app in the **User pools** section of the console\.
+
+1. If you have additional apps or user pools, choose **Add Another Provider** and enter the **User Pool ID** and **App Client ID** for each app in each user pool\.
+
+1. When you have no more apps or user pools to add, choose **Save Changes**\. If successful, you will see a **Changes saved successfully** message on the **Dashboard** page\.
+
+------
+
+## Integrating a user pool with an identity pool<a name="amazon-cognito-integrating-user-pools-with-identity-pools-using"></a>
 
 After your app user is authenticated, add that user's identity token to the logins map in the credentials provider\. The provider name will depend on your Amazon Cognito user pool ID\. It will have the following structure:
 
@@ -91,7 +119,7 @@ cognitoUser.getSessionInBackground(new AuthenticationHandler() {
 ```
 
 ------
-#### [ iOS \- Objective\-C ]
+#### [ iOS \- objective\-C ]
 
 ```
 AWSServiceConfiguration *serviceConfiguration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
@@ -102,7 +130,7 @@ AWSCognitoCredentialsProvider *credentialsProvider = [[AWSCognitoCredentialsProv
 ```
 
 ------
-#### [ iOS \- Swift ]
+#### [ iOS \- swift ]
 
 ```
 let serviceConfiguration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: nil)

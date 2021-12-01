@@ -1,4 +1,4 @@
-# Getting Credentials<a name="getting-credentials"></a>
+# Getting credentials<a name="getting-credentials"></a>
 
 You can use Amazon Cognito to deliver temporary, limited\-privilege credentials to your application, so that your users can access AWS resources\. This section describes how to get credentials and how to retrieve an Amazon Cognito identity from an identity pool\.
 
@@ -40,7 +40,7 @@ You can use Amazon Cognito to deliver temporary, limited\-privilege credentials 
 **Note**  
  If you created your identity pool before February 2015, you will need to reassociate your roles with your identity pool in order to use this constructor without the roles as parameters\. To do so, open the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), choose **Manage Federated Identies**, select your identity pool, and choose **Edit Identity Pool**, specify your authenticated and unauthenticated roles, and save the changes\. 
 
-**Retrieving an Amazon Cognito Identity**
+**Retrieving an Amazon Cognito identity**
 
 If you're allowing unauthenticated users, you can retrieve a unique Amazon Cognito identifier \(identity ID\) for your end user immediately\. If you're authenticating users, you can retrieve the identity ID after you've set the login tokens in the credentials provider:
 
@@ -200,7 +200,7 @@ FB.login(function (response) {
 });
 ```
 
-**Retrieving an Amazon Cognito Identity**
+**Retrieving an Amazon Cognito identity**
 
 You can retrieve a unique Amazon Cognito identifier \(identity ID\) for your end user immediately if you're allowing unauthenticated users or after you've set the login tokens in the credentials provider if you're authenticating users:
 
@@ -274,7 +274,7 @@ You can use Amazon Cognito to deliver temporary, limited\-privilege credentials 
 **Note**  
  **Note:** If you created your identity pool before February 2015, you will need to reassociate your roles with your identity pool in order to use this constructor without the roles as parameters\. To do so, open the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), choose **Manage Identity Pools**, select your identity pool, choose **Edit Identity Pool**, specify your authenticated and unauthenticated roles, and save the changes\. 
 
-**Retrieving an Amazon Cognito Identity**
+**Retrieving an Amazon Cognito identity**
 
  You can retrieve a unique Amazon Cognito identifier \(identity ID\) for your end user immediately if you're allowing unauthenticated users or after you've set the login tokens in the credentials provider if you're authenticating users: 
 

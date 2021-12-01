@@ -1,4 +1,4 @@
-# Enable Push Synchronization<a name="enable-push-synchronization"></a>
+# Enable push synchronization<a name="enable-push-synchronization"></a>
 
  Amazon Cognito automatically tracks the association between identity and devices\. Using the push sync feature, you can ensure that every instance of a given identity is notified when identity data changes\. Push sync ensures that, whenever the sync store data changes for a particular identity, all devices associated with that identity receive a silent push notification informing them of the change\. 
 

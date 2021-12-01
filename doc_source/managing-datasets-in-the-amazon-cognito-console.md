@@ -1,8 +1,8 @@
-# Managing Datasets<a name="managing-datasets-in-the-amazon-cognito-console"></a>
+# Managing datasets<a name="managing-datasets-in-the-amazon-cognito-console"></a>
 
  If you have implemented Amazon Cognito Sync functionality in your application, the Amazon Cognito Identity Pools console enables you to manually create and delete datasets and records for individual identities\. Any change you make to an identity's dataset or records in the Amazon Cognito Identity Pools console will not be saved until you click Synchronize in the console and will not be visible to the end user until the identity calls synchronize\. The data being synchronized from other devices for individual identities will be visible once you refresh the list datasets page for a particular identity\.
 
-## Create a Dataset for an Identity<a name="create-a-dataset-for-an-identity"></a>
+## Create a dataset for an identity<a name="create-a-dataset-for-an-identity"></a>
 
 Choose **Manage Identity Pools** from the Amazon Cognito Identity Pools [Amazon Cognito console ](https://console.aws.amazon.com/cognito/home):
 
@@ -20,7 +20,7 @@ Choose **Manage Identity Pools** from the Amazon Cognito Identity Pools [Amazon 
 
 1.  Click **Synchronize** to synchronize the dataset\. Your changes will not be saved until you click Synchronize and will not be visible to the user until the identity calls synchronize\. To discard unsynchronized changes, select the change you wish to discard, and then click **Discard changes**\. 
 
-## Delete a Dataset Associated with an Identity<a name="delete-a-dataset-associated-with-an-identity"></a>
+## Delete a dataset associated with an identity<a name="delete-a-dataset-associated-with-an-identity"></a>
 
 Choose **Manage Identity Pools** from the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home):
 

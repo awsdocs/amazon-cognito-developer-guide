@@ -1,4 +1,4 @@
-# Enabling User Pool Advanced Security from Your App<a name="user-pool-settings-viewing-advanced-security-app"></a>
+# Enabling user pool advanced security from your app<a name="user-pool-settings-viewing-advanced-security-app"></a>
 
 After you configure the advanced security features for your user pool, you need to enable them in your web or mobile app\.
 

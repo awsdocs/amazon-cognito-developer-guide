@@ -1,4 +1,4 @@
-# Synchronizing Data<a name="synchronizing-data"></a>
+# Synchronizing data<a name="synchronizing-data"></a>
 
 ****  
 If you're new to Amazon Cognito Sync, use [AWS AppSync](https://aws.amazon.com/appsync/)\. Like Amazon Cognito Sync, AWS AppSync is a service for synchronizing application data across devices\.  
@@ -8,7 +8,7 @@ Amazon Cognito lets you save end user data in datasets containing key\-value pai
 
 The Amazon Cognito Sync client creates a local cache for the identity data\. Your app talks to this local cache when it reads and writes keys\. This guarantees that all of your changes made on the device are immediately available on the device, even when you are offline\. When the synchronize method is called, changes from the service are pulled to the device, and any local changes are pushed to the service\. At this point the changes are available to other devices to synchronize\.
 
-## Initializing the Amazon Cognito Sync Client<a name="initializing-client"></a>
+## Initializing the Amazon Cognito Sync client<a name="initializing-client"></a>
 
 
 
@@ -16,7 +16,7 @@ To initialize the Amazon Cognito Sync client, you first need to create a credent
 
 ### Android<a name="initialize-cog-sync-1.android"></a>
 
-1. Create a credentials provider, following the instructions in [Getting Credentials](getting-credentials.md)\.
+1. Create a credentials provider, following the instructions in [Getting credentials](getting-credentials.md)\.
 
 1. Import the Amazon Cognito package: `import com.amazonaws.mobileconnectors.cognito.*;`
 
@@ -31,7 +31,7 @@ To initialize the Amazon Cognito Sync client, you first need to create a credent
 
 ### iOS \- Objective\-C<a name="initialize-cog-sync-1.ios-objc"></a>
 
-1. Create a credentials provider, following the instructions in [Getting Credentials](getting-credentials.md)\.
+1. Create a credentials provider, following the instructions in [Getting credentials](getting-credentials.md)\.
 
 1. Import `AWSCore` and `Cognito`, and initialize `AWSCognito`:
 
@@ -46,7 +46,7 @@ To initialize the Amazon Cognito Sync client, you first need to create a credent
 
 ### iOS \- Swift<a name="initialize-cog-sync-1.ios-swift"></a>
 
-1. Create a credentials provider, following the instructions in [Getting Credentials](getting-credentials.md)\.
+1. Create a credentials provider, following the instructions in [Getting credentials](getting-credentials.md)\.
 
 1. Import and initialize `AWSCognito`:
 
@@ -61,7 +61,7 @@ To initialize the Amazon Cognito Sync client, you first need to create a credent
 
 1. Include the Sync Manager library in your project\.
 
-1. Create a credentials provider, following the instructions in [Getting Credentials](getting-credentials.md)\.
+1. Create a credentials provider, following the instructions in [Getting credentials](getting-credentials.md)\.
 
 1. Initialize the Sync Manager:
 
@@ -71,7 +71,7 @@ To initialize the Amazon Cognito Sync client, you first need to create a credent
 
 ### Unity<a name="initialize-cog-sync-1.unity"></a>
 
-1. You will need to first create an instance of `CognitoAWSCredentials`, following the instructions in [Getting Credentials](getting-credentials.md)\.
+1. You will need to first create an instance of `CognitoAWSCredentials`, following the instructions in [Getting credentials](getting-credentials.md)\.
 
 1. Create an instance of `CognitoSyncManager`, passing the `CognitoAwsCredentials` object and a `AmazonCognitoSyncConfig` with, at least, the region set: 
 
@@ -82,7 +82,7 @@ To initialize the Amazon Cognito Sync client, you first need to create a credent
 
 ### Xamarin<a name="initialize-cog-sync-1.xamarin"></a>
 
-1. You will need to first create an instance of `CognitoAWSCredentials`, following the instructions in [Getting Credentials](getting-credentials.md)\.
+1. You will need to first create an instance of `CognitoAWSCredentials`, following the instructions in [Getting credentials](getting-credentials.md)\.
 
 1. Create an instance of `CognitoSyncManager`, passing the `CognitoAwsCredentials` object and a `AmazonCognitoSyncConfig` with, at least, the region set: 
 
@@ -91,7 +91,7 @@ To initialize the Amazon Cognito Sync client, you first need to create a credent
    CognitoSyncManager syncManager = new CognitoSyncManager(credentials, clientConfig);
    ```
 
-## Understanding Datasets<a name="understanding-datasets"></a>
+## Understanding datasets<a name="understanding-datasets"></a>
 
 
 
@@ -170,7 +170,7 @@ dataset.Delete();
 dataset.SynchronizeAsync();
 ```
 
-## Reading and Writing Data in Datasets<a name="reading-and-writing-data"></a>
+## Reading and writing data in datasets<a name="reading-and-writing-data"></a>
 
 Amazon Cognito datasets function as dictionaries, with values accessible by key\. The keys and values of a dataset can be read, added, or modified just as if the dataset were a dictionary\. The following shows an example\.
 
@@ -280,7 +280,7 @@ You can use `Remove` to delete a key from a dataset:
 dataset.Remove("myKey");
 ```
 
-## Synchronizing Local Data with the Sync Store<a name="synchronizing-local-data"></a>
+## Synchronizing local data with the sync store<a name="synchronizing-local-data"></a>
 
 
 
@@ -296,7 +296,7 @@ The `synchronize` method receives an implementation of the `SyncCallback` interf
 
 The `synchronizeOnConnectivity()` method attempts to synchronize when connectivity is available\. If connectivity is immediately available, `synchronizeOnConnectivity()` behaves like `synchronize()`\. Otherwise it monitors for connectivity changes and performs a sync once connectivity is available\. If `synchronizeOnConnectivity()`is called multiple times, only the last synchronize request is kept, and only the last callback will fire\. If either the dataset or the callback is garbage\-collected, this method won't perform a sync, and the callback won't fire\.
 
-To learn more about dataset synchronization and the different callbacks, see [Handling Callbacks](handling-callbacks.md)\.
+To learn more about dataset synchronization and the different callbacks, see [Handling callbacks](handling-callbacks.md)\.
 
 ### iOS \- Objective\-C<a name="synchronizing-local-data-1.ios-objc"></a>
 
@@ -321,7 +321,7 @@ The `synchronizeOnConnectivity` method attempts to synchronize when the device h
 
 If the device is offline, `synchronizeOnConnectivity` 1\) schedules a synchronize for the next time the device comes online and 2\) returns an `AWSTask` with a nil result\. The scheduled synchronize is only valid for the lifecycle of the dataset object\. The data will not be synchronized if the app is exited before connectivity is regained\. If you want to be notified when events occur during the scheduled synchronize, you must add observers of the notifications found in `AWSCognito`\.
 
-To learn more about dataset synchronization and the different callbacks, see [Handling Callbacks](handling-callbacks.md)\.
+To learn more about dataset synchronization and the different callbacks, see [Handling callbacks](handling-callbacks.md)\.
 
 ### iOS \- Swift<a name="synchronizing-local-data-1.ios-swift"></a>
 
@@ -347,7 +347,7 @@ The `synchronizeOnConnectivity` method attempts to synchronize when the device h
 
 If the device is offline, `synchronizeOnConnectivity` 1\) schedules a synchronize for the next time the device comes online and 2\) returns an `AWSTask` object with a nil result\. The scheduled synchronize is only valid for the lifecycle of the dataset object\. The data will not be synchronized if the app is exited before connectivity is regained\. If you want to be notified when events occur during the scheduled synchronize, you must add observers of the notifications found in `AWSCognito`\.
 
-To learn more about dataset synchronization and the different callbacks, see [Handling Callbacks](handling-callbacks.md)\.
+To learn more about dataset synchronization and the different callbacks, see [Handling callbacks](handling-callbacks.md)\.
 
 ### JavaScript<a name="synchronizing-local-data-1.javascript"></a>
 
@@ -357,7 +357,7 @@ The `synchronize` method compares local cached data to the data stored in the Am
 dataset.synchronize();
 ```
 
-To learn more about dataset synchronization and the different callbacks, see [Handling Callbacks](handling-callbacks.md)\.
+To learn more about dataset synchronization and the different callbacks, see [Handling callbacks](handling-callbacks.md)\.
 
 ### Unity<a name="synchronizing-local-data-1.unity"></a>
 
@@ -369,7 +369,7 @@ dataset.Synchronize();
 
 Synchronize will run asynchronously and will end up calling one of the several callbacks you can specify in the Dataset\.
 
-To learn more about dataset synchronization and the different callbacks, see [Handling Callbacks](handling-callbacks.md)\.
+To learn more about dataset synchronization and the different callbacks, see [Handling callbacks](handling-callbacks.md)\.
 
 ### Xamarin<a name="synchronizing-local-data-1.xamarin"></a>
 
@@ -379,4 +379,4 @@ The `synchronize` method compares local cached data to the data stored in the Am
 dataset.SynchronizeAsync();
 ```
 
-To learn more about dataset synchronization and the different callbacks, see [Handling Callbacks](handling-callbacks.md)\.
+To learn more about dataset synchronization and the different callbacks, see [Handling callbacks](handling-callbacks.md)\.

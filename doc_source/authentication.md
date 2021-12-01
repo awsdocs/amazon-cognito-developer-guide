@@ -1,4 +1,4 @@
-# Authentication with a User Pool<a name="authentication"></a>
+# Authentication with a user pool<a name="authentication"></a>
 
 Your app users can sign in either directly through a user pool, or federate through a third\-party identity provider \(IdP\)\. The user pool manages the overhead of handling the tokens that are returned from social sign\-in through Facebook, Google, Amazon, and Apple, and from OpenID Connect \(OIDC\) and SAML IdPs\.
 
@@ -6,7 +6,7 @@ After successful authentication, Amazon Cognito returns user pool tokens to your
 
 ![\[Authentication overview\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Authentication overview\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Authentication overview\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
-User pool token handling and management for your web or mobile app is provided on the client side through Amazon Cognito SDKs\. Likewise, the Mobile SDK for iOS and the Mobile SDK for Android automatically refresh your ID and access tokens if there is a valid \(non\-expired\) refresh token present, and the ID and access tokens have a minimum remaining validity of 5 minutes\. For information on the SDKs, and sample code for JavaScript, Android, and iOS see [Amazon Cognito User Pool SDKs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sdk-links.html)\.
+User pool token handling and management for your web or mobile app is provided on the client side through Amazon Cognito SDKs\. Likewise, the Mobile SDK for iOS and the Mobile SDK for Android automatically refresh your ID and access tokens if there is a valid \(non\-expired\) refresh token present, and the ID and access tokens have a minimum remaining validity of 5 minutes\. For information on the SDKs, and sample code for JavaScript, Android, and iOS see [Amazon Cognito user pool SDKs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sdk-links.html)\.
 
 After your app user successfully signs in, Amazon Cognito creates a session and returns an ID, access, and refresh token for the authenticated user\.
 
@@ -56,7 +56,7 @@ String accessToken = session.getAccessToken().getJWT();
 ```
 
 ------
-#### [ iOS \- Swift ]
+#### [ iOS \- swift ]
 
 ```
 // AWSCognitoIdentityUserSession includes id, access, and refresh tokens for a user.
@@ -65,7 +65,7 @@ String accessToken = session.getAccessToken().getJWT();
 ```
 
 ------
-#### [ iOS \- Objective\-C ]
+#### [ iOS \- objective\-C ]
 
 ```
 // AWSCognitoIdentityUserSession includes the id, access, and refresh tokens for a user.
@@ -79,4 +79,4 @@ String accessToken = session.getAccessToken().getJWT();
 ------
 
 **Topics**
-+ [User Pool Authentication Flow](amazon-cognito-user-pools-authentication-flow.md)
++ [User pool authentication flow](amazon-cognito-user-pools-authentication-flow.md)

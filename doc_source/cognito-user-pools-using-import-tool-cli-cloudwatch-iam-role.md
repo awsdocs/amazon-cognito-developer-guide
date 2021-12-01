@@ -1,4 +1,4 @@
-# Creating the CloudWatch Logs IAM Role \(AWS CLI, API\)<a name="cognito-user-pools-using-import-tool-cli-cloudwatch-iam-role"></a>
+# Creating the CloudWatch Logs IAM role \(AWS CLI, API\)<a name="cognito-user-pools-using-import-tool-cli-cloudwatch-iam-role"></a>
 
 If you're using the Amazon Cognito CLI or API, then you need to create a CloudWatch IAM role\. The following procedure describes how to enable Amazon Cognito to record information in CloudWatch Logs about your user pool import job\. 
 

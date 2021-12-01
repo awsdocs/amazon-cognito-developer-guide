@@ -1,20 +1,20 @@
-# Customizing the Built\-in Sign\-in and Sign\-up Webpages<a name="cognito-user-pools-app-ui-customization"></a>
+# Customizing the built\-in sign\-in and sign\-up webpages<a name="cognito-user-pools-app-ui-customization"></a>
 
-You can use the AWS Management Console, or the AWS CLI or API, to specify customization settings for the built\-in app UI experience\. You can upload a custom logo image to be displayed in the app\. You can also choose many CSS customizations\.
+You can use the AWS Management Console, or the AWS CLI or API, to specify customization settings for the built\-in app UI experience\. You can upload a custom logo image to be displayed in the app\. You can also use cascading style sheets \(CSS\) to customize the look of the UI\.
 
 You can specify app UI customization settings for a single client \(with a specific `clientId`\) or for all clients \(by setting the `clientId` to `ALL`\)\. If you specify `ALL`, the default configuration will be used for every client that has no UI customization set previously\. If you specify UI customization settings for a particular client, it will no longer fall back to the `ALL` configuration\.
 
 **Note**  
 To use this feature, your user pool must have a domain associated with it\.
 
-## Specifying a Custom Logo for the App<a name="cognito-user-pools-app-ui-customization-logo"></a>
+## Specifying a custom logo for the app<a name="cognito-user-pools-app-ui-customization-logo"></a>
 
 The maximum allowable size for a logo image file is 100 KB\.
 
-## Specifying CSS Customizations for the App<a name="cognito-user-pools-app-ui-customization-css"></a>
+## Specifying CSS customizations for the app<a name="cognito-user-pools-app-ui-customization-css"></a>
 
 You can customize the CSS for the hosted app pages, with the following restrictions:
-+ The CSS class names can only be from the following list:
++ You can use any of the following CSS class names:
   + `background-customizable`
   + `banner-customizable`
   + `errorMessage-customizable`
@@ -28,7 +28,7 @@ You can customize the CSS for the hosted app pages, with the following restricti
   + `submitButton-customizable`
   + `submitButton-customizable:hover`
   + `textDescription-customizable`
-+ Property values cannot contain HTML, `@import`, `@supports`, `@page`, or `@media` statements or Javascript\.
++ Property values can contain HTML, except for the following values: `@import`, `@supports`, `@page`, or `@media` statements, or Javascript\.
 
 You can customize the following CSS properties\.
 
@@ -36,10 +36,10 @@ You can customize the following CSS properties\.
 + **font\-weight** is a multiple of 100 from 100 to 900\.
 
 **Input fields**  
-+ **width** is the width as a percentage of the containing block\.
++ **width** is the width of the containing block as a percentage\.
 + **height** is the height of the input field in pixels \(px\)\.
 + **color** is the text color\. It can be any standard CSS color value\.
-+ **background\-color** is the background color of the input field\. It can be any standard color value\.
++ **background\-color** is the background color of the input field\. It can be any standard CSS color value\.
 + **border** is a standard CSS border value that specifies the width, transparency, and color of the border of your app window\. Width can be any value from 1px to 100px\. Transparency can be solid or none\. Color can be any standard color value\.
 
 **Text descriptions**  
@@ -92,8 +92,8 @@ You can customize the following CSS properties\.
 + **text\-align** is the text alignment setting\. It can be `left`, `right`, or `center`\.
 + **margin\-bottom** is the bottom margin setting\. 
 + **color** is the button text color\. It can be any standard CSS color value\.
-+ **background\-color** is the background color of the button\. It can be any standard color value\.
-+ **border\-color** is the color of the button border\. It can be any standard color value\.
++ **background\-color** is the background color of the button\. It can be any standard CSS color value\.
++ **border\-color** is the color of the button border\. It can be any standard CSS color value\.
 
 **Identity provider descriptions**  
 + **padding\-top** is the amount of padding above the description\.
@@ -104,6 +104,7 @@ You can customize the following CSS properties\.
 **Legal text**  
 + **color** is the text color\. It can be any standard CSS color value\.
 + **font\-size** is the font size\.
+When you customize **Legal text**, you are customizing the message **We won't post to any of your accounts without asking first** that is displayed under social identity providers in the sign\-in page\.
 
 **Logo**  
 + **max\-width** is the maximum width as a percentage of the containing block\.
@@ -122,9 +123,12 @@ You can customize the following CSS properties\.
 **Password check valid**  
 + **color** is the text color of the `"Password check valid"` message\. It can be any standard CSS color value\.
 
-## Specifying App UI Customization Settings for a User Pool \(AWS Management Console\)<a name="cognito-user-pools-app-ui-customization-console"></a>
+## Specifying app UI customization settings for a user pool \(AWS Management Console\)<a name="cognito-user-pools-app-ui-customization-console"></a>
 
 You can use the AWS Management Console to specify UI customization settings for your app\.
+
+------
+#### [ Original console ]
 
 **Note**  
 You can view the hosted UI with your customizations by constructing the following URL, with the specifics for your user pool, and typing it into a browser: ` https://<your_domain>/login?response_type=code&client_id=<your_app_client_id>&redirect_uri=<your_callback_url>` You may have to wait up to one minute to refresh your browser before changes made in the console appear\.  
@@ -132,9 +136,9 @@ Your domain is shown on the **Domain name** tab\. Your app client ID and callbac
 
 **To specify app UI customization settings**
 
-1. Sign in to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\.
+1. Sign in to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\. If prompted, enter your AWS credentials\.
 
-1. In the navigation pane, **Manage User Pools**, and choose the user pool you want to edit\.
+1. In the navigation pane, choose **Manage User Pools**, and choose the user pool you want to edit\.
 
 1. Choose the **UI customization** tab\.
 
@@ -142,9 +146,34 @@ Your domain is shown on the **Domain name** tab\. Your app client ID and callbac
 
 1. To upload your own logo image file, choose **Choose a file** or drag a file into the **Logo \(optional\)** box\.
 
-1. Under **CSS customizations \(optional\)**, you can customize the appearance of the app by changing various properties from their default values\.
+1. Under **CSS customizations \(optional\)**, you can customize the appearance of the app by changing CSS properties from their default values\.
 
-## Specifying App UI Customization Settings for a User Pool \(AWS CLI and AWS API\)<a name="cognito-user-pools-app-ui-customization-cli-api"></a>
+------
+#### [ New console ]
+
+**Note**  
+You can view the hosted UI with your customizations by constructing the following URL, with the specifics for your user pool, and typing it into a browser: ` https://<your_domain>/login?response_type=code&client_id=<your_app_client_id>&redirect_uri=<your_callback_url>` You may have to wait up to one minute to refresh your browser before changes made in the console appear\.  
+Your domain is shown on the **App integration** tab under **Domain**\. Your app client ID and callback URL are shown under **App clients**\.
+
+**To specify app UI customization settings**
+
+1. Sign in to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\.
+
+1. In the navigation pane, choose **User Pools**, and choose the user pool you want to edit\.
+
+1. Choose the **App integration** tab\.
+
+1. To customize UI settings for all app clients, locate **Hosted UI customization** and select **Edit**\.
+
+1. To customize UI settings for one app client, locate **App clients** and select the app client you wish to modify, then locate **Hosted UI customization** and select **Edit**\. To switch an app client from user pool default customization to client\-specific customization, select **Use client\-level settings**\.
+
+1. To upload your own logo image file, choose **Choose file** or **Replace current file**\.
+
+1. To customize hosted UI CSS, download **CSS template\.css** and modify the template with the values you wish to customize\. Only the keys that are included in the template can be used with the hosted UI\. Added CSS keys will not be reflected in your UI\. After you have customized the CSS file, choose **Choose file** or **Replace current file** to upload your custom CSS file\.
+
+------
+
+## Specifying app UI customization settings for a user pool \(AWS CLI and AWS API\)<a name="cognito-user-pools-app-ui-customization-cli-api"></a>
 
 Use the following commands to specify app UI customization settings for your user pool\.
 

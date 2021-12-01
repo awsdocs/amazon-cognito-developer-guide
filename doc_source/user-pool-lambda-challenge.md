@@ -1,4 +1,4 @@
-# Custom Authentication Challenge Lambda Triggers<a name="user-pool-lambda-challenge"></a>
+# Custom authentication challenge Lambda triggers<a name="user-pool-lambda-challenge"></a>
 
 ![\[Challenge Lambda triggers\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Challenge Lambda triggers\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Challenge Lambda triggers\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
@@ -23,6 +23,6 @@ In this flow, a user authenticates by answering successive challenges until auth
 The Amazon Cognito hosted sign\-in web page does not support the custom authentication flow\.
 
 **Topics**
-+ [Define Auth Challenge Lambda Trigger](user-pool-lambda-define-auth-challenge.md)
-+ [Create Auth Challenge Lambda Trigger](user-pool-lambda-create-auth-challenge.md)
-+ [Verify Auth Challenge Response Lambda Trigger](user-pool-lambda-verify-auth-challenge-response.md)
++ [Define Auth challenge Lambda trigger](user-pool-lambda-define-auth-challenge.md)
++ [Create Auth challenge Lambda trigger](user-pool-lambda-create-auth-challenge.md)
++ [Verify Auth challenge response Lambda trigger](user-pool-lambda-verify-auth-challenge-response.md)

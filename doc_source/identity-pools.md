@@ -1,4 +1,4 @@
-# Using Identity Pools \(Federated Identities\)<a name="identity-pools"></a>
+# Using identity pools \(federated identities\)<a name="identity-pools"></a>
 
 Amazon Cognito identity pools provide temporary AWS credentials for users who are guests \(unauthenticated\) and for users who have been authenticated and received a token\. An identity pool is a store of user identity data specific to your account\.
 
@@ -18,21 +18,21 @@ At least one identity is required for a valid identity pool\.
 
 1. You will be prompted for access to your AWS resources\.
 
-   Choose **Allow** to create the two default roles associated with your identity pool–one for unauthenticated users and one for authenticated users\. These default roles provide your identity pool access to Amazon Cognito Sync\. You can modify the roles associated with your identity pool in the IAM console\. For additional instructions on working with the Amazon Cognito console, see [Using the Amazon Cognito Console](cognito-console.md)\.
+   Choose **Allow** to create the two default roles associated with your identity pool–one for unauthenticated users and one for authenticated users\. These default roles provide your identity pool access to Amazon Cognito Sync\. You can modify the roles associated with your identity pool in the IAM console\. For additional instructions on working with the Amazon Cognito console, see [Using the Amazon Cognito console](cognito-console.md)\.
 
-## User IAM Roles<a name="user-iam-roles"></a>
+## User IAM roles<a name="user-iam-roles"></a>
 
-An IAM role defines the permissions for your users to access AWS resources, like [Amazon Cognito Sync](cognito-sync.md)\. Users of your application will assume the roles you create\. You can specify different roles for authenticated and unauthenticated users\. To learn more about IAM roles, see [IAM Roles](iam-roles.md)\.
+An IAM role defines the permissions for your users to access AWS resources, like [Amazon Cognito Sync](cognito-sync.md)\. Users of your application will assume the roles you create\. You can specify different roles for authenticated and unauthenticated users\. To learn more about IAM roles, see [IAM roles](iam-roles.md)\.
 
-## Authenticated and Unauthenticated Identities<a name="authenticated-and-unauthenticated-identities"></a>
+## Authenticated and unauthenticated identities<a name="authenticated-and-unauthenticated-identities"></a>
 
 Amazon Cognito identity pools support both authenticated and unauthenticated identities\. Authenticated identities belong to users who are authenticated by any supported identity provider\. Unauthenticated identities typically belong to guest users\.
-+  To configure authenticated identities with a public login provider, see [Identity Pools \(Federated Identities\) External Identity Providers](external-identity-providers.md)\. 
-+  To configure your own backend authentication process, see [Developer Authenticated Identities \(Identity Pools\)](developer-authenticated-identities.md)\.
++  To configure authenticated identities with a public login provider, see [Identity pools \(federated identities\) external identity providers](external-identity-providers.md)\. 
++  To configure your own backend authentication process, see [Developer authenticated identities \(identity pools\)](developer-authenticated-identities.md)\.
 
 ## Enable or disable unauthenticated identities<a name="enable-or-disable-unauthenticated-identities"></a>
 
- Amazon Cognito Identity Pools can support unauthenticated identities by providing a unique identifier and AWS credentials for users who do not authenticate with an identity provider\. If your application allows users who do not log in, you can enable access for unauthenticated identities\. To learn more, see [Getting Started with Amazon Cognito Identity Pools \(Federated Identities\)](getting-started-with-identity-pools.md)\. 
+ Amazon Cognito Identity Pools can support unauthenticated identities by providing a unique identifier and AWS credentials for users who do not authenticate with an identity provider\. If your application allows users who do not log in, you can enable access for unauthenticated identities\. To learn more, see [Getting started with Amazon Cognito identity pools \(federated identities\)](getting-started-with-identity-pools.md)\. 
 
 Choose **Manage Identity Pools** from the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home): 
 
@@ -64,10 +64,10 @@ Identity pools define two types of identities: authenticated and unauthenticated
 
  If you allow your users to authenticate using public identity providers \(e\.g\. Amazon Cognito user pools, Login with Amazon, Sign in with Apple, Facebook, Google\), you can specify your application identifiers in the Amazon Cognito identity pools \(federated identities\) console\. This associates the application ID \(provided by the public login provider\) with your identity pool\. 
 
-You can also configure authentication rules for each provider from this page\. Each provider allows up to 25 rules\. The rules are applied in the order you save for each provider\. For more information, see [Role\-Based Access Control](role-based-access-control.md)\.
+You can also configure authentication rules for each provider from this page\. Each provider allows up to 25 rules\. The rules are applied in the order you save for each provider\. For more information, see [Role\-based access control](role-based-access-control.md)\.
 
 **Warning**  
- Changing the application ID to which an identity pool is linked will disable existing users from authenticating with that identity pool\. Learn more about [Identity Pools \(Federated Identities\) External Identity Providers](external-identity-providers.md)\. 
+ Changing the application ID to which an identity pool is linked will disable existing users from authenticating with that identity pool\. Learn more about [Identity pools \(federated identities\) external identity providers](external-identity-providers.md)\. 
 
 Choose **Manage Identity Pools** from the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home): 
 
@@ -79,7 +79,7 @@ Choose **Manage Identity Pools** from the [Amazon Cognito console](https://conso
 
 1.  Click the tab for the appropriate provider and enter the required information associated with that authentication provider\. 
 
-## Delete an Identity Pool<a name="delete-an-identity-pool"></a>
+## Delete an identity pool<a name="delete-an-identity-pool"></a>
 
 Choose **Manage Identity Pools** from the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home): 
 
@@ -96,7 +96,7 @@ Choose **Manage Identity Pools** from the [Amazon Cognito console](https://conso
 **Warning**  
 When you click the delete button, you will permanently delete your identity pool and all the user data it contains\. Deleting an identity pool will cause applications and other services utilizing the identity pool to stop working\. 
 
-## Delete an Identity from an Identity Pool<a name="delete-an-identity-from-an-identity-pool"></a>
+## Delete an identity from an identity pool<a name="delete-an-identity-from-an-identity-pool"></a>
 
 Choose **Manage Identity Pools** from the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home): 
 

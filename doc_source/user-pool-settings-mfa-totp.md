@@ -1,4 +1,4 @@
-# TOTP Software Token MFA<a name="user-pool-settings-mfa-totp"></a>
+# TOTP software token MFA<a name="user-pool-settings-mfa-totp"></a>
 
 Your user is challenged to complete authentication using a time\-based one\-time \(TOTP\) password\. This option is enabled after the user name and password have been verified during activation of the TOTP software token for MFA\. If your app is using the Amazon Cognito hosted UI to sign in users, the UI shows a second page\. This page asks your user to submit their user name and password and then enter the TOTP password\. 
 
@@ -9,19 +9,21 @@ If TOTP software token MFA isn't enabled for the user pool, users can't be assoc
 
 Configuring TOTP for your user is a multi\-step process where your user receives a secret code that they validate by entering a one\-time password\. Next, you can enable TOTP MFA for your user or set TOTP as the preferred MFA method for your user\. 
 
-To add MFA to your user pool, see [Adding Multi\-Factor Authentication \(MFA\) to a User Pool](user-pool-settings-mfa.md)\.
+To add MFA to your user pool, see [Adding multi\-factor authentication \(MFA\) to a user pool](user-pool-settings-mfa.md)\.
 
-## Associate the TOTP Token<a name="user-pool-settings-mfa-totp-associate-token"></a>
+## Associate the TOTP software token<a name="user-pool-settings-mfa-totp-associate-token"></a>
 
 Associating the TOTP token involves sending your user a secret code that they must validate with a one\-time password\. This part has three steps\.
 
 1. When your user chooses TOTP software token MFA, call [AssociateSoftwareToken](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html) to return a unique generated shared secret key code for the user account\. The request for this API method takes an access token or a session string, but not both\. As a convenience, you can distribute the secret key as a quick response \(QR\) code\. 
+**Note**  
+Calling AssociateSoftwareToken immediately disassociates the existing software token from the user account\. If the user doesn't subsequently verify the software token, their account is essentially set up to authenticate without MFA\. If MFA config is set to Optional at the user pool level, the user can then login without MFA\. However, if MFA is set to Required for the user pool, the user will be asked to setup a new software token MFA during sign in\.
 
 1. The key code or QR code appears on your app\. Your user needs to enter it into a TOTP\-generating app such as Google Authenticator\. 
 
 1. Your user enters the key code into the TOTP\-generating app to associate a new account with your client app\. 
 
-## Verify the TOTP Token<a name="user-pool-settings-mfa-totp-verification"></a>
+## Verify the TOTP token<a name="user-pool-settings-mfa-totp-verification"></a>
 
 The next step is to verify the TOTP token\. Here is an overview of the process\.
 
@@ -47,7 +49,7 @@ At this point, your user signs in with the time\-based one\-time password\. The 
 
 1. If the token is verified by Amazon Cognito, the sign\-in is successful and your user continues with the authentication flow\. 
 
-## Remove the TOTP Token<a name="user-pool-settings-mfa-totp-remove"></a>
+## Remove the TOTP token<a name="user-pool-settings-mfa-totp-remove"></a>
 
 Finally, your app should allow your user to remove the TOTP token:
 

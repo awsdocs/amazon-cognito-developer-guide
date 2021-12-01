@@ -1,30 +1,30 @@
-# Creating and Running the Amazon Cognito User Pool Import Job<a name="cognito-user-pools-creating-import-job"></a>
+# Creating and running the Amazon Cognito user pool import job<a name="cognito-user-pools-creating-import-job"></a>
 
 This section describes how to create and run the user pool import job by using the Amazon Cognito console and the AWS Command Line Interface\.
 
 **Topics**
-+ [Importing Users from a \.csv File \(Console\)](#cognito-user-pools-using-import-tool-console)
-+ [Importing Users \(AWS CLI\)](#cognito-user-pools-using-import-tool-cli)
++ [Importing users from a \.csv file \(console\)](#cognito-user-pools-using-import-tool-console)
++ [Importing users \(AWS CLI\)](#cognito-user-pools-using-import-tool-cli)
 
-## Importing Users from a \.csv File \(Console\)<a name="cognito-user-pools-using-import-tool-console"></a>
+## Importing users from a \.csv file \(console\)<a name="cognito-user-pools-using-import-tool-console"></a>
 
-The following procedure describes how to import the users from the \.csv file\.
+The following procedure describes how to import the users from the `.csv` file\.
 
 **To import users from the \.csv file \(console\)**
 
 1. Choose **Create import job**\.
 
-1. Type a **Job name**\. Job names can contain uppercase and lowercase letters \(a\-z, A\-Z\), numbers \(0\-9\), and the following special characters: \+ = , \. @ and \-\.
+1. Enter a **Job name**\. Job names can contain uppercase and lowercase letters \(a\-z, A\-Z\), numbers \(0\-9\), and the following special characters: \+ = , \. @ and \-\.
 
-1. If this is your first time creating a user import job, the AWS Management Console will automatically create an IAM role for you\. Otherwise, you can choose an existing role from the **IAM Role** list or let the AWS Management Console create a new role for you\.
+1. If this is your first time creating a user import job, the AWS Management Console will automatically create an IAM role for you\. Otherwise, choose an existing role from the **IAM Role** list, or let the AWS Management Console create a new role for you\.
 
-1. Choose **Upload CSV** and select the \.csv file to import users from\.
+1. Choose **Upload CSV** and select the `.csv` file to import users from\.
 
 1. Choose **Create job**\.
 
 1. To start the job, choose **Start**\.
 
-## Importing Users \(AWS CLI\)<a name="cognito-user-pools-using-import-tool-cli"></a>
+## Importing users \(AWS CLI\)<a name="cognito-user-pools-using-import-tool-cli"></a>
 
 The following CLI commands are available for importing users into a user pool:
 + `create-user-import-job`
@@ -40,9 +40,9 @@ To get the list of command line options for these commands, use the `help` comma
 aws cognito-idp get-csv-header help
 ```
 
-### Creating a User Import Job<a name="cognito-user-pools-using-import-tool-cli-creating-user-import-job"></a>
+### Creating a user import job<a name="cognito-user-pools-using-import-tool-cli-creating-user-import-job"></a>
 
- After you create your \.csv file, create a user import job by running the following CLI command, where *JOB\_NAME* is the name you're choosing for the job, *USER\_POOL\_ID* is the same user pool ID as before, and *ROLE\_ARN* is the role ARN you received in [Creating the CloudWatch Logs IAM Role \(AWS CLI, API\)](cognito-user-pools-using-import-tool-cli-cloudwatch-iam-role.md): 
+After you create your `.csv` file, create a user import job by running the following CLI command, where *JOB\_NAME* is the name you're choosing for the job, *USER\_POOL\_ID* is the user pool ID for the user pool into which the new users will be added, and *ROLE\_ARN* is the role ARN you received in [Creating the CloudWatch Logs IAM role \(AWS CLI, API\)](cognito-user-pools-using-import-tool-cli-cloudwatch-iam-role.md): 
 
 ```
 aws cognito-idp create-user-import-job --job-name "JOB_NAME" --user-pool-id "USER_POOL_ID" --cloud-watch-logs-role-arn "ROLE_ARN"
@@ -50,7 +50,7 @@ aws cognito-idp create-user-import-job --job-name "JOB_NAME" --user-pool-id "USE
 
 The *PRE\_SIGNED\_URL* returned in the response is valid for 15 minutes\. After that time, it will expire and you must create a new user import job to get a new URL\.
 
-Sample response:
+**Example Sample response:**  
 
 ```
 {
@@ -69,30 +69,29 @@ Sample response:
 }
 ```
 
-### Status Values for a User Import Job<a name="cognito-user-pools-using-import-tool-cli-status-values-for-user-import-job"></a>
+### Status values for a user import job<a name="cognito-user-pools-using-import-tool-cli-status-values-for-user-import-job"></a>
 
 In the responses to your user import commands, you'll see one of the following `Status` values:
-+ "Created" \- The job was created but not started\.
-+ "Pending" \- A transition state\. You have started the job, but it has not begun importing users yet\.
-+ "InProgress" \- The job has started, and users are being imported\.
-+ "Stopping" \- You have stopped the job, but the job has not stopped importing users yet\.
-+ "Stopped" \- You have stopped the job, and the job has stopped importing users\.
-+ "Succeeded" \- The job has completed successfully\.
-+ "Failed" \- The job has stopped due to an error\.
-+ "Expired" \- You created a job, but did not start the job within 24\-48 hours\. All data associated with the job was deleted, and the job cannot be started\.
++ `Created` \- The job was created but not started\.
++ `Pending` \- A transition state\. You have started the job, but it has not begun importing users yet\.
++ `InProgress` \- The job has started, and users are being imported\.
++ `Stopping` \- You have stopped the job, but the job has not stopped importing users yet\.
++ `Stopped` \- You have stopped the job, and the job has stopped importing users\.
++ `Succeeded` \- The job has completed successfully\.
++ `Failed` \- The job has stopped due to an error\.
++ `Expired` \- You created a job, but did not start the job within 24\-48 hours\. All data associated with the job was deleted, and the job can't be started\.
 
-### Uploading the \.csv File<a name="cognito-user-pools-using-import-tool-cli-uploading-csv-file"></a>
+### Uploading the \.csv file<a name="cognito-user-pools-using-import-tool-cli-uploading-csv-file"></a>
 
 Use the following `curl` command to upload the \.csv file containing your user data to the presigned URL that you obtained from the response of the `create-user-import-job` command\.
 
 ```
-curl -v -T "PATH_TO_CSV_FILE" -H
-        "x-amz-server-side-encryption:aws:kms" "PRE_SIGNED_URL"
+curl -v -T "PATH_TO_CSV_FILE" -H "x-amz-server-side-encryption:aws:kms" "PRE_SIGNED_URL"
 ```
 
 In the output of this command, look for the phrase `"We are completely uploaded and fine"`\. This phrase indicates that the file was uploaded successfully\.
 
-### Describing a User Import Job<a name="cognito-user-pools-using-import-tool-cli-describing-user-import-job"></a>
+### Describing a user import job<a name="cognito-user-pools-using-import-tool-cli-describing-user-import-job"></a>
 
 To get a description of your user import job, use the following command, where *USER\_POOL\_ID* is your user pool ID, and *JOB\_ID* is the job ID that was returned when you created the user import job\. 
 
@@ -100,7 +99,7 @@ To get a description of your user import job, use the following command, where *
 aws cognito-idp describe-user-import-job --user-pool-id "USER_POOL_ID" --job-id "JOB_ID"
 ```
 
-Sample response:
+**Example Sample response:**  
 
 ```
 {
@@ -119,9 +118,9 @@ Sample response:
 }
 ```
 
-In the preceding sample output, the *PRE\_SIGNED\_URL* is the URL that you uploaded the \.csv file to\. The *ROLE\_ARN* is the CloudWatch Logs role ARN that you received when you created the role\.
+In the preceding sample output, the *PRE\_SIGNED\_URL* is the URL that you uploaded the `.csv` file to\. The *ROLE\_ARN* is the CloudWatch Logs role ARN that you received when you created the role\.
 
-### Listing Your User Import Jobs<a name="cognito-user-pools-using-import-tool-cli-listing-user-import-jobs"></a>
+### Listing your user import jobs<a name="cognito-user-pools-using-import-tool-cli-listing-user-import-jobs"></a>
 
 To list your user import jobs, use the following command:
 
@@ -129,7 +128,7 @@ To list your user import jobs, use the following command:
 aws cognito-idp list-user-import-jobs --user-pool-id "USER_POOL_ID" --max-results 2
 ```
 
-Sample response:
+**Example Sample response:**  
 
 ```
 {
@@ -172,7 +171,7 @@ Jobs are listed in chronological order from last created to first created\. The 
 aws cognito-idp list-user-import-jobs --user-pool-id "USER_POOL_ID" --max-results 10 --pagination-token "PAGINATION_TOKEN"
 ```
 
-### Starting a User Import Job<a name="cognito-user-pools-using-import-tool-cli-starting-user-import-job"></a>
+### Starting a user import job<a name="cognito-user-pools-using-import-tool-cli-starting-user-import-job"></a>
 
 To start a user import job, use the following command:
 
@@ -182,7 +181,7 @@ aws cognito-idp start-user-import-job --user-pool-id "USER_POOL_ID" --job-id "JO
 
 Only one import job can be active at a time per account\.
 
-Sample response:
+**Example Sample response:**  
 
 ```
 {
@@ -202,7 +201,7 @@ Sample response:
 }
 ```
 
-### Stopping a User Import Job<a name="cognito-user-pools-using-import-tool-cli-stopping-user-import-job"></a>
+### Stopping a user import job<a name="cognito-user-pools-using-import-tool-cli-stopping-user-import-job"></a>
 
 To stop a user import job while it is in progress, use the following command\. After you stop the job, it cannot be restarted\.
 
@@ -210,7 +209,7 @@ To stop a user import job while it is in progress, use the following command\. A
 aws cognito-idp stop-user-import-job --user-pool-id "USER_POOL_ID" --job-id "JOB_ID"
 ```
 
-Sample response:
+**Example Sample response:**  
 
 ```
 {

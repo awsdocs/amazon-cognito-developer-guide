@@ -1,8 +1,8 @@
-# SAML Identity Providers \(Identity Pools\)<a name="saml-identity-provider"></a>
+# SAML identity providers \(identity pools\)<a name="saml-identity-provider"></a>
 
 Amazon Cognito supports authentication with identity providers through Security Assertion Markup Language 2\.0 \(SAML 2\.0\)\. You can use an identity provider that supports SAML with Amazon Cognito to provide a simple onboarding flow for your users\. Your SAML\-supporting identity provider specifies the IAM roles that can be assumed by your users so that different users can be granted different sets of permissions\. 
 
-## Configuring Your Identity Pool for a SAML Provider<a name="configure-identity-pool-saml-provider"></a>
+## Configuring your identity pool for a SAML provider<a name="configure-identity-pool-saml-provider"></a>
 
 The following steps describe how to configure your identity pool to use a SAML\-based provider\.
 
@@ -17,15 +17,15 @@ Before configuring your identity pool to support a SAML provider, you must first
 
 1. Choose the ARN of the SAML provider and then choose **Create Pool**\.
 
-## Configuring Your SAML Identity Provider<a name="configure-your-saml-identity-provider"></a>
+## Configuring your SAML identity provider<a name="configure-your-saml-identity-provider"></a>
 
 After you create the SAML provider, configure your SAML identity provider to add relying party trust between your identity provider and AWS\. Many identity providers allow you to specify a URL from which the identity provider can read an XML document that contains relying party information and certificates\. For AWS, you can use [https://signin\.aws\.amazon\.com/static/saml\-metadata\.xml](https://signin.aws.amazon.com/static/saml-metadata.xml)\. The next step is to configure the SAML assertion response from your identity provider to populate the claims needed by AWS\. For details on the claim configuration, see [Configuring SAML assertions for authentication response](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html)\. 
 
-## Customizing Your User Role with SAML<a name="role-customization-saml"></a>
+## Customizing your user role with SAML<a name="role-customization-saml"></a>
 
 Using SAML with Amazon Cognito Identity allows the role to be customized for the end user\. Only the [enhanced flow](authentication-flow.md) is supported with the SAML\-based identity provider\. You do not need to specify an authenticated or unauthenticated role for the identity pool to use a SAML\-based identity provider\. The `https://aws.amazon.com/SAML/Attributes/Role` claim attribute specifies one or more pairs of comma \-delimited role and provider ARN\. These are the roles that the user is allowed to assume\. The SAML identity provider can be configured to populate the role attributes based on the user attribute information available from the identity provider\. If multiple roles are received in the SAML assertion, the optional `customRoleArn` parameter should be populated while calling `getCredentialsForIdentity`\. The input role received in the parameter will be assumed by the user if it matches a role in the claim in the SAML assertion\. 
 
-## Authenticating Users with a SAML Identity Provider<a name="authenticate-user-with-saml"></a>
+## Authenticating users with a SAML identity provider<a name="authenticate-user-with-saml"></a>
 
 To federate with the SAML\-based identity provider, you must determine the URL that is being used to initiate the login\. AWS federation uses IdP\-initiated login\. In AD FS 2\.0 the URL takes the form of `https://<fqdn>/adfs/ls/IdpInitiatedSignOn.aspx?loginToRp=urn:amazon:webservices`\. 
 

@@ -1,4 +1,4 @@
-# User Pool Authentication Flow<a name="amazon-cognito-user-pools-authentication-flow"></a>
+# User pool authentication flow<a name="amazon-cognito-user-pools-authentication-flow"></a>
 
 Modern authentication flows incorporate new challenge types, in addition to a password, to verify the identity of users\. We generalize authentication into two common steps, which are implemented through two API operations: `InitiateAuth` and `RespondToAuthChallenge`\.
 
@@ -14,16 +14,16 @@ You can also use admin authentication flow for use on secure backend servers\. Y
 We allow five failed sign\-in attempts\. After that we start temporary lockouts with exponentially increasing times starting at 1 second and doubling after each failed attempt up to about 15 minutes\. Attempts during a temporary lockout period are ignored\. After the temporary lockout period, if the next attempt fails, a new temporary lockout starts with twice the duration as the last\. Waiting about 15 minutes without any attempts will also reset the temporary lockout\. Please note that this behavior is subject to change\.
 
 **Topics**
-+ [Client\-Side Authentication Flow](#amazon-cognito-user-pools-client-side-authentication-flow)
-+ [Server\-Side Authentication Flow](#amazon-cognito-user-pools-server-side-authentication-flow)
-+ [Custom Authentication Flow](#amazon-cognito-user-pools-custom-authentication-flow)
-+ [Built\-in Authentication Flow and Challenges](#Built-in-authentication-flow-and-challenges)
-+ [Custom Authentication Flow and Challenges](#Custom-authentication-flow-and-challenges)
-+ [Use SRP Password Verification in Custom Authentication Flow](#Using-SRP-password-verification-in-custom-authentication-flow)
++ [Client\-side authentication flow](#amazon-cognito-user-pools-client-side-authentication-flow)
++ [Server\-side authentication flow](#amazon-cognito-user-pools-server-side-authentication-flow)
++ [Custom authentication flow](#amazon-cognito-user-pools-custom-authentication-flow)
++ [Built\-in authentication flow and challenges](#Built-in-authentication-flow-and-challenges)
++ [Custom authentication flow and challenges](#Custom-authentication-flow-and-challenges)
++ [Use SRP password verification in custom authentication flow](#Using-SRP-password-verification-in-custom-authentication-flow)
 + [Admin authentication flow](#amazon-cognito-user-pools-admin-authentication-flow)
 + [User migration authentication flow](#amazon-cognito-user-pools-user-migration-authentication-flow)
 
-## Client\-Side Authentication Flow<a name="amazon-cognito-user-pools-client-side-authentication-flow"></a>
+## Client\-side authentication flow<a name="amazon-cognito-user-pools-client-side-authentication-flow"></a>
 
 Here's how user pool authentication works for end\-user client\-side apps created with the [AWS Mobile SDK for Android, AWS Mobile SDK for iOS, or AWS SDK for JavaScript](https://aws.amazon.com/mobile/resources/):
 
@@ -41,7 +41,7 @@ The app generates the SRP details by using the Amazon Cognito SRP support in the
 
 1. If `RespondToAuthChallenge` returns a session, the app calls `RespondToAuthChallenge` again, this time with the session and the challenge response \(for example, MFA code\)\.
 
-## Server\-Side Authentication Flow<a name="amazon-cognito-user-pools-server-side-authentication-flow"></a>
+## Server\-side authentication flow<a name="amazon-cognito-user-pools-server-side-authentication-flow"></a>
 
 If you don't have an end\-user app, but instead you're using a Java, Ruby, or Node\.js secure backend or server\-side app, you can use the authenticated server\-side API for Amazon Cognito user pools\.
 
@@ -51,9 +51,9 @@ For server\-side apps, user pool authentication is similar to that for client\-s
 
 The `AdminInitiateAuth` and `AdminRespondToAuthChallenge` operations can't accept user\-name\-and\-password user credentials for admin sign\-in, unless you explicitly enable them to do so by doing one of the following:
 + Pass `ADMIN_USER_PASSWORD_AUTH` \(formerly known as `ADMIN_NO_SRP_AUTH`\) for the `ExplicitAuthFlow` parameter in your server\-side app's call to `CreateUserPoolClient` or `UpdateUserPoolClient`\.
-+ Choose `Enable sign-in API for server-based authentication (ADMIN_USER_PASSWORD_AUTH)` in the **App clients** tab in **Create a user pool**\. For more information, see [Configuring a User Pool App Client](user-pool-settings-client-apps.md)\.
++ Choose `Enable sign-in API for server-based authentication (ADMIN_USER_PASSWORD_AUTH)` in the **App clients** tab in **Create a user pool**\. For more information, see [Configuring a user pool app client](user-pool-settings-client-apps.md)\.
 
-## Custom Authentication Flow<a name="amazon-cognito-user-pools-custom-authentication-flow"></a>
+## Custom authentication flow<a name="amazon-cognito-user-pools-custom-authentication-flow"></a>
 
 Amazon Cognito user pools also enable custom authentication flows, which can help you create a challenge/response\-based authentication model using AWS Lambda triggers\.
 
@@ -64,11 +64,11 @@ The custom authentication flow is designed to allow for a series of challenge an
 
  If Amazon Cognito responds to the `InitiateAuth` call with a challenge, the app gathers more input and calls the `RespondToAuthChallenge` operation, providing the challenge responses and passing back the session\. Amazon Cognito responds to the `RespondToAuthChallenge` call similarly to the `InitiateAuth` call, providing tokens if the user is signed in, another challenge, or an error\. If another challenge is returned, the sequence repeats with the app calling `RespondToAuthChallenge` until the user is signed in or an error is returned\. More details are provided in the API documentation for the `InitiateAuth` and `RespondToAuthChallenge` API operations\. 
 
-## Built\-in Authentication Flow and Challenges<a name="Built-in-authentication-flow-and-challenges"></a>
+## Built\-in authentication flow and challenges<a name="Built-in-authentication-flow-and-challenges"></a>
 
 Amazon Cognito has some built\-in `AuthFlow` and `ChallengeName` values for a standard authentication flow to validate user name and password through the Secure Remote Password \(SRP\) protocol\. This flow is built into the iOS, Android, and JavaScript SDKs for Amazon Cognito\. At a high level, the flow starts by sending `USER_SRP_AUTH` as the `AuthFlow` to `InitiateAuth` along with `USERNAME` and `SRP_A` values in `AuthParameters`\. If the `InitiateAuth` call is successful, the response included `PASSWORD_VERIFIER` as the `ChallengeName` and `SRP_B` in the challenge parameters\. The app then calls `RespondToAuthChallenge` with the `PASSWORD_VERIFIER` `ChallengeName` and the necessary parameters in `ChallengeResponses`\. If the call to `RespondToAuthChallenge` is successful and the user is signed in, the tokens are returned\. If multi\-factor authentication \(MFA\) is enabled for the user, a `ChallengeName` of `SMS_MFA` is returned, and the app can provide the necessary code through another call to `RespondToAuthChallenge`\. 
 
-## Custom Authentication Flow and Challenges<a name="Custom-authentication-flow-and-challenges"></a>
+## Custom authentication flow and challenges<a name="Custom-authentication-flow-and-challenges"></a>
 
 An app can initiate a custom authentication flow by calling `InitiateAuth` with `CUSTOM_AUTH` as the `Authflow`\. With a custom authentication flow, the challenges and verification of the responses are controlled through three AWS Lambda triggers\. 
 + The `DefineAuthChallenge` Lambda trigger takes as input a session array of previous challenges and responses\. It then outputs the next challenge name and Booleans that indicate whether the user is authenticated \(and should be granted tokens\) or not\. This Lambda trigger is a state machine that controls the user’s path through the challenges\. 
@@ -77,7 +77,7 @@ An app can initiate a custom authentication flow by calling `InitiateAuth` with 
 
 A custom authentication flow can also use a combination of built\-in challenges such as SRP password verification and MFA through SMS\. It can use custom challenges such as CAPTCHA or secret questions\. 
 
-## Use SRP Password Verification in Custom Authentication Flow<a name="Using-SRP-password-verification-in-custom-authentication-flow"></a>
+## Use SRP password verification in custom authentication flow<a name="Using-SRP-password-verification-in-custom-authentication-flow"></a>
 
 If you want to include SRP in a custom authentication flow, you need to start with it\.
 + To initiate SRP password verification in a custom flow, the app calls `InitiateAuth` with `CUSTOM_AUTH` as the `Authflow`\. It includes in the `AuthParameters` map `SRP_A:` \(the SRP A value\) and `CHALLENGE_NAME: SRP_A`\.
@@ -89,14 +89,14 @@ If you want to include SRP in a custom authentication flow, you need to start wi
 **Note**  
 The Amazon Cognito hosted sign\-in webpage does not support the custom authentication flow\.
 
-For more information about the Lambda triggers, including sample code, see [Customizing User Pool Workflows with Lambda Triggers](cognito-user-identity-pools-working-with-aws-lambda-triggers.md)\.
+For more information about the Lambda triggers, including sample code, see [Customizing user pool workflows with Lambda triggers](cognito-user-identity-pools-working-with-aws-lambda-triggers.md)\.
 
 **Note**  
 The Amazon Cognito hosted sign\-in web page does not support the custom authentication flow\.
 
 ## Admin authentication flow<a name="amazon-cognito-user-pools-admin-authentication-flow"></a>
 
-The API operations described [Custom Authentication Flow](#amazon-cognito-user-pools-custom-authentication-flow) with the use of SRP for password verification is the recommended approach for authentication\. The iOS, Android, and JavaScript SDKs are based on that approach and make it easy to use SRP\. However, there is an alternative set of admin API operations designed for use on secure backend servers if you want to avoid the SRP calculations\. For these backend admin implementations, `AdminInitiateAuth` is used in place of `InitiateAuth`, and `AdminRespondToAuthChallenge` is used in place of `RespondToAuthChallenge`\. When using these operations, the password can be submitted as plaintext so the SRP calculations are not needed\. Here is an example:
+The API operations described [Custom authentication flow](#amazon-cognito-user-pools-custom-authentication-flow) with the use of SRP for password verification is the recommended approach for authentication\. The iOS, Android, and JavaScript SDKs are based on that approach and make it easy to use SRP\. However, there is an alternative set of admin API operations designed for use on secure backend servers if you want to avoid the SRP calculations\. For these backend admin implementations, `AdminInitiateAuth` is used in place of `InitiateAuth`, and `AdminRespondToAuthChallenge` is used in place of `RespondToAuthChallenge`\. When using these operations, the password can be submitted as plaintext so the SRP calculations are not needed\. Here is an example:
 
 ```
 AdminInitiateAuth Request {
@@ -123,6 +123,6 @@ A user migration Lambda trigger allows easy migration of users from a legacy use
 
 When you have completed migrating all your users, we recommend switching flows to the more secure SRP flow\. The SRP flow does not send any passwords over the network\.
 
-To learn more about Lambda triggers see [Customizing User Pool Workflows with Lambda Triggers](cognito-user-identity-pools-working-with-aws-lambda-triggers.md)\.
+To learn more about Lambda triggers see [Customizing user pool workflows with Lambda triggers](cognito-user-identity-pools-working-with-aws-lambda-triggers.md)\.
 
-For more information about migrating users with a Lambda trigger see [Importing Users into User Pools With a User Migration Lambda Trigger](cognito-user-pools-import-using-lambda.md)\.
+For more information about migrating users with a Lambda trigger see [Importing users into user pools with a user migration Lambda trigger](cognito-user-pools-import-using-lambda.md)\.

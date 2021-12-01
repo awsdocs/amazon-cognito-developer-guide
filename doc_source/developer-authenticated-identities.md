@@ -1,12 +1,12 @@
-# Developer Authenticated Identities \(Identity Pools\)<a name="developer-authenticated-identities"></a>
+# Developer authenticated identities \(identity pools\)<a name="developer-authenticated-identities"></a>
 
-Amazon Cognito supports developer authenticated identities, in addition to web identity federation through [Facebook \(Identity Pools\)](facebook.md), [Google \(Identity Pools\)](google.md), [Login with Amazon \(Identity Pools\)](amazon.md), and [Sign in with Apple \(Identity Pools\)](apple.md)\. With developer authenticated identities, you can register and authenticate users via your own existing authentication process, while still using Amazon Cognito to synchronize user data and access AWS resources\. Using developer authenticated identities involves interaction between the end user device, your backend for authentication, and Amazon Cognito\. For more details, please read our [blog](http://mobile.awsblog.com/post/Tx2FL1QAPDE0UAH/Understanding-Amazon-Cognito-Authentication-Part-2-Developer-Authenticated-Ident)\.
+Amazon Cognito supports developer authenticated identities, in addition to web identity federation through [Facebook \(identity pools\)](facebook.md), [Google \(identity pools\)](google.md), [Login with Amazon \(identity pools\)](amazon.md), and [Sign in with Apple \(identity pools\)](apple.md)\. With developer authenticated identities, you can register and authenticate users via your own existing authentication process, while still using Amazon Cognito to synchronize user data and access AWS resources\. Using developer authenticated identities involves interaction between the end user device, your backend for authentication, and Amazon Cognito\. For more details, please read our [blog](http://mobile.awsblog.com/post/Tx2FL1QAPDE0UAH/Understanding-Amazon-Cognito-Authentication-Part-2-Developer-Authenticated-Ident)\.
 
-## Understanding the Authentication Flow<a name="understanding-the-authentication-flow"></a>
+## Understanding the authentication flow<a name="understanding-the-authentication-flow"></a>
 
-For information on the developer authenticated identities authflow and how it differs from the external provider authflow, see [Identity Pools \(Federated Identities\) Authentication Flow](authentication-flow.md)\.
+For information on the developer authenticated identities authflow and how it differs from the external provider authflow, see [Identity pools \(federated identities\) authentication flow](authentication-flow.md)\.
 
-## Define a Developer Provider Name and Associate it with an Identity Pool<a name="associate-developer-provider"></a>
+## Define a developer provider name and associate it with an identity pool<a name="associate-developer-provider"></a>
 
 To use developer authenticated identities, you'll need an identity pool associated with your developer provider\. To do so, follow these steps:
 
@@ -18,9 +18,9 @@ To use developer authenticated identities, you'll need an identity pool associat
 
 Note: Once the provider name has been set, it cannot be changed\.
 
-For additional instructions on working with the Amazon Cognito Console, see [Using the Amazon Cognito Console](cognito-console.md)\.
+For additional instructions on working with the Amazon Cognito Console, see [Using the Amazon Cognito console](cognito-console.md)\.
 
-## Implement an Identity Provider<a name="implement-an-identity-provider"></a>
+## Implement an identity provider<a name="implement-an-identity-provider"></a>
 
 ### Android<a name="implement-id-provider-1.android"></a>
 
@@ -92,7 +92,7 @@ DeveloperAuthenticationProvider developerProvider = new DeveloperAuthenticationP
 CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider( context, developerProvider, Regions.USEAST1);
 ```
 
-### iOS \- Objective\-C<a name="implement-id-provider-1.ios-objc"></a>
+### iOS \- objective\-C<a name="implement-id-provider-1.ios-objc"></a>
 
 To use developer authenticated identities, implement your own identity provider class which extends [AWSCognitoCredentialsProviderHelper](https://docs.aws.amazon.com/AWSiOSSDK/latest/Classes/AWSCognitoCredentialsProviderHelper.html)\. Your identity provider class should return a response object containing the token as an attribute\.
 
@@ -157,7 +157,7 @@ If you want to support developer authenticated identities and social providers, 
 }
 ```
 
-### iOS \- Swift<a name="implement-id-provider-1.ios-swift"></a>
+### iOS \- swift<a name="implement-id-provider-1.ios-swift"></a>
 
 To use developer authenticated identities, implement your own identity provider class which extends [AWSCognitoCredentialsProviderHelper](https://docs.aws.amazon.com/AWSiOSSDK/latest/Classes/AWSCognitoCredentialsProviderHelper.html)\. Your identity provider class should return a response object containing the token as an attribute\.
 
@@ -348,7 +348,7 @@ public class DeveloperAuthenticatedCredentials : CognitoAWSCredentials
 }
 ```
 
-## Updating the Logins Map \(Android and iOS only\)<a name="updating-the-logins-map"></a>
+## Updating the logins map \(Android and iOS only\)<a name="updating-the-logins-map"></a>
 
 ### Android<a name="updating-logins-map-1.android"></a>
 
@@ -362,7 +362,7 @@ credentialsProvider.setLogins(loginsMap);
 credentialsProvider.refresh();
 ```
 
-### iOS \- Objective\-C<a name="updating-logins-map-1.ios-objc"></a>
+### iOS \- objective\-C<a name="updating-logins-map-1.ios-objc"></a>
 
 The iOS SDK only calls your `logins` method to get the latest logins map if there are no credentials or they have expired\. If you want to force the SDK to obtain new credentials \(e\.g\., your end user went from unauthenticated to authenticated and you want credentials against the authenticated user\), call `clearCredentials` on your `credentialsProvider`\.
 
@@ -370,7 +370,7 @@ The iOS SDK only calls your `logins` method to get the latest logins map if ther
 [credentialsProvider clearCredentials];
 ```
 
-### iOS \- Swift<a name="updating-logins-map-1.ios-swift"></a>
+### iOS \- swift<a name="updating-logins-map-1.ios-swift"></a>
 
 The iOS SDK only calls your `logins` method to get the latest logins map if there are no credentials or they have expired\. If you want to force the SDK to obtain new credentials \(e\.g\., your end user went from unauthenticated to authenticated and you want credentials against the authenticated user\), call `clearCredentials` on your `credentialsProvider`\.
 
@@ -378,7 +378,7 @@ The iOS SDK only calls your `logins` method to get the latest logins map if ther
 credentialsProvider.clearCredentials()
 ```
 
-## Getting a Token \(Server Side\)<a name="getting-a-token-server-side"></a>
+## Getting a token \(server side\)<a name="getting-a-token-server-side"></a>
 
 You obtain a token by calling [GetOpenIdTokenForDeveloperIdentity](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_GetOpenIdTokenForDeveloperIdentity.html)\. This API must be invoked from your backend using AWS developer credentials\. It must not be invoked from the client SDK\. The API receives the Cognito identity pool ID; a logins map containing your identity provider name as the key and identifier as the value; and optionally a Cognito identity ID \(i\.e\., you are making an unauthenticated user authenticated\)\. The identifier can be the username of your user, an email address, or a numerical value\. The API responds to your call with a unique Cognito ID for your user and an OpenID Connect token for the end user\.
 
@@ -427,7 +427,7 @@ String token = response.getToken();
 
 Following the steps above, you should be able to integrate developer authenticated identities in your app\. If you have any issues or questions please feel free to post in our [forums](https://forums.aws.amazon.com/forum.jspa?forumID=173)\.
 
-## Connect to an Existing Social Identity<a name="connect-to-an-existing-social-identity"></a>
+## Connect to an existing social identity<a name="connect-to-an-existing-social-identity"></a>
 
 All linking of providers when you are using developer authenticated identities must be done from your backend\. To connect a custom identity to a user's social identity \(Login with Amazon, Sign in with Apple, Facebook, or Google\), add the identity provider token to the logins map when you call [GetOpenIdTokenForDeveloperIdentity](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_GetOpenIdTokenForDeveloperIdentity.html)\. To make this possible, when you call your backend from your client SDK to authenticate your end user, additionally pass the end user's social provider token\.
 
@@ -438,7 +438,7 @@ logins.put("YOUR_IDENTITY_PROVIDER_NAME","YOUR_END_USER_IDENTIFIER");
 logins.put("graph.facebook.com","END_USERS_FACEBOOK_ACCESSTOKEN");
 ```
 
-## Supporting Transition Between Providers<a name="supporting-transition-between-providers"></a>
+## Supporting transition between providers<a name="supporting-transition-between-providers"></a>
 
 ### Android<a name="support-transition-between-providers-1.android"></a>
 
@@ -509,7 +509,7 @@ public String getIdentityId() {
 }
 ```
 
-### iOS \- Objective\-C<a name="support-transition-between-providers-1.ios-objc"></a>
+### iOS \- objective\-C<a name="support-transition-between-providers-1.ios-objc"></a>
 
 Your application might require supporting unauthenticated identities or authenticated identities using public providers \(Login with Amazon, Sign in with Apple, Facebook, or Google\) along with developer authenticated identities\. To do this, override the [AWSCognitoCredentialsProviderHelper](https://docs.aws.amazon.com/AWSiOSSDK/latest/Classes/AWSCognitoCredentialsProviderHelper.html) `logins` method to be able to return the correct logins map based on the current identity provider\. This example shows you how you might pivot between unauthenticated, Facebook and developer authenticated\.
 
@@ -527,7 +527,7 @@ Your application might require supporting unauthenticated identities or authenti
 
 When you transition from unauthenticated to authenticated, you should call `[credentialsProvider clearCredentials];` to force the SDK to get new authenticated credentials\. When you switch between two authenticated providers and you aren't trying to link the two providers \(i\.e\. you are not providing tokens for multiple providers in your logins dictionary\), you should call `[credentialsProvider clearKeychain];`\. This will clear both the credentials and identity and force the SDK to get new ones\.
 
-### iOS \- Swift<a name="support-transition-between-providers-1.ios-swift"></a>
+### iOS \- swift<a name="support-transition-between-providers-1.ios-swift"></a>
 
 Your application might require supporting unauthenticated identities or authenticated identities using public providers \(Login with Amazon, Sign in with Apple, Facebook, or Google\) along with developer authenticated identities\. To do this, override the [AWSCognitoCredentialsProviderHelper](https://docs.aws.amazon.com/AWSiOSSDK/latest/Classes/AWSCognitoCredentialsProviderHelper.html) `logins` method to be able to return the correct logins map based on the current identity provider\. This example shows you how you might pivot between unauthenticated, Facebook and developer authenticated\.
 

@@ -1,4 +1,4 @@
-# Handling Callbacks<a name="handling-callbacks"></a>
+# Handling callbacks<a name="handling-callbacks"></a>
 
 ****  
 If you're new to Amazon Cognito Sync, use [AWS AppSync](https://aws.amazon.com/appsync/)\. Like Amazon Cognito Sync, AWS AppSync is a service for synchronizing application data across devices\.  
@@ -296,7 +296,7 @@ dataset.datasetDeletedHandler = {
 }
 ```
 
-**Dataset Merge Handler**
+**Dataset merge handler**
 
 When two previously unconnected identities are linked together, all of their datasets are merged\. Applications are notified of the merge through the `DatasetMergeHandler`\. The handler will receive the name of the root dataset as well as an array of dataset names that are marked as merges of the root dataset\.
 
@@ -337,7 +337,7 @@ dataset.datasetMergedHandler = {
 
 ## JavaScript<a name="handling-callbacks-1.javascript"></a>
 
-**Synchronization Callbacks**
+**Synchronization callbacks**
 
 When performing a synchronize\(\) on a dataset, you can optionally specify callbacks to handle each of the following states:
 

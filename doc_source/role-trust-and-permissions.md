@@ -1,4 +1,4 @@
-# Role Trust and Permissions<a name="role-trust-and-permissions"></a>
+# Role trust and permissions<a name="role-trust-and-permissions"></a>
 
 The way these roles differ is in their trust relationships\. Let's take a look at an example trust policy for an unauthenticated role:
 

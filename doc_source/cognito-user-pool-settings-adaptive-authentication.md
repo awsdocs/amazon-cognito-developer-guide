@@ -1,19 +1,19 @@
-# Using Adaptive Authentication<a name="cognito-user-pool-settings-adaptive-authentication"></a>
+# Using adaptive authentication<a name="cognito-user-pool-settings-adaptive-authentication"></a>
 
 With adaptive authentication you can configure your user pool to block suspicious sign\-ins or add second factor authentication in response to an increased risk level\. For each sign\-in attempt, Amazon Cognito generates a risk score for how likely the sign\-in request is to be from a compromised source\. This risk score is based on many factors, including whether it detects a new device, user location, or IP address\. Adaptive Authentication adds MFA based on risk level for users who don't have an MFA type enabled at the user level\. When an MFA type is enabled at the user level, those users will always receive the second factor challenge during authentication regardless of how you configured adaptive authentication\.
 
-Amazon Cognito publishes sign\-in attempts, their risk levels, and failed challenges to Amazon CloudWatch\. For more information, see [Viewing Advanced Security Metrics](user-pool-settings-viewing-advanced-security-metrics.md)\.
+Amazon Cognito publishes sign\-in attempts, their risk levels, and failed challenges to Amazon CloudWatch\. For more information, see [Viewing advanced security metrics](user-pool-settings-viewing-advanced-security-metrics.md)\.
 
-To add adaptive authentication to your user pool, see [Adding Advanced Security to a User Pool](cognito-user-pool-settings-advanced-security.md)\.
+To add adaptive authentication to your user pool, see [Adding advanced security to a user pool](cognito-user-pool-settings-advanced-security.md)\.
 
 **Topics**
-+ [Adaptive Authentication Overview](#security-cognito-user-pool-settings-adaptive-authentication-overview)
-+ [Creating a Device Fingerprint](#user-pool-settings-adaptive-authentication-device-fingerprint)
-+ [Viewing User Event History](#user-pool-settings-adaptive-authentication-event-user-history)
-+ [Providing Event Feedback](#user-pool-settings-adaptive-authentication-feedback)
-+ [Sending Notification Messages](#user-pool-settings-adaptive-authentication-messages)
++ [Adaptive authentication overview](#security-cognito-user-pool-settings-adaptive-authentication-overview)
++ [Creating a device fingerprint](#user-pool-settings-adaptive-authentication-device-fingerprint)
++ [Viewing user event history](#user-pool-settings-adaptive-authentication-event-user-history)
++ [Providing event feedback](#user-pool-settings-adaptive-authentication-feedback)
++ [Sending notification messages](#user-pool-settings-adaptive-authentication-messages)
 
-## Adaptive Authentication Overview<a name="security-cognito-user-pool-settings-adaptive-authentication-overview"></a>
+## Adaptive authentication overview<a name="security-cognito-user-pool-settings-adaptive-authentication-overview"></a>
 
 From the **Advanced security** page in the Amazon Cognito console, you can choose settings for adaptive authentication, including what actions to take at different risk levels and customization of notification messages to users\.
 
@@ -32,11 +32,11 @@ From the **Advanced security** page in the Amazon Cognito console, you can choos
 **Note**  
 \*Phone numbers don't need to be verified to be used for SMS as a second authentication factor\.
 
-## Creating a Device Fingerprint<a name="user-pool-settings-adaptive-authentication-device-fingerprint"></a>
+## Creating a device fingerprint<a name="user-pool-settings-adaptive-authentication-device-fingerprint"></a>
 
 When you call the Amazon Cognito authentication APIs, such as [AdminInitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) or [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) from your server, you need to pass the source IP of the user in the ContextData parameter\. This is in addition to your server name, server path, and encoded\-device fingerprinting data, which are collected by using the Amazon Cognito context data collection library\. 
 
-For information on enabling advanced security from your web or mobile app, see [Enabling User Pool Advanced Security from Your App](user-pool-settings-viewing-advanced-security-app.md)\.
+For information on enabling advanced security from your web or mobile app, see [Enabling user pool advanced security from your app](user-pool-settings-viewing-advanced-security-app.md)\.
 
 Collect user context data from the client side when your app is calling Amazon Cognito from your server\. The following is an example that uses the JavaScript SDK method `getData`\.
 
@@ -46,7 +46,10 @@ var encodedData = AmazonCognitoAdvancedSecurityData.getData(username, userPoolId
 
 We recommend incorporating the latest Amazon Cognito SDK into your app\. This enables adaptive authentication to collect device fingerprinting information—such as device ID, model, and time zone\. For more information about Amazon Cognito SDKs, see [Install a user pool SDK](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sdk-links.html)\.
 
-## Viewing User Event History<a name="user-pool-settings-adaptive-authentication-event-user-history"></a>
+## Viewing user event history<a name="user-pool-settings-adaptive-authentication-event-user-history"></a>
+
+**Note**  
+In the new Amazon Cognito console, you can view user event history in the **Users** tab\.
 
 You can choose a user in the Amazon Cognito console from **Users and groups** to see the sign\-in history for that user\. User event history is retained for two years by Amazon Cognito\.
 
@@ -58,13 +61,13 @@ Each sign\-in event has an event ID, context data such as location, device detai
 
 You can correlate the event id to the token issued as well\. The issued token, such as the ID token and access token, carries this event ID in its payload\. Even using the refresh token persists the original event ID\. The original event ID can be traced back to the event ID of the sign\-in event that resulted in issuing the Amazon Cognito tokens\. This enables you to trace usage of a token within your system to a particular authentication event\.
 
-## Providing Event Feedback<a name="user-pool-settings-adaptive-authentication-feedback"></a>
+## Providing event feedback<a name="user-pool-settings-adaptive-authentication-feedback"></a>
 
 Event feedback affects risk evaluation in real time, and improves the risk evaluation algorithm over time\. You can provide feedback on the validity of sign\-in attempts through the Amazon Cognito console and API operations\.
 
 In the console, on the **Users and groups** tab, the sign\-in history is listed, and if you click an entry, you can mark the event as valid or invalid\. You can also provide feedback through the user pool API method [AdminUpdateAuthEventFeedback](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminUpdateAuthEventFeedback.html), and through the AWS CLI command [admin\-update\-auth\-event\-feedback](https://docs.aws.amazon.com/cli/latest/reference/cognito-idp/admin-update-auth-event-feedback.html)\.
 
-## Sending Notification Messages<a name="user-pool-settings-adaptive-authentication-messages"></a>
+## Sending notification messages<a name="user-pool-settings-adaptive-authentication-messages"></a>
 
 With advanced security protections, Amazon Cognito can notify your users of sign\-in attempts, prompt them to click links to indicate if the sign\-in was valid or invalid, and use their feedback to improve the risk detection accuracy for your user pool\. 
 
@@ -72,4 +75,4 @@ In the **How do you want to use adaptive authentication for sign\-in attempts ra
 
 ![\[Notify users\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Notify users\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Notify users\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
-You can customize notification emails, and provide both plaintext and HTML versions\. Choose **Customize** from **Adaptive authentication notification messages** to customize your email notifications\. To learn more about email templates, see [Message Templates](cognito-user-pool-settings-message-templates.md)\.
+You can customize notification emails, and provide both plaintext and HTML versions\. Choose **Customize** from **Adaptive authentication notification messages** to customize your email notifications\. To learn more about email templates, see [Message templates](cognito-user-pool-settings-message-templates.md)\.
