@@ -119,7 +119,7 @@ You can enable your users to sign in through an OIDC identity provider \(IdP\) s
 
    Your app user is asked to consent to providing these attributes to your application\.
 
-1. nter the URL of your IdP and choose **Run discovery**\. For example, Salesforce uses this URL:
+1. Enter the URL of your IdP and choose **Run discovery**\. For example, Salesforce uses this URL:
 
    `https://login.salesforce.com` 
 **Note**  
