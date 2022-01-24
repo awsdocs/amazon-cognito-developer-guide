@@ -80,10 +80,10 @@ One or more key\-value pairs that you can provide as custom input to the Lambda 
 ### Create Auth challenge response parameters<a name="cognito-user-pools-lambda-trigger-syntax-create-auth-challenge-response"></a>
 
 **publicChallengeParameters**  
-One or more key\-value pairs for the client app to use in the challenge to be presented to the user\. This parameter should contain all of the necessary information to accurately present the challenge to the user\.
+Zero or more key\-value pairs for the client app to use in the challenge to be presented to the user\. This parameter should contain all of the necessary information to accurately present the challenge to the user\.
 
 **privateChallengeParameters**  
-This parameter is only used by the Verify Auth Challenge Response Lambda trigger\. This parameter should contain all of the information that is required to validate the user's response to the challenge\. In other words, the `publicChallengeParameters` parameter contains the question that is presented to the user and `privateChallengeParameters` contains the valid answers for the question\.
+This parameter is only used by the Verify Auth Challenge Response Lambda trigger\. This parameter should contain all of the information that is required to validate the user's response to the challenge\. In other words, the `publicChallengeParameters` parameter contains the question that is presented to the user and `privateChallengeParameters` contains the valid answers for the question\. It must contain at least one key-value-pair.
 
 **challengeMetadata**  
 Your name for the custom challenge, if this is a custom challenge\.
