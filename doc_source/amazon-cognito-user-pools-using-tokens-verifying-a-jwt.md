@@ -25,9 +25,9 @@ A JSON Web Token \(JWT\) includes three sections:
 1. Signature
 
 
-|  | 
+|  |
 | --- |
-|  11111111111\.22222222222\.33333333333  | 
+|  11111111111\.22222222222\.33333333333  |
 
 These sections are encoded as base64url strings and are separated by dot \(\.\) characters\. If your JWT does not conform to this structure, consider it invalid and do not accept it\.
 
@@ -48,7 +48,7 @@ The JWT signature is a hashed combination of the header and the payload\. Amazon
    1. Download and store the corresponding public JSON Web Key \(JWK\) for your user pool\. It is available as part of a JSON Web Key Set \(JWKS\)\. You can locate it at https://cognito\-idp\.\{region\}\.amazonaws\.com/\{userPoolId\}/\.well\-known/jwks\.json\.
 
       For more information on JWK and JWK sets, see [JSON web key \(JWK\)](https://tools.ietf.org/html/rfc7517)\.
-**Note**  
+**Note**
 This is a one\-time step before your web API operations can process tokens\. Now you can perform the following steps each time the ID token or the access token are used with your web API operations\.
 
       This is a sample `jwks.json` file:
@@ -71,18 +71,21 @@ This is a one\-time step before your web API operations can process tokens\. Now
       		"use": "sig"
       	}]
       }
-      ```  
-**Key ID \(`kid`\)**  
-The `kid` is a hint that indicates which key was used to secure the JSON web signature \(JWS\) of the token\.  
-**Algorithm \(`alg`\)**  
-The `alg` header parameter represents the cryptographic algorithm that is used to secure the ID token\. User pools use an RS256 cryptographic algorithm, which is an RSA signature with SHA\-256\. For more information on RSA, see [RSA cryptography](https://tools.ietf.org/html/rfc3447)\.   
-**Key type \(`kty`\)**  
-The `kty` parameter identifies the cryptographic algorithm family that is used with the key, such as "RSA" in this example\.  
-**RSA exponent \(`e`\)**  
-The `e` parameter contains the exponent value for the RSA public key\. It is represented as a Base64urlUInt\-encoded value\.  
-**RSA modulus \(`n`\)**  
-The `n` parameter contains the modulus value for the RSA public key\. It is represented as a Base64urlUInt\-encoded value\.  
-**Use \(`use`\)**  
+      ```
+**Note**
+The two keys returned in the `jwks.json` file will verify different JWTs returned from a call to Cognito's [`InitiateAuth`](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html#API_InitiateAuth_ResponseSyntax) command. The first key (`keys[0]`) will validate the `AuthenticationResult.IdToken`. The second key (`keys[1]`) will validate the `AuthenticationResult.AccessToken`.
+
+**Key ID \(`kid`\)**
+The `kid` is a hint that indicates which key was used to secure the JSON web signature \(JWS\) of the token\.
+**Algorithm \(`alg`\)**
+The `alg` header parameter represents the cryptographic algorithm that is used to secure the ID token\. User pools use an RS256 cryptographic algorithm, which is an RSA signature with SHA\-256\. For more information on RSA, see [RSA cryptography](https://tools.ietf.org/html/rfc3447)\.
+**Key type \(`kty`\)**
+The `kty` parameter identifies the cryptographic algorithm family that is used with the key, such as "RSA" in this example\.
+**RSA exponent \(`e`\)**
+The `e` parameter contains the exponent value for the RSA public key\. It is represented as a Base64urlUInt\-encoded value\.
+**RSA modulus \(`n`\)**
+The `n` parameter contains the modulus value for the RSA public key\. It is represented as a Base64urlUInt\-encoded value\.
+**Use \(`use`\)**
 The `use` parameter describes the intended use of the public key\. For this example, the `use` value `sig` represents signature\.
 
    1. Search the public JSON web key for a `kid` that matches the `kid` of your JWT\.
@@ -114,7 +117,7 @@ The `use` parameter describes the intended use of the public key\. For this exam
 
    `https://cognito-idp.us-east-1.amazonaws.com/<userpoolID>`\.
 
-1. Check the `token_use` claim\. 
+1. Check the `token_use` claim\.
    + If you are only accepting the access token in your web API operations, its value must be `access`\.
    + If you are only using the ID token, its value must be `id`\.
    + If you are using both ID and access tokens, the `token_use` claim must be either `id` or `access`\.
