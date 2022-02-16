@@ -95,7 +95,7 @@ To sign in with external identity providers \(IdPs\), such as Facebook, Amazon, 
 
 **Create an app client**
 
-1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\. YIf prompted, enter your AWS credentials\.
+1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\. If prompted, enter your AWS credentials\.
 
 1. Choose **User Pools**\.
 
