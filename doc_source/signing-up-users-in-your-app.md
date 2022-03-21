@@ -104,7 +104,7 @@ If you don't verify your users' contact information, they may be unable to use y
 
 1. From the navigation pane, choose User Pools\. Choose an existing user pool from the list, or [create a user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-as-user-directory.html)\.
 
-1. Choose the **Messaging** tab and locate **Attribute verification and user account confirmation**\. Choose **Edit**\.
+1. Choose the **Sign-up experience** tab and locate **Attribute verification and user account confirmation**\. Choose **Edit**\.
 
 1. Choose whether you will activate**Cognito\-assisted verification and confirmation** to have Amazon Cognito send messages to the user contact attributes you choose when a user signs up, or you create a user profile\. The messages that Amazon Cognito sends provide users with a code or link that, after they have confirmed they received it, verifies the attribute and confirms the user profile for sign\-in\. 
 **Note**  
