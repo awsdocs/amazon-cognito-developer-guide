@@ -23,7 +23,7 @@ The request includes validation data from the client which comes from the `Valid
 
 ## Pre sign\-up Lambda trigger parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-signup"></a>
 
-These are the parameters required by this Lambda function in addition to the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-sample-event-parameter-shared)\.
+These are the parameters that Amazon Cognito passes to this Lambda function along with the event information in the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-syntax-shared)\.
 
 ------
 #### [ JSON ]
@@ -97,7 +97,7 @@ The pre sign\-up Lambda function is triggered before user sign\-up\. See these A
 
 ## Pre sign\-up example: Auto\-confirm users from a registered domain<a name="aws-lambda-triggers-pre-registration-example"></a>
 
-With the pre sign\-up Lambda trigger, You can add custom logic to validate new users signing up for your user pool\. This is a sample JavaScript program that demonstrates how to sign up a new user\. It will invoke a pre sign\-up Lambda trigger as part of the authentication\.
+With the pre sign\-up Lambda trigger, you can add custom logic to validate new users signing up for your user pool\. This is a sample JavaScript program that demonstrates how to sign up a new user\. It will invoke a pre sign\-up Lambda trigger as part of the authentication\.
 
 ------
 #### [ JavaScript ]
@@ -188,7 +188,7 @@ def lambda_handler(event, context):
 
 ------
 
-Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object back to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that’s relevant to your Lambda trigger\. The following is a test event for this code sample:
+Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that’s relevant to your Lambda trigger\. The following is a test event for this code sample:
 
 ------
 #### [ JSON ]
@@ -260,7 +260,7 @@ def lambda_handler(event, context):
 
 ------
 
-Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object back to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that’s relevant to your Lambda trigger\. The following is a test event for this code sample:
+Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that’s relevant to your Lambda trigger\. The following is a test event for this code sample:
 
 ------
 #### [ JSON ]

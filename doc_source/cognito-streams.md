@@ -56,9 +56,9 @@ Each record sent to the stream represents a single synchronization\. Here is an 
 }
 ```
 
-For updates that are larger than the Kinesis maximum payload size of 50 KB, a presigned Amazon S3 URL will be included that contains the full contents of the update\.
+For updates that are larger than the Kinesis maximum payload size of 1 MB, Amazon Cognito incudes a presigned Amazon S3 URL that contains the full contents of the update\.
 
-After you have configured Amazon Cognito streams, if you delete the Kinesis stream or change the role trust permission so that it can no longer be assumed by Amazon Cognito Sync, Amazon Cognito streams will be disabled\. You will need to either recreate the Kinesis stream or fix the role, and then you will need to reenable the stream\.
+After you have configured Amazon Cognito streams, if you delete the Kinesis stream or change the role trust permission so that Amazon Cognito Sync can no longer assume the role, you turn off the Amazon Cognito streams\. You must either recreate the Kinesis stream or fix the role, and then you must turn on the stream again\.
 
 **Bulk publishing**
 

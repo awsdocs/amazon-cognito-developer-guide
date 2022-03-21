@@ -14,7 +14,7 @@ The Amazon Cognito Hosted UI provides you an OAuth 2\.0 compliant authorization 
 
 If you use AWS Amplify to add authentication to your web or mobile app, you can set up your hosted UI by using the command line interface \(CLI\) and libraries in the AWS Amplify framework\. To add authentication to your app, you use the AWS Amplify CLI to add the `Auth` category to your project\. Then, in your client code, you use the AWS Amplify libraries to authenticate users with your Amazon Cognito user pool\.
 
-You can display a pre\-built hosted UI, or you can federate users through an OAuth 2\.0 endpoint that redirects to a social sign\-in provider, such as Facebook, Google, Amazon, or Apple\. After a user successfully authenticates with the social provider, AWS Amplify creates a new user in your user pool if needed, and then provides the user's OIDC token to you app\.
+You can display a pre\-built hosted UI, or you can federate users through an OAuth 2\.0 endpoint that redirects to a social sign\-in provider, such as Facebook, Google, Amazon, or Apple\. After a user successfully authenticates with the social provider, AWS Amplify creates a new user in your user pool if needed, and then provides the user's OIDC token to your app\.
 
 For more information, see the AWS Amplify framework documentation for your app platform:
 + [AWS Amplify authentication for JavaScript\.](https://aws-amplify.github.io/docs/js/authentication)
@@ -194,4 +194,4 @@ If changes to your hosted UI pages do not immediately appear, wait a few minutes
 Your domain is shown on the **Domain name** page\. Your app client ID and callback URL are shown on the **App client settings** page\.
 
 **Note**  
-The Amazon Cognito hosted sign\-in web page does not support the custom authentication flow\.
+The Amazon Cognito hosted UI does not support the custom authentication flow\.

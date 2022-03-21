@@ -1,29 +1,34 @@
 # Custom email Lambda trigger<a name="user-pool-lambda-custom-email-sender"></a>
 
-The `CustomEmailSender` trigger is invoked to enable a third\-party provider to send email notifications to your users from within your Lambda function code\. Using this trigger involves five main steps:
+Amazon Cognito invokes the `CustomEmailSender` trigger so that a third\-party provider can send email notifications to your users from within your Lambda function code\. Use this trigger as follows:
 
 **Note**  
 The `CustomEmailSender` trigger isn't available in the Amazon Cognito console\.
-+ Create a Lambda function for the `CustomEmailSender`\. Amazon Cognito uses the AWS Encryption SDK to encrypt the secrets \(temporary passwords or authorization codes\)\.
-+ Create an encryption key in AWS KMS\. This key will be used to encrypt temporary passwords and authorization codes that Amazon Cognito generates\. You can then decrypt these secrets in the custom sender Lambda function to send them to the end\-user in plain\-text\.
-+ Grant Amazon Cognito service principal cognito\-idp\.amazonaws\.com access to invoke the Lambda function\.
-+ Edit the code in your Lambda function to use customer senders or third\-party providers\.
-+ Update the existing user pool to add custom sender Lambda triggers\.
+
+1. Create a Lambda function for the `CustomEmailSender`\. Amazon Cognito uses the AWS Encryption SDK to encrypt the secrets \(temporary passwords or authorization codes\)\.
+
+1. Create an encryption key in AWS KMS\. Amazon Cognito uses this key to encrypt temporary passwords and authorization codes that Amazon Cognito generates\. You can then decrypt these secrets in the custom sender Lambda function and send them to the user in plaintext\.
+
+1. Grant Amazon Cognito service principal cognito\-idp\.amazonaws\.com permission to invoke the Lambda function\.
+
+1. Write code that uses custom senders or third\-party providers to your Lambda function\.
+
+1. Update the user pool so that it uses a custom sender Lambda trigger\.
 
 **Important**  
-For additional security, you must configure a symmetric customer master key in AWS KMS \(KMS\), when `CustomEmailSender` or `CustomSMSSender` is configured with your user pool\. Amazon Cognito uses your configured KMS key to encrypt codes or temporary passwords\. Amazon Cognito sends the base64 encoded ciphertext to your Lambda functions\. For more information see, [Symmetric customer master keys](/kms/latest/developerguide/symm-asymm-concepts.html#symmetric-cmks)
+When you configure `CustomEmailSender` or `CustomSMSSender` with your user pool, you must configure a symmetric AWS KMS key for additional security\. Amazon Cognito uses your configured KMS key to encrypt codes or temporary passwords\. Amazon Cognito sends the base64 encoded ciphertext to your Lambda functions\. For more information, see [Symmetric KMS keys](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#symmetric-cmks)\.
 
-## Enable the `CustomEmailSender` Lambda trigger<a name="enable-custom-email-sender-lambda-trigger"></a>
+## Activate the `CustomEmailSender` Lambda trigger<a name="enable-custom-email-sender-lambda-trigger"></a>
 
-You can enable the `CustomEmailSender` Lambda trigger using a Lambda function\.
+The `CustomEmailSender` trigger uses a Lambda function\.
 
 **Step 1: Create a Lambda function**  
 Create a Lambda function for the `CustomEmailSender` trigger\. Amazon Cognito uses the [AWS encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/introduction.html) to encrypt the secrets \(temporary passwords or authorization codes\)\.
 
 **Step 2: Create an encryption key in AWS KMS**  
-Create an encryption key in AWS KMS\. This key will be used to encrypt temporary passwords and authorization codes that Amazon Cognito generates\. You can then decrypt these secrets in the custom sender Lambda function to be able to send them to the end user in plaintext\.
+Create an encryption key in AWS KMS\. Amazon Cognito uses this key to encrypt temporary passwords and authorization codes that Amazon Cognito generates\. You can then decrypt these secrets in the custom sender Lambda function and send them to the user in plaintext\.
 
-**Step 3: Grant Amazon Cognito service principal cognito\-idp\.amazonaws\.com access to invoke the Lambda function**  
+**Step 3: Grant Amazon Cognito service principal cognito\-idp\.amazonaws\.com permission to invoke the Lambda function**  
 Use the following command:
 
 ```
@@ -31,7 +36,7 @@ Use the following command:
 ```
 
 **Step 4: Edit the code to use custom sender**  
-Amazon Cognito uses AWS Encryption SDK to encrypt secrets \(temporary passwords and authorization codes\) before sending them to the custom sender Lambda function\. You need to decrypt these secrets before sending them to end users using the custom provider of your choice\. To use the AWS Encryption SDK with your Lambda function, you need to package the SDK with your function\. For information, see [Installing the AWS encryption SDK for JavaScript](encryption-sdk/latest/developer-guide/javascript-installation.html)\. You can also update the Lambda package by completing the following steps\.
+Amazon Cognito uses AWS Encryption SDK to encrypt secrets \(temporary passwords and authorization codes\) before it sends the secrets to the custom sender Lambda function\. Decrypt these secrets before you send them to users\. You can choose a custom provider to send the email message\. To use the AWS Encryption SDK with your Lambda function, you must package the SDK with your function\. For more information, see [Installing the AWS encryption SDK for JavaScript](encryption-sdk/latest/developer-guide/javascript-installation.html)\. You can also update the Lambda package as follows:
 
 1. Export the Lambda function package from the console\.
 
@@ -103,15 +108,15 @@ The following Node\.js example shows how to use the `CustomEmailSender` Lambda f
 
 ## Custom email sender Lambda trigger sources<a name="trigger-source"></a>
 
-The following table shows the triggering event for custom email trigger sources in your Lambda code\.
+The following table shows the triggering events for custom email trigger sources in your Lambda code\.
 
 
 | `TriggerSource value` | Triggering event | 
 | --- | --- | 
-| CustomEmailSender\_SignUp | To send the confirmation code after sign\-up\. | 
-| CustomEmailSender\_ResendCode | To resend the temporary password to a new user\. | 
-| CustomEmailSender\_ForgotPassword | To resend the confirmation code to an existing user\. | 
-| CustomEmailSender\_UpdateUserAttribute | When a user's email is changed, this trigger sends a verification code automatically to the user\. Cannot be used for other attributes\. | 
-| CustomEmailSender\_VerifyUserAttribute | This trigger sends a verification code to the user when they manually request it for a new email address\. | 
-| CustomEmailSender\_AdminCreateUser | To send the temporary password to a new user\. | 
-| CustomEmailSender\_AccountTakeOverNotification | This trigger sends customers a notification when an attempt to take over their account has been detected\. | 
+| CustomEmailSender\_SignUp | A user signs up and Amazon Cognito sends a welcome message\. | 
+| CustomEmailSender\_ResendCode | A user requests a replacement code to reset their password\. | 
+| CustomEmailSender\_ForgotPassword | A user requests a code to reset their password\. | 
+| CustomEmailSender\_UpdateUserAttribute | A user updates an email address or phone number attribute and Amazon Cognito sends a code to verify the attribute\. | 
+| CustomEmailSender\_VerifyUserAttribute | A user creates a new email address or phone number attribute and Amazon Cognito sends a code to verify the attribute\. | 
+| CustomEmailSender\_AdminCreateUser | You create a new user in your user pool and Amazon Cognito sends them a temporary password\. | 
+| CustomEmailSender\_AccountTakeOverNotification | Amazon Cognito detects an attempt to take over a user account and sends the user a notification\. | 

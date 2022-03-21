@@ -24,6 +24,6 @@ With an identity pool, your users can obtain temporary AWS credentials to access
 
 ## Related resources<a name="tutorial-related-resources-2"></a>
 
-For more information on identity pools, see [Amazon Cognito identity pools \(federated Identities\)](cognito-identity.md)\.
+For more information on identity pools, see [Amazon Cognito identity pools \(federated identities\)](cognito-identity.md)\.
 
 For an example of using an identity pool with Amazon S3, see [Uploading Photos to Amazon S3 from a Browser](https://docs.aws.amazon.com/sdk-for-javascript/latest/developer-guide/s3-example-photo-album.html)\.
