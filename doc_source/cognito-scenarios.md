@@ -28,7 +28,7 @@ For more information, see [User pool authentication flow](amazon-cognito-user-po
 
 ## Access your server\-side resources with a user pool<a name="scenario-backend"></a>
 
-After a successful user pool sign\-in, your web or mobile app will receive user pool tokens from Amazon Cognito\. You can use those tokens to control access to your server\-side resources\. You can also create user pool groups to manage permissions, and to represent different types of users\. For more information on using groups to control access your resources see [Adding groups to a user pool](cognito-user-pools-user-groups.md)\. 
+After a successful user pool sign\-in, your web or mobile app will receive user pool tokens from Amazon Cognito\. You can use those tokens to control access to your server\-side resources\. You can also create user pool groups to manage permissions, and to represent different types of users\. For more information on using groups to control access to your resources see [Adding groups to a user pool](cognito-user-pools-user-groups.md)\. 
 
 ![\[Access your server-side resources through a user pool\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Access your server-side resources through a user pool\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Access your server-side resources through a user pool\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
