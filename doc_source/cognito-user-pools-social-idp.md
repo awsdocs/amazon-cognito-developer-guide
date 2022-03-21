@@ -17,7 +17,7 @@ Sign\-in through a third party \(federation\) is available in Amazon Cognito use
 
 ## Prerequisites<a name="cognito-user-pools-social-idp-prerequisites"></a>
 
-Before you begin, you need:
+Before you begin, you need the following:
 + A user pool with an app client and a user pool domain\. For more information, see [Create a user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-as-user-directory.html)\.
 + A social identity provider\.
 

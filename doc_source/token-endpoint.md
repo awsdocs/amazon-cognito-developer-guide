@@ -6,12 +6,16 @@ The `/oauth2/token` endpoint gets the user's tokens\.
 
 The `/oauth2/token` endpoint only supports `HTTPS POST`\. Your app makes requests to this endpoint directly, not through the user's browser\.
 
-For more information on the specification see [Token Endpoint](http://openid.net/specs/openid-connect-core-1_0.html#TokenEndpoint)\.
+For more information on the specification, see [Token Endpoint](http://openid.net/specs/openid-connect-core-1_0.html#TokenEndpoint)\.
 
 ### Request parameters in header<a name="post-token-request-parameters"></a>
 
 *Authorization*  
-If the client was issued a secret, the client must pass its `client_id` and `client_secret` in the authorization header through Basic HTTP authorization\. The secret is [Basic](https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side) `Base64Encode(client_id:client_secret)`\.
+If the client was issued a secret, the client must pass its `client_id` and `client_secret` in the authorization header through Basic HTTP authorization\. The authorization header string is [Basic](https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side) `Base64Encode(client_id:client_secret)`\. The following example is an authorization header for app client `djc98u3jiedmi283eu928` with client secret `abcdef01234567890`, using the Base64\-encoded version of the string `djc98u3jiedmi283eu928:abcdef01234567890`\.  
+
+```
+Authorization: Basic ZGpjOTh1M2ppZWRtaTI4M2V1OTI4OmFiY2RlZjAxMjM0NTY3ODkw
+```
 
 *Content\-Type*  
 Must always be `'application/x-www-form-urlencoded'`\.
@@ -20,7 +24,7 @@ Must always be `'application/x-www-form-urlencoded'`\.
 
 *grant\_type*  
 Grant type\.  
-Must be `authorization_code` or `refresh_token` or `client_credentials`\.  
+Must be `authorization_code` or `refresh_token` or `client_credentials`\. You can request an access token for a custom scope from the TOKEN endpoint when, in the app client, the requested scope is enabled, you have configured a client secret, and you have allowed `client_credentials` grants\.  
 Required\.
 
 *client\_id*  
@@ -200,4 +204,4 @@ Authorization code has been consumed already or does not exist\.
 Client is not allowed for code grant flow or for refreshing tokens\. 
 
 *unsupported\_grant\_type*  
-Returned if `grant_type` is anything other than `authorization_code` or `refresh_token`\. 
+Returned if `grant_type` is anything other than `authorization_code` or `refresh_token` or `client_credentials`\. 

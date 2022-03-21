@@ -1,6 +1,6 @@
 # Role\-based access control<a name="role-based-access-control"></a>
 
-Amazon Cognito identity pools assign your authenticated users a set of temporary, limited privilege credentials to access your AWS resources\. The permissions for each user are controlled through [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) that you create\. You can define rules to choose the role for each user based on claims in the user's ID token\. You can define a default role for authenticated users\. You can also define a separate IAM role with limited permissions for guest users who are not authenticated\.
+Amazon Cognito identity pools assign your authenticated users a set of temporary, limited\-privilege credentials to access your AWS resources\. The permissions for each user are controlled through [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) that you create\. You can define rules to choose the role for each user based on claims in the user's ID token\. You can define a default role for authenticated users\. You can also define a separate IAM role with limited permissions for guest users who are not authenticated\.
 
 ## Creating roles for role mapping<a name="creating-roles-for-role-mapping"></a>
 
@@ -30,7 +30,7 @@ It is important to add the appropriate trust policy for each role so that it can
 }
 ```
 
-This policy allows federated users from `cognito-identity.amazonaws.com` \(the issuer of the OpenID Connect token\) to assume this role\. Additionally, the policy restricts the `aud` of the token, in this case the identity pool ID, to match the identity pool\. Finally, the policy specifies that the `amr` of the token contains the value `authenticated`\.
+This policy allows federated users from `cognito-identity.amazonaws.com` \(the issuer of the OpenID Connect token\) to assume this role\. Additionally, the policy restricts the `aud` of the token, in this case the identity pool ID, to match the identity pool\. Finally, the policy specifies that one of the array members of the multi\-value `amr` claim of the token issued by the Amazon Cognito `GetOpenIdToken` API action has the value `authenticated`\.
 
 ## Granting pass role permission<a name="granting-pass-role-permission"></a>
 
@@ -54,7 +54,7 @@ To allow an IAM user to set roles with permissions in excess of the user's exist
 }
 ```
 
-In this policy example, the `iam:PassRole` permission is granted for the `myS3WriteAccessRole` role\. The role is specified using the role's ARN\. You must also attach this policy to your IAM user or role to which your user belongs\. For more information, see [Working with Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html)\.
+In this policy example, the `iam:PassRole` permission is granted for the `myS3WriteAccessRole` role\. The role is specified using the role's Amazon Resource Name \(ARN\)\. You must also attach this policy to your IAM user or role to which your user belongs\. For more information, see [Working with Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html)\.
 
 **Note**  
 Lambda functions use resource\-based policy, where the policy is attached directly to the Lambda function itself\. When creating a rule that invokes a Lambda function, you do not pass a role, so the user creating the rule does not need the `iam:PassRole` permission\. For more information about Lambda function authorization, see [Manage Permissions: Using a Lambda Function Policy](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#intro-permission-model-access-policy)\.
@@ -89,7 +89,43 @@ You can set multiple rules for an authentication provider in the identity pool \
 
 In the API and CLI, you can specify the role to be assigned when no rules match in the `AmbiguousRoleResolution` field of the [RoleMapping](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_RoleMapping.html) type, which is specified in the `RoleMappings` parameter of the [SetIdentityPoolRoles](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_SetIdentityPoolRoles.html) API\.
 
-For each user pool or other authentication provider configured for an identity pool, you can create up to 25 rules\. If you need more than 25 rules for a provider, please open a [Service Limit Increase](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html) support case\.
+You can set up rule\-based mapping for OpenID Connect \(OIDC\) and SAML identity providers in the AWS CLI or API with the `RulesConfiguration` field of the [RoleMapping](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_RoleMapping.html) type\. You can specify this field in the `RoleMappings` parameter of the [SetIdentityPoolRoles](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_SetIdentityPoolRoles.html) API\. The AWS Management Console currently doesn't allow you to add rules for OIDC or SAML providers\.
+
+For example, the following AWS CLI command adds a rule that assigns the role `arn:aws:iam::123456789012:role/Sacramento_team_S3_admin` to users in your Sacramento location who were authenticated by OIDC IdP `arn:aws:iam::123456789012:oidc-provider/myOIDCIdP`:
+
+```
+aws cognito-identity set-identity-pool-roles --region us-east-1 --cli-input-json file://role-mapping.json
+```
+
+**Contents of `role-mapping.json`**:
+
+```
+{
+    "IdentityPoolId": "us-east-1:12345678-corner-cafe-123456790ab",
+    "Roles": {
+        "authenticated": "arn:aws:iam::123456789012:role/myS3WriteAccessRole",
+        "unauthenticated": "arn:aws:iam::123456789012:role/myS3ReadAccessRole"
+    },
+    "RoleMappings": {
+        "arn:aws:iam::123456789012:oidc-provider/myOIDCIdP": {
+            "Type": "Rules",
+            "AmbiguousRoleResolution": "AuthenticatedRole",
+            "RulesConfiguration": {
+                "Rules": [
+                    {
+                        "Claim": "locale",
+                        "MatchType": "Equals",
+                        "Value": "Sacramento",
+                        "RoleARN": "arn:aws:iam::123456789012:role/Sacramento_team_S3_admin"
+                    }
+                ]
+            }
+        }
+    }
+}
+```
+
+For each user pool or other authentication provider that you configure for an identity pool, you can create up to 25 rules\. This limit is not adjustable\. For more information, see [Quotas in Amazon Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)\.
 
 ## Token claims to use in rule\-based mapping<a name="token-claims-for-role-based-access-control"></a>
 

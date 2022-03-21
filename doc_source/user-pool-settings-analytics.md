@@ -8,7 +8,7 @@ Using Amazon Pinpoint Analytics, you can track Amazon Cognito user pools sign\-u
 In the **Analytics** tab, you can specify an Amazon Pinpoint project for your Amazon Cognito app client\. For more information, see [Using Amazon Pinpoint Analytics with Amazon Cognito user pools](cognito-user-pools-pinpoint-integration.md)\.
 
 **Note**  
- Amazon Pinpoint is available in several AWS Regions in North America, Europe, Asia, and Oceania\. Amazon Pinpoint regions include the Amazon Pinpoint API\. If a Amazon Pinpoint region is supported by Amazon Cognito, then Amazon Cognito will send events to Amazon Pinpoint projects within the *same* Amazon Pinpoint region\. If a region *isn't* supported by Amazon Pinpoint, then Amazon Cognito will *only* support sending events in us\-east\-1\. For Amazon Pinpoint detailed region information, see [Amazon Pinpoint endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/pinpoint.html) and [Using Amazon Pinpoint analytics with Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-pinpoint-integration.html)\. 
+ Amazon Pinpoint is available in several AWS Regions in North America, Europe, Asia, and Oceania\. Amazon Pinpoint Regions include the Amazon Pinpoint API\. If an Amazon Pinpoint region is supported by Amazon Cognito, then Amazon Cognito will send events to Amazon Pinpoint projects within the *same* Amazon Pinpoint region\. If a region *isn't* supported by Amazon Pinpoint, then Amazon Cognito will *only* support sending events in us\-east\-1\. For Amazon Pinpoint detailed region information, see [Amazon Pinpoint endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/pinpoint.html) and [Using Amazon Pinpoint analytics with Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-pinpoint-integration.html)\. 
 
 **To add analytics and campaigns**
 
@@ -24,7 +24,7 @@ In Amazon Pinpoint, each project should be a single app\. For example, if a game
 
 1. Choose **Share user attribute data with Amazon Pinpoint** if you want Amazon Cognito to send email addresses and phone numbers to Amazon Pinpoint in order to create additional endpoints for users\.
 **Note**  
-An *endpoint* uniquely identifies a user device to which you can send push notifications with Amazon Pinpoint\. For more information about endpoints, see [Adding endpoints](https://docs.aws.amazon.com/pinpoint/latest/developerguide/endpoints.html)in the *Amazon Pinpoint Developer Guide*\.
+An *endpoint* uniquely identifies a user device where you can send push notifications with Amazon Pinpoint\. For more information about endpoints, see [Adding endpoints to Amazon Pinpoint](https://docs.aws.amazon.com/pinpoint/latest/developerguide/audience-define-endpoints.html) in the *Amazon Pinpoint Developer Guide*\.
 
 1. Enter an **IAM role** that you already created or choose **Create new role** to create a new role in the IAM console\.
 

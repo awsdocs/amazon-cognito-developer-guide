@@ -1,11 +1,11 @@
 # Signing up and confirming user accounts<a name="signing-up-users-in-your-app"></a>
 
 User accounts are added to your user pool in one of the following ways:
-+ The user signs up in your user pool's client app, which can be a mobile or web app\.
++ The user signs up in your user pool's client app\. This can be a mobile or web app\.
 + You can import the user's account into your user pool\. For more information, see [Importing users into user pools from a CSV file](cognito-user-pools-using-import-tool.md)\.
 + You can create the user's account in your user pool and invite the user to sign in\. For more information, see [Creating user accounts as administrator](how-to-create-user-accounts.md)\.
 
-Users who sign themselves up need to be confirmed before they can sign in\. Imported and created users are already confirmed, but they need to create their password the first time they sign in\. The following sections explain the confirmation process and email and phone verification\.
+Users who sign themselves up need to be confirmed before they can sign in\. Imported and created users are already confirmed, but they must create their password the first time they sign in\. The following sections explain the confirmation process and email and phone verification\.
 
 ## Overview of user account confirmation<a name="signup-confirmation-verification-overview"></a>
 
@@ -106,7 +106,7 @@ If you don't verify your users' contact information, they may be unable to use y
 
 1. Choose the **Messaging** tab and locate **Attribute verification and user account confirmation**\. Choose **Edit**\.
 
-1. Choose whether you will enable **Cognito\-assisted verification and confirmation** to have Amazon Cognito send messages to the user contact attributes you choose when a user signs up, or you create a user profile\. The messages that Amazon Cognito sends provide users with a code or link that, after they have confirmed they received it, verifies the attribute and confirms the user profile for sign\-in\. 
+1. Choose whether you will activate**Cognito\-assisted verification and confirmation** to have Amazon Cognito send messages to the user contact attributes you choose when a user signs up, or you create a user profile\. The messages that Amazon Cognito sends provide users with a code or link that, after they have confirmed they received it, verifies the attribute and confirms the user profile for sign\-in\. 
 **Note**  
 You can also disable **Cognito\-assisted verification and confirmation** and use authenticated API actions or Lambda triggers to verify attributes and confirm users\.  
 If you choose this option, Amazon Cognito doesn't send verification codes when users sign up\. Choose this option if you are using a custom authentication flow that verifies at least one contact method without using verification codes from Amazon Cognito\. For example, you might use a pre sign\-up Lambda trigger that automatically verifies email addresses that belong to a specific domain\.  
@@ -199,7 +199,9 @@ The `SecretHash` value is a Base 64\-encoded keyed\-hash message authentication 
 Base64 ( HMAC_SHA256 ( "Client Secret Key", "Username" + "Client Id" ) )
 ```
 
-Alternatively, you can use the following code example in your server\-side Java application code:
+For a detailed overview of how to caculate and use the `SecretHash` parameter, see [How do I troubleshoot "Unable to verify secret hash for client <client\-id>" errors from my Amazon Cognito user pools API?](https://aws.amazon.com/premiumsupport/knowledge-center/cognito-unable-to-verify-secret-hash/) in the AWS Knowledge Center\.
+
+You can use the following code example in your server\-side Java application code:
 
 ```
 import javax.crypto.Mac;

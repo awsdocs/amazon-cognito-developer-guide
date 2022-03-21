@@ -77,7 +77,7 @@ Now, your Lambda function will be executed each time a dataset is synchronized\.
 
 **Writing a Lambda function for sync triggers**
 
-Sync triggers follow the service provider interface programming paradigm\. Amazon Cognito will provide input in the following JSON format to your Lambda function\.
+Sync triggers follow the programming pattern that service provider interfaces use\. Amazon Cognito provides input to your Lambda function in the following JSON format\.
 
 ```
 {
@@ -102,23 +102,23 @@ Sync triggers follow the service provider interface programming paradigm\. Amazo
 }
 ```
 
-Amazon Cognito expects the return value of the function in the same format as the input\. A complete example is provided below\.
+Amazon Cognito expects the return value of the function to have the same format as the input\.
 
-Some key points to keep in mind when writing functions for the Sync Trigger event:
-+ When your Lambda function is invoked during UpdateRecords, it must respond within 5 seconds\. If it does not, the Amazon Cognito Sync service throws a `LambdaSocketTimeoutException` exception\. It is not possible to increase this timeout value\.
-+ If you get a `LambdaThrottledException` exception, you should retry the sync operation \(update records\)\.
-+ Amazon Cognito will provide all the records present in the dataset as input to the function\.
-+ Records updated by the app user will have the 'op' field set as “replace” and the records deleted will have 'op' field as "remove"\.
-+ You can modify any record, even if it is not updated by the app user\.
-+ All the fields except the datasetRecords are read only and should not be changed\. Changing these fields will result in a failure to update the records\.
-+ To modify the value of a record, simply update the value and set the 'op' to "replace"\.
-+ To remove a record, either set the ‘op’ to remove or set the value to null\.
-+ To add a record, simply add a new record to the datasetRecords array\.
-+ Any omitted record in the response will be ignored for the update\.
+When you write functions for the Sync Trigger event, observe the following:
++ When Amazon Cognito calls your Lambda function during UpdateRecords, the function must respond within 5 seconds\. If it doesn't, the Amazon Cognito Sync service generates a `LambdaSocketTimeoutException` exception\. You can't increase this timeout value\.
++ If you get a `LambdaThrottledException` exception, try the sync operation again to update the records\.
++ Amazon Cognito provides all the records present in the dataset as input to the function\.
++ Records that the app user updates have the `op` field set as `replace`\. The deleted records have `op` field set as `remove`\.
++ You can modify any record, even if the app user doesn't update the record\.
++ All the fields except the datasetRecords are read\-only\. Do not change them\. If you change these fields, you can't update the records\.
++ To modify the value of a record, update the value and set the `op` to `replace`\.
++ To remove a record, either set the `op` to `remove`, or set the value to null\.
++ To add a record, add a new record to the datasetRecords array\.
++ Amazon Cognito ignores any omitted record in the response when Amazon Cognitoupdates the record\.
 
 **Sample Lambda function**
 
-Here is a sample Lambda function showing how to access, modify and remove the data\.
+The following sample Lambda function shows how to access, modify and remove the data\.
 
 ```
 console.log('Loading function');

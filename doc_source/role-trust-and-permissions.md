@@ -1,6 +1,6 @@
 # Role trust and permissions<a name="role-trust-and-permissions"></a>
 
-The way these roles differ is in their trust relationships\. Let's take a look at an example trust policy for an unauthenticated role:
+The way these roles differ is in their trust relationships\. The following is an example trust policy for an unauthenticated role:
 
 ```
 {
@@ -26,9 +26,9 @@ The way these roles differ is in their trust relationships\. Let's take a look a
 }
 ```
 
-This policy defines that we want to allow federated users from `cognito-identity.amazonaws.com` \(the issuer of the OpenID Connect token\) to assume this role\. Additionally, we make the restriction that the aud of the token, in our case the identity pool ID, matches our identity pool\. Finally, we specify that the amr of the token contains the value unauthenticated\.
+This policy grants federated users from `cognito-identity.amazonaws.com` \(the issuer of the OpenID Connect token\) permission to assume this role\. Additionally, the policy restricts the `aud` of the token, in this case the identity pool ID, to match the identity pool\. Finally, the policy specifies that one of the array members of the multi\-value `amr` claim of the token issued by the Amazon Cognito `GetOpenIdToken` API operation has the value `unauthenticated`\.
 
-When Amazon Cognito creates a token, it will set the `amr` of the token to be either "unauthenticated" or "authenticated" and in the authenticated case will include any providers used during authentication\. This means you can create a role that trusts only users that logged in via Facebook, simply by changing the amr clause to look like the following:
+When Amazon Cognito creates a token, it sets the `amr` of the token as either `unauthenticated` or `authenticated`\. If `amr` is `authenticated`, the token includes any providers used during authentication\. This means that you can create a role that trusts only users that logged in via Facebook by changing the `amr` condition as shown:
 
 ```
 "ForAnyValue:StringLike": {
@@ -36,10 +36,10 @@ When Amazon Cognito creates a token, it will set the `amr` of the token to be ei
 }
 ```
 
-Be careful when changing your trust relationships on your roles, or when trying to use roles across identity pools\. If your role is not configured to correctly trust your identity pool, you will see an exception from STS like the following:
+Be careful when changing your trust relationships on your roles, or when trying to use roles across identity pools\. If you don't configure your role correctly to trust your identity pool, an exception from STS results, like the following:
 
 ```
 AccessDenied -- Not authorized to perform sts:AssumeRoleWithWebIdentity
 ```
 
-If you see this, double check that you are using an appropriate role for your identity pool and authentication type\.
+If you see this message, check that your identity pool and authentication type have an appropriate role\.

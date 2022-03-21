@@ -88,10 +88,6 @@ Select **Client credentials** only if your app needs to request access tokens on
 
 1. Customize **token expiration**, **Advanced security configuration**, and **Attribute read and write permissions** as needed\. For more information, see [Configuring App Client Settings](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-app-settings.html)\.
 
-1. Choose **Create**\.
-
-1. In the **App client** screen, select **Edit** next to **Hosted UI settings**\.
-
 1. **Add a callback URL** for your app client\. This is where you will be directed after hosted UI authentication\. You do not need to add an **Allowed sign\-out URL** until you are able to implement sign\-out in your app\.
 
    For an iOS or Android app, you can use a callback URL such as `myapp://`\.
@@ -111,13 +107,7 @@ Select **Client credentials** only if your app needs to request access tokens on
 
 1. Select any **Custom scopes** you have configured\. Custom scopes are typically used with confidential clients\.
 
-1. Choose **Save changes**\.
-
-1. On the **Domain name** page, type a domain prefix that's available\.
-
-1. Make a note of the complete domain address\.
-
-1. Choose **Save changes**\.
+1. Choose **Create**\.
 
 ------
 

@@ -1,8 +1,8 @@
 # Migrate user Lambda trigger<a name="user-pool-lambda-migrate-user"></a>
 
-Amazon Cognito invokes this trigger when a user does not exist in the user pool at the time of sign\-in with a password, or in the forgot\-password flow\. After the Lambda function returns successfully, Amazon Cognito creates the user in the user pool\. For details on the authentication flow with the user migration Lambda trigger see [Importing users into user pools with a user migration Lambda trigger](cognito-user-pools-import-using-lambda.md)\.
+When a user doesn't exist in the user pool at sign\-in with a password, or in the forgot\-password flow, Amazon Cognito invokes this trigger\. After the Lambda function returns successfully, Amazon Cognito creates the user in the user pool\. For details on the authentication flow with the user migration Lambda trigger, see [Importing users into user pools with a user migration Lambda trigger](cognito-user-pools-import-using-lambda.md)\.
 
-You can migrate users from your existing user directory into Amazon Cognito user pools at the time of sign\-in, or during the forgot\-password flow with this Lambda trigger\.
+To migrate users from your existing user directory into Amazon Cognito user pools at sign\-in, or during the forgot\-password flow, use this Lambda trigger\.
 
 **Topics**
 + [Migrate user Lambda trigger sources](#user-pool-lambda-migrate-user-trigger-source)
@@ -14,12 +14,12 @@ You can migrate users from your existing user directory into Amazon Cognito user
 
 | triggerSource value | Triggering event | 
 | --- | --- | 
-| UserMigration\_Authentication | User migration at the time of sign in\. | 
+| UserMigration\_Authentication | User migration at sign\-in\. | 
 | UserMigration\_ForgotPassword | User migration during forgot\-password flow\. | 
 
 ## Migrate user Lambda trigger parameters<a name="cognito-user-pools-lambda-trigger-syntax-user-migration"></a>
 
-These are the parameters required by this Lambda function in addition to the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-sample-event-parameter-shared)\.
+These are the parameters that Amazon Cognito passes to this Lambda function along with the event information in the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-syntax-shared)\.
 
 ------
 #### [ JSON ]
@@ -34,7 +34,7 @@ These are the parameters required by this Lambda function in addition to the [co
             . . .
         },
         "clientMetadata": {
-      	"string": "string",
+            "string": "string",
       	. . .
         }
     },
@@ -56,40 +56,40 @@ These are the parameters required by this Lambda function in addition to the [co
 ### Migrate user request parameters<a name="cognito-user-pools-lambda-trigger-syntax-user-migration-request"></a>
 
 **userName**  
-The username entered by the user\.
+The username that the user enters at sign\-in\.
 
 **password**  
-The password entered by the user for sign\-in\. It is not set in the forgot\-password flow\.
+The password that the user enters at sign\-in\. Amazon Cognito doesn't send this value in a request that's initiated by a forgot\-password flow\.
 
 **validationData**  
-One or more key\-value pairs containing the validation data in the user's sign\-in request\. You can pass this data to your Lambda function by using the ClientMetadata parameter in the [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html) and [AdminInitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) API actions\.
+One or more key\-value pairs that contain the validation data in the user's sign\-in request\. To pass this data to your Lambda function, you can use the ClientMetadata parameter in the [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html) and [AdminInitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) API actions\.
 
 **clientMetadata**  
-One or more key\-value pairs that you can provide as custom input to the Lambda function that you specify for the migrate user trigger\. You can pass this data to your Lambda function by using the ClientMetadata parameter in the [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) and [ForgotPassword](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html) API actions\.
+One or more key\-value pairs that you can provide as custom input to the Lambda function for the migrate user trigger\. To pass this data to your Lambda function, you can use the ClientMetadata parameter in the [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) and [ForgotPassword](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html) API actions\.
 
 ### Migrate user response parameters<a name="cognito-user-pools-lambda-trigger-syntax-user-migration-response"></a>
 
 **userAttributes**  
 This field is required\.   
-It must contain one or more name\-value pairs representing user attributes to be stored in the user profile in your user pool\. You can include both standard and custom user attributes\. Custom attributes require the `custom:` prefix to distinguish them from standard attributes\. For more information see [Custom attributes](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html#user-pool-settings-custom-attributes.html)\.  
-In order for users to reset their passwords in the forgot\-password flow, they must have either a verified email or a verified phone number\. Amazon Cognito sends a message containing a reset password code to the email or phone number in the user attributes\.     
+This field must contain one or more name\-value pairs that Amazon Cognito stores in the user profile in your user pool and uses as user attributes\. You can include both standard and custom user attributes\. Custom attributes require the `custom:` prefix to distinguish them from standard attributes\. For more information, see [Custom attributes](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html#user-pool-settings-custom-attributes.html)\.  
+To reset their passwords in the forgot\-password flow, a user must have either a verified email address or a verified phone number\. Amazon Cognito sends a message containing a reset password code to the email address or phone number in the user attributes\.     
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-migrate-user.html)
 
 **finalUserStatus**  
-During sign\-in, this attribute can be set to `CONFIRMED`, or not set, to auto\-confirm your users and allow them to sign\-in with their previous passwords\. This is the simplest experience for the user\.  
-If this attribute is set to RESET\_REQUIRED, the user is required to change his or her password immediately after migration at the time of sign\-in, and your client app needs to handle the `PasswordResetRequiredException` during the authentication flow\.  
-The password strength policy that is configured for the user pool will not be enforced during migration using Lambda trigger\. If the password doesn't meet the configured password policy, it will still be accepted to allow user migration to continue\. To enforce password strength policy and reject passwords that don't meet the policy, validate the password strength in your code\. Then set finalUserStatus to RESET\_REQUIRED if the password doesn't meet the policy\. 
+You can set this parameter to `CONFIRMED` to auto\-confirm your users so that they can sign in with their previous passwords\. When you set a user to `CONFIRMED`, they do not need to take additional action before they can sign in\. If you don't set this attribute to `CONFIRMED`, it's set to `RESET_REQUIRED`\.  
+A `finalUserStatus` of `RESET_REQUIRED` means that the user must change their password immediately after migration at sign\-in, and your client app must handle the `PasswordResetRequiredException` during the authentication flow\.  
+Amazon Cognito doesn't enforce the password strength policy that you configured for the user pool during migration using Lambda trigger\. If the password doesn't meet the password policy that you configured, Amazon Cognito still accepts the password so that it can continue to migrate the user\. To enforce password strength policy and reject passwords that don't meet the policy, validate the password strength in your code\. Then, if the password doesn't meet the policy, set finalUserStatus to `RESET_REQUIRED`\.
 
 **messageAction**  
-This attribute can be set to "SUPPRESS" to suppress the welcome message usually sent by Amazon Cognito to new users\. If this attribute is not returned, the welcome message will be sent\.
+You can set this parameter to `SUPPRESS` to decline to send the welcome message that Amazon Cognito usually sends to new users\. If your function doesn't return this parameter, Amazon Cognito sends the welcome message\.
 
 **desiredDeliveryMediums**  
-This attribute can be set to "EMAIL" to send the welcome message by email, or "SMS" to send the welcome message by SMS\. If this attribute is not returned, the welcome message will be sent by SMS\.
+You can set this parameter to `EMAIL` to send the welcome message by email, or `SMS` to send the welcome message by SMS\. If your function doesn't return this parameter, Amazon Cognito sends the welcome message by SMS\.
 
 **forceAliasCreation**  
-If this parameter is set to "true" and the phone number or email address specified in the UserAttributes parameter already exists as an alias with a different user, the API call will migrate the alias from the previous user to the newly created user\. The previous user will no longer be able to log in using that alias\.  
-If this attribute is set to "false" and the alias exists, the user will not be migrated, and an error is returned to the client app\.  
-If this attribute is not returned, it is assumed to be "false"\.
+If you set this parameter to `TRUE` and the phone number or email address in the UserAttributes parameter already exists as an alias with a different user, the API call migrates the alias from the previous user to the newly created user\. The previous user can no longer log in using that alias\.  
+If you set this parameter to `FALSE` and the alias exists, Amazon Cognito doesn't migrate the user and returns an error to the client app\.  
+If you don't return this parameter, Amazon Cognito assumes its value is "false"\.
 
 ## Example: Migrate a user with an existing password<a name="aws-lambda-triggers-user-migration-example-1"></a>
 
