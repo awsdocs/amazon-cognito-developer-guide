@@ -24,7 +24,7 @@ The AWS Mobile SDKs have additional APIs to see remembered devices \([ListDevice
 
 ## Using remembered devices to suppress multi factor authentication \(MFA\)<a name="amazon-cognito-user-pools-using-remembered-devices-to-suppress-mfa"></a>
 
-If you have selected either **Always** or **User Opt\-In**, you also can suppress MFA challenges on remembered devices for the users of your application\. To use this feature, you must enable MFA for your user pool\. For more information, see [Adding multi\-factor authentication \(MFA\) to a user pool](user-pool-settings-mfa.md)\.
+If you have selected either **Always** or **User Opt\-In**, you also can suppress MFA challenges on remembered devices for the users of your application\. To use this feature, you must enable MFA for your user pool\. For more information, see [Adding MFA to a user pool](user-pool-settings-mfa.md)\.
 
 **Note**  
 If the device remembering feature is set to **Always** and **Do you want to use a remembered device to suppress the second factor during multi\-factor authentication \(MFA\)?** is set to **Yes**, then the MFA settings for medium/high risks in risk\-based MFA are ignored\. 

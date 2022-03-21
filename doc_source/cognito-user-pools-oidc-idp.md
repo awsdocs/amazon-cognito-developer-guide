@@ -18,9 +18,12 @@ You can add an OIDC IdP to your user pool in the AWS Management Console, with th
 
 ## Prerequisites<a name="cognito-user-pools-oidc-idp-prerequisites"></a>
 
-Before you begin, you need:
-+ A user pool with an application client and a user pool domain\. For more information, see [Create a user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-as-user-directory.html)\.
-+ An OIDC IdP\.
+Before you begin, you need the following:
++ A user pool with an app client and a user pool domain\. For more information, see [Create a user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-as-user-directory.html)\.
++ An OIDC IdP with the following configuration: 
+  + Supports `client_secret_post` client authentication\. Amazon Cognito doesn't check the `token_endpoint_auth_methods_supported` claim at the OIDC discovery endpoint for your IdP\. Amazon Cognito doesn't support `client_secret_basic` client authentication\. For more information on client authentication, see [Client Authentication](https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication) in the OpenID Connect documentation\.
+  + Only uses HTTPS for OIDC endpoints such as `openid_configuration`, `userInfo`, and `jwks_uri`\.
+  +  Only uses TCP ports 80 and 443 for OIDC endpoints\.
 
 ## Step 1: Register with an OIDC IdP<a name="cognito-user-pools-oidc-idp-step-1"></a>
 

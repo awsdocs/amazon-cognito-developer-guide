@@ -1,6 +1,6 @@
 # Message templates<a name="cognito-user-pool-settings-message-templates"></a>
 
-Message templates allow you to insert a field into your message using a placeholder that will be replaced with the corresponding value\.
+You can use message templates to insert fields into your messages using placeholders that the corresponding values replace\.
 
 
 **Template placeholders**  
@@ -12,12 +12,15 @@ Message templates allow you to insert a field into your message using a placehol
 | User name | \{username\} | 
 
 **Note**  
-\{username\} can't be used in verification emails\. \{username\} is available for invitation emails sent after AdminCreateUser call\. These invitation emails provide two place holders: username \{username\} and temporary password \{\#\#\#\#\} 
+You can't use the `{username}` placeholder in verification email messages\. You can use the `{username}` placeholder in invitation email messages that you generate with the [AdminCreateUser](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminCreateUser.html) operation\. These invitation email messages use two placeholders: the user name, as `{username}`, and the temporary password, as `{####}`\. 
 
-You can use advanced security template placeholders to:
-+ Include specific details about an event such as IP address, city, country, login time, and device name, for analysis by Amazon Cognito advanced security features\.
+You can use advanced security template placeholders to do the following:
++ Include specific details about an event such as IP address, city, country, sign\-in time, and device name\. Amazon Cognito advanced security features can analyze these details\.
 + Verify whether a one\-click link is valid\.
-+ Build your own one\-click link using event ID, feedback token, and username\.
++ Use event ID, feedback token, and user name to build your own one\-click link\.
+
+**Note**  
+To generate one\-clink links and use the `{one-click-link-valid}` and `{one-click-link-invalid}` placeholders in advanced security email templates, you must already have a domain configured for your user pool\.
 
 
 **Advanced security template placeholders**  
@@ -27,9 +30,9 @@ You can use advanced security template placeholders to:
 | IP address | \{ip\-address\} | 
 | City | \{city\} | 
 | Country | \{country\} | 
-| Login time | \{login\-time\} | 
+| Log\-in time | \{login\-time\} | 
 | Device name | \{device\-name\} | 
-| One click link is valid | \{one\-click\-link\-valid\} | 
-| One click link is invalid | \{one\-click\-link\-invalid\} | 
+| One\-click link is valid | \{one\-click\-link\-valid\} | 
+| One\-click link is not valid | \{one\-click\-link\-invalid\} | 
 | Event ID | \{event\-id\} | 
 | Feedback token | \{feedback\-token\} | 

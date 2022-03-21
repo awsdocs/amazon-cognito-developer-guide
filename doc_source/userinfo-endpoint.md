@@ -6,7 +6,7 @@ The `/oauth2/userInfo` endpoint returns information about the authenticated user
 
 The user pool client makes requests to this endpoint directly and not through a browser\.
 
-For more information see [UserInfo Endpoint](http://openid.net/specs/openid-connect-core-1_0.html#UserInfo) in the OpenID Connect \(OIDC\) specification\.
+For more information, see [UserInfo Endpoint](http://openid.net/specs/openid-connect-core-1_0.html#UserInfo) in the OpenID Connect \(OIDC\) specification\.
 
 **Topics**
 + [GET /oauth2/userInfo](#get-userinfo)
@@ -43,7 +43,7 @@ HTTP/1.1 200 OK
                        }
 ```
 
-For a list of OIDC claims see [Standard Claims](http://openid.net/specs/openid-connect-core-1_0.html#StandardClaims)\.
+For a list of OIDC claims, see [Standard Claims](http://openid.net/specs/openid-connect-core-1_0.html#StandardClaims)\.
 
 ## Sample negative responses<a name="get-userinfo-negative"></a>
 

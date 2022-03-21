@@ -1,4 +1,4 @@
-# Amazon Cognito identity pools \(federated Identities\)<a name="cognito-identity"></a>
+# Amazon Cognito identity pools \(federated identities\)<a name="cognito-identity"></a>
 
 Amazon Cognito identity pools \(federated identities\) enable you to create unique identities for your users and federate them with identity providers\. With an identity pool, you can obtain temporary, limited\-privilege AWS credentials to access other AWS services\. Amazon Cognito identity pools support the following identity providers:
 + Public providers: [Login with Amazon \(identity pools\)](amazon.md), [Facebook \(identity pools\)](facebook.md), [Google \(identity pools\)](google.md), [Sign in with Apple \(identity pools\)](apple.md)\.
@@ -7,7 +7,7 @@ Amazon Cognito identity pools \(federated identities\) enable you to create uniq
 + [SAML identity providers \(identity pools\)](saml-identity-provider.md)
 + [Developer authenticated identities \(identity pools\)](developer-authenticated-identities.md)
 
-For information about Amazon Cognito identity pools region availability, see [AWS Service Region Availability](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)\. 
+For information about Amazon Cognito identity pools region availability, see [AWS Service Region Availability](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)\.
 
 For more information about Amazon Cognito identity pools, see the following topics\.
 

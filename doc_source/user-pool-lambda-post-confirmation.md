@@ -26,7 +26,7 @@ The request contains the current attributes for the confirmed user\.
 
 ## Post confirmation Lambda trigger parameters<a name="cognito-user-pools-lambda-trigger-syntax-post-confirmation"></a>
 
-These are the parameters required by this Lambda function in addition to the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-sample-event-parameter-shared)\.
+These are the parameters that Amazon Cognito passes to this Lambda function along with the event information in the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-syntax-shared)\.
 
 ------
 #### [ JSON ]
@@ -133,7 +133,7 @@ function sendEmail(to, body, completedCallback) {
 
 ------
 
-Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object back to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that’s relevant to your Lambda trigger\. The following is a test event for this code sample:
+Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that’s relevant to your Lambda trigger\. The following is a test event for this code sample:
 
 ------
 #### [ JSON ]

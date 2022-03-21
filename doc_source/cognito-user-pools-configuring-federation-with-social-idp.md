@@ -158,7 +158,7 @@ Before you create a social IdP with Amazon Cognito, you must register your appli
 
    1. Under **Capabilities**, choose **Sign In with Apple**, and then choose **Edit**\.
 
-   1. On the **Sign in with Apple: App ID Configuration** page, select the appropriate setting for you app, and then choose **Save**\.
+   1. On the **Sign in with Apple: App ID Configuration** page, select the appropriate setting for your app, and then choose **Save**\.
 
    1. Choose **Continue**\.
 
@@ -223,7 +223,7 @@ In this section, you configure a social IdP in your user pool using the client I
 
 1. Choose from the following steps, based on your choice of social identity provider:
    + **Google** and **Login with Amazon** — Enter the **app client ID** and **app client secret** generated in the previous section\.
-   + **Facebook** — Enter the **app client ID** and **app client secret** generated in the previous section, and then choose an API version \(for example, version 2\.12\)\. We recommend chosing the latest possible version, as each Facebook API has a lifecycle and deprecation date\. Facebook scopes and attributes can vary between API versions\. We recommend testing your social identity log in with Facebook to ensure that federation works as intended\.
+   + **Facebook** — Enter the **app client ID** and **app client secret** generated in the previous section, and then choose an API version \(for example, version 2\.12\)\. We recommend choosing the latest possible version, as each Facebook API has a lifecycle and deprecation date\. Facebook scopes and attributes can vary between API versions\. We recommend testing your social identity log in with Facebook to ensure that federation works as intended\.
    + **Sign In with Apple** — Enter the **Services ID**, **Team ID**, **Key ID**, and **private key** generated in the previous section\.
 
 1. Enter the names of the scopes that you want to authorize\. Scopes define which user attributes \(such as `name` and `email`\) you want to access with your app\. For Facebook, these should be separated by commas\. For Google and Login with Amazon, they should be separated by spaces\. For Sign in with Apple, select the check boxes for the scopes you want access to\.    
@@ -280,7 +280,7 @@ In this section, you configure a social IdP in your user pool using the client I
 
    Choose from the following steps, based on your choice of social identity provider:
    + **Google** and **Login with Amazon** — Enter the **app client ID** and **app client secret** generated in the previous section\.
-   + **Facebook** — Enter the **app client ID** and **app client secret** generated in the previous section, and then choose an API version \(for example, version 2\.12\)\. We recommend chosing the latest possible version, as each Facebook API has a lifecycle and deprecation date\. Facebook scopes and attributes can vary between API versions\. We recommend testing your social identity log in with Facebook to ensure that federation works as intended\.
+   + **Facebook** — Enter the **app client ID** and **app client secret** generated in the previous section, and then choose an API version \(for example, version 2\.12\)\. We recommend choosing the latest possible version, as each Facebook API has a lifecycle and deprecation date\. Facebook scopes and attributes can vary between API versions\. We recommend testing your social identity log in with Facebook to ensure that federation works as intended\.
    + **Sign In with Apple** — Enter the **Services ID**, **Team ID**, **Key ID**, and **private key** generated in the previous section\.
 
 1. Enter the names of the **Authorized scopes** you want to use\. Scopes define which user attributes \(such as `name` and `email`\) you want to access with your app\. For Facebook, these should be separated by commas\. For Google and Login with Amazon, they should be separated by spaces\. For Sign in with Apple, select the check boxes for the scopes you want access to\.    
