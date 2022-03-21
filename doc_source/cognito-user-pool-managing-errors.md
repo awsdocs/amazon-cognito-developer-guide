@@ -20,7 +20,7 @@ In the USER\_SRP\_AUTH authentication flow Amazon Cognito receives a user name a
 You can use `UsernamePassword` to simulate a generic response if you are using verification based aliases and the format of immutable user name isn't a UUID\.
 
 **ForgotPassword**  
-When a user isn't found, is disabled, or doesn't have a mechanism to recover their password, Amazon Cognito returns `CodeDeliveryDetails` with a simulated delivery medium for a user\. The simulated delivery medium is determined by the input user name format and verification settings of the user pool\.
+When a user isn't found, is deactivated, or doesn't have a verified delivery mechanism to recover their password, Amazon Cognito returns `CodeDeliveryDetails` with a simulated delivery medium for a user\. The simulated delivery medium is determined by the input user name format and verification settings of the user pool\.
 
 **ConfirmForgotPassword**  
 Amazon Cognito returns the `CodeMismatchException` error for users that don't exist or are disabled\. If a code isn't requested when using `ForgotPassword`, Amazon Cognito returns the `ExpiredCodeException` error\.

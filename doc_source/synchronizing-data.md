@@ -4,23 +4,23 @@
 If you're new to Amazon Cognito Sync, use [AWS AppSync](https://aws.amazon.com/appsync/)\. Like Amazon Cognito Sync, AWS AppSync is a service for synchronizing application data across devices\.  
 It enables user data like app preferences or game state to be synchronized\. It also extends these capabilities by allowing multiple users to synchronize and collaborate in real time on shared data\.
 
-Amazon Cognito lets you save end user data in datasets containing key\-value pairs\. This data is associated with an Amazon Cognito identity, so that it can be accessed across logins and devices\. To sync this data between the Amazon Cognito service and an end user’s devices, invoke the synchronize method\. Each dataset can have a maximum size of 1 MB\. You can associate up to 20 datasets with an identity\.
+With Amazon Cognito, you can save user data in datasets that contain key\-value pairs\. Amazon Cognito associates this data with an identity in your identity pool so that your app can access it across logins and devices\. To sync this data between the Amazon Cognito service and an end user’s devices, invoke the synchronize method\. Each dataset can have a maximum size of 1 MB\. You can associate up to 20 datasets with an identity\.
 
-The Amazon Cognito Sync client creates a local cache for the identity data\. Your app talks to this local cache when it reads and writes keys\. This guarantees that all of your changes made on the device are immediately available on the device, even when you are offline\. When the synchronize method is called, changes from the service are pulled to the device, and any local changes are pushed to the service\. At this point the changes are available to other devices to synchronize\.
+The Amazon Cognito Sync client creates a local cache for the identity data\. When your app reads and writes keys, it communicates with this local cache \. This communication guarantees that all changes you make on the device are immediately available on the device, even when you are offline\. When the synchronize method is called, changes from the service are pulled to the device, and any local changes are pushed to the service\. At this point, the changes are available to other devices to synchronize\.
 
 ## Initializing the Amazon Cognito Sync client<a name="initializing-client"></a>
 
 
 
-To initialize the Amazon Cognito Sync client, you first need to create a credentials provider\. The credentials provider acquires temporary AWS credentials to enable your app to access your AWS resources\. You'll also need to import the required header files\. Use the following steps to initialize the Amazon Cognito Sync client\.
+To initialize the Amazon Cognito Sync client, you must first create a credentials provider\. The credentials provider acquires temporary AWS credentials to make it possible for your app to access your AWS resources\. You also must import the necessary header files\. Use the following steps to initialize the Amazon Cognito Sync client\.
 
 ### Android<a name="initialize-cog-sync-1.android"></a>
 
 1. Create a credentials provider, following the instructions in [Getting credentials](getting-credentials.md)\.
 
-1. Import the Amazon Cognito package: `import com.amazonaws.mobileconnectors.cognito.*;`
+1. Import the Amazon Cognito package as follows: `import com.amazonaws.mobileconnectors.cognito.*;`
 
-1. Initialize Amazon Cognito Sync, passing in the Android app context, the identity pool ID, an AWS region, and an initialized Amazon Cognito credentials provider:
+1. Initialize Amazon Cognito Sync\. Pass in the Android app context, the identity pool ID, an AWS Region, and an initialized Amazon Cognito credentials provider as follows:
 
    ```
    CognitoSyncManager client = new CognitoSyncManager(
@@ -33,7 +33,7 @@ To initialize the Amazon Cognito Sync client, you first need to create a credent
 
 1. Create a credentials provider, following the instructions in [Getting credentials](getting-credentials.md)\.
 
-1. Import `AWSCore` and `Cognito`, and initialize `AWSCognito`:
+1. Import `AWSCore` and `Cognito`, and initialize `AWSCognito` as follows:
 
    ```
    #import <AWSiOSSDKv2/AWSCore.h>
@@ -42,13 +42,13 @@ To initialize the Amazon Cognito Sync client, you first need to create a credent
    AWSCognito *syncClient = [AWSCognito defaultCognito];
    ```
 
-1. If you're using CocoaPods, replace `<AWSiOSSDKv2/AWSCore.h>` with `AWSCore.h` and follow the same syntax for the Amazon Cognito import\.
+1. If you're using CocoaPods, replace `<AWSiOSSDKv2/AWSCore.h>` with `AWSCore.h`\. Follow the same syntax for the Amazon Cognito import\.
 
 ### iOS \- Swift<a name="initialize-cog-sync-1.ios-swift"></a>
 
 1. Create a credentials provider, following the instructions in [Getting credentials](getting-credentials.md)\.
 
-1. Import and initialize `AWSCognito`:
+1. Import and initialize `AWSCognito` as follows:
 
    ```
    import AWSCognito
@@ -63,7 +63,7 @@ To initialize the Amazon Cognito Sync client, you first need to create a credent
 
 1. Create a credentials provider, following the instructions in [Getting credentials](getting-credentials.md)\.
 
-1. Initialize the Sync Manager:
+1. Initialize the Sync Manager as follows:
 
    ```
    var syncManager = new AWS.CognitoSyncManager();
@@ -71,9 +71,9 @@ To initialize the Amazon Cognito Sync client, you first need to create a credent
 
 ### Unity<a name="initialize-cog-sync-1.unity"></a>
 
-1. You will need to first create an instance of `CognitoAWSCredentials`, following the instructions in [Getting credentials](getting-credentials.md)\.
+1. Create an instance of `CognitoAWSCredentials`, following the instructions in [Getting credentials](getting-credentials.md)\.
 
-1. Create an instance of `CognitoSyncManager`, passing the `CognitoAwsCredentials` object and a `AmazonCognitoSyncConfig` with, at least, the region set: 
+1. Create an instance of `CognitoSyncManager`\. Pass the `CognitoAwsCredentials` object and a `AmazonCognitoSyncConfig`, and include at least the Region set, as follows: 
 
    ```
    AmazonCognitoSyncConfig clientConfig = new AmazonCognitoSyncConfig { RegionEndpoint = REGION };
@@ -82,9 +82,9 @@ To initialize the Amazon Cognito Sync client, you first need to create a credent
 
 ### Xamarin<a name="initialize-cog-sync-1.xamarin"></a>
 
-1. You will need to first create an instance of `CognitoAWSCredentials`, following the instructions in [Getting credentials](getting-credentials.md)\.
+1. Create an instance of `CognitoAWSCredentials`, following the instructions in [Getting credentials](getting-credentials.md)\.
 
-1. Create an instance of `CognitoSyncManager`, passing the `CognitoAwsCredentials` object and a `AmazonCognitoSyncConfig` with, at least, the region set: 
+1. Create an instance of `CognitoSyncManager`\. Pass the `CognitoAwsCredentials` object and a `AmazonCognitoSyncConfig`, and include at least the Region set, as follows: 
 
    ```
    AmazonCognitoSyncConfig clientConfig = new AmazonCognitoSyncConfig { RegionEndpoint = REGION };
@@ -95,7 +95,7 @@ To initialize the Amazon Cognito Sync client, you first need to create a credent
 
 
 
-With Amazon Cognito, end user profile data is organized into datasets\. Each dataset can contain up to 1MB of data in the form of key\-value pairs\. A dataset is the most granular entity on which you can perform a sync operation\. Read and write operations performed on a dataset only affect the local store until the synchronize method is invoked\. A dataset is identified by a unique string\. You can create a new dataset or open an existing one as shown in the following\.
+Amazon Cognito organizes user profile data into datasets\. Each dataset can contain up to 1MB of data in the form of key\-value pairs\. A dataset is the most granular entity that you can synchronize\. Read and write operations performed on a dataset only affect the local store until the synchronize method is invoked\. Amazon Cognito identifies a dataset by a unique string\. You can create a new dataset or open an existing one as follows\.
 
 ### Android<a name="understanding-datasets-1.android"></a>
 
@@ -103,7 +103,7 @@ With Amazon Cognito, end user profile data is organized into datasets\. Each dat
 Dataset dataset = client.openOrCreateDataset("datasetname");
 ```
 
-To delete a dataset, first call the method to remove it from local storage, then call the `synchronize` method to delete the dataset from Amazon Cognito:
+To delete a dataset, first call the method to remove it from local storage, then call the `synchronize` method to delete the dataset from Amazon Cognito as follows:
 
 ```
 dataset.delete();
@@ -116,7 +116,7 @@ dataset.synchronize(syncCallback);
 AWSCognitoDataset *dataset = [syncClient openOrCreateDataset:@"myDataSet"];
 ```
 
-To delete a dataset, first call the method to remove it from local storage, then call the `synchronize` method to delete the dataset from Amazon Cognito:
+To delete a dataset, first call the method to remove it from local storage, then call the `synchronize` method to delete the dataset from Amazon Cognito as follows:
 
 ```
 [dataset clear];
@@ -129,7 +129,7 @@ To delete a dataset, first call the method to remove it from local storage, then
 let dataset = syncClient.openOrCreateDataset("myDataSet")!
 ```
 
-To delete a dataset, first call the method to remove it from local storage, then call the `synchronize` method to delete the dataset from Amazon Cognito:
+To delete a dataset, first call the method to remove it from local storage, then call the `synchronize` method as follows: to delete the dataset from Amazon Cognito:
 
 ```
 dataset.clear()
@@ -151,7 +151,7 @@ string myValue = dataset.Get("myKey");
 dataset.Put("myKey", "newValue");
 ```
 
-You can use `Remove` to delete a key from a dataset:
+To delete a key from a dataset, use `Remove` as follows:
 
 ```
 dataset.Remove("myKey");
@@ -163,7 +163,7 @@ dataset.Remove("myKey");
 Dataset dataset = syncManager.OpenOrCreateDataset("myDatasetName");
 ```
 
-To delete a dataset, first call the method to remove it from local storage, then call the `synchronize` method to delete the dataset from Amazon Cognito:
+To delete a dataset, first call the method to remove it from local storage, then call the `synchronize` method to delete the dataset from Amazon Cognito as follows:
 
 ```
 dataset.Delete();
@@ -172,9 +172,9 @@ dataset.SynchronizeAsync();
 
 ## Reading and writing data in datasets<a name="reading-and-writing-data"></a>
 
-Amazon Cognito datasets function as dictionaries, with values accessible by key\. The keys and values of a dataset can be read, added, or modified just as if the dataset were a dictionary\. The following shows an example\.
+Amazon Cognito datasets function as dictionaries, with values accessible by key\. You can read, add, or modify keys and values of a dataset just as if the dataset were a dictionary, as shown in the following examples\.
 
-Note that values written to a dataset only affect the local cached copy of the data until you call the synchronize method\.
+Note that values you write to a dataset only affect the local cached copy of the data until you call the synchronize method\.
 
 ### Android<a name="reading-and-writing-data-1.android"></a>
 
@@ -242,7 +242,7 @@ void SyncSuccessCallback(object sender, SyncSuccessEventArgs e) {
 
 ### Android<a name="reading-and-writing-data-2.android"></a>
 
-You can use the `remove` method to remove keys from a dataset:
+To remove keys from a dataset, use the `remove` method as follows:
 
 ```
 dataset.remove("myKey");
@@ -250,7 +250,7 @@ dataset.remove("myKey");
 
 ### iOS \- Objective\-C<a name="reading-and-writing-data-2.ios-objc"></a>
 
-You can use `removeObjectForKey` to delete a key from a dataset:
+To delete a key from a dataset, use `removeObjectForKey` as follows:
 
 ```
 [dataset removeObjectForKey:@"myKey"];
@@ -258,7 +258,7 @@ You can use `removeObjectForKey` to delete a key from a dataset:
 
 ### iOS \- Swift<a name="reading-and-writing-data-2.ios-swift"></a>
 
-You can use `removeObjectForKey` to delete a key from a dataset:
+To delete a key from a dataset, use `removeObjectForKey` as follows:
 
 ```
 dataset.removeObjectForKey("myKey")
@@ -266,7 +266,7 @@ dataset.removeObjectForKey("myKey")
 
 ### Unity<a name="reading-and-writing-data-2.unity"></a>
 
-You can use `Remove` to delete a key from a dataset:
+To delete a key from a dataset, use `Remove` as follows:
 
 ```
 dataset.Remove("myKey");

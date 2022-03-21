@@ -1,6 +1,6 @@
 # Post authentication Lambda trigger<a name="user-pool-lambda-post-authentication"></a>
 
-Amazon Cognito invokes this trigger after signing in a user, allowing you to add custom logic after authentication\.
+Because Amazon Cognito invokes this trigger after signing in a user, you can add custom logic after Amazon Cognito authenticates the user\.
 
 **Topics**
 + [Post authentication Lambda flows](#user-pool-lambda-post-authentication-flows)
@@ -22,7 +22,7 @@ For more information, see [User pool authentication flow](amazon-cognito-user-po
 
 ## Post authentication Lambda trigger parameters<a name="cognito-user-pools-lambda-trigger-syntax-post-auth"></a>
 
-These are the parameters required by this Lambda function in addition to the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-sample-event-parameter-shared)\.
+These are the parameters that Amazon Cognito passes to this Lambda function along with the event information in the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-syntax-shared)\.
 
 ------
 #### [ JSON ]
@@ -49,21 +49,21 @@ These are the parameters required by this Lambda function in addition to the [co
 ### Post authentication request parameters<a name="cognito-user-pools-lambda-trigger-syntax-post-auth-request"></a>
 
 **newDeviceUsed**  
-This flag indicates if the user has signed in on a new device\. It is set only if the remembered devices value of the user pool is set to `Always` or `User Opt-In`\.
+This flag indicates if the user has signed in on a new device\. Amazon Cognito only sets this flag if the remembered devices value of the user pool is `Always` or `User Opt-In`\.
 
 **userAttributes**  
 One or more name\-value pairs representing user attributes\.
 
 **clientMetadata**  
-One or more key\-value pairs that you can provide as custom input to the Lambda function that you specify for the post authentication trigger\. You can pass this data to your Lambda function by using the ClientMetadata parameter in the [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) and [RespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html) API actions\.
+One or more key\-value pairs that you can provide as custom input to the Lambda function that you specify for the post authentication trigger\. To pass this data to your Lambda function, you can use the ClientMetadata parameter in the [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) and [RespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html) API actions\. Amazon Cognito doesn't include data from the ClientMetadata parameter in [AdminInitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) and [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html) API operations in the request that it passes to the post authentication function\.
 
 ### Post authentication response parameters<a name="cognito-user-pools-lambda-trigger-syntax-post-auth-response"></a>
 
-No additional return information is expected in the response\.
+Amazon Cognito doesn't expect any additional return information in the response\. Your function can use API operations to query and modify your resources, or record event metadata to an external system\.
 
 ## Authentication tutorials<a name="aws-lambda-triggers-post-authentication-tutorials"></a>
 
-The post authentication Lambda function is triggered just after Amazon Cognito signs in a new user\. See these sign\-in tutorials for JavaScript, Android, and iOS\.
+Immediately after Amazon Cognito signs in a user, it activates the post authentication Lambda function\. See these sign\-in tutorials for JavaScript, Android, and iOS\.
 
 
 | Platform | Tutorial | 
@@ -114,7 +114,7 @@ def lambda_handler(event, context):
 
 ------
 
-Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object back to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that’s relevant to your Lambda trigger\. The following is a test event for this code sample:
+Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that’s relevant to your Lambda trigger\. The following is a test event for this code sample:
 
 ------
 #### [ JSON ]

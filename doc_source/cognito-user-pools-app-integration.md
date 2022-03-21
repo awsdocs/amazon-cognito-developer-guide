@@ -194,4 +194,4 @@ If changes to your hosted UI pages do not immediately appear, wait a few minutes
 Your domain is shown on the **Domain name** page\. Your app client ID and callback URL are shown on the **App client settings** page\.
 
 **Note**  
-The Amazon Cognito hosted sign\-in web page does not support the custom authentication flow\.
+The Amazon Cognito hosted UI does not support the custom authentication flow\.

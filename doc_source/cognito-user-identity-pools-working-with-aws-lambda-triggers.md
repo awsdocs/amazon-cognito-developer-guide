@@ -1,8 +1,8 @@
 # Customizing user pool workflows with Lambda triggers<a name="cognito-user-identity-pools-working-with-aws-lambda-triggers"></a>
 
-You can create an AWS Lambda function and then trigger that function during user pool operations such as user sign\-up, confirmation, and sign\-in \(authentication\) with a Lambda trigger\. You can add authentication challenges, migrate users, and customize verification messages\.
+You can create a Lambda function and then activate that function during user pool operations such as user sign\-up, confirmation, and sign\-in \(authentication\) with a Lambda trigger\. You can add authentication challenges, migrate users, and customize verification messages\.
 
-The following table summarizes some of the customizations that can be made:
+The following table summarizes some of the ways you can use Lambda triggers to customize user pool operations:
 
 
 ****  
@@ -26,11 +26,11 @@ The following table summarizes some of the customizations that can be made:
 
 ## Important considerations<a name="important-lambda-considerations"></a>
 
-The following information is important to consider before you start working with Lambda functions:
-+ Except for Custom Sender Lambda triggers, Amazon Cognito invokes Lambda functions synchronously\. When called, your Lambda function must respond within 5 seconds\. If it does not, Amazon Cognito retries the call\. After 3 unsuccessful attempts, the function times out\. This 5\-second timeout value cannot be changed\. For more information see the [Lambda programming model](https://docs.aws.amazon.com/lambda/latest/dg/foundation-progmodel.html)\.
-+ If you delete an AWS Lambda trigger, you must update the corresponding trigger in the user pool\. For example, if you delete the post authentication trigger, you must set the **Post authentication** trigger in the corresponding user pool to **none**\. 
-+ Except for Custom Sender Lambda triggers, errors thrown by Lambda triggers will be visible directly to your end users as query parameters in the Callback URL if they are using Amazon Cognito Hosted UI\. As a recommended best practice, end user facing errors should be thrown from the Lambda triggers and any sensitive or debugging information should be logged in the Lambda trigger itself\. 
-+ When you create a Lambda trigger outside of the Amazon Cognito console, you must add permissions to the Lambda function\. This allows Amazon Cognito to invoke the function on behalf of your user pool\. You can [add permissions from the Lambda Console](https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html) or use the Lambda [AddPermission](https://docs.aws.amazon.com/lambda/latest/dg/API_AddPermission.html) operation\.
+Before you work with Lambda functions, consider the following:
++ Except for Custom Sender Lambda triggers, Amazon Cognito invokes Lambda functions synchronously\. When Amazon Cognito calls your Lambda function, it must respond within 5 seconds\. If it does not, Amazon Cognito retries the call\. After three unsuccessful attempts, the function times out\. You can't change this five\-second timeout value\. For more information, see the [Lambda programming model](https://docs.aws.amazon.com/lambda/latest/dg/foundation-progmodel.html)\.
++ If you delete a Lambda trigger, you must update the corresponding trigger in the user pool\. For example, if you delete the post authentication trigger, you must set the **Post authentication** trigger in the corresponding user pool to **none**\. 
++ If your users use the Amazon Cognito hosted UI, they can see errors that Lambda triggers generate in query parameters that Amazon Cognito adds to the Callback URL, except for Custom Sender Lambda triggers\. We recommend that Lambda triggers only generate errors that you want your users to see\. Log any sensitive or debugging information in the Lambda trigger itself\. 
++ When you create a Lambda trigger outside of the Amazon Cognito console, you must add permissions to the Lambda function\. When you add permissions, Amazon Cognito can invoke the function on behalf of your user pool\. You can [add permissions from the Lambda Console](https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html) or use the Lambda [AddPermission](https://docs.aws.amazon.com/lambda/latest/dg/API_AddPermission.html) operation\.
 
   **Example Lambda Resource\-Based Policy**
 
@@ -62,6 +62,27 @@ The following information is important to consider before you start working with
   }
   ```
 
+### Lambda triggers for federated users<a name="lambda-triggers-for-federated-users"></a>
+
+You can use the following Lambda triggers to customize your user pool workflows for users who sign in with a federated provider\. 
+
+**Note**  
+Federated users must use the Amazon Cognito hosted UI to sign in\.
+For some actions, federated users invoke more than one Lambda function\.
+
+
+**Federated user trigger sources**  
+
+| Trigger | triggerSource value | Triggering event | 
+| --- | --- | --- | 
+| Pre sign\-up | PreSignUp\_ExternalProvider | A federated user signs in from the Amazon Cognito hosted UI sign\-in page for the first time\. | 
+| Post confirmation | PostConfirmation\_ConfirmSignUp | A federated user signs in from the Amazon Cognito hosted UI sign\-in page for the first time\. | 
+| Pre authentication | PreAuthentication\_Authentication | A federated user signs in from the Amazon Cognito hosted UI sign\-in page, except at first sign\-in\. | 
+| Post authentication | PostAuthentication\_Authentication | A federated user successfully authenticates from the Amazon Cognito hosted UI sign\-in page, except at first sign\-in\. | 
+| Pre token generation | TokenGeneration\_HostedAuth | A federated user successfully authenticates from the Amazon Cognito hosted UI sign\-in page and is about to be issued tokens, except at first sign\-in\. | 
+
+Federated sign\-in does not invoke any [Custom authentication challenge Lambda triggers](user-pool-lambda-challenge.md), [Migrate user Lambda trigger](user-pool-lambda-migrate-user.md), [Custom message Lambda trigger](user-pool-lambda-custom-message.md), or [Custom sender Lambda triggers](user-pool-lambda-custom-sender-triggers.md) in your user pool\.
+
 ## Adding a user pool Lambda trigger<a name="cognito-user-identity-pools-working-with-aws-lambda-triggers-using-lambda"></a>
 
 ------
@@ -69,28 +90,28 @@ The following information is important to consider before you start working with
 
 **To add a user pool Lambda trigger with the console**
 
-1. Create a Lambda function using the [Lambda console](https://console.aws.amazon.com/lambda/home)\. For more information on Lambda functions, see the [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/)\.
+1. Use the [Lambda console](https://console.aws.amazon.com/lambda/home) to create a Lambda function \. For more information on Lambda functions, see the [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/)\.
 
-1. Navigate to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), and then choose **Manage User Pools**\.
+1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\. Then choose **Manage User Pools**\.
 
 1. Choose an existing user pool from the list, or [create a user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-as-user-directory.html)\.
 
 1. In your user pool, choose the **Triggers** tab from the navigation bar\.
 
-1. Choose a Lambda trigger, such as **Pre sign\-up** or **Pre authentication**, and then choose your Lambda function from the **Lambda function** drop\-down list\.
+1. Choose a Lambda trigger, such as **Pre sign\-up** or **Pre authentication**\. Then choose your Lambda function from the **Lambda function** drop\-down list\.
 
 1. Choose **Save changes**\.
 
-1. You can log your Lambda function using CloudWatch in the Lambda console\. For more information see [Accessing CloudWatch Logs for Lambda](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions-logs.html)\.
+1. You can use Amazon CloudWatch in the Lambda console to log your Lambda function\. For more information, see [Accessing Amazon CloudWatch Logs for Lambda](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions-logs.html)\.
 
 ------
 #### [ New console ]
 
 **To add a user pool Lambda trigger with the console**
 
-1. Create a Lambda function using the [Lambda console](https://console.aws.amazon.com/lambda/home)\. For more information on Lambda functions, see the [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/)\.
+1. Use the [Lambda console](https://console.aws.amazon.com/lambda/home) to create a Lambda function\. For more information on Lambda functions, see the [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/)\.
 
-1. Navigate to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), and then choose **User Pools**\.
+1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), and then choose **User Pools**\.
 
 1. Choose an existing user pool from the list, or [create a user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-as-user-directory.html)\.
 
@@ -98,21 +119,21 @@ The following information is important to consider before you start working with
 
 1. Choose **Add a Lambda trigger**\.
 
-1. Select a Lambda trigger **Category** based on the stage of authentication you wish to customize\. 
+1. Select a Lambda trigger **Category** based on the stage of authentication that you want to customize\.
 
 1. Select **Assign Lambda function** and select a function in the same AWS Region as your user pool\.
 **Note**  
-If your AWS Identity and Access Management credentials have permission to update the Lambda function, Amazon Cognito will add a Lambda resource\-based policy that allows Amazon Cognito to invoke the selected function\. If the signed\-in credentials do not have sufficient IAM permissions, you must update the resource\-based policy separately\. For more information, see [Important considerations](#important-lambda-considerations)
+If your AWS Identity and Access Management \(IAM\) credentials have permission to update the Lambda function, Amazon Cognito adds a Lambda resource\-based policy\. With this policy, Amazon Cognito can invoke the function that you select\. If the signed\-in credentials do not have sufficient IAM permissions, you must update the resource\-based policy separately\. For more information, see [Important considerations](#important-lambda-considerations)\.
 
 1. Choose **Save changes**\.
 
-1. You can log your Lambda function using CloudWatch in the Lambda console\. For more information see [Accessing CloudWatch Logs for Lambda](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions-logs.html)\.
+1. You can use CloudWatch in the Lambda console to log your Lambda function \. For more information, see [Accessing CloudWatch Logs for Lambda](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions-logs.html)\.
 
 ------
 
 ## User pool Lambda trigger event<a name="cognito-user-pools-lambda-trigger-event-parameter-shared"></a>
 
-Amazon Cognito passes event information to your Lambda function which returns the same event object back to Amazon Cognito with any changes in the response\. This event shows the Lambda trigger common parameters:
+Amazon Cognito passes event information to your Lambda function\. The Lambda function returns the same event object back to Amazon Cognito with any changes in the response\. This event shows the Lambda trigger common parameters:
 
 ------
 #### [ JSON ]
@@ -151,32 +172,32 @@ The version number of your Lambda function\.
 The name of the event that triggered the Lambda function\. For a description of each triggerSource see [User pool Lambda trigger sources](#cognito-user-identity-pools-working-with-aws-lambda-trigger-sources)\.
 
 **region**  
-The AWS Region, as an `AWSRegion` instance\.
+The AWS Region as an `AWSRegion` instance\.
 
 **userPoolId**  
 The user pool ID for the user pool\.
 
 **userName**  
-The username of the current user\.
+The user name of the current user\.
 
 **callerContext**  
-The caller context, which consists of the following:     
+The caller context\. This context consists of the following:     
 **awsSdkVersion**  
 The AWS SDK version number\.  
 **clientId**  
-The ID of the client associated with the user pool\.
+The user pool app client ID\.
 
 **request**  
-The request from the Amazon Cognito service\. This request must include:     
+The request from the Amazon Cognito service\. This request must include the following:    
 **userAttributes**  
-One or more pairs of user attribute names and values\. Each pair is in the form "*name*": "*value*"\. 
+One or more pairs of user attribute names and values\. Each pair takes the form "*name*": "*value*"\. 
 
 **response**  
 The response from your Lambda trigger\. The return parameters in the response depend on the triggering event\.
 
 ## User pool Lambda trigger sources<a name="cognito-user-identity-pools-working-with-aws-lambda-trigger-sources"></a>
 
-This section describes each Amazon Cognito Lambda triggerSource parameter, and its triggering event\. 
+This section describes each Amazon Cognito Lambda triggerSource parameter and its triggering event\. 
 
 
 **Sign\-up, confirmation, and sign\-in \(authentication\) triggers**  
@@ -205,18 +226,18 @@ This section describes each Amazon Cognito Lambda triggerSource parameter, and i
 
 | Trigger | triggerSource value | Triggering event | 
 | --- | --- | --- | 
-| Pre token generation | TokenGeneration\_HostedAuth | Called during authentication from the Amazon Cognito hosted UI sign\-in page\. | 
-| Pre token generation | TokenGeneration\_Authentication | Called after user authentication flows have completed\. | 
-| Pre token generation | TokenGeneration\_NewPasswordChallenge | Called after the user is created by an admin\. This flow is invoked when the user has to change a temporary password\. | 
-| Pre token generation | TokenGeneration\_AuthenticateDevice | Called at the end of the authentication of a user device\. | 
-| Pre token generation | TokenGeneration\_RefreshTokens | Called when a user tries to refresh the identity and access tokens\. | 
+| Pre token generation | TokenGeneration\_HostedAuth |  Amazon Cognito authenticates the user from your hosted UI sign\-in page\. | 
+| Pre token generation | TokenGeneration\_Authentication | User authentication flows complete\. | 
+| Pre token generation | TokenGeneration\_NewPasswordChallenge | Admin creates the user\. Amazon Cognito invokes this when the user must change a temporary password\. | 
+| Pre token generation | TokenGeneration\_AuthenticateDevice | End of the authentication of a user device\. | 
+| Pre token generation | TokenGeneration\_RefreshTokens | User tries to refresh the identity and access tokens\. | 
 
 
 **Migrate user triggers**  
 
 | Trigger | triggerSource value | Triggering event | 
 | --- | --- | --- | 
-| User migration | UserMigration\_Authentication | User migration at the time of sign in\. | 
+| User migration | UserMigration\_Authentication | User migration at the time of sign\-in\. | 
 | User migration | UserMigration\_ForgotPassword | User migration during the forgot\-password flow\. | 
 
 
@@ -224,10 +245,10 @@ This section describes each Amazon Cognito Lambda triggerSource parameter, and i
 
 | Trigger | triggerSource value | Triggering event | 
 | --- | --- | --- | 
-| Custom message | CustomMessage\_SignUp | Custom message – To send the confirmation code post sign\-up\. | 
-| Custom message | CustomMessage\_AdminCreateUser | Custom message – To send the temporary password to a new user\. | 
-| Custom message | CustomMessage\_ResendCode | Custom message – To resend the confirmation code to an existing user\. | 
-| Custom message | CustomMessage\_ForgotPassword | Custom message – To send the confirmation code for Forgot Password request\. | 
-| Custom message | CustomMessage\_UpdateUserAttribute | Custom message – When a user's email or phone number is changed, this trigger sends a verification code automatically to the user\. Cannot be used for other attributes\. | 
-| Custom message | CustomMessage\_VerifyUserAttribute | Custom message – This trigger sends a verification code to the user when they manually request it for a new email or phone number\. | 
-| Custom message | CustomMessage\_Authentication | Custom message – To send MFA code during authentication\. | 
+| Custom message | CustomMessage\_SignUp | Custom message when a user signs up in your user pool\. | 
+| Custom message | CustomMessage\_AdminCreateUser | Custom message when you create a user as an administrator and Amazon Cognito sends them a temporary password\. | 
+| Custom message | CustomMessage\_ResendCode | Custom message when your existing user requests a new confirmation code\. | 
+| Custom message | CustomMessage\_ForgotPassword | Custom message when your user requests a password reset\. | 
+| Custom message | CustomMessage\_UpdateUserAttribute | Custom message when a user changes their email address or phone number and Amazon Cognito sends a verification code\. | 
+| Custom message | CustomMessage\_VerifyUserAttribute | Custom message when a user adds an email address or phone number and Amazon Cognito sends a verification code\. | 
+| Custom message | CustomMessage\_Authentication | Custom message when a user who has configured SMS MFA signs in\. | 

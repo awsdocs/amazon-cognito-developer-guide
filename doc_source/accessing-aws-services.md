@@ -47,7 +47,7 @@ let dynamoDBCustom = AWSDynamoDB(forKey: "USWest2DynamoDB")
 var dynamodb = new AWS.DynamoDB({region: 'us-west-2'});
 ```
 
- The credentials provider communicates with Amazon Cognito, retrieving both the unique identifier for authenticated and unauthenticated users as well as temporary, limited privilege AWS credentials for the AWS Mobile SDK\. The retrieved credentials are valid for one hour, and the provider refreshes them when they expire\. 
+ The credentials provider communicates with Amazon Cognito, retrieving both the unique identifier for authenticated and unauthenticated users as well as temporary, limited\-privilege AWS credentials for the AWS Mobile SDK\. The retrieved credentials are valid for one hour, and the provider refreshes them when they expire\. 
 
 ## Unity<a name="accessing-aws-services-1.unity"></a>
 
@@ -58,7 +58,7 @@ var dynamodb = new AWS.DynamoDB({region: 'us-west-2'});
 AmazonDynamoDBClient client = new AmazonDynamoDBClient(credentials, REGION);
 ```
 
- The credentials provider communicates with Amazon Cognito, retrieving both the unique identifier for authenticated and unauthenticated users as well as temporary, limited privilege AWS credentials for the AWS Mobile SDK\. The retrieved credentials are valid for one hour, and the provider refreshes them when they expire\. 
+ The credentials provider communicates with Amazon Cognito, retrieving both the unique identifier for authenticated and unauthenticated users as well as temporary, limited\-privilege AWS credentials for the AWS Mobile SDK\. The retrieved credentials are valid for one hour, and the provider refreshes them when they expire\. 
 
 ## Xamarin<a name="accessing-aws-services-1.xamarin"></a>
 
@@ -69,4 +69,4 @@ AmazonDynamoDBClient client = new AmazonDynamoDBClient(credentials, REGION);
 var client = new AmazonDynamoDBClient(credentials, REGION)
 ```
 
- The credentials provider communicates with Amazon Cognito, retrieving both the unique identifier for authenticated and unauthenticated users as well as temporary, limited privilege AWS credentials for the AWS Mobile SDK\. The retrieved credentials are valid for one hour, and the provider refreshes them when they expire\. 
+ The credentials provider communicates with Amazon Cognito, retrieving both the unique identifier for authenticated and unauthenticated users as well as temporary, limited\-privilege AWS credentials for the AWS Mobile SDK\. The retrieved credentials are valid for one hour, and the provider refreshes them when they expire\. 

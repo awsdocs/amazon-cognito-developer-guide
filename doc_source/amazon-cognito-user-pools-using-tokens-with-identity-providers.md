@@ -9,8 +9,11 @@ When a user signs into your app, Amazon Cognito verifies the login information\.
 
 ![\[Authentication overview\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Authentication overview\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Authentication overview\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
+**Storing tokens**  
+Your app must be able to store tokens of varying sizes\. Token size can change for reasons including, but not limited to, additional claims, changes in encoding algorithms, and changes in encryption algorithms\. When you enable token revocation in your user pool, Amazon Cognito adds additional claims to JSON web tokens, increasing their size\. The new claims `origin_jti` and `jti` are added to access and ID tokens\. For more information about token revocation, see [Revoking tokens](https://docs.aws.amazon.com/cognito/latest/developerguide/token-revocation.html)\.
+
 **Important**  
-We strongly recommended that you secure all tokens in transit and storage in the context of your application\.
+Best practice is to secure all tokens in transit and storage in the context of your application\. Tokens can contain personally\-identifying information about your users, and information about the security model that you use for your user pool\.
 
 **Topics**
 + [Using the ID token](amazon-cognito-user-pools-using-the-id-token.md)

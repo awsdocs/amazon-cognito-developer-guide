@@ -23,7 +23,7 @@ Required\.
 *state*  
 An opaque value the client adds to the initial request\. The value is then returned back to the client upon redirect\.  
 This value must be used by the client to prevent [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) attacks\.  
-Optional but strongly recommended\.
+Optional but recommended\.
 
 *scope*  
 Can be a combination of any system\-reserved scopes or custom scopes associated with a client\. Scopes must be separated by spaces\. System reserved scopes are `openid`, `email`, `phone`, `profile`, and `aws.cognito.signin.user.admin`\. Any scope used must be preassociated with the client or it is ignored at runtime\.  
@@ -47,11 +47,11 @@ GET https://mydomain.auth.us-east-1.amazoncognito.com/login?
 ```
 
 **Sample Response**  
-The authentication server redirects back to your app with the authorization code and state\. The code and state must be returned in the query string parameters and not in the fragment\.
+The authentication server redirects to your app with the authorization code and state\. The server must return the code and state in the query string parameters and not in the fragment\.
 
 ```
 HTTP/1.1 302 Found
                     Location: https://YOUR_APP/redirect_uri?code=AUTHORIZATION_CODE&state=STATE
 ```
 
-For more example requests, as well as example positive and negative responses, see [AUTHORIZATION endpoint](authorization-endpoint.md)\.
+For more example requests, and examples of positive and negative responses, see [AUTHORIZATION endpoint](authorization-endpoint.md)\.

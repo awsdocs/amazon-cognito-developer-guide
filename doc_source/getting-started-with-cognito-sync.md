@@ -20,8 +20,8 @@ To use Amazon Cognito Sync, you need an AWS account\. If you don't already have 
 
 ## Set up an identity pool in Amazon Cognito<a name="set-up-an-identity-pool"></a>
 
-Amazon Cognito Sync requires an Amazon Cognito identity pool to provide user identities\. Thus you need to first set up an identity pool before using Amazon Cognito Sync\. Follow the [Getting started with Amazon Cognito identity pools \(federated identities\)](getting-started-with-identity-pools.md) guide to create an identity pool and install the SDK\.
+Amazon Cognito Sync requires an Amazon Cognito identity pool to provide user identities\. Before you use Amazon Cognito Syncyou must first set up an identity pool\. To create an identity pool and install the SDK, see [Getting started with Amazon Cognito identity pools \(federated identities\)](getting-started-with-identity-pools.md)\.
 
 ## Store and sync data<a name="store-and-sync-data"></a>
 
-Once you have set up your identity pool and installed the SDK, you can start storing and syncing data between devices\. See [Synchronizing data](synchronizing-data.md) for more information\.
+After you have set up your identity pool and installed the SDK, you can start storing and syncing data between devices\. For more information, see [Synchronizing data](synchronizing-data.md)\.

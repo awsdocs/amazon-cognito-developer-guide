@@ -2,10 +2,10 @@
 
 The user pool access token contains claims about the authenticated user, a list of the user's groups, and a list of scopes\. The purpose of the access token is to authorize API operations in the context of the user in the user pool\. For example, you can use the access token to grant your user access to add, change, or delete user attributes\.
 
-The access token is represented as a JSON Web Token \(JWT\)\. The header for the access token has the same structure as the ID token\. However, the key ID \(`kid`\) is different because different keys are used to sign ID tokens and access tokens\. As with the ID token, you must first verify the signature of the access token in your web APIs before you can trust any of its claims\. See [Verifying a JSON web token](amazon-cognito-user-pools-using-tokens-verifying-a-jwt.md) You can set the access token expiration to any value between 5 minutes and 1 day\. This value can be set per app client\.
+The access token is represented as a JSON Web Token \(JWT\)\. The header for the access token has the same structure as the ID token\. However, the key ID \(`kid`\) is different because different keys are used to sign ID tokens and access tokens\. As with the ID token, you must first verify the signature of the access token in your web APIs before you can trust any of its claims\. See [Verifying a JSON web token](amazon-cognito-user-pools-using-tokens-verifying-a-jwt.md)\. You can set the access token expiration to any value between 5 minutes and 1 day\. You can set this value per app client\.
 
 **Important**  
-For access and ID tokens, don't specify a minimum less than an hour\. Amazon Cognito HostedUI uses cookies that are valid for an hour, if you enter a minimum less than an hour, you won't get a lower expiry time\.
+For access and ID tokens, don't specify a minimum less than an hour\. Amazon Cognito HostedUI uses cookies that are valid for an hour\. If you enter a minimum less than an hour, you won't get a lower expiry time\.
 
 ## Access token header<a name="user-pool-access-token-header"></a>
 
@@ -70,7 +70,7 @@ The `iss` claim has the following format:
 https://cognito\-idp\.\{region\}\.amazonaws\.com/\{userPoolId\}\.
 
 **Origin jti \(`origin_jti`\)**  
-The originating JWT identifier, from when the original authentication occurred\.
+The originating JWT identifier, from the time when the original authentication occurred\.
 
 **jti \(`jti`\)**  
 The `jti` claim is the unique identifier of the JWT\.
