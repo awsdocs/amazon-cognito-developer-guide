@@ -86,4 +86,4 @@ The ID token can contain OIDC standard claims that are defined in [OIDC standard
 User pool custom attributes are always prefixed with a custom: prefix\. 
 
 **ID Token Signature**  
-The signature of the ID token is calculated based on the header and payload of the JWT token\. When used outside of an application in your web APIs, you must always verify this signature before accepting the token\. See Verifying a JSON Web Token\. [Verifying a JSON web token](amazon-cognito-user-pools-using-tokens-verifying-a-jwt.md)\.
+The signature of the ID token is calculated based on the header and payload of the JWT token\. When used outside of an application in your web APIs, you must always verify this signature before accepting the token\. See [Verifying a JSON web token](amazon-cognito-user-pools-using-tokens-verifying-a-jwt.md)\.
