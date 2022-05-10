@@ -5,7 +5,7 @@ Amazon Cognito invokes this trigger before it sends an email or phone verificati
 The request includes `codeParameter`\. This is a string that acts as a placeholder for the code that Amazon Cognito delivers to the user\. Insert the `codeParameter` string into the message body where you want the verification code to appear\. When Amazon Cognito receives this response, Amazon Cognito replaces the `codeParameter` string with the actual verification code\. 
 
 **Note**  
-A custom message Lambda function with the `CustomMessage_AdminCreateUser` trigger returns a user name and verification code\. The request must include both `request.usernameParameter` and `request.codeParameter`\. 
+A custom message Lambda function with the `CustomMessage_AdminCreateUser` trigger returns a user name and verification code\. The response must include both `request.usernameParameter` and `request.codeParameter`\. For messages where this is not the case, the default response will be used instead. 
 
 **Topics**
 + [Custom message Lambda trigger sources](#cognito-user-pools-lambda-trigger-syntax-custom-message-trigger-source)
@@ -66,7 +66,7 @@ One or more name\-value pairs representing user attributes\.
 A string for you to use as the placeholder for the verification code in the custom message\.
 
 **usernameParameter**  
-The username parameter\. It is a required request parameter for the admin create user flow\.
+The username parameter\. This parameter is required as part of the response for the admin create user flow\.
 
 **clientMetadata**  
 One or more key\-value pairs that you can provide as custom input to the Lambda function that you specify for the custom message trigger\. The request that invokes a custom message function doesn't include data passed in the ClientMetadata parameter in [AdminInitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) and [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html) API operations\. To pass this data to your Lambda function, you can use the ClientMetadata parameter in the following API actions:  
