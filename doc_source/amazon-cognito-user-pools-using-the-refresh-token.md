@@ -5,13 +5,13 @@ You can use the refresh token to retrieve new ID and access tokens\. By default,
 The Mobile SDK for iOS, Mobile SDK for Android, Amplify for iOS, Android, and Flutter automatically refresh your ID and access tokens if a valid \(unexpired\) refresh token is present\. The ID and access tokens have a minimum remaining validity of 2 minutes\. If the refresh token is expired, your app user must re\-authenticate by signing in again to your user pool\. If the minimum for the access token and ID token is set to 5 minutes, and you are using the SDK, the refresh token will be continually used to retrieve new access and ID tokens\. You will see expected behavior with a minimum of 7 minutes instead of 5 minutes\.
 
 **Note**  
-The Mobile SDK for Android offers the option to change the minimum validity period of the ID and access tokens to a value between 0 and 30 minutes\. See the `setRefreshThreshold()` method of [CognitoIdentityProviderClientConfig](https://docs.aws.amazon.com/AWSAndroidSDK/latest/javadoc/com/amazonaws/mobileconnectors/cognitoidentityprovider/util/CognitoIdentityProviderClientConfig.html) in the AWS Mobile SDK for Android API Reference\.
+The AWS SDK for Android offers the option to change the minimum validity period of the ID and access tokens to a value between 0 and 30 minutes\. See the `setRefreshThreshold()` method of [CognitoIdentityProviderClientConfig](https://github.com/aws-amplify/aws-sdk-android/blob/main/aws-android-sdk-cognitoidentityprovider/src/main/java/com/amazonaws/mobileconnectors/cognitoidentityprovider/util/CognitoIdentityProviderClientConfig.java) in the Amplify Android SDK reference\.
 
 Your user's account itself never expires, as long as the user has logged in at least once before the `UnusedAccountValidityDays` time limit for new accounts\.
 
 ## Initiate new refresh tokens \(API\)<a name="amazon-cognito-user-pools-using-the-refresh-token_initiate-token"></a>
 
-Use the API or hostedUI to initiate authentication for refresh tokens\.
+Use the API or hosted UI to initiate authentication for refresh tokens\.
 
 To use the refresh token to get new ID and access tokens with the user pool API, use the [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) or [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html) API operations\. Pass `REFRESH_TOKEN_AUTH` for the `AuthFlow` parameter\. The authorization parameter, `AuthParameters`, is a key\-value map where the key is `"REFRESH_TOKEN"` and the value is the actual refresh token\. Amazon Cognito returns new ID and access tokens after your API request passes all challenges\.
 

@@ -1,6 +1,6 @@
 # Using your own domain for the hosted UI<a name="cognito-user-pools-add-custom-domain"></a>
 
-After setting up an app client, you can configure your user pool with a custom domain for the Amazon Cognito hosted UI\. With a custom domain, you enable your users to sign in to your application by using your own web address\.
+After setting up an app client, you can configure your user pool with a custom domain for the Amazon Cognito hosted UI and [auth API](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html) endpoints\. With a custom domain, you enable your users to sign in to your application by using your own web address\.
 
 **Topics**
 + [Adding a custom domain to a user pool](#cognito-user-pools-add-custom-domain-adding)
@@ -14,7 +14,7 @@ To add a custom domain to your user pool, you specify the domain name in the Ama
 
 Before you begin, you need:
 + A user pool with an app client\. For more information, see [Getting started with user pools](getting-started-with-cognito-user-pools.md)\.
-+ A web domain that you own\. Its root must have a valid **A record** in DNS\. For more information see [Domain Names](https://tools.ietf.org/html/rfc1035)\.
++ A web domain that you own\. Its root must have a valid **A record** in DNS\. For example, if your custom domain is *auth\.example\.com*, you must be able to resolve *example\.com* to an IP address\. For more information see [Domain Names](https://tools.ietf.org/html/rfc1035)\.
 + The ability to create a subdomain for your custom domain\. We recommend using **auth** as the subdomain\. For example: *auth\.example\.com*\.
 **Note**  
 You might need to obtain a new certificate for your custom domain's subdomain if you don't have a [wildcard certificate](https://en.wikipedia.org/wiki/Wildcard_certificate)\.

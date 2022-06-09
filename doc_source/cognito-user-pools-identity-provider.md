@@ -222,7 +222,7 @@ You can use federation for Amazon Cognito user pools to integrate with a SAML id
 
 1. Select **Enable IdP sign out flow** when you want your user to be logged out from a SAML IdP when logging out from Amazon Cognito\.
 
-   Enabling this flow sends a signed logout request to the SAML IdP when the [LOGOUT endpoint](logout-endpoint.md) is called\.
+   Enabling this flow sends a signed logout request to the SAML IdP when the [Logout endpoint](logout-endpoint.md) is called\.
 **Note**  
 If you select this option and your SAML IdP expects a signed logout request, you also must configure the signing certificate provided by Amazon Cognito with your SAML IdP\.   
 The SAML IdP will process the signed logout request and logout your user from the Amazon Cognito session\.
@@ -253,7 +253,7 @@ The SAML IdP will process the signed logout request and logout your user from th
 If you select this option and your SAML identity provider expects a signed logout request, you also must configure the signing certificate provided by Amazon Cognito with your SAML IdP\.   
 The SAML IdP will process the signed logout request and logout your user from the Amazon Cognito session\.
 
-1. Choose a **Metadata document source**\. If your identity provider offers SAML metadata at a public URL, you can choose **Metadata document URL**and enter that public URL\. Otherwise, choose **Upload metadata document** and select a metadata file you downloaded from your provider earlier\.
+1. Choose a **Metadata document source**\. If your identity provider offers SAML metadata at a public URL, you can choose **Metadata document URL** and enter that public URL\. Otherwise, choose **Upload metadata document** and select a metadata file you downloaded from your provider earlier\.
 **Note**  
 If your provider has a public endpoint, we recommend that you enter a metadata document URL, rather than uploading a file\. If you use the URL, Amazon Cognito refreshes metadata automatically\. Typically, metadata refresh happens every 6 hours or before the metadata expires, whichever is earlier\.
 

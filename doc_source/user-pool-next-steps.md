@@ -1,6 +1,6 @@
 # Next steps<a name="user-pool-next-steps"></a>
 
-Now that you've created a user pool, you can explore more of the features inAmazon Cognito
+Now that you've created a user pool, you can explore more of the features in Amazon Cognito
 
 Dive deep into these user pool features:
 + [Customizing the built\-in sign\-in and sign\-up webpages](cognito-user-pools-app-ui-customization.md)

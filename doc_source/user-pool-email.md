@@ -4,34 +4,38 @@ Certain events in your user pool's client app can cause Amazon Cognito to email 
 
 To handle email delivery, you can use either of the following options:
 + [The default email functionality](#user-pool-email-default) that is built into the Amazon Cognito service\.
-+ [Your Amazon SES configuration](#user-pool-email-developer)\.
++ [Your Amazon Simple Email Service \(Amazon SES\) configuration](#user-pool-email-developer)\.
 
 These settings are reversible\. You can update your user pool to switch between them\.
 
 ## Default email functionality<a name="user-pool-email-default"></a>
 
-Amazon Cognito can handle email deliveries for you by using the service's default email functionality\. When you use the default option, Amazon Cognito limits the number of emails it sends each day for your user pool\. For information on service limits, see [Quotas in Amazon Cognito](limits.md)\. For typical production environments, the default email limit is less than the required delivery volume\. To increase the delivery volume, use your Amazon SES email configuration\.
+Amazon Cognito can use its default email functionality to handle email deliveries for you\. When you use the default option, Amazon Cognito limits the number of emails it sends each day for your user pool\. For information on service limits, see [Quotas in Amazon Cognito](limits.md)\. For typical production environments, the default email limit is below the required delivery volume\. To enable a higher delivery volume, you can use your Amazon SES email configuration\.
+
+When you use the default functionality, you use Amazon SES resources that are managed by AWS to send email messages\. Amazon SES adds email addresses that return a [hard bounce](https://docs.aws.amazon.com/ses/latest/dg/send-email-concepts-deliverability.html#send-email-concepts-deliverability-bounce) to an [account\-level suppression list](https://docs.aws.amazon.com/ses/latest/dg/sending-email-suppression-list.html) or a [global suppression list](https://docs.aws.amazon.com/ses/latest/dg/send-email-concepts-deliverability.html#send-email-concepts-deliverability-suppression-list)\. If an undeliverable email address becomes deliverable later, you can't control its removal from the suppression list while your user pool is configured to use the default functionality\. An email address can remain on the AWS\-managed suppression list indefinitely\. To manage undeliverable email addresses, use your Amazon SES email configuration with an account\-level suppression list, as described in the next section\.
 
 When you use the default email configuration, you can use either of the following email addresses as the FROM address:
-+ The default email address, no\-reply@verificationemail\.com\.
++ The default email address, *no\-reply@verificationemail\.com*\.
 + A custom email address\. Before you can use your own email address, you must verify it with Amazon SES and grant Amazon Cognito permission to use this address\.
 
 ## Amazon SES email configuration<a name="user-pool-email-developer"></a>
 
-Your application might require a higher delivery volume than what is available with the default option\. To increase the possible delivery volume, use your Amazon SES resources with your user pool to email your users\. Using your Amazon SES configuration also makes it possible for you to [monitor your email sending activity](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html)\.
+Your application might require a higher delivery volume than what is available with the default option\. To increase the possible delivery volume, use your Amazon SES resources with your user pool to email your users\. You can also [monitor your email sending activity](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html) when you send email messages with your own Amazon SES configuration\.
 
-Before you can use your Amazon SES configuration, you must verify one or more email addresses, or a domain, with Amazon SES\. Use a verified email address, or an address from a verified domain, as the FROM email address that you assign to your user pool\. When Amazon Cognito sends email to a user, it uses your email address by calling Amazon SES for you\.
+Before you can use your Amazon SES configuration, you must verify one or more email addresses, or a domain, with Amazon SES\. Use a verified email address, or an address from a verified domain, as the FROM email address that you assign to your user pool\. When Amazon Cognito sends email to a user, it calls Amazon SES for you and uses your email address\.
 
-**Note**  
-You can only configure a FROM address in a verified domain using the AWS CLI or the Amazon Cognito API\.
-
-When you use your Amazon SES configuration, the email delivery limits for your user pool are the same limits that apply to your Amazon SES verified email address in your AWS account\. Using Amazon SES with Amazon Cognito is subject to [Amazon SES pricing](https://aws.amazon.com/ses/pricing/) and incurs additional cost based on your message volume\.
+When you use your Amazon SES configuration, the following conditions apply:
++ The email delivery limits for your user pool are the same limits that apply to your Amazon SES verified email address in your AWS account\.
++ You can manage your messages to undeliverable email addresses with an account\-level suppression list in Amazon SES that overrides the [global suppression list](https://docs.aws.amazon.com/ses/latest/dg/send-email-concepts-deliverability.html#send-email-concepts-deliverability-suppression-list)\. When you use an account\-level suppression list, email message bounces affect the reputation of your account as a sender\. For more information, see [Using the Amazon SES account\-level suppression list](https://docs.aws.amazon.com/ses/latest/dg/sending-email-suppression-list.html) in the Amazon Simple Email Service Developer Guide\.
 
 ### Amazon SES email configuration Regions<a name="user-pool-email-developer-region-mapping"></a>
 
 When you choose the AWS Region that contains the Amazon SES resources that you want to use for Amazon Cognito email messages, you can choose the same Region as the one where you created your user pool\. With Amazon Cognito user pools in some Regions, you can also use Amazon SES resources that are in the following alternate Regions: US East \(N\. Virginia\), US West \(Oregon\), or Europe \(Ireland\)\.
 
 To make your email operations faster and more reliable, use the Amazon SES configuration in the AWS Region where you created your user pool\. Support for cross\-Region Amazon SES configuration in Amazon Cognito provides continuity for user pool resources that you created to comply with Amazon Cognito requirements when the service launched\. User pool resources that you created during that period could only use Amazon SES resources in a limited number of AWS Regions\.
+
+**Note**  
+In the AWS Management Console, you can only use Amazon SES resources in the same Region after you have switched to the new Amazon Cognito console experience\.
 
 If you create an Amazon Cognito user pools resource with the AWS Command Line Interface, API, or AWS CloudFormation, your user pool sends email messages with the Amazon SES identity that the `SourceArn` parameter of the [EmailConfigurationType](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html) object specifies for your user pool\. The Amazon SES identity must occupy a supported AWS Region\. If your `EmailSendingAccount` is `COGNITO_DEFAULT` and you don't specify a `SourceArn` parameter, Amazon Cognito sends email messages from `no-reply@verificationemail.com` using resources in the Region where you created your user pool\.
 

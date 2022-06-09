@@ -9,7 +9,7 @@ You have four ways to secure multi\-tenant applications: user pools, application
 
 **Topics**
 + [User\-pool\-based multi\-tenancy](bp_user-pool-based-multi-tenancy.md)
-+ [Application\-client\-based multi\-tenancy](application-client-based-multi-tenancy.md)
++ [App\-client\-based multi\-tenancy](application-client-based-multi-tenancy.md)
 + [Group\-based multi\-tenancy](group-based-multi-tenancy.md)
 + [Custom\-attribute\-based multi\-tenancy](custom-attribute-based-multi-tenancy.md)
 + [Multi\-tenancy security recommendations](multi-tenancy-security-recommendations.md)

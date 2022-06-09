@@ -1,6 +1,6 @@
 # Developer authenticated identities \(identity pools\)<a name="developer-authenticated-identities"></a>
 
-Amazon Cognito supports developer authenticated identities, in addition to web identity federation through [Facebook \(identity pools\)](facebook.md), [Google \(identity pools\)](google.md), [Login with Amazon \(identity pools\)](amazon.md), and [Sign in with Apple \(identity pools\)](apple.md)\. With developer authenticated identities, you can register and authenticate users via your own existing authentication process, while still using Amazon Cognito to synchronize user data and access AWS resources\. Using developer authenticated identities involves interaction between the end user device, your backend for authentication, and Amazon Cognito\. For more details, please read our [blog](http://mobile.awsblog.com/post/Tx2FL1QAPDE0UAH/Understanding-Amazon-Cognito-Authentication-Part-2-Developer-Authenticated-Ident)\.
+Amazon Cognito supports developer authenticated identities, in addition to web identity federation through [Facebook \(identity pools\)](facebook.md), [Google \(identity pools\)](google.md), [Login with Amazon \(identity pools\)](amazon.md), and [Sign in with Apple \(identity pools\)](apple.md)\. With developer authenticated identities, you can register and authenticate users via your own existing authentication process, while still using Amazon Cognito to synchronize user data and access AWS resources\. Using developer authenticated identities involves interaction between the end user device, your backend for authentication, and Amazon Cognito\. For more details, see [Understanding Amazon Cognito Authentication Part 2: Developer Authenticated Identities](https://aws.amazon.com/blogs/mobile/understanding-amazon-cognito-authentication-part-2-developer-authenticated-identities/) in the AWS blog\.
 
 ## Understanding the authentication flow<a name="understanding-the-authentication-flow"></a>
 
@@ -94,7 +94,7 @@ CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCreden
 
 ### iOS \- objective\-C<a name="implement-id-provider-1.ios-objc"></a>
 
-To use developer authenticated identities, implement your own identity provider class which extends [AWSCognitoCredentialsProviderHelper](https://docs.aws.amazon.com/AWSiOSSDK/latest/Classes/AWSCognitoCredentialsProviderHelper.html)\. Your identity provider class should return a response object containing the token as an attribute\.
+To use developer authenticated identities, implement your own identity provider class which extends [AWSCognitoCredentialsProviderHelper](https://github.com/aws-amplify/aws-sdk-ios)\. Your identity provider class should return a response object containing the token as an attribute\.
 
 ```
 @implementation DeveloperAuthenticatedIdentityProvider
@@ -159,7 +159,7 @@ If you want to support developer authenticated identities and social providers, 
 
 ### iOS \- swift<a name="implement-id-provider-1.ios-swift"></a>
 
-To use developer authenticated identities, implement your own identity provider class which extends [AWSCognitoCredentialsProviderHelper](https://docs.aws.amazon.com/AWSiOSSDK/latest/Classes/AWSCognitoCredentialsProviderHelper.html)\. Your identity provider class should return a response object containing the token as an attribute\.
+To use developer authenticated identities, implement your own identity provider class which extends [AWSCognitoCredentialsProviderHelper](https://github.com/aws-amplify/aws-sdk-ios)\. Your identity provider class should return a response object containing the token as an attribute\.
 
 ```
 import AWSCore
@@ -511,7 +511,7 @@ public String getIdentityId() {
 
 ### iOS \- objective\-C<a name="support-transition-between-providers-1.ios-objc"></a>
 
-Your application might require supporting unauthenticated identities or authenticated identities using public providers \(Login with Amazon, Sign in with Apple, Facebook, or Google\) along with developer authenticated identities\. To do this, override the [AWSCognitoCredentialsProviderHelper](https://docs.aws.amazon.com/AWSiOSSDK/latest/Classes/AWSCognitoCredentialsProviderHelper.html) `logins` method to be able to return the correct logins map based on the current identity provider\. This example shows you how you might pivot between unauthenticated, Facebook and developer authenticated\.
+Your application might require supporting unauthenticated identities or authenticated identities using public providers \(Login with Amazon, Sign in with Apple, Facebook, or Google\) along with developer authenticated identities\. To do this, override the [AWSCognitoCredentialsProviderHelper](https://github.com/aws-amplify/aws-sdk-ios) `logins` method to be able to return the correct logins map based on the current identity provider\. This example shows you how you might pivot between unauthenticated, Facebook and developer authenticated\.
 
 ```
 - (AWSTask<NSDictionary<NSString *, NSString *> *> *)logins {
@@ -529,7 +529,7 @@ When you transition from unauthenticated to authenticated, you should call `[cre
 
 ### iOS \- swift<a name="support-transition-between-providers-1.ios-swift"></a>
 
-Your application might require supporting unauthenticated identities or authenticated identities using public providers \(Login with Amazon, Sign in with Apple, Facebook, or Google\) along with developer authenticated identities\. To do this, override the [AWSCognitoCredentialsProviderHelper](https://docs.aws.amazon.com/AWSiOSSDK/latest/Classes/AWSCognitoCredentialsProviderHelper.html) `logins` method to be able to return the correct logins map based on the current identity provider\. This example shows you how you might pivot between unauthenticated, Facebook and developer authenticated\.
+Your application might require supporting unauthenticated identities or authenticated identities using public providers \(Login with Amazon, Sign in with Apple, Facebook, or Google\) along with developer authenticated identities\. To do this, override the [AWSCognitoCredentialsProviderHelper](https://github.com/aws-amplify/aws-sdk-ios) `logins` method to be able to return the correct logins map based on the current identity provider\. This example shows you how you might pivot between unauthenticated, Facebook and developer authenticated\.
 
 ```
 override func logins () -> AWSTask<NSDictionary> {

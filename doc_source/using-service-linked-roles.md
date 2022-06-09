@@ -11,15 +11,17 @@ For information about other services that support service\-linked roles, see [AW
 ## Service\-linked role permissions for Amazon Cognito<a name="slr-permissions"></a>
 
 Amazon Cognito uses the following service\-linked roles:
-+ ** AmazonCognitoIdpEmailService** – Allows Amazon Cognito user pools service to use your Amazon SES identities for sending email\.
-+ ** AmazonCognitoIdp** – Allows Amazon Cognito user pools to publish events and configure endpoints for your Amazon Pinpoint projects\.
++ ** AWSServiceRoleForAmazonCognitoIdpEmailService** – Allows Amazon Cognito user pools service to use your Amazon SES identities for sending email\.
++ ** AWSServiceRoleForAmazonCognitoIdp** – Allows Amazon Cognito user pools to publish events and configure endpoints for your Amazon Pinpoint projects\.
 
-The `AmazonCognitoIdpEmailService` service\-linked role trusts the following services to assume the role:
+**AWSServiceRoleForAmazonCognitoIdpEmailService**
+
+The `AWSServiceRoleForAmazonCognitoIdpEmailService` service\-linked role trusts the following services to assume the role:
 + `email.cognito-idp.amazonaws.com`
 
 The role permissions policy allows Amazon Cognito to complete the following actions on the specified resources:
 
-**Allowed Actions for AmazonCognitoidpEmailService**
+**Allowed Actions for AWSServiceRoleForAmazonCognitoIdpEmailService:**
 + Action: `ses:SendEmail` and `ses:SendRawEmail`
 + Resource: `*`
 
@@ -33,14 +35,14 @@ With these permissions, Amazon Cognito can use your verified email addresses in 
 
 You must configure permissions to allow an IAM entity \(such as a user, group, or role\) to create, edit, or delete a service\-linked role\. For more information, see [Service\-linked role permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#service-linked-role-permissions) in the *IAM User Guide*\.
 
-**AmazonCognitoIdp**
+**AWSServiceRoleForAmazonCognitoIdp**
 
-The AmazonCognitoIdp service\-linked role trusts the following services to assume the role:
+The AWSServiceRoleForAmazonCognitoIdp service\-linked role trusts the following services to assume the role:
 + `email.cognito-idp.amazonaws.com`
 
 The role permissions policy allows Amazon Cognito to complete the following actions on the specified resources:
 
-**Allowed Actions for AmazonCognitoIdp**
+**Allowed Actions for AWSServiceRoleForAmazonCognitoIdp**
 + Action: `cognito-idp:Describe` 
 + Resource: `*`
 

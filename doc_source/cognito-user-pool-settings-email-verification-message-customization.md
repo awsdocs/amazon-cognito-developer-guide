@@ -3,7 +3,7 @@
 To verify the email address of a user in your user pool with Amazon Cognito, you can send the user an email message with a link that they can select, or you can send them a code that they can enter\.
 
 **Note**  
-In the new Amazon Cognito console, you can customize email verification messages\.
+In the new Amazon Cognito console, you can customize email verification messages under the **Message Templates** heading in the **Messaging** tab of your user pool\.
 
 To customize the email subject and message content for email address verification messages, edit the template under the **Do you want to customize your email verification messages?** heading\.
 

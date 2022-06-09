@@ -4,7 +4,7 @@ As a way of providing additional security, you can track devices that users have
 
 ## Setting up remembered devices<a name="amazon-cognito-user-pools-setting-up-remembered-devices"></a>
 
-With Amazon Cognito user pools, you can choose to have Amazon Cognito remember devices used to access your application and associate these remembered devices with your application's users in a user pool\. You can also choose to use remembered devices to stop sending codes to your users when you have set up multi\-factor authentication \(MFA\)\. You must use the USER\_SRP\_AUTH authentication flow to use the device tracking feature\. You must also enable MFA for your user pool\.
+With Amazon Cognito user pools, you can choose to have Amazon Cognito remember devices used to access your application and associate these remembered devices with your application's users in a user pool\. You can also choose to use remembered devices to stop sending codes to your users when you have set up multi\-factor authentication \(MFA\)\. You must use the USER\_SRP\_AUTH authentication flow to use the device tracking feature\. To use remembered devices to replace MFA, you must also enable MFA for your user pool\.
 
 When setting up the remembered devices functionality through the Amazon Cognito console, you have three options: **Always**, **User Opt\-In**, and **No**\.
 

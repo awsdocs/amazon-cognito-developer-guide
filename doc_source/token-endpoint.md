@@ -1,4 +1,4 @@
-# TOKEN endpoint<a name="token-endpoint"></a>
+# Token endpoint<a name="token-endpoint"></a>
 
 The `/oauth2/token` endpoint gets the user's tokens\.
 
@@ -6,7 +6,7 @@ The `/oauth2/token` endpoint gets the user's tokens\.
 
 The `/oauth2/token` endpoint only supports `HTTPS POST`\. Your app makes requests to this endpoint directly, not through the user's browser\.
 
-For more information on the specification, see [Token Endpoint](http://openid.net/specs/openid-connect-core-1_0.html#TokenEndpoint)\.
+For more information about the token endpoint from the OpenID Connect specification, see [Token Endpoint](http://openid.net/specs/openid-connect-core-1_0.html#TokenEndpoint)\.
 
 ### Request parameters in header<a name="post-token-request-parameters"></a>
 
@@ -24,16 +24,16 @@ Must always be `'application/x-www-form-urlencoded'`\.
 
 *grant\_type*  
 Grant type\.  
-Must be `authorization_code` or `refresh_token` or `client_credentials`\. You can request an access token for a custom scope from the TOKEN endpoint when, in the app client, the requested scope is enabled, you have configured a client secret, and you have allowed `client_credentials` grants\.  
+Must be `authorization_code` or `refresh_token` or `client_credentials`\. You can request an access token for a custom scope from the token endpoint when, in the app client, the requested scope is enabled, you have configured a client secret, and you have allowed `client_credentials` grants\.  
 Required\.
 
 *client\_id*  
-Client ID\.  
+The client ID  
 Must be a preregistered client in the user pool\. The client must be enabled for Amazon Cognito federation\.  
 Required if the client is public and does not have a secret\.
 
 *scope*  
-Can be a combination of any custom scopes associated with a client\. Any scope requested must be preassociated with the client or it will be ignored at runtime\. If the client doesn't request any scopes, the authentication server uses all custom scopes associated with the client\.  
+Can be a combination of any custom scopes associated with an app client\. Any scope that you request must be activated for the app client, or Amazon Cognito will ignore it\. If the client doesn't request any scopes, the authentication server uses all custom scopes associated with the client\.  
 Optional\. Only used if the `grant_type` is `client_credentials`\.
 
 *redirect\_uri*  
@@ -198,7 +198,8 @@ Client authentication failed\. For example, when the client includes `client_id`
 
 *invalid\_grant*  
 Refresh token has been revoked\.   
-Authorization code has been consumed already or does not exist\. 
+Authorization code has been consumed already or does not exist\.   
+App client doesn't have read access to all [attributes](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html) in the requested scope\. For example, your app requests the `email` scope and your app client can read the `email` attribute, but not `email_verified`\.
 
 *unauthorized\_client*  
 Client is not allowed for code grant flow or for refreshing tokens\. 

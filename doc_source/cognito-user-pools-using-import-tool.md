@@ -2,6 +2,8 @@
 
 You can import users into an Amazon Cognito user pool\. The user information is imported from a specially formatted \.csv file\. The import process sets values for all user attributes except **password**\. Password import is not supported, because security best practices require that passwords are not available as plain text, and we don't support importing hashes\. This means that your users must change their passwords the first time they sign in\. So, your users will be in a RESET\_REQUIRED state when imported using this method\.
 
+You can use a [Pre authentication Lambda trigger](user-pool-lambda-pre-authentication.md) to set an imported user's password\. In your function code, set your user's password with an [AdminSetUserPassword](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminSetUserPassword.html) API request that sets the `Permanent` parameter to `true`\.
+
 **Note**  
 The creation date for each user is the time when that user was imported into the user pool\. Creation date is not one of the imported attributes\.
 

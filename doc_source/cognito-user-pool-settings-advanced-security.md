@@ -9,7 +9,7 @@ After you create your user pool, you have access to **Advanced security** on the
 + [Checking for compromised credentials](cognito-user-pool-settings-compromised-credentials.md)
 + [Using adaptive authentication](cognito-user-pool-settings-adaptive-authentication.md)
 + [Viewing advanced security metrics](user-pool-settings-viewing-advanced-security-metrics.md)
-+ [Enabling user pool advanced security from your app](user-pool-settings-viewing-advanced-security-app.md)
++ [Activating user pool advanced security from your app](user-pool-settings-viewing-advanced-security-app.md)
 
 ## Considerations and limitations<a name="cognito-user-pool-advanced-security-considerations"></a>
 + Additional pricing applies for Amazon Cognito advanced security features\. See the [Amazon Cognito pricing page](https://aws.amazon.com/cognito/pricing/)\.
@@ -22,7 +22,7 @@ After you create your user pool, you have access to **Advanced security** on the
 Before you begin, you need the following:
 + A user pool with an app client\. For more information, see [Getting started with user pools](getting-started-with-cognito-user-pools.md)\.
 + Set multi\-factor authentication \(MFA\) to **Optional** in the Amazon Cognito console to use the risk\-based adaptive authentication feature\. For more information, see [Adding MFA to a user pool](user-pool-settings-mfa.md)\.
-+ If you're using email for notifications, go to the [Amazon SES console](https://console.aws.amazon.com/ses/home) to configure and verify an email address or domain to use with your notification emails\. For more information about Amazon SES, see [Verifying Identities in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-addresses-and-domains.html)\.
++ If you're using email notifications, go to the [Amazon SES console](https://console.aws.amazon.com/ses/home) to configure and verify an email address or domain to use with your email notifications\. For more information about Amazon SES, see [Verifying Identities in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-addresses-and-domains.html)\.
 
 ## Configuring advanced security features<a name="cognito-user-pool-configure-advanced-security"></a>
 
@@ -35,7 +35,7 @@ You can configure Amazon Cognito advanced security features in the AWS Managemen
 
 1. From the left navigation bar, choose **Advanced security**\.
 
-1. For **Do you want to enable advanced security features for this user pool?**, choose **Yes** to turn on advanced security\. Or choose **Audit only** to gather information, and send user pool data to Amazon CloudWatch\. 
+1. For **Do you want to enable advanced security features for this user pool?**, choose **Yes** to turn on advanced security\. Or choose **Audit only** to gather information, and send user pool data to CloudWatch\. 
 
    We recommend keeping the advanced security features in audit mode for two weeks before enabling actions\. During this time, Amazon Cognito can learn the usage patterns of your app users\.
 
@@ -56,7 +56,7 @@ You can configure Amazon Cognito advanced security features in the AWS Managemen
 1. If you chose **Notify users** in the previous step, then you can customize the email notification messages by using the **Notification message customization** form:  
 ![\[User event history\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[User event history\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[User event history\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
-1. Choose **Customize** to customize adaptive authentication notifications with both HTML and plaintext email versions\. To learn more about email templates, see [Message templates](cognito-user-pool-settings-message-templates.md)\.
+1. Choose **Customize** to customize adaptive authentication notifications with both HTML and plaintext versions of email messages\. To learn more about email message templates, see [Message templates](cognito-user-pool-settings-message-templates.md)\.
 
 1. Type any IP addresses that you want to **Always allow**, or **Always block**, regardless of the advanced security risk assessment\. Specify the IP address ranges in [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation) \(such as 192\.168\.100\.0/24\)\.
 
@@ -75,7 +75,7 @@ You can configure Amazon Cognito advanced security features in the AWS Managemen
 
 1. Choose the **App integration** tab\. Locate **Advanced security** and choose **Enable**\. If you enabled advanced security earlier, choose **Edit**\.
 
-1. Select **Full function** to configure advanced security responses to compromised credentials and adaptive authentication\. Select **Audit only** to gather information and send user pool data to Amazon CloudWatch\. Advanced security pricing applies in both **Audit only** and **Full function** mode\. For more information, see [Amazon Cognito Pricing](https://aws.amazon.com/cognito/pricing/)\.
+1. Select **Full function** to configure advanced security responses to compromised credentials and adaptive authentication\. Select **Audit only** to gather information and send user pool data to CloudWatch\. Advanced security pricing applies in both **Audit only** and **Full function** mode\. For more information, see [Amazon Cognito Pricing](https://aws.amazon.com/cognito/pricing/)\.
 
    We recommend keeping the advanced security features in audit mode for two weeks before enabling actions\. During this time, Amazon Cognito can learn the usage patterns of your app users\.
 
@@ -101,13 +101,13 @@ You can configure Amazon Cognito advanced security features in the AWS Managemen
 
       1. **Block sign\-in** \- Prevent the user from signing in\.
 
-      1. **Notify user** \- Send an email message to the user with information about the risk that Amazon Cognito detected and the response you have taken\. You can customize email templates for the messages you send\.
+      1. **Notify user** \- Send an email message to the user with information about the risk that Amazon Cognito detected and the response you have taken\. You can customize email message templates for the messages you send\.
 
-1. If you chose **Notify user** in the previous step, you can customize your email delivery settings and email templates for adaptive authentication\.
+1. If you chose **Notify user** in the previous step, you can customize your email delivery settings and email message templates for adaptive authentication\.
 
-   1. Under **Email configuration**, choose the **SES Region**, **FROM email address**, **FROM sender name**, and **REPLY\-TO email address** that you want to use with adaptive authentication\. For more information on integrating your user pool email messages with Amazon Simple Email Service, see [Email settings for Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-email.html)\.
+   1. Under **Email configuration**, choose the **SES Region**, **FROM email address**, **FROM sender name**, and **REPLY\-TO email address** that you want to use with adaptive authentication\. For more information about integrating your user pool email messages with Amazon Simple Email Service, see [Email settings for Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-email.html)\.
 
-   1. Expand **Email templates** to customize adaptive authentication notifications with both HTML and plaintext email versions\. To learn more about email templates, see [Message templates](cognito-user-pool-settings-message-templates.md)\.
+   1. Expand **Email templates** to customize adaptive authentication notifications with both HTML and plaintext versions of email messages\. To learn more about email message templates, see [Message templates](cognito-user-pool-settings-message-templates.md)\.
 
 1. Expand **IP address exceptions** to create an **Always\-allow** or an **Always\-block** list of IPv4 or IPv6 address ranges that will always be allowed or blocked, regardless of the advanced security risk assessment\. Specify the IP address ranges in [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation) \(such as 192\.168\.100\.0/24\)\.
 

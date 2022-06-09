@@ -17,7 +17,7 @@ To use the Amplify framework to add authentication to your app, see the Amplify 
 
 The Amazon Cognito Identity SDK for JavaScript makes it possible for apps to sign up and authenticate users in Amazon Cognito user pools\. Apps can also use this SDK to view, delete, and update user attributes in Amazon Cognito user pools\. The *amazon\-cognito\-identity\-js* package provides sample code that makes it possible for authenticated users to change their passwords\. The package also provides sample code that can initiate and complete recovery of forgotten passwords for unauthenticated users\.
 
-[Amazon Cognito Identity SDK for JavaScript](https://github.com/aws-amplify/amplify-js/tree/master/packages/amazon-cognito-identity-js)
+[Amazon Cognito Identity SDK for JavaScript](https://github.com/aws-amplify/amplify-js/tree/main/packages/amazon-cognito-identity-js)
 
 ## Authentication with AWS SDKs<a name="amazon-cognito-authentication-with-sdks"></a>
 

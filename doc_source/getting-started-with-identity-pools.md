@@ -1,8 +1,8 @@
 # Getting started with Amazon Cognito identity pools \(federated identities\)<a name="getting-started-with-identity-pools"></a>
 
-Amazon Cognito identity pools enable you to create unique identities and assign permissions for users\. Your identity pool can include:
+With Amazon Cognito identity pools, you can create unique identities and assign permissions for users\. Your identity pool can include:
 + Users in an Amazon Cognito user pool
-+ Users who authenticate with external identity providers such as Facebook, Google, Apple, or a SAML\-based identity provider
++ Users who authenticate with external identity providers such as Facebook, Google, Apple, or an OIDC or SAML identity provider\.
 + Users authenticated via your own existing authentication process
 
  With an identity pool, you can obtain temporary AWS credentials with permissions you define to directly access other AWS services or to access resources through Amazon API Gateway\.

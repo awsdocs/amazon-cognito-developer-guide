@@ -1,6 +1,6 @@
 # Using the Amazon Cognito hosted UI for sign\-up and sign\-in<a name="cognito-user-pools-app-integration"></a>
 
-The Amazon Cognito Hosted UI provides you an OAuth 2\.0 compliant authorization server\. It includes default implementation of end user flows such as registration and authentication\. You can also customize user flows, such as the addition of Multi Factor Authentication \(MFA\), by changing your user pool configuration\. Your application will redirect to the Hosted UI,which will handle your user flows\. The user experience can be customized by providing brand\-specific logos, as well as customizing the design of Hosted UI elements\. The Amazon Cognito Hosted UI also allows you to add the ability for end users to sign in with social providers \(Facebook, Amazon, Google, and Apple\), as well as any OpenID Connect \(OIDC\)\-compliant and SAML providers\. 
+The Amazon Cognito Hosted UI provides you an OAuth 2\.0 compliant authorization server\. It includes default implementation of end user flows such as registration and authentication\. You can also customize user flows, such as the addition of Multi Factor Authentication \(MFA\), by changing your user pool configuration\. Your application will redirect to the Hosted UI, which will handle your user flows\. The user experience can be customized by providing brand\-specific logos, as well as customizing the design of Hosted UI elements\. The Amazon Cognito Hosted UI also allows you to add the ability for end users to sign in with social providers \(Facebook, Amazon, Google, and Apple\), as well as any OpenID Connect \(OIDC\)\-compliant and SAML providers\. 
 
 **Topics**
 + [Setting up the hosted UI with AWS Amplify](#cognito-user-pools-app-integration-amplify)
@@ -58,7 +58,7 @@ For more information, see the AWS Amplify framework documentation for your app p
 
 **Configure the app**
 
-1. Choose **App client settings** from the navigation bar on the leftside of the console page\.
+1. Choose **App client settings** from the navigation bar on the left side of the console page\.
 
 1. Select **Cognito User Pool** as one of the **Enabled Identity Providers**\.
 **Note**  

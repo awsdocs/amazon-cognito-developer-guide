@@ -1,4 +1,4 @@
-# USERINFO endpoint<a name="userinfo-endpoint"></a>
+# UserInfo endpoint<a name="userinfo-endpoint"></a>
 
 The `/oauth2/userInfo` endpoint returns information about the authenticated user\.
 

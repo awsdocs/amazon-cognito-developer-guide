@@ -1,46 +1,46 @@
 # Facebook \(identity pools\)<a name="facebook"></a>
 
- Amazon Cognito identity pools integrate with Facebook to provide federated authentication for your mobile application users\. This section explains how to register and set up your application with Facebook as an identity provider\. 
+Amazon Cognito identity pools integrate with Facebook to provide federated authentication for your mobile application users\. This section explains how to register and set up your application with Facebook as an IdP\.
 
 ## Set up Facebook<a name="set-up-facebook"></a>
 
- You need to register your application with Facebook before you can start authenticating Facebook users and interacting with Facebook APIs\. 
+Register your application with Facebook before you authenticate Facebook users and interact with Facebook APIs\.
 
- The [Facebook Developers portal](https://developers.facebook.com/) takes you through the process of setting up your application\. If you haven't gone through that process yet, you must to do so before you can integrate Facebook in your Amazon Cognito identity pool: 
+The [Facebook Developers portal](https://developers.facebook.com/) helps you to set up your application\. Do this procedure before you integrate Facebook in your Amazon Cognito identity pool:
 
-**To set up Facebook**
+**Setting up Facebook**
 
-1.  At the [Facebook Developers portal](https://developers.facebook.com/), log in with your Facebook credentials\. 
+1. At the [Facebook Developers portal](https://developers.facebook.com/), log in with your Facebook credentials\.
 
-1.  From the **Apps** menu, select **Add a New App**\. 
+1. From the **Apps** menu, select **Add a New App**\.
 
-1.  Select a platform and complete the quick start process\. 
+1. Select a platform and complete the quick start process\.
 
 ### Android<a name="set-up-facebook-1.android"></a>
 
- The [Facebook Getting Started Guide](https://developers.facebook.com/docs/android/getting-started) provides additional information on integrating with Facebook Login\. 
+For more information about how to integrate Android apps with Facebook Login, see the [Facebook Getting Started Guide](https://developers.facebook.com/docs/android/getting-started)\.
 
 ### iOS \- Objective\-C<a name="set-up-facebook-1.ios-objc"></a>
 
- The [Facebook Getting Started Guide](https://developers.facebook.com/docs/ios/getting-started/) provides additional information about integrating with Facebook Login\. 
+For more information about how to integrate iOS Objective\-C apps with Facebook Login, see the [Facebook Getting Started Guide](https://developers.facebook.com/docs/ios/getting-started/)\.
 
 ### iOS \- Swift<a name="set-up-facebook-1.ios-swift"></a>
 
- The [Facebook Getting Started Guide](https://developers.facebook.com/docs/ios/getting-started/) provides additional information about integrating with Facebook Login\. 
+For more information about how to integrate iOS Swift apps with Facebook Login, see the [Facebook Getting Started Guide](https://developers.facebook.com/docs/ios/getting-started/)\.
 
 ### JavaScript<a name="set-up-facebook-1.javascript"></a>
 
- The [Facebook Getting Started Guide](https://developers.facebook.com/docs/facebook-login/login-flow-for-web/v2.3) provides additional information about integrating with Facebook Login\. 
+For more information about how to integrate JavaScript web apps with Facebook Login, see the [Facebook Getting Started Guide](https://developers.facebook.com/docs/facebook-login/login-flow-for-web/v2.3)\.
 
 ### Unity<a name="set-up-facebook-1.unity"></a>
 
- The [Facebook Getting Started Guide](https://developers.facebook.com/docs/unity) provides additional information about integrating with Facebook Login\. 
+For more information about how to integrate Unity apps with Facebook Login, see the [Facebook Getting Started Guide](https://developers.facebook.com/docs/unity)\.
 
 ### Xamarin<a name="set-up-facebook-1.xamarin"></a>
 
- To provide Facebook authentication, first follow the appropriate flow below to include and set up the Facebook SDK in your application\. Amazon Cognito identity pools use the Facebook access token to generate a unique user identifier that is associated with an Amazon Cognito identity\. 
-+  [Facebook iOS SDK by Xamarin](http://components.xamarin.com/view/facebookios) 
-+  [Facebook Android SDK by Xamarin](http://components.xamarin.com/view/facebookandroid) 
+To add Facebook authentication, first follow the appropriate flow below to integrate the Facebook SDK into your application\. Amazon Cognito identity pools use the Facebook access token to generate a unique user identifier that is associated with an Amazon Cognito identity\.
++  [Facebook iOS SDK by Xamarin](http://components.xamarin.com/view/facebookios)
++  [Facebook Android SDK by Xamarin](http://components.xamarin.com/view/facebookandroid)
 
 ## Configure the external provider in the Amazon Cognito federated identities console<a name="configure-the-external-provider-in-the-amazon-cognito-console"></a>
 
@@ -48,27 +48,27 @@ Use the following procedure to configure your external provider\.
 
 1. Choose **Manage Identity Pools** from the [Amazon Cognito console home page](https://console.aws.amazon.com/cognito/home)\.
 
-1. Choose the name of the identity pool for which you want to enable Facebook as an external provider\. The **Dashboard** page for your identity pool appears\. 
+1. Choose the name of the identity pool where you want to enable Facebook as an external provider\. The **Dashboard** page for your identity pool appears\.
 
-1. In the top\-right corner of the **Dashboard** page, choose **Edit identity pool**\. The **Edit identity pool** page appears\. 
+1. In the top\-right corner of the **Dashboard** page, choose **Edit identity pool**\. The **Edit identity pool** page appears\.
 
-1. Scroll down and choose **Authentication providers** to expand it\. 
+1. Scroll down and choose **Authentication providers** to expand the section\.
 
-1. Choose the **Facebook** tab\. 
+1. Choose the **Facebook** tab\.
 
-1. Choose **Unlock**\. 
+1. Choose **Unlock**\.
 
-1. Enter the Facebook App ID you obtained from Facebook, and then choose **Save Changes**\. 
+1. Enter the Facebook App ID you obtained from Facebook, and then choose **Save Changes**\.
 
 ## Using Facebook<a name="using-facebook"></a>
 
 ### Android<a name="using-facebook-1.android"></a>
 
- To provide Facebook authentication, first follow the [Facebook guide](https://developers.facebook.com/docs/android) to include their SDK in your application\. Then add a ["Login with Facebook" button](https://developers.facebook.com/docs/facebook-login/android) to your Android user interface\. The Facebook SDK uses a session object to track its state\. Amazon Cognito uses the access token from this session object to authenticate the user, generate the unique identifier, and, if needed, grant the user access to other AWS resources\. 
+To add Facebook authentication, first follow the [Facebook guide](https://developers.facebook.com/docs/android) and integrate the Facebook SDK into your application\. Then add a [**Login with Facebook** button](https://developers.facebook.com/docs/facebook-login/android) to your Android user interface\. The Facebook SDK uses a session object to track its state\. Amazon Cognito uses the access token from this session object to authenticate the user, generate the unique identifier, and, if needed, grant the user access to other AWS resources\.
 
- Once you have authenticated your user with the Facebook SDK, add the session token to the Amazon Cognito credentials provider\. 
+After you authenticate your user with the Facebook SDK, add the session token to the Amazon Cognito credentials provider\.
 
- Facebook SDK 4\.0 or later: 
+Facebook SDK 4\.0 or later:
 
 ```
 Map<String, String> logins = new HashMap<String, String>();
@@ -76,7 +76,7 @@ logins.put("graph.facebook.com", AccessToken.getCurrentAccessToken().getToken())
 credentialsProvider.setLogins(logins);
 ```
 
- Facebook SDK before 4\.0: 
+Facebook SDK before 4\.0:
 
 ```
 Map<String, String> logins = new HashMap<String, String>();
@@ -84,18 +84,18 @@ logins.put("graph.facebook.com", Session.getActiveSession().getAccessToken());
 credentialsProvider.setLogins(logins);
 ```
 
- The Facebook login process initializes a singleton session in its SDK\. The Facebook session object contains an OAuth token that Amazon Cognito uses to generate AWS credentials for your authenticated end user\. Amazon Cognito also uses the token to check against your user database for the existence of a user matching this particular Facebook identity\. If the user already exists, the API returns the existing identifier\. Otherwise a new identifier is returned\. Identifiers are automatically cached by the client SDK on the local device\. 
+The Facebook login process initializes a singleton session in its SDK\. The Facebook session object contains an OAuth token that Amazon Cognito uses to generate AWS credentials for your authenticated end user\. Amazon Cognito also uses the token to check against your user database for the existence of a user that matches this particular Facebook identity\. If the user already exists, the API returns the existing identifier\. Otherwise, the API returns a new identifier\. The client SDK automatically caches identifiers on the local device\.
 
 **Note**  
-After setting the logins map, you must make a call to `refresh` or `get` to actually get the AWS credentials\.
+After you set the logins map, make a call to `refresh` or `get` to retrieve the AWS credentials\.
 
 ### iOS \- Objective\-C<a name="using-facebook-1.ios-objc"></a>
 
- To add Facebook authentication, first follow the [Facebook guide](https://developers.facebook.com/docs/ios) to integrate the Facebook SDK into your application\. Then add a [Login with Facebook button](https://developers.facebook.com/docs/facebook-login/ios) to your user interface\. The Facebook SDK uses a session object to track its state\. Amazon Cognito uses the access token from this session object to authenticate the user and bind them to a unique Amazon Cognito identity pools \(federated identities\)\. 
+To add Facebook authentication, first follow the [Facebook guide](https://developers.facebook.com/docs/ios) and integrate the Facebook SDK into your application\. Then add a [Login with Facebook button](https://developers.facebook.com/docs/facebook-login/ios) to your user interface\. The Facebook SDK uses a session object to track its state\. Amazon Cognito uses the access token from this session object to authenticate the user and bind them to a unique Amazon Cognito identity pools \(federated identities\)\.
 
- To provide the Facebook access token to Amazon Cognito, implement the [AWSIdentityProviderManager](https://docs.aws.amazon.com/AWSiOSSDK/latest/Protocols/AWSIdentityProviderManager.html) protocol\. 
+To provide the Facebook access token to Amazon Cognito, implement the [https://github.com/aws-amplify/aws-sdk-ios](https://github.com/aws-amplify/aws-sdk-ios) protocol\.
 
- In the implementation of the `logins` method, return a dictionary containing `AWSIdentityProviderFacebook`\. This dictionary acts as the key and the current access token from the authenticated Facebook user as the value, as shown in the following code example\. 
+When you implement the `logins` method, return a dictionary that contains `AWSIdentityProviderFacebook`\. This dictionary acts as the key, and the current access token from the authenticated Facebook user acts as the value, as shown in the following code example\.
 
 ```
 - (AWSTask<NSDictionary<NSString *, NSString *> *> *)logins {
@@ -111,15 +111,15 @@ After setting the logins map, you must make a call to `refresh` or `get` to actu
 }
 ```
 
- When you instantiate the `AWSCognitoCredentialsProvider`, pass the class that implements `AWSIdentityProviderManager` as the value of `identityProviderManager` in the constructor\. For more information, go to the [AWSCognitoCredentialsProvider](https://docs.aws.amazon.com/AWSiOSSDK/latest/Classes/AWSCognitoCredentialsProvider.html) reference page and choose **initWithRegionType:identityPoolId:identityProviderManager**\.
+When you instantiate the `AWSCognitoCredentialsProvider`, pass the class that implements `AWSIdentityProviderManager` as the value of `identityProviderManager` in the constructor\. For more information, go to the [AWSCognitoCredentialsProvider](https://github.com/aws-amplify/aws-sdk-ios) reference page and choose **initWithRegionType:identityPoolId:identityProviderManager**\.
 
 ### iOS \- Swift<a name="using-facebook-1.ios-swift"></a>
 
- To add Facebook authentication, first follow the [Facebook guide](https://developers.facebook.com/docs/ios) to integrate the Facebook SDK into your application\. Then add a [Login with Facebook button](https://developers.facebook.com/docs/facebook-login/ios) to your user interface\. The Facebook SDK uses a session object to track its state\. Amazon Cognito uses the access token from this session object to authenticate the user and bind them to a unique Amazon Cognito identity pools \(federated identities\)\. 
+To add Facebook authentication, first follow the [Facebook guide](https://developers.facebook.com/docs/ios) and integrate the Facebook SDK into your application\. Then add a [Login with Facebook button](https://developers.facebook.com/docs/facebook-login/ios) to your user interface\. The Facebook SDK uses a session object to track its state\. Amazon Cognito uses the access token from this session object to authenticate the user and bind them to a unique Amazon Cognito identity pools \(federated identities\)\.
 
- To provide the Facebook access token to Amazon Cognito, implement the [AWSIdentityProviderManager](https://docs.aws.amazon.com/AWSiOSSDK/latest/Protocols/AWSIdentityProviderManager.html) protocol\. 
+To provide the Facebook access token to Amazon Cognito, implement the [https://github.com/aws-amplify/aws-sdk-ios](https://github.com/aws-amplify/aws-sdk-ios) protocol\.
 
- In the implementation of the `logins` method, return a dictionary containing `AWSIdentityProviderFacebook`\. This dictionary acts as the key and the current access token from the authenticated Facebook user as the value, as shown in the following code example\. 
+When you implement the `logins` method, return a dictionary containing `AWSIdentityProviderFacebook`\. This dictionary acts as the key, and the current access token from the authenticated Facebook user acts as the value, as shown in the following code example\.
 
 ```
 class FacebookProvider: NSObject, AWSIdentityProviderManager {
@@ -132,13 +132,13 @@ class FacebookProvider: NSObject, AWSIdentityProviderManager {
 }
 ```
 
- When you instantiate the `AWSCognitoCredentialsProvider`, pass the class that implements `AWSIdentityProviderManager` as the value of `identityProviderManager` in the constructor\. For more information, go to the [AWSCognitoCredentialsProvider](https://docs.aws.amazon.com/AWSiOSSDK/latest/Classes/AWSCognitoCredentialsProvider.html) reference page and choose **initWithRegionType:identityPoolId:identityProviderManager**\.
+When you instantiate the `AWSCognitoCredentialsProvider`, pass the class that implements `AWSIdentityProviderManager` as the value of `identityProviderManager` in the constructor\. For more information, go to the [https://github.com/aws-amplify/aws-sdk-ios](https://github.com/aws-amplify/aws-sdk-ios) reference page and choose **initWithRegionType:identityPoolId:identityProviderManager**\.
 
 ### JavaScript<a name="using-facebook-1.javascript"></a>
 
-To provide Facebook authentication, follow the [Facebook Login for the Web](https://developers.facebook.com/docs/facebook-login/login-flow-for-web/v2.3) to add the "Login with Facebook" button on your website\. The Facebook SDK uses a session object to track its state\. Amazon Cognito uses the access token from this session object to authenticate the user, generate the unique identifier, and, if needed, grant the user access to other AWS resources\. 
+To add Facebook authentication, follow the [Facebook Login for the Web](https://developers.facebook.com/docs/facebook-login/login-flow-for-web/v2.3) and add the **Login with Facebook** button on your website\. The Facebook SDK uses a session object to track its state\. Amazon Cognito uses the access token from this session object to authenticate the user, generate the unique identifier, and, if needed, grant the user access to other AWS resources\.
 
- Once you have authenticated your user with the Facebook SDK, add the session token to the Amazon Cognito credentials provider\. 
+After you authenticate your user with the Facebook SDK, add the session token to the Amazon Cognito credentials provider\.
 
 ```
 FB.login(function (response) {
@@ -168,16 +168,16 @@ FB.login(function (response) {
 });
 ```
 
- The Facebook SDK obtains an OAuth token that Amazon Cognito uses to generate AWS credentials for your authenticated end user\. Amazon Cognito also uses the token to check against your user database for the existence of a user matching this particular Facebook identity\. If the user already exists, the API returns the existing identifier\. Otherwise a new identifier is returned\. Identifiers are automatically cached by the client SDK on the local device\. 
+The Facebook SDK obtains an OAuth token that Amazon Cognito uses to generate AWS credentials for your authenticated end user\. Amazon Cognito also uses the token to check against your user database for the existence of a user matching this particular Facebook identity\. If the user already exists, the API returns the existing identifier\. Otherwise a new identifier is returned\. Identifiers are automatically cached by the client SDK on the local device\.
 
 **Note**  
-After setting the logins map, you must make a call to `refresh` or `get` to get the credentials\. For a code example, see "Use Case 17, Integrating User Pools with Cognito Identity," in the [JavaScript README file](https://github.com/aws/aws-amplify/tree/master/packages/amazon-cognito-identity-js/README.md)\.
+After you set the logins map, make a call to `refresh` or `get` to get the credentials\. For a code example, see "Use Case 17, Integrating User Pools with Cognito Identity," in the [JavaScript README file](https://github.com/aws/aws-amplify/tree/master/packages/amazon-cognito-identity-js/README.md)\.
 
 ### Unity<a name="using-facebook-1.unity"></a>
 
- To provide Facebook authentication, first follow the [Facebook guide](https://developers.facebook.com/docs/unity) to include and set up their SDK in your application\. Amazon Cognito uses the Facebook access token from the 'FB' object to generate a unique user identifier that is associated with an Amazon Cognito identity\. 
+To add Facebook authentication, first follow the [Facebook guide](https://developers.facebook.com/docs/unity) and integrate the Facebook SDK into your application\. Amazon Cognito uses the Facebook access token from the `FB` object to generate a unique user identifier that is associated with an Amazon Cognito identity\.
 
- Once you have authenticated your user with the Facebook SDK, add the session token to the Amazon Cognito credentials provider: 
+After you authenticate your user with the Facebook SDK, add the session token to the Amazon Cognito credentials provider:
 
 ```
 void Start()
@@ -209,11 +209,11 @@ void AddFacebookTokenToCognito()
 }
 ```
 
- You should make sure to call `FB.Login()` and that `FB.IsLoggedIn` is true before using `FB.AccessToken`\. 
+Before you use `FB.AccessToken`, call `FB.Login()` and make sure `FB.IsLoggedIn` is true\.
 
 ### Xamarin<a name="using-facebook-1.xamarin"></a>
 
- **Xamarin for Android:** 
+**Xamarin for Android:**
 
 ```
 public void InitializeFacebook() {
@@ -238,7 +238,7 @@ public void InitializeFacebook() {
   }
 ```
 
- **Xamarin for iOS:** 
+**Xamarin for iOS:**
 
 ```
 public void InitializeFacebook() {

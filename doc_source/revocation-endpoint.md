@@ -1,4 +1,4 @@
-# REVOCATION endpoint<a name="revocation-endpoint"></a>
+# Revoke endpoint<a name="revocation-endpoint"></a>
 
 The /`oauth2/revoke` endpoint revokes all of the access tokens that the specified refresh token generated\. After the endpoint revokes the tokens, you can't use the revoked tokens to access APIs that Amazon Cognito tokens authenticate\.
 
@@ -26,7 +26,7 @@ Required if the client is public and doesn't have a secret\.
 
 ##### Revocation request examples<a name="revoke-sample-request"></a>
 
-**Example \#1: Revoke a token for an app client without a client secret**
+**Example 1: Revoke a token for an app client without a client secret**
 
 ```
     POST /oauth2/revoke HTTP/1.1
@@ -37,7 +37,7 @@ Required if the client is public and doesn't have a secret\.
         client_id=djc98u3jiedmi283eu928
 ```
 
-**Example \#2: Revoke a token for an app client with a client secret**
+**Example 2: Revoke a token for an app client with a client secret**
 
 ```
     POST /oauth2/revoke HTTP/1.1

@@ -1,8 +1,8 @@
-# Application\-client\-based multi\-tenancy<a name="application-client-based-multi-tenancy"></a>
+# App\-client\-based multi\-tenancy<a name="application-client-based-multi-tenancy"></a>
 
 With application client\-based multi\-tenancy, you can map the same user to multiple tenants without the need to recreate a user’s profile\. You can create an application client for each tenant and make the tenant external IdP the only identity provider that this application client can use\. For more information see, [ Configuring a user pool app client](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-app-idp-settings.html)\. 
 
-When you use the hosted UI to authenticate users with native accounts, and you want to use application client\-based multi\-tenancy\. You must consider user name, password, and more\. When the hosted UI is in use, it creates a session cookie to maintain the session for the authenticated user\. The session cookie also provides SSO between application clients in the same user pool\. The session cookie is valid for one hour\. You can't change the session cookie duration\. 
+The hosted UI sets a session cookie in the browser so that it recognizes a user who has already authenticated\. When you authenticate users with *native accounts* in a user pool with multiple app clients, their session cookie authenticates them for all app clients in the same user pool\. Native accounts are user accounts in the user pool directory that weren't created by federation with a third\-party IdP\. The session cookie is valid for one hour\. You can't change the session cookie duration\. 
 
 You can use app\-client\-based multi\-tenancy in the following scenarios:
 + Your application has the same configurations across all tenants\. For example, data residency and password policy are the same across all tenants\.

@@ -70,10 +70,13 @@ For example, an app that trusts only Facebook would have the following amr claus
 The permissions attached to a role are effective across all users that assume that role\. If you want to partition your users' access, you can do so through policy variables\. Be careful when including your users' identity IDs in your access policies, particularly for unauthenticated identities, as these may change if the user logs in\.
 
 For additional security protection, Amazon Cognito applies a scope\-down policy to credentials vended by `GetCredentialForIdentity` to prevent access to services other than the following ones for your unauthenticated users\. You can create an identity using these credentials with access to only the following services: 
++ Amazon API Gateway
 + AWS AppSync
 + Amazon CloudWatch
++ Amazon CloudWatch Logs
 + Amazon Cognito Identity
 + Amazon Cognito Sync
++ Amazon Cognito user pools
 + Amazon Comprehend
 + Amazon DynamoDB
 + Amazon GameLift
@@ -86,19 +89,22 @@ For additional security protection, Amazon Cognito applies a scope\-down policy 
 + Amazon Location Service
 + Amazon Machine Learning
 + Amazon Mobile Analytics
++ Amazon Personalize
 + Amazon Pinpoint
 + Amazon Polly
 + Amazon Rekognition
++ Amazon SageMaker
 + Amazon SimpleDB
 + Amazon Simple Email Service \(Amazon SES\)
 + Amazon Simple Notification Service \(Amazon SNS\)
 + Amazon Simple Queue Service \(Amazon SQS\)
 + Amazon Simple Storage Service \(Amazon S3\)
 + Amazon Sumerian
++ Amazon Textract
 + Amazon Transcribe
 + Amazon Translate
 
-In addition, there are services that,grant access to unauthenticated users, but don't permit all the service's actions for these users\. The following table shows the services with restricted actions\.
+In addition, there are services that grant access to unauthenticated users, but don't permit all the service's actions for these users\. The following table shows the services with restricted actions\.
 
 
 | Service | Permission granted for unauthenticated users | 

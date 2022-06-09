@@ -112,7 +112,7 @@ The `use` parameter describes the intended use of the public key\. For this exam
 
 1. Verify that the token is not expired\.
 
-1. The audience \(`aud`\) claim should match the app client ID that was created in the Amazon Cognito user pool\.
+1. The `aud` claim in an ID token and the `client_id` claim in an access token should match the app client ID that was created in the Amazon Cognito user pool\.
 
 1. The issuer \(`iss`\) claim should match your user pool\. For example, a user pool created in the `us-east-1` Region will have the following `iss` value:
 

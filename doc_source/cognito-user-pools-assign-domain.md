@@ -5,7 +5,7 @@ After setting up an app client, you can configure the address of your sign\-up a
 To add an app client and an Amazon Cognito hosted domain with the AWS Management Console, see [ Adding an app to enable the hosted web UI](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-configuring-app-integration.html)\.
 
 **Note**  
-You can't use the text `aws`, `amazon`, or `cognito`, in the domain prefix\.
+You can't use the text `aws`, `amazon`, or `cognito` in the domain prefix\.
 
 **Topics**
 + [Using the Amazon Cognito domain for the hosted UI](cognito-user-pools-assign-domain-prefix.md)

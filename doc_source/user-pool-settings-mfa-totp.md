@@ -18,7 +18,7 @@ To add MFA to your user pool, see [Adding MFA to a user pool](user-pool-settings
 
 1. The Amazon Cognito hosted UI currently doesn't support self\-service TOTP setup\. After your app associates and verifies a TOTP software token, your user can provide their TOTP in the hosted UI\.
 
-1. Amazon Cognito supports software token MFA through a code generator app\. Amazon Cognito doesn't support hardware\-based MFA\.
+1. Amazon Cognito supports software token MFA through an authenticator app that generates TOTP codes\. Amazon Cognito doesn't support hardware\-based MFA\.
 
 1. When your user pool requires TOTP for a user who has not configured it, your user receives a one\-time access token that your app can use to activate TOTP MFA for the user\. Subsequent sign\-in attempts fail until your user has registered an additional TOTP sign\-in factor\.
    + A user who signs up in your user pool with the `SignUp` API operation or through the hosted UI receives one\-time tokens when the user completes sign\-up\.
@@ -29,7 +29,7 @@ To add MFA to your user pool, see [Adding MFA to a user pool](user-pool-settings
 
 1. If your users have set up TOTP, they can use it for MFA, even if you deactivate TOTP for the user pool later\.
 
-When a user first signs in, your app uses their one\-time access token to generate the TOTP private key and present it to your user in text or QR code format\. Your user configures their code generator app and provides a TOTP for subsequent sign\-in attempts\. Your app or the hosted UI presents the TOTP to Amazon Cognito in MFA challenge responses\.
+When a user first signs in, your app uses their one\-time access token to generate the TOTP private key and present it to your user in text or QR code format\. Your user configures their authenticator app and provides a TOTP for subsequent sign\-in attempts\. Your app or the hosted UI presents the TOTP to Amazon Cognito in MFA challenge responses\.
 
 ## Associate the TOTP software token<a name="user-pool-settings-mfa-totp-associate-token"></a>
 
@@ -39,15 +39,15 @@ To associate the TOTP token, send your user a secret code that they must validat
 
 1. Your app presents the user with the private key, or a QR code that you generate from the private key\. Your user must enter the key into a TOTP\-generating app such as Google Authenticator\. You can use [libqrencode](https://github.com/fukuchi/libqrencode/) to generate a QR code\.
 
-1. Your user enters the key, or scans the QR code into a code generator app such as Google Authenticator, and the app begins generating codes\.
+1. Your user enters the key, or scans the QR code into a authenticator app such as Google Authenticator, and the app begins generating codes\.
 
 ## Verify the TOTP token<a name="user-pool-settings-mfa-totp-verification"></a>
 
 Next, verify the TOTP token\. Request sample codes from your user and provide them to the Amazon Cognito service to confirm that the user is successfully generating TOTP codes, as follows\.
 
-1. Your app prompts your user for a code to demonstrate that they have set up their code generator properly\.
+1. Your app prompts your user for a code to demonstrate that they have set up their authenticator app properly\.
 
-1. The user's code generator displays a temporary password\. The code generator bases the password on the secret key you gave to the user\.
+1. The user's authenticator app displays a temporary password\. The authenticator app bases the password on the secret key you gave to the user\.
 
 1. Your user enters their temporary password\. Your app passes the temporary password to Amazon Cognito in a `[VerifySoftwareToken](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerifySoftwareToken.html)` API request\.
 

@@ -50,12 +50,14 @@ The app generates SRP details with the Amazon Cognito SRP features that are buil
 If you don't have a user app, but instead you use a Java, Ruby, or Node\.js secure backend or server\-side app, you can use the authenticated server\-side API for Amazon Cognito user pools\.
 
 For server\-side apps, user pool authentication is similar to authentication for client\-side apps, except for the following:
-+ The server\-side app calls the `AdminInitiateAuth` API operation \(instead of `InitiateAuth`\)\. This operation requires AWS admin credentials\. The operation returns the required authentication parameters\.
-+ After the server\-side app has the authentication parameters, it calls the `AdminRespondToAuthChallenge` API operation \(instead of `RespondToAuthChallenge`\)\. The `AdminRespondToAuthChallenge` API operation only succeeds when you provide AWS admin credentials\.
++ The server\-side app calls the `AdminInitiateAuth` API operation \(instead of `InitiateAuth`\)\. This operation requires AWS credentials with permissions that include `cognito-idp:AdminInitiateAuth` and `cognito-idp:AdminRespondToAuthChallenge`\. The operation returns the required authentication parameters\.
++ After the server\-side app has the authentication parameters, it calls the `AdminRespondToAuthChallenge` API operation \(instead of `RespondToAuthChallenge`\)\. The `AdminRespondToAuthChallenge` API operation only succeeds when you provide AWS credentials\.
+
+For more information about signing Amazon Cognito API requests with AWS credentials, see [Signature Version 4 signing process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html) in the *AWS General Reference*\.
 
 The `AdminInitiateAuth` and `AdminRespondToAuthChallenge` API operations can't accept username\-and\-password user credentials for admin sign\-in, unless you explicitly enable them to do so in one of the following ways:
-+ Pass `ADMIN_USER_PASSWORD_AUTH` \(formerly known as `ADMIN_NO_SRP_AUTH`\) for the `ExplicitAuthFlow` parameter in your server\-side app's call to `CreateUserPoolClient` or `UpdateUserPoolClient`\.
-+ Choose `Enable sign-in API for server-based authentication (ADMIN_USER_PASSWORD_AUTH)` on the **App integration** tab in your user pool\. For more information, see [Configuring a user pool app client](user-pool-settings-client-apps.md)\.
++ Include `ALLOW_ADMIN_USER_PASSWORD_AUTH` \(formerly known as `ADMIN_NO_SRP_AUTH`\) in the `ExplicitAuthFlow` parameter when you call `CreateUserPoolClient` or `UpdateUserPoolClient`\.
++ Add `ALLOW_ADMIN_USER_PASSWORD_AUTH` to the list of **Authentication flows** for you app client\. Configure app clients on the **App integration** tab in your user pool, under **App clients and analytics**\. For more information, see [Configuring a user pool app client](user-pool-settings-client-apps.md)\.
 
 ## Custom authentication flow<a name="amazon-cognito-user-pools-custom-authentication-flow"></a>
 
@@ -93,7 +95,7 @@ If you want to include SRP in a custom authentication flow, you must begin with 
 + The `CUSTOM_AUTH` flow invokes the `DefineAuthChallenge` Lambda trigger with an initial session of `challengeName: SRP_A` and `challengeResult: true`\. Your Lambda function responds with `challengeName: PASSWORD_VERIFIER`, `issueTokens: false`, and `failAuthentication: false`\.
 +  The app next must call `RespondToAuthChallenge` with `challengeName: PASSWORD_VERIFIER` and the other parameters required for SRP in the `challengeResponses` map\. 
 + If Amazon Cognito verifies the password, `RespondToAuthChallenge` invokes the `DefineAuthChallenge` Lambda trigger with a second session of `challengeName: PASSWORD_VERIFIER` and `challengeResult: true`\. At that point, the `DefineAuthChallenge` Lambda trigger responds with `challengeName: CUSTOM_CHALLENGE` to start the custom challenge\.
-+ If MFA is enabled for a user, after the password is verified, it is handled automatically\.
++ If MFA is enabled for a user, after Amazon Cognito verifies the password, your user is then challenged to set up or sign in with MFA\.
 
 **Note**  
 The Amazon Cognito hosted sign\-in webpage can't activate [Custom authentication challenge Lambda triggers](user-pool-lambda-challenge.md)\.

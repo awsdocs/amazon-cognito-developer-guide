@@ -1,14 +1,14 @@
 # Open ID Connect providers \(identity pools\)<a name="open-id"></a>
 
-[OpenID Connect](http://openid.net/connect/) is an open standard for authentication that is supported by a number of login providers\. Amazon Cognito supports linking of identities with OpenID Connect providers that are configured through [AWS Identity and Access Management](http://aws.amazon.com/iam/)\.
+[OpenID Connect](http://openid.net/connect/) is an open standard for authentication that a number of login providers support\. Amazon Cognito supports you to link identities with OpenID Connect providers that you configure through [AWS Identity and Access Management](http://aws.amazon.com/iam/)\.
 
 **Adding an OpenID Connect provider**
 
-For information on how to create an OpenID Connect Provider, see the [IAM documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/identity-providers-oidc.html)\.
+For information about how to create an OpenID Connect provider, see the [IAM documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/identity-providers-oidc.html)\.
 
 **Associating a provider with Amazon Cognito**
 
-Once you've created an OpenID Connect provider in the IAM Console, you can associate it with an identity pool\. All configured providers will be visible in the Edit Identity Pool screen in the Amazon Cognito Console under the OpenID Connect Providers header\.
+After you create an OpenID Connect provider in the IAM Console, you can associate it with an identity pool\. All providers that you configure are visible in the Edit Identity Pool screen in the Amazon Cognito Console under the OpenID Connect Providers header\.
 
 ![\[External Provider Enhanced Authflow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[External Provider Enhanced Authflow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[External Provider Enhanced Authflow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
@@ -18,26 +18,26 @@ You can associate multiple OpenID Connect providers with a single identity pool\
 
 Refer to your provider's documentation for how to login and receive an ID token\.
 
-Once you have a token, add the token to the logins map, using the URI of your provider as the key\.
+After you have a token, add the token to the logins map\. Use the URI of your provider as the key\.
 
 **Validating an OpenID Connect token**
 
-When first integrating with Amazon Cognito, you may receive an `InvalidToken` exception\. It is important to understand how Amazon Cognito validates OpenID Connect tokens\.
+When you first integrate with Amazon Cognito, you might receive an `InvalidToken` exception\. It is important to understand how Amazon Cognito validates OpenID Connect \(OIDC\) tokens\.
 
 **Note**  
-As specified here \([https://tools\.ietf\.org/html/rfc7523](https://tools.ietf.org/html/rfc7523)\), Amazon Cognito allows for a grace period of 5 minutes to handle any clock skew between systems\.
+As specified here \([https://tools\.ietf\.org/html/rfc7523](https://tools.ietf.org/html/rfc7523)\), Amazon Cognito provides a grace period of 5 minutes to handle any clock skew between systems\.
 
-1. The `iss` parameter must match the key used in the logins map \(such as login\.provider\.com\)\.
+1. The `iss` parameter must match the key that the logins map uses \(such as login\.provider\.com\)\.
 
 1. The signature must be valid\. The signature must be verifiable via an RSA public key\.
 
-1. The fingerprint of the certificate hosting the public key matches what's configured on your OpenId Connect Provider\.
+1. The fingerprint of the certificate public key matches the fingerprint that you set in IAM when you created your OIDC provider\.
 
-1. If the `azp` parameter is present, check this value against listed client IDs in your OpenId Connect provider\.
+1. If the `azp` parameter is present, check this value against listed client IDs in your OIDC provider\.
 
-1. If the `azp` parameter is not present, check the `aud` parameter against listed client IDs in your OpenId Connect provider\.
+1. If the `azp` parameter isn't present, check the `aud` parameter against listed client IDs in your OIDC provider\.
 
-The website [jwt\.io](http://jwt.io/) is a valuable resource for decoding tokens to verify these values\.
+The website [jwt\.io](http://jwt.io/) is a valuable resource that you can use to decode tokens and verify these values\.
 
 ## Android<a name="set-up-open-id-1.android"></a>
 
@@ -57,7 +57,7 @@ credentialsProvider.logins = @{ "login.provider.com": token }
 
 To provide the OIDC ID token to Amazon Cognito, implement the `AWSIdentityProviderManager` protocol\.
 
-In the implementation of the logins method, return a dictionary containing the OIDC provider name that you configured\. This dictionary acts as the key and the current ID token from the authenticated user as the value, as shown in the following code example\.
+When you implement the `logins` method, return a dictionary that contains the OIDC provider name that you configured\. This dictionary acts as the key, and the current ID token from the authenticated user acts as the value, as shown in the following code example\.
 
 ```
 class OIDCProvider: NSObject, AWSIdentityProviderManager {
@@ -85,7 +85,7 @@ class OIDCProvider: NSObject, AWSIdentityProviderManager {
 }
 ```
 
-When you instantiate the `AWSCognitoCredentialsProvider`, pass the class that implements AWSIdentityProviderManager as the value of identityProviderManager in the constructor\. For more information, go to the [AWSCognitoCredentialsProvider](http://docs.aws.amazon.com/AWSiOSSDK/latest/Classes/AWSCognitoCredentialsProvider.html) reference page and choose [initWithRegionType:identityPoolId:identityProviderManager](http://docs.aws.amazon.com/AWSiOSSDK/latest/Classes/AWSCognitoCredentialsProvider.html#/api/name/initWithRegionType:identityPoolId:identityProviderManager:)\.
+When you instantiate the `AWSCognitoCredentialsProvider`, pass the class that implements AWSIdentityProviderManager as the value of identityProviderManager in the constructor\. For more information, go to the [https://github.com/aws-amplify/aws-sdk-ios](https://github.com/aws-amplify/aws-sdk-ios) reference page and choose [initWithRegionType:identityPoolId:identityProviderManager](https://github.com/aws-amplify/aws-sdk-ios)\.
 
 ## JavaScript<a name="set-up-open-id-1.javascript"></a>
 

@@ -133,7 +133,7 @@ function sendEmail(to, body, completedCallback) {
 
 ------
 
-Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that’s relevant to your Lambda trigger\. The following is a test event for this code sample:
+Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that is relevant to your Lambda trigger\. The following is a test event for this code sample:
 
 ------
 #### [ JSON ]

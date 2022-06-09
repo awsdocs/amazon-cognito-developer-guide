@@ -99,7 +99,7 @@ You can retrieve a unique Amazon Cognito identifier \(identity ID\) for your end
 ```
 
 **Note**  
- `getIdentityId` is an asynchronous call\. If an identity ID is already set on your provider, you can call `credentialsProvider.identityId` to retrieve that identity, which is cached locally\. However, if an identity ID is not set on your provider, calling `credentialsProvider.identityId` will return `nil`\. For more information, consult the [ Mobile SDK for iOS API Reference](https://docs.aws.amazon.com/AWSiOSSDK/latest/Classes/AWSCognitoCredentialsProvider.html#/api/name/getIdentityId)\. 
+ `getIdentityId` is an asynchronous call\. If an identity ID is already set on your provider, you can call `credentialsProvider.identityId` to retrieve that identity, which is cached locally\. However, if an identity ID is not set on your provider, calling `credentialsProvider.identityId` will return `nil`\. For more information, consult the [Amplify iOS SDK reference](https://github.com/aws-amplify/aws-sdk-ios)\. 
 
 ## iOS \- Swift<a name="getting-credentials-1.ios-swift"></a>
 
@@ -147,7 +147,7 @@ credentialsProvider.getIdentityId().continueWith(block: { (task) -> AnyObject? i
 ```
 
 **Note**  
- `getIdentityId` is an asynchronous call\. If an identity ID is already set on your provider, you can call `credentialsProvider.identityId` to retrieve that identity, which is cached locally\. However, if an identity ID is not set on your provider, calling `credentialsProvider.identityId` will return `nil`\. For more information, consult the [Mobile SDK for iOS API Reference](https://docs.aws.amazon.com/AWSiOSSDK/latest/Classes/AWSCognitoCredentialsProvider.html#/api/name/getIdentityId)\. 
+ `getIdentityId` is an asynchronous call\. If an identity ID is already set on your provider, you can call `credentialsProvider.identityId` to retrieve that identity, which is cached locally\. However, if an identity ID is not set on your provider, calling `credentialsProvider.identityId` will return `nil`\. For more information, consult the [Amplify iOS SDK reference](https://github.com/aws-amplify/aws-sdk-ios)\. 
 
 ## JavaScript<a name="getting-credentials-1.javascript"></a>
 

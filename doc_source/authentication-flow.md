@@ -80,66 +80,41 @@ If you want to use more than the two default roles configured when you create a 
 
 **API summary**
 
-**GetId**
-
-The `GetId` API call is the first call necessary to establish a new identity in Amazon Cognito\.
-
-**Unauthenticated access**
-
-Amazon Cognito can grant unauthenticated guest access in your applications\. If this feature is enabled in your identity pool, users can request a new identity ID at any time via the `GetId` API\. The application is expected to cache this identity ID to make subsequent calls to Amazon Cognito\. The AWS Mobile SDKs and the AWS SDK for JavaScript in the Browser have credentials providers that handle this caching for you\.
-
-**Authenticated access**
-
-When you've configured your application with support for a public login provider \(Facebook, Google\+, Login with Amazon, or Sign in with Apple\), users can also supply tokens \(OAuth or OpenID Connect\) that identify them in those providers\. When used in a call to `GetId`, Amazon Cognito creates a new authenticated identity or returns the identity already associated with that particular login\. Amazon Cognito does this by validating the token with the provider and making sure of the following:
+**GetId**  
+The `GetId` API call is the first call necessary to establish a new identity in Amazon Cognito\.    
+Unauthenticated access  
+Amazon Cognito can grant unauthenticated guest access in your applications\. If this feature is enabled in your identity pool, users can request a new identity ID at any time via the `GetId` API\. The application is expected to cache this identity ID to make subsequent calls to Amazon Cognito\. The AWS Mobile SDKs and the AWS SDK for JavaScript in the Browser have credentials providers that handle this caching for you\.  
+Authenticated access  
+When you've configured your application with support for a public login provider \(Facebook, Google\+, Login with Amazon, or Sign in with Apple\), users can also supply tokens \(OAuth or OpenID Connect\) that identify them in those providers\. When used in a call to `GetId`, Amazon Cognito creates a new authenticated identity or returns the identity already associated with that particular login\. Amazon Cognito does this by validating the token with the provider and making sure of the following:  
 + The token is valid and from the configured provider\.
 + The token is not expired\.
 + The token matches the application identifier created with that provider \(for example, Facebook app ID\)\.
 + The token matches the user identifier\.
 
-**GetCredentialsForIdentity**
+**GetCredentialsForIdentity**  
+The `GetCredentialsForIdentity` API can be called after you establish an identity ID\. This API is functionally equivalent to calling `GetOpenIdToken` followed by `AssumeRoleWithWebIdentity`\.  
+For Amazon Cognito to call `AssumeRoleWithWebIdentity` on your behalf, your identity pool must have IAM roles associated with it\. You can do this via the Amazon Cognito console or manually via the `[SetIdentityPoolRoles](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_SetIdentityPoolRoles.html)` operation\.
 
-The `GetCredentialsForIdentity` API can be called after you establish an identity ID\. This API is functionally equivalent to calling `GetOpenIdToken` followed by `AssumeRoleWithWebIdentity`\.
-
-In order for Amazon Cognito to call `AssumeRoleWithWebIdentity` on your behalf, your identity pool must have IAM roles associated with it\. You can do this via the Amazon Cognito console or manually via the `[SetIdentityPoolRoles](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_SetIdentityPoolRoles.html)` operation\.
-
-**GetOpenIdToken**
-
-The `GetOpenIdToken` API call is called after you establish an identity ID\. If you have a cached identity ID, this can be the first call you make during an app session\.
-
-**Unauthenticated access**
-
-To obtain a token for an unauthenticated identity, you only need the identity ID itself\. It is not possible to get an unauthenticated token for authenticated or disabled identities\.
-
-**Authenticated access**
-
-If you have an authenticated identity, you must pass at least one valid token for a login already associated with that identity\. All tokens passed in during the `GetOpenIdToken` call must pass the same validation mentioned earlier; if any of the tokens fail, the whole call fails\. The response from the `GetOpenIdToken` call also includes the identity ID\. This is because the identity ID that you pass in may not be the one that is returned\.
-
-**Linking logins**
-
-If you pass in a token for a login that is not already associated with any identity, the login is considered to be "linked" to the associated identity\. You may only link one login per public provider\. Attempts to link more than one login with a public provider results in a `ResourceConflictException` error response\. If a login is merely linked to an existing identity, the identity ID returned from `GetOpenIdToken` is the same as the one that you passed in\.
-
-**Merging identities**
-
+**GetOpenIdToken**  
+The `GetOpenIdToken` API call is called after you establish an identity ID\. If you have a cached identity ID, this can be the first call you make during an app session\.    
+Unauthenticated access  
+To obtain a token for an unauthenticated identity, you only need the identity ID itself\. It is not possible to get an unauthenticated token for authenticated or disabled identities\.  
+Authenticated access  
+If you have an authenticated identity, you must pass at least one valid token for a login already associated with that identity\. All tokens passed in during the `GetOpenIdToken` call must pass the same validation mentioned earlier; if any of the tokens fail, the whole call fails\. The response from the `GetOpenIdToken` call also includes the identity ID\. This is because the identity ID that you pass in may not be the one that is returned\.  
+Linking logins  
+If you pass in a token for a login that is not already associated with any identity, the login is considered to be "linked" to the associated identity\. You may only link one login per public provider\. Attempts to link more than one login with a public provider results in a `ResourceConflictException` error response\. If a login is merely linked to an existing identity, the identity ID returned from `GetOpenIdToken` is the same as the one that you passed in\.  
+Merging identities  
 If you pass in a token for a login that is not currently linked to the given identity, but is linked to another identity, the two identities are merged\. Once merged, one identity becomes the parent/owner of all associated logins and the other is disabled\. In this case, the identity ID of the parent/owner is returned\. You must update your local cache if this value differs\. The providers in the AWS Mobile SDKs or AWS SDK for JavaScript in the Browser perform this operation for you\.
 
-**`GetOpenIdTokenForDeveloperIdentity`**
-
-The `GetOpenIdTokenForDeveloperIdentity` API replaces the use of `GetId` and `GetOpenIdToken` from the device when using developer authenticated identities\. Because this API call is signed by your AWS credentials, Amazon Cognito can trust that the user identifier supplied in the API call is valid\. This replaces the token validation Amazon Cognito performs with external providers\.
-
-The payload for this API includes a logins map that must contain the key of your developer provider and a value as an identifier for the user in your system\. If the user identifier isn't already linked to an existing identity, Amazon Cognito creates a new identity and returns the new identity id and an OpenId Connect token for that identity\. If the user identifier is already linked, Amazon Cognito returns the pre\-existing identity id and an OpenId Connect token\.
-
-**Linking logins**
-
-As with external providers, supplying additional logins that are not already associated with an identity implicitly links those logins to that identity\. If you link an external provider login to an identity, the user can use the external provider authflow with that provider, but they cannot use your developer provider name in the logins map when calling `GetId` or `GetOpenIdToken`\.
-
-**Merging identities** 
-
+**GetOpenIdTokenForDeveloperIdentity**  
+The `GetOpenIdTokenForDeveloperIdentity` API replaces the use of `GetId` and `GetOpenIdToken` from the device when using developer authenticated identities\. Because this API call is signed by your AWS credentials, Amazon Cognito can trust that the user identifier supplied in the API call is valid\. This replaces the token validation Amazon Cognito performs with external providers\.  
+The payload for this API includes a logins map that must contain the key of your developer provider and a value as an identifier for the user in your system\. If the user identifier isn't already linked to an existing identity, Amazon Cognito creates a new identity and returns the new identity id and an OpenId Connect token for that identity\. If the user identifier is already linked, Amazon Cognito returns the pre\-existing identity id and an OpenId Connect token\.    
+Linking logins  
+As with external providers, supplying additional logins that are not already associated with an identity implicitly links those logins to that identity\. If you link an external provider login to an identity, the user can use the external provider authflow with that provider, but they cannot use your developer provider name in the logins map when calling `GetId` or `GetOpenIdToken`\.  
+Merging identities  
 With developer authenticated identities, Amazon Cognito supports both implicit merging and explicit merging through the `[MergeDeveloperIdentities](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_MergeDeveloperIdentities.html)` API\. With explicit merging, you can mark two identities with user identifiers in your system as a single identity\. If you supply the source and destination user identifiers, Amazon Cognito merges them\. The next time you request an OpenId Connect token for either user identifier, the same identity id is returned\.
 
-**AssumeRoleWithWebIdentity**
-
-Once you have an OpenID Connect token, you can then trade this for temporary AWS credentials through the `AssumeRoleWithWebIdentity` API call in AWS Security Token Service \(STS\)\. This call is no different than if you were using Facebook, Google\+, Login with Amazon, or Sign in with Apple directly\. The only exception is that you are passing an Amazon Cognito token instead of a token from one of the other public providers\.
-
-Because there is no restriction on the number of identities that you can create, it is important to understand the permissions that you're granting to your users\. Set up different roles for your application: one for unauthenticated users, and one for authenticated users\. The Amazon Cognito console creates these for you by default when you first set up your identity pool\. The access policy for these two roles are exactly the same: it grants users access to Amazon Cognito Sync, and they can submit events to Amazon Mobile Analytics\. You can modify these roles to meet your needs\.
-
+**AssumeRoleWithWebIdentity**  
+After you have an OpenID Connect token, you can then trade this for temporary AWS credentials through the `AssumeRoleWithWebIdentity` API call in AWS Security Token Service \(STS\)\. This call is no different than if you were using Facebook, Google\+, Login with Amazon, or Sign in with Apple directly\. The only exception is that you are passing an Amazon Cognito token instead of a token from one of the other public providers\.  
+Because there is no restriction on the number of identities that you can create, it is important to understand the permissions that you're granting to your users\. Set up different roles for your application: one for unauthenticated users, and one for authenticated users\. The Amazon Cognito console creates these for you by default when you first set up your identity pool\. The access policy for these two roles are exactly the same: it grants users access to Amazon Cognito Sync, and they can submit events to Amazon Mobile Analytics\. You can modify these roles to meet your needs\.  
 Learn more about [Role trust and permissions](role-trust-and-permissions.md)\.

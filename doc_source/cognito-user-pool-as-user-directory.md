@@ -17,7 +17,7 @@ Using an Amazon Cognito user pool, you can create and maintain a user directory,
 
 1. In the top\-left corner of the page, choose **Attributes**, choose **Email address or phone number** and **Allow email addresses**, and then choose **Next step** to save\.
 **Note**  
-We recommend that you enable case insensitivity on the `username` attribute before you create your user pool\. For example, when this option is selected, users will be able to sign in using either "**username**" or "**Username**"\. Enabling this option also enables both `preferred_username` and `email` alias to be case insensitive, in addition to the `username` attribute\. For more information, see [CreateUserPool](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateUserPool.html) in the *Amazon Cognito user pools API Reference*\. 
+We recommend that you enable case insensitivity on the `username` attribute before you create your user pool\. For example, when this option is selected, users will be able to sign in using either **username** or **Username**\. Enabling this option also enables both `preferred_username` and `email` alias to be case insensitive, in addition to the `username` attribute\. For more information, see [CreateUserPool](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateUserPool.html) in the *Amazon Cognito user pools API Reference*\. 
 
 1. In the left navigation menu, choose **Review**\.
 
@@ -52,4 +52,4 @@ The **Make user name case sensitive** option is turned off by default\. We recom
 
 ## Next Step<a name="cognito-user-pool-as-user-directory-next-step"></a>
 
-[Step 2\. Add an app to enable the hosted web UI](cognito-user-pools-configuring-app-integration.md)
+[Step 2\. Add an app client and set up the hosted UI](cognito-user-pools-configuring-app-integration.md)

@@ -32,7 +32,7 @@ With a user pool, your users can sign in to your web or mobile app through Amazo
 
 1. In **Configure security requirements**, choose your password policy, multi\-factor authentication \(MFA\) requirements, and user account recovery options\. For more information, see [Security in Amazon Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/security.html)\.
 
-1. In **Configure sign\-up experience**,determine how new users will verify their identities when signing up, and which attributes should be required or optional during the user sign\-up flow\. For more information, see [Managing users in user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/managing-users.html)\.
+1. In **Configure sign\-up experience**, determine how new users will verify their identities when signing up, and which attributes should be required or optional during the user sign\-up flow\. For more information, see [Managing users in user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/managing-users.html)\.
 
 1. In **Configure message delivery**, configure integration with Amazon Simple Email Service and Amazon Simple Notification Service to send email and SMS messages to your users for sign\-up, account confirmation, MFA, and account recovery\. For more information, see [Email Settings for Amazon Cognito User Pools](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-email.html) and [SMS message settings for Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sms-settings.html)\.
 

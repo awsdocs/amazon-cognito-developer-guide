@@ -28,7 +28,7 @@ To customize the FROM and REPLY\-TO email addresses in the AWS console:
 
 1. Choose an **SES Region**\.
 
-1. Choose a **FROM email address** from the list of email addresses you have verified with Amazon SES in the**SES Region** you selected\. To use an email address from a verified domain, configure email settings in the AWS Command Line Interface or the AWS API\. For more information, see [Verifying email addresses and domains in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-addresses-and-domains.html) in the *Amazon Simple Email Service Developer Guide*\.
+1. Choose a **FROM email address** from the list of email addresses you have verified with Amazon SES in the **SES Region** you selected\. To use an email address from a verified domain, configure email settings in the AWS Command Line Interface or the AWS API\. For more information, see [Verifying email addresses and domains in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-addresses-and-domains.html) in the *Amazon Simple Email Service Developer Guide*\.
 
 1. Choose a **Configuration set** from the list of configuration sets in your chosen **SES Region**\.
 

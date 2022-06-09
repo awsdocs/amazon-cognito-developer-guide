@@ -194,7 +194,7 @@ To view examples of Cognito identity\-based policies, see [Identity\-based polic
 
 |  |  | 
 | --- |--- |
-|  Supports policy condition keys  |    Yes  | 
+|  Supports service\-specific policy condition keys  |    Yes  | 
 
 Administrators can use AWS JSON policies to specify who has access to what\. That is, which **principal** can perform **actions** on what **resources**, and under what **conditions**\.
 

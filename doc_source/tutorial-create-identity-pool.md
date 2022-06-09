@@ -2,11 +2,14 @@
 
 With an identity pool, your users can obtain temporary AWS credentials to access AWS services, such as Amazon S3 and DynamoDB\.
 
+**Note**  
+In the new Amazon Cognito console experience, you can manage identity pools from the **Federated identities** link on the left navigation bar\.
+
 **To create an identity pool**
 
-1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\. If prompted, enter your AWS credentials\.
+1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/federated)\. If prompted, enter your AWS credentials\.
 
-1. Choose **Manage Identity Pools**
+1. Choose **Manage Identity Pools**\.
 
 1. Choose **Create new identity pool**\.
 

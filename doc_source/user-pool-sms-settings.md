@@ -26,22 +26,39 @@ Amazon Cognito uses Amazon SNS to send SMS messages to your user pools\. You can
 
 In some AWS Regions, you can choose the Region that contains the Amazon SNS resources that you want to use for Amazon Cognito SMS messages\. In any AWS Region where Amazon Cognito is available, except for Asia Pacific \(Seoul\), you can use Amazon SNS resources in the AWS Region where you created your user pool\. To make your SMS messaging faster and more reliable when you have a choice of Regions, use Amazon SNS resources in the same Region as your user pool\.
 
+**Note**  
+In the AWS Management Console, you can only change the Region for SMS resources after you have switched to the new Amazon Cognito console experience\.
+
 Choose a Region for SMS resources in the **Configure message delivery** step of the new user pool wizard\. You can also choose **Edit** under **SMS** in the **Messaging** tab of an existing user pool\.
 
-At launch, for some AWS Regions, Amazon Cognito sent SMS messages with Amazon SNS resources in an alternate Region\.  To set your preferred Region, use the `SnsRegion` parameter of the [SmsConfigurationType](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SmsConfigurationType.html) object for your user pool\. When you programmatically create an Amazon Cognito user pools resource in an **Amazon Cognito Region** from the following table and you do not provide an `SnsRegion` parameter, your user pool sends SMS messages with Amazon SNS resources in the corresponding **Legacy Amazon SNS alternate Region**\.
+At launch, for some AWS Regions, Amazon Cognito sent SMS messages with Amazon SNS resources in an alternate Region\.  To set your preferred Region, use the `SnsRegion` parameter of the [SmsConfigurationType](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SmsConfigurationType.html) object for your user pool\. When you programmatically create an Amazon Cognito user pools resource in an **Amazon Cognito Region** from the following table and you do not provide an `SnsRegion` parameter, your user pool can send SMS messages with Amazon SNS resources in a legacy **Amazon SNS Region**\.
 
 Amazon Cognito user pools in the Asia Pacific \(Seoul\) AWS Region must use your Amazon SNS configuration in the Asia Pacific \(Tokyo\) Region\.
 
-You can send SMS messages for any **Amazon Cognito Region** in the following table with Amazon SNS resources in the corresponding legacy alternate AWS Regions\.
+Amazon SNS sets the spending quota for all new accounts at $1\.00 \(USD\) per month\. You might have increased your spend limit in an AWS Region that you use with Amazon Cognito\. Before you change the AWS Region for Amazon SNS SMS messages, open a quota increase case in the AWS Support Center to increase your limit in the new Region\. For more information, see [Requesting increases to your monthly SMS spending quota for Amazon SNS](https://docs.aws.amazon.com/sns/latest/dg/channels-sms-awssupport-spend-threshold.html) in the *Amazon Simple Notification Service Developer Guide*\.
+
+You can send SMS messages for any **Amazon Cognito Region** in the following table with Amazon SNS resources in the corresponding **Amazon SNS Region**\.
 
 
-| Amazon Cognito Region | Legacy Amazon SNS alternate Region | 
+| Amazon Cognito Region | Amazon SNS Region | 
 | --- | --- | 
-| US East \(Ohio\) | US East \(N\. Virginia\) | 
-| Asia Pacific \(Mumbai\) | Asia Pacific \(Singapore\) | 
-| Canada \(Central\) | US East \(N\. Virginia\) | 
-| Europe \(Frankfurt\) | Europe \(Ireland\) | 
-| Europe \(London\) | Europe \(Ireland\) | 
+| US East \(Ohio\) | US East \(Ohio\), US East \(N\. Virginia\) | 
+| Asia Pacific \(Mumbai\) | Asia Pacific \(Mumbai\), Asia Pacific \(Singapore\) | 
+| Canada \(Central\) | Canada \(Central\), US East \(N\. Virginia\) | 
+| Europe \(Frankfurt\) | Europe \(Frankfurt\), Europe \(Ireland\) | 
+| Europe \(London\) | Europe \(London\), Europe \(Ireland\) | 
+| Asia Pacific \(Seoul\) | Asia Pacific \(Tokyo\) | 
+| US East \(N\. Virginia\) | US East \(N\. Virginia\) | 
+| US West \(N\. California\) | US West \(N\. California\) | 
+| US West \(Oregon\) | US West \(Oregon\) | 
+| Asia Pacific \(Singapore\) | Asia Pacific \(Singapore\) | 
+| Asia Pacific \(Sydney\) | Asia Pacific \(Sydney\) | 
+| Asia Pacific \(Tokyo\) | Asia Pacific \(Tokyo\) | 
+| Europe \(Ireland\) | Europe \(Ireland\) | 
+| Europe \(Paris\) | Europe \(Paris\) | 
+| Europe \(Stockholm\) | Europe \(Stockholm\) | 
+| Middle East \(Bahrain\) | Middle East \(Bahrain\) | 
+| South America \(São Paulo\) | South America \(São Paulo\) | 
 
 ### Step 2: Obtain an origination identity to send SMS messages to US phone numbers<a name="user-pool-sms-settings-first-time-origination"></a>
 

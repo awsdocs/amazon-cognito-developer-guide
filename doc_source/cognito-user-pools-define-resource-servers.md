@@ -1,6 +1,6 @@
 # Defining resource servers for your user pool<a name="cognito-user-pools-define-resource-servers"></a>
 
-Once you configure a domain for your user pool, Amazon Cognito automatically provisions a hosted web UI with which you can add sign\-up and sign\-in pages to your app\. For more information see [Step 2\. Add an app to enable the hosted web UI](cognito-user-pools-configuring-app-integration.md)\.
+Once you configure a domain for your user pool, Amazon Cognito automatically provisions a hosted web UI with which you can add sign\-up and sign\-in pages to your app\. For more information see [Step 2\. Add an app client and set up the hosted UI](cognito-user-pools-configuring-app-integration.md)\.
 
 A *resource server* is a server for access\-protected resources\. It handles authenticated requests from an app that has an access token\. Typically the resource server provides a [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) API for making these access requests\. This API can be hosted in Amazon API Gateway or outside of AWS\. The app passes the access token in the API call to the resource server\. The app should treat the access token as opaque when it passes the token in the access request\. The resource server inspects the access token to determine if access should be granted\. 
 

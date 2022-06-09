@@ -98,7 +98,7 @@ The SAML IdP will process the signed logout request and log your user out of the
 If this option is selected and your SAML identity provider expects a signed logout request, you will also need to configure the signing certificate provided by Amazon Cognito with your SAML IdP\.   
 The SAML IdP will process the signed logout request and logout your user from the Amazon Cognito session\.
 
-1. Choose a **Metadata document source**\. If your identity provider offers SAML metadata at a public URL, you can choose **Metadata document URL**and enter that public URL\. Otherwise, choose **Upload metadata document** and select a metadata file you downloaded from your provider earlier\.
+1. Choose a **Metadata document source**\. If your identity provider offers SAML metadata at a public URL, you can choose **Metadata document URL** and enter that public URL\. Otherwise, choose **Upload metadata document** and select a metadata file you downloaded from your provider earlier\.
 **Note**  
 We recommend that you enter a metadata document URL if your provider has a public endpoint, rather than uploading a file; this allows Amazon Cognito to refresh the metadata automatically\. Typically, metadata refresh happens every 6 hours or before the metadata expires, whichever is earlier\.
 

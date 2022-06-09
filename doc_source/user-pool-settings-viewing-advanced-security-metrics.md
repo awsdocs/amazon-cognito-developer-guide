@@ -2,7 +2,7 @@
 
 Amazon Cognito publishes metrics for advanced security features to your account in Amazon CloudWatch\. Amazon Cognito groups the advanced security metrics together by risk level and also by request level\.
 
-**To view metrics by using the CloudWatch console**
+**To view metrics in the CloudWatch console**
 
 1. Open the CloudWatch console at [https://console\.aws\.amazon\.com/cloudwatch/](https://console.aws.amazon.com/cloudwatch/)\.
 
@@ -22,7 +22,7 @@ Amazon Cognito publishes metrics for advanced security features to your account 
 | Metric | Description | Metric Dimensions | 
 | --- | --- | --- | 
 | CompromisedCredentialRisk | Requests where Amazon Cognito detected compromised credentials\. |  Operation: The type of operation\. `PasswordChange`, `SignIn`, or `SignUp` are the only dimensions\. UserPoolId: The identifier of the user pool\. RiskLevel: high \(default\), medium, or low\.  | 
-| AccountTakeOverRisk | Requests where Amazon Cognito detected account take\-over risk\. |  Operation: The type of operation\. `PasswordChange`, `SignIn`, or `SignUp` are the only dimensions\. UserPoolId: The identifier of the user pool\. RiskLevel: high, medium, or low\. | 
+| AccountTakeoverRisk | Requests where Amazon Cognito detected account take\-over risk\. |  Operation: The type of operation\. `PasswordChange`, `SignIn`, or `SignUp` are the only dimensions\. UserPoolId: The identifier of the user pool\. RiskLevel: high, medium, or low\. | 
 | OverrideBlock | Requests that Amazon Cognito blocked because of the configuration provided by the developer\. |  Operation: The type of operation\. `PasswordChange`, `SignIn`, or `SignUp` are the only dimensions\. UserPoolId: The identifier of the user pool\. RiskLevel: high, medium, or low\. | 
 | Risk | Requests that Amazon Cognito marked as risky\. | Operation: The type of operation, such as `PasswordChange`, `SignIn`, or `SignUp`\. UserPoolId: The identifier of the user pool\. | 
 | NoRisk | Requests where Amazon Cognito did not identify any risk\.  | Operation: The type of operation, such as `PasswordChange`, `SignIn`, or `SignUp`\. UserPoolId: The identifier of the user pool\. | 

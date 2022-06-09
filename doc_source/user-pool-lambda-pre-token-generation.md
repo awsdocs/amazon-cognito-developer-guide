@@ -2,7 +2,7 @@
 
 Because Amazon Cognito invokes this trigger before token generation, you can customize identity token claims\.
 
-You can use this Lambda trigger to customize an identity token before Amazon Cognito generates it\. You can use this trigger to add new claims, update claims, or suppress claims in the identity token\. To use this feature, associate a Lambda function from the Amazon Cognito user pools console or update your user pool through the AWS CLI\.
+You can use this AWS Lambda trigger to customize an identity token before Amazon Cognito generates it\. You can use this trigger to add new claims, update claims, or suppress claims in the identity token\. To use this feature, associate a Lambda function from the Amazon Cognito user pools console or update your user pool through the AWS Command Line Interface \(AWS CLI\)\.
 
 You can't modify the following claims:
 + `acr`
@@ -97,7 +97,7 @@ These are the parameters that Amazon Cognito passes to this Lambda function alon
 The input object that contains the current group configuration\. The object includes `groupsToOverride`, `iamRolesToOverride`, and `preferredRole`\.
 
 **groupsToOverride**  
-A list of the group names that correspond with the user that the identity token is issued for\.
+A list of the group names that correspond with the user who receives the identity token\.
 
 **iamRolesToOverride**  
 A list of the current AWS Identity and Access Management \(IAM\) roles that correspond with these groups\.
@@ -106,7 +106,7 @@ A list of the current AWS Identity and Access Management \(IAM\) roles that corr
 A string that indicates the preferred IAM role\.
 
 **clientMetadata**  
-One or more key\-value pairs that you can provide as custom input to the Lambda function that you specify for the pre token generation trigger\. To pass this data to your Lambda function, use the ClientMetadata parameter in the [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) and [RespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html) API operations\. Amazon Cognito doesn't include data from the ClientMetadata parameter in [AdminInitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) and [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html) API operations in the request that it passes to the pre token generation function\.
+One or more key\-value pairs that you can specify and provide as custom input to the Lambda function  for the pre token generation trigger\. To pass this data to your Lambda function, use the ClientMetadata parameter in the [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) and [RespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html) API operations\. Amazon Cognito doesn't include data from the ClientMetadata parameter in [AdminInitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) and [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html) API operations in the request that it passes to the pre token generation function\.
 
 ### Pre token generation response parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-token-generation-response"></a>
 
@@ -148,7 +148,7 @@ exports.handler = (event, context, callback) => {
 
 ------
 
-Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that’s relevant to your Lambda trigger\. The following is a test event for this code sample:
+Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that is relevant to your Lambda trigger\. The following is a test event for this code sample: Because the code example doesn't process any request parameters, you can use a test event with an empty request\. For more information about common request parameters, see [User pool Lambda trigger event](cognito-user-identity-pools-working-with-aws-lambda-triggers.md#cognito-user-pools-lambda-trigger-event-parameter-shared)\.
 
 ------
 #### [ JSON ]
@@ -193,7 +193,7 @@ exports.handler = (event, context, callback) => {
 
 ------
 
-Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that’s relevant to your Lambda trigger\. The following is a test event for this code sample:
+Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that is relevant to your Lambda trigger\. The following is a test event for this code sample:
 
 ------
 #### [ JSON ]

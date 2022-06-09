@@ -1,4 +1,4 @@
-# Step 2\. Add an app to enable the hosted web UI<a name="cognito-user-pools-configuring-app-integration"></a>
+# Step 2\. Add an app client and set up the hosted UI<a name="cognito-user-pools-configuring-app-integration"></a>
 
 After you create a user pool, you can create an app to use the built\-in webpages for signing up and signing in your users\.
 
@@ -37,7 +37,7 @@ To sign in with external identity providers \(IdPs\) such as Facebook, Amazon, G
 
    For an iOS or Android app, you can use a callback URL such as `myapp://`\.
 
-1. Enter a Sign out URL\.
+1. Enter a Sign\-out URL\.
 
 1. Select **Authorization code grant** to return an authorization code that is then exchanged for user pool tokens\. Because the tokens are never exposed directly to an end user, they are less likely to become compromised\. However, a custom application is required on the backend to exchange the authorization code for user pool tokens\. For security reasons, we recommend that you use the authorization code grant flow, together with [Proof Key for Code Exchange \(PKCE\)](https://tools.ietf.org/html/rfc7636), for mobile apps\. 
 
@@ -72,7 +72,7 @@ Select **Client credentials** only if your app needs to request access tokens on
 
 1. Next to **Domain**, choose **Actions**, and then select either **Create custom domain** or **Create Cognito domain**\. If you have already configured a user pool domain, choose **Delete Cognito domain** or **Delete custom domain** before creating your new custom domain\.
 
-1. Enter an available domain prefix to use with a **Cognito domain**\. For information on setting up a **Custom domain**, see [Using Your Own Domain for the Hosted UI](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-add-custom-domain.html)
+1. Enter an available domain prefix to use with a **Cognito domain**\. For information on setting up a **Custom domain**, see [Using Your Own Domain for the Hosted UI](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-add-custom-domain.html)\.
 
 1. Choose **Create**\.
 
@@ -94,7 +94,7 @@ Select **Client credentials** only if your app needs to request access tokens on
 
 1. Select the **Identity providers** for the app client\. At minimum, enable **Cognito user pool** as a provider\.
 **Note**  
-To sign in with external identity providers \(IdPs\) such as Facebook, Amazon, Google, and Apple, as well as through OpenID Connect \(OIDC\) or SAML IdPs, first configure them as shown in [Add Social Sign\-in to a User Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-configuring-federation-with-social-idp.html), and then return to the **App client settings** page to enable them\.
+To sign in with external identity providers \(IdPs\) such as Facebook, Amazon, Google, and Apple, as well as through OpenID Connect \(OIDC\) or SAML IdPs, first configure them as shown in [Adding user pool sign\-in through a third party](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-identity-federation.html), and then return to the **App client settings** page to enable them\.
 
 1. Choose **OAuth 2\.0 Grant Types**\. Select **Authorization code grant** to return an authorization code that is then exchanged for user pool tokens\. Because the tokens are never exposed directly to an end user, they are less likely to become compromised\. However, a custom application is required on the backend to exchange the authorization code for user pool tokens\. For security reasons, we recommend that you use the authorization code grant flow, together with [Proof Key for Code Exchange \(PKCE\)](https://tools.ietf.org/html/rfc7636), for mobile apps\. 
 
@@ -113,7 +113,7 @@ Select **Client credentials** only if your app needs to request access tokens on
 
 **To view your sign\-in page**
 
-From your **App client page**, select **View hosted UI** to open a new browser tab to a sign\-in page pre\-populated with app client id, scope, grant, and callback URL parameters\.
+From your **App client page**, select **View hosted UI** to open a new browser tab to a sign\-in page pre\-populated with app client ID, scope, grant, and callback URL parameters\.
 
 You can view the hosted UI sign\-in webpage manually with the following URL\. Note the `response_type`\. In this case, **response\_type=code** for the authorization code grant\.
 
