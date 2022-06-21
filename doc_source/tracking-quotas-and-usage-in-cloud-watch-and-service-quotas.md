@@ -6,3 +6,10 @@ You can monitor Amazon Cognito user pools using Amazon CloudWatch or using Servi
 
 **Note**  
 Amazon Cognito metrics are available at 5 minute intervals\. For more information about retention periods in CloudWatch, visit the [Amazon CloudWatch FAQ page](http://aws.amazon.com/cloudwatch/faqs/)\.
+
+**Topics**
++ [Metrics for Amazon Cognito user pools](metrics-for-cognito-user-pools.md)
++ [Dimensions for Amazon Cognito user pools](dimensions-for-cognito-user-pools.md)
++ [Use the Service Quotas console to track metrics](use-the-service-quota-console-to-track-metrics.md)
++ [Use the CloudWatch console to track metrics](use-the-cloud-watch-console-to-track-metrics.md)
++ [Create a CloudWatch alarm for a quota](create-a-cloud-watch-alarm.md)

@@ -1,6 +1,6 @@
 # Analyzing Amazon Cognito CloudTrail events with Amazon CloudWatch Logs Insights<a name="analyzingcteventscwinsight"></a>
 
-Amazon CloudWatch Logs Insights enables you to interactively search and analyze your Amazon Cognito CloudTrail events data\. When you configure your trail to send events to CloudWatch Logs, CloudTrail sends only the events that match your trail settings\.
+You can search and analyze your Amazon Cognito CloudTrail events with Amazon CloudWatch Logs Insights\. When you configure your trail to send events to CloudWatch Logs, CloudTrail sends only the events that match your trail settings\.
 
 To query or research your Amazon Cognito CloudTrail events, in the CloudTrail console, make sure that you select the **Management events** option in your trail settings so that you can monitor the management operations performed on your AWS resources\. You can optionally select the **Insights events** option in your trail settings when you want to identify errors, unusual activity or unusual user behavior in your account\.
 
