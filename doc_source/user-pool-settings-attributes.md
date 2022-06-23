@@ -278,8 +278,8 @@ Use the following procedure to create a new custom attribute\.
 1. Provide the following details about the new attribute:
    + Select the data **Type** \(string or number\)
    + Enter a **Name** value
-   + Enter a **Min length** value
-   + Enter a **Max length** value
+   + Enter a **Min length** value with type string or a **Min value** with type number
+   + Enter a **Max length** value with type string or a **Max value** with type number
    + Select **Mutable** if you want to give users permission to change the value of a custom attribute after they set the initial value\.
 
 1. Choose **Save changes**\.
