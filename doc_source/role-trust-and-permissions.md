@@ -43,3 +43,11 @@ AccessDenied -- Not authorized to perform sts:AssumeRoleWithWebIdentity
 ```
 
 If you see this message, check that your identity pool and authentication type have an appropriate role\.
+
+You may also experience this error when calling AWSCognitoIdentityService.GetCredentialsForIdentity:
+
+```
+{"__type":"InvalidIdentityPoolConfigurationException","message":"Invalid identity pool configuration. Check assigned IAM roles for this pool."}
+```
+
+If you see this message, check that you've allowed `sts:AssumeRoleWithWebIdentity` correctly rather than just `sts:AssumeRole` in your trust relationship policy\.
