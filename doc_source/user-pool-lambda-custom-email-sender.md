@@ -104,7 +104,13 @@ Update the user pool with a `CustomEmailSender` parameter in an `UpdateUserPool`
 
 To remove a custom email sender Lambda trigger with the AWS CLI, omit the `CustomEmailSender` parameter from `--lambda-config` and include all other triggers that you want to use with your user pool\. To remove a custom email sender Lambda trigger with an `UpdateUserPool` API request, remove `CustomemailSender` from the request body that contains the rest of your user pool configuration\. For more information, see [Updating a user pool with the Amazon Cognito API or AWS CLI](cognito-user-pool-updating.md#cognito-user-pool-updating-api-cli)\.
 
-The following Node\.js example shows how to process an email message event in your custom email sender Lambda function\.
+The following Node\.js example shows how to process an email message event in your custom email sender Lambda function\. This example assumes your function has two environment variables defined\.
+
+**`KEY_ALIAS`**  
+The [alias](https://docs.aws.amazon.com/kms/latest/developerguide/kms-alias.html) of the KMS key that you want to use to encrypt and decrypt your users' codes\.
+
+**`KEY_ARN`**  
+The Amazon Resource Name \(ARN\) of the KMS key that you want to use to encrypt and decrypt your users' codes\.
 
 ```
             const AWS = require('aws-sdk');
@@ -116,7 +122,7 @@ The following Node\.js example shows how to process an email message event in yo
             
             const { encrypt, decrypt } = encryptionSdk.buildClient(encryptionSdk.CommitmentPolicy.REQUIRE_ENCRYPT_ALLOW_DECRYPT);
             const generatorKeyId = process.env.KEY_ALIAS;
-            const keyIds = [ process.env.KEY_ID ];
+            const keyIds = [ process.env.KEY_ARN ];
             const keyring = new encryptionSdk.KmsKeyringNode({ generatorKeyId, keyIds })
             exports.handler = async (event) => {
 

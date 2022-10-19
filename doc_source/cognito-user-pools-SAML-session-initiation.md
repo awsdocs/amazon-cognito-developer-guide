@@ -45,4 +45,4 @@ After you meet these requirements, create a bookmark to your `/authorize` endpoi
 
 1. Amazon Cognito redirects the user to your internal app with an authorization code\. You configured your internal app URL as an authorized redirect URL for your app client\.
 
-1. Your app exchanges the authorization code for Amazon Cognito tokens\.
+1. Your app exchanges the authorization code for Amazon Cognito tokens\. For more information, see [Token endpoint](token-endpoint.md)\.

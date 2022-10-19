@@ -39,6 +39,7 @@ If the command is successful, the AWS CLI returns a confirmation:
             "code"
         ],
         "RefreshTokenValidity": 30,
+        "AuthSessionValidity": 3,
         "CreationDate": 1524628110.29,
         "AllowedOAuthFlowsUserPoolClient": true,
         "UserPoolId": "MyUserPoolID",

@@ -1,19 +1,15 @@
 # Document history for Amazon Cognito<a name="cognito-document-history"></a>
 
-The following table describes the documentation for this release of Amazon Cognito\.
-+ **Original API versions:**
-
-  Amazon Cognito User Pools: 2021\-1\-15
-
-  Amazon Cognito Federated Identities: 2014\-06\-30
-
-  Amazon Cognito Sync: 2014\-06\-30
+The following table describes important additions to the documentation for Amazon Cognito\. We also make frequent minor updates to the documentation in response to the feedback that you send\. To submit feedback, locate the **Feedback** link at the bottom of any page in Amazon Cognito documentation\.
 
 
 ****  
 
 | Change | Description | Date | 
 | --- | --- | --- | 
+| Added a user guide for the hosted UI, and information about TOTP MFA in the hosted UI\. | Your users can now register a [TOTP MFA device](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-mfa-totp.html) in the Amazon Cognito hosted UI\. You can now preview the default hosted UI in [Signing up and signing in with the hosted UI](cognito-user-pools-hosted-ui-user-experience.md)\. | September 8, 2022 | 
+| Added information about AWS WAF and Amazon Cognito\. | You can now associate a AWS WAF web ACL with a Amazon Cognito user pool\. See [Associating an AWS WAF web ACL with a user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-waf.html)\. | August 3, 2022 | 
+| Added more example AWS CloudTrail events\. | Amazon Cognito now logs federation and hosted UI requests to your trail\. | June 15, 2022 | 
 | Updated federation documentation\. New IP address propagation feature\. | Updated walkthroughs for setting up user pool social IdPs\. Added information about federated user profiles and attribute mapping\. Added new information about [ Adding user device and session data to API requests](cognito-user-pool-settings-adaptive-authentication.md#user-pool-settings-adaptive-authentication-device-fingerprint)\. | May 31, 2022 | 
 | Sign in federated users without interaction with the hosted UI | Added a new page about how to [Bookmark Amazon Cognito apps in an enterprise dashboard](cognito-user-pools-SAML-session-initiation.md#bookmark-applications-in-idp-portal) so that Amazon Cognito silently directs users to federated sign\-in\. | March 29, 2022 | 
 | In\-Region SMS and email messaging for Amazon Cognito user pools | You can now use Amazon Simple Notification Service for SMS messages, and Amazon Simple Email Service for email messages, in the same AWS Region as your user pool\. | March 14, 2022 | 

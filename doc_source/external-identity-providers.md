@@ -1,5 +1,8 @@
 # Identity pools \(federated identities\) external identity providers<a name="external-identity-providers"></a>
 
+**Important**  
+Currently, you must configure Amazon Cognito identity pools in the original console, even if you have migrated to the new console for Amazon Cognito user pools\. From the new console, choose **Federated identities** to navigate to the identity pools console\.
+
 Using the `logins` property, you can set credentials received from an identity provider \(IdP\)\. Furthermore, you can associate an identity pool with multiple IdPs\. For example, you can set both the Facebook and Google tokens in the `logins` property to associate the unique Amazon Cognito identity with both IdP logins\. The user can authenticate with either account, but Amazon Cognito returns the same user identifier\.
 
 The instructions below guide you through authentication with the IdPs that Amazon Cognito identity pools support\.

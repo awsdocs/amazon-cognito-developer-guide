@@ -8,7 +8,7 @@ The two main components of Amazon Cognito are user pools and identity pools\. Us
 
 See the diagram for a common Amazon Cognito scenario\. Here the goal is to authenticate your user, and then grant your user access to another AWS service\.
 
-1. In the first step, your app user signs in through a user pool and receives user pool tokens after a successful authentication\.
+1. In the first step your app user signs in through a user pool and receives user pool tokens after a successful authentication\.
 
 1. Next, your app exchanges the user pool tokens for AWS credentials through an identity pool\.
 

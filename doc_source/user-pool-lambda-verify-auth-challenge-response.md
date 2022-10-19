@@ -33,10 +33,7 @@ These are the parameters that Amazon Cognito passes to this Lambda function alon
             "string": "string",
             . . .
         },
-        "challengeAnswer": {
-            "string": "string",
-            . . .
-        },
+        "challengeAnswer": "string",
         "clientMetadata": {
             "string": "string",
             . . .

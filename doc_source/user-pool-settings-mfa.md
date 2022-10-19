@@ -38,8 +38,7 @@ You can configure MFA in the Amazon Cognito console\.
 
 1. From the left navigation bar, choose **MFA and verifications**\.
 
-1. Choose whether MFA is **Off**, **Optional**, or **Required**\.  
-![\[Notify users\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Notify users\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Notify users\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
+1. Choose whether MFA is **Off**, **Optional**, or **Required**\.
 
 1. Choose **Optional** to activate MFA on a per\-user basis or if you are using the risk\-based adaptive authentication\. For more information about adaptive authentication, see [Adding advanced security to a user pool](cognito-user-pool-settings-advanced-security.md)\.
 
@@ -62,7 +61,8 @@ You can configure MFA in the Amazon Cognito console\.
 
 1. Choose the **Sign\-in experience** tab\. Locate **Multi\-factor authentication** and choose **Edit**
 
-1. Choose the **MFA enforcement** method that you want to use with your user pool\.
+1. Choose the **MFA enforcement** method that you want to use with your user pool\.  
+![\[Notify users\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Notify users\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Notify users\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
    1. **Require MFA**\. All users in your user pool must sign in with an additional SMS code or time\-based one\-time password \(TOTP\) factor\.
 

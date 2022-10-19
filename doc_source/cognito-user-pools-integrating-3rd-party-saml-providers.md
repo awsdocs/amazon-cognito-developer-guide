@@ -1,6 +1,6 @@
 # Integrating third\-party SAML identity providers with Amazon Cognito user pools<a name="cognito-user-pools-integrating-3rd-party-saml-providers"></a>
 
-To configure third\-party SAML 2\.0 identity provider \(IdP\) solutions to work with federation for Amazon Cognito user pools, you must enter the following redirect URL: `https://<yourDomainPrefix>.auth.<region>.amazoncognito.com/saml2/idpresponse`\. You can find your domain prefix and the region value for your user pool on the **Domain name** console page of the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\.
+To configure third\-party SAML 2\.0 identity provider \(IdP\) solutions to work with federation for Amazon Cognito user pools, you must enter the following redirect URL: `https://Your user pool domain/saml2/idpresponse`\. If your user pool has an Amazon Cognito domain, you can find your user pool domain path in the **App integration** tab of your user pool in the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\.
 
 **Note**  
 Any SAML IdPs that you created in a user pool during the public beta before August 10, 2017 have redirect URLs of `https://<yourDomainPrefix>.auth.<region>.amazoncognito.com/login/redirect`\. If you have one of these SAML identity providers from the public beta in your user pool, you must either:  

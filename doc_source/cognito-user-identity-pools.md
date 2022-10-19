@@ -30,5 +30,6 @@ The two main components of Amazon Cognito are user pools and identity pools\. Id
 + [SMS message settings for Amazon Cognito user pools](user-pool-sms-settings.md)
 + [Using tokens with user pools](amazon-cognito-user-pools-using-tokens-with-identity-providers.md)
 + [Accessing resources after a successful user pool authentication](accessing-resources.md)
++ [Using Amazon Cognito user pools security features](managing-security.md)
 + [User pools reference \(AWS Management Console\)](cognito-user-pools-getting-started-step-through-settings.md)
 + [Managing error responses](cognito-user-pool-managing-errors.md)

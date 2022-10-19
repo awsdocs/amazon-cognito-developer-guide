@@ -1,5 +1,8 @@
 # Using identity pools \(federated identities\)<a name="identity-pools"></a>
 
+**Important**  
+Currently, you must configure Amazon Cognito identity pools in the original console, even if you have migrated to the new console for Amazon Cognito user pools\. From the new console, choose **Federated identities** to navigate to the identity pools console\.
+
 Amazon Cognito identity pools provide temporary AWS credentials for users who are guests \(unauthenticated\) and for users who have been authenticated and received a token\. An identity pool is a store of user identity data specific to your account\.
 
 **To create a new identity pool in the console**

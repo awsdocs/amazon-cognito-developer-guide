@@ -46,7 +46,8 @@ These are the parameters that Amazon Cognito passes to this Lambda function alon
         "finalUserStatus": "string",
         "messageAction": "string",
         "desiredDeliveryMediums": [ "string", . . .],
-        "forceAliasCreation": boolean
+        "forceAliasCreation": boolean,
+        "enableSMSMFA": boolean
     }
 }
 ```
@@ -90,6 +91,9 @@ You can set this parameter to `EMAIL` to send the welcome message by email, or `
 If you set this parameter to `TRUE` and the phone number or email address in the UserAttributes parameter already exists as an alias with a different user, the API call migrates the alias from the previous user to the newly created user\. The previous user can no longer log in using that alias\.  
 If you set this parameter to `FALSE` and the alias exists, Amazon Cognito doesn't migrate the user and returns an error to the client app\.  
 If you don't return this parameter, Amazon Cognito assumes its value is "false"\.
+
+**enableSMSMFA**  
+Set this parameter to `true` to require that your migrated user complete SMS text message multi\-factor authentication \(MFA\) to sign in\. Your user pool must have MFA enabled\. Your user's attributes in the request parameters must include a phone number, or else the migration of that user will fail\.
 
 ## Example: Migrate a user with an existing password<a name="aws-lambda-triggers-user-migration-example-1"></a>
 

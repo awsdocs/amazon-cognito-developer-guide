@@ -25,7 +25,7 @@ If a user signs up with both a phone number and an email address, and your user 
 
 You can adjust your SMS message spend quota for an AWS account and for individual messages\. The limits apply only to the cost to send SMS messages\. For more information, see **What are account\-level and message\-level spend quotas and how do they work?** in the [Amazon SNS FAQs](http://aws.amazon.com/sns/faqs/)\.
 
-Amazon Cognito sends SMS messages using Amazon SNS resources in either the AWS Region where you created the user pool or in a **Legacy Amazon SNS alternate Region** from the following table\. The exception is Amazon Cognito user pools in the Asia Pacific \(Seoul\) Region\. These user pools use your Amazon SNS configuration in the Asia Pacific \(Tokyo\) Region\. For more information, see [Step 1: Choose the AWS Region for Amazon SNS SMS messages](user-pool-sms-settings.md#sms-choose-a-region)\.
+Amazon Cognito sends SMS messages using Amazon SNS resources in either the AWS Region where you created the user pool or in a **Legacy Amazon SNS alternate Region** from the following table\. The exception is Amazon Cognito user pools in the Asia Pacific \(Seoul\) Region\. These user pools use your Amazon SNS configuration in the Asia Pacific \(Tokyo\) Region\. For more information, see [Step 2: Choose the AWS Region for Amazon SNS SMS messages](user-pool-sms-settings.md#sms-choose-a-region)\.
 
 
 | Amazon Cognito Region | Legacy Amazon SNS alternate Region | 

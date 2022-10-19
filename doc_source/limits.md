@@ -183,6 +183,7 @@ Resource quotas define the maximum number and size of your resources\. You can r
 | Refresh token | 1 hour – 3,650 days | 
 | Access token | 5 minutes – 1 day | 
 | Hosted UI session cookie | 1 hour | 
+| Authentication session token | 3 minutes – 15 minutes | 
 
 **Amazon Cognito user pools code security resource quotas \(non\-adjustable\)**
 
@@ -191,11 +192,11 @@ Resource quotas define the maximum number and size of your resources\. You can r
 | --- | --- | 
 | Sign\-up confirmation code validity period | 24 hours | 
 | User attribute verification code validity period | 24 hours | 
-| Multi\-factor authentication \(MFA\) code validity period | 3 minutes | 
+| Multi\-factor authentication \(MFA\) code validity period | 3–15 minutes | 
 | Forgot password code validity period | 1 hour | 
 | Maximum number of ConfirmForgotPassword calls per user | 5–20 attempts per hour, depending on risk score | 
 | Maximum number of ResendConfirmationCode calls per user | 5 attempts per hour | 
-| Maximum number of ConfirmUser calls per user | 15 attempts per hour | 
+| Maximum number of ConfirmSignUp calls per user | 15 attempts per hour | 
 | Maximum number of ChangePassword calls per user | 5 attempts per hour | 
 | Maximum number of GetUserAttributeVerificationCode calls per user | 5 attempts per hour | 
 | Maximum number of VerifyUserAttribute calls per user | 15 attempts per hour | 
@@ -205,7 +206,7 @@ Resource quotas define the maximum number and size of your resources\. You can r
 
 | Resource | Quota | 
 | --- | --- | 
-| Lifetime user import jobs per user pool | 1,000 | 
+| User import jobs per user pool | 1,000 | 
 | Maximum characters per user import CSV row | 16,000 | 
 | Maximum CSV file size | 100 MB | 
 | Maximum number of users per CSV file | 500,000 | 

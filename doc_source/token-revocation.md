@@ -9,7 +9,7 @@ You can revoke a refresh token for a user pool client with token revocation enab
 
 ## Enable token revocation<a name="enable-token-revocation"></a>
 
-Before you can revoke a token for an existing user pool client, you must enable token revocation\. You can enable token revocation for existing user pool clients using the AWS CLI or the AWS API\. To do this, call the `aws cognito update-user-pool-client` CLI command or the `UpdateUserPoolClient` API operation\. When you do, set the `EnableTokenRevocation` parameter to `true`\.
+Before you can revoke a token for an existing user pool client, you must enable token revocation\. You can enable token revocation for existing user pool clients using the AWS CLI or the AWS API\. To do this, call the `aws cognito-idp describe-user-pool-client` CLI command or the `DescribeUserPoolClient` API operation to retrieve the current settings from your app client\. Then call the `aws cognito-idp update-user-pool-client` CLI command or the `UpdateUserPoolClient` API operation\. Include the current settings from your app client and set the `EnableTokenRevocation` parameter to `true`\.
 
 When you create a new user pool client using the AWS Management Console, the AWS CLI, or the AWS API, token revocation is enabled by default\.
 

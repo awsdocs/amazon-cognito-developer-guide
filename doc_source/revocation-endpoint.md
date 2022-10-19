@@ -1,6 +1,6 @@
 # Revoke endpoint<a name="revocation-endpoint"></a>
 
-The /`oauth2/revoke` endpoint revokes all of the access tokens that the specified refresh token generated\. After the endpoint revokes the tokens, you can't use the revoked tokens to access APIs that Amazon Cognito tokens authenticate\.
+The /`oauth2/revoke` endpoint revokes a user's access token that Amazon Cognito initially issued with the refresh token that you provide, and all subsequent access tokens from the same refresh token\. After the endpoint revokes the tokens, you can't use the revoked tokens to access APIs that Amazon Cognito tokens authenticate\.
 
 ## POST /oauth2/revoke<a name="post-revoke"></a>
 
@@ -17,7 +17,7 @@ Must always be `'application/x-www-form-urlencoded'`\.
 #### Request parameters in body<a name="revocation-request-parameters-body"></a>
 
 *token*  
-The refresh token that the client wants to revoke\. The request also revokes all access tokens that Amazon Cognito issued from this refresh token\.  
+The refresh token that the client wants to revoke\. The request also revokes all access tokens that Amazon Cognito issued with this refresh token\.  
 Required\.
 
 *client\_id*  

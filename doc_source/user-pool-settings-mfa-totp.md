@@ -1,8 +1,5 @@
 # TOTP software token MFA<a name="user-pool-settings-mfa-totp"></a>
 
-**Important**  
-Your users can't set up time\-based one\-time password \(TOTP\) multi\-factor authentication \(MFA\) in the Amazon Cognito hosted UI\. Your app must use the Amazon Cognito API to follow the setup steps described in [Associate the TOTP software token](#user-pool-settings-mfa-totp-associate-token) and [Verify the TOTP token](#user-pool-settings-mfa-totp-verification)\. 
-
 When you set up TOTP software token MFA in your user pool, your user signs in with a user name and password, then uses a TOTP to complete authentication\. After your user sets and verifies a user name and password, they can activate a TOTP software token for MFA\. If your app uses the Amazon Cognito hosted UI to sign in users, your user submits their user name and password, and then submits the TOTP password on an additional sign\-in page\.
 
 You can activate TOTP MFA for your user pool in the Amazon Cognito console, or you can use Amazon Cognito API operations\. At the user pool level, you can call [SetUserPoolMfaConfig](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserPoolMfaConfig.html) to configure MFA and enable TOTP MFA\.
@@ -10,13 +7,18 @@ You can activate TOTP MFA for your user pool in the Amazon Cognito console, or y
 **Note**  
 If you haven't activated TOTP software token MFA for the user pool, Amazon Cognito can't use the token to associate or verify users\. In this case, users receive a `SoftwareTokenMFANotFoundException` exception with the description `Software Token MFA has not been enabled by the userPool`\. If you deactivate software token MFA for the user pool later, users who previously associated and verified a TOTP token can continue to use it for MFA\.
 
-Configuring TOTP for your user is a multi\-step process where your user receives a secret code that they validate by entering a one\-time password\. Next, you can enable TOTP MFA for your user or set TOTP as the preferred MFA method for your user\. 
+Configuring TOTP for your user is a multi\-step process where your user receives a secret code that they validate by entering a one\-time password\. Next, you can enable TOTP MFA for your user or set TOTP as the preferred MFA method for your user\.
+
+When you configure your user pool to require TOTP MFA and your users sign up for your app in the hosted UI, Amazon Cognito automates the user process\. Amazon Cognito prompts your user to choose an MFA method, displays a QR code to set up their authenticator app, and verifies their MFA registration\. In user pools where you have allowed users to choose between SMS and TOTP MFA, Amazon Cognito also presents your user with a choice of method\. For more information about the hosted UI sign\-up experience, see [How to sign up for a new account in the Amazon Cognito hosted UI](cognito-user-pools-hosted-ui-user-sign-up.md)\.
+
+**Important**  
+When you have an AWS WAF web ACL associated with a user pool, and a rule in your web ACL presents a CAPTCHA, this can cause an unrecoverable error in hosted UI TOTP registration\. To create a rule that has a CAPTCHA action and doesn't affect hosted UI TOTP, see [Configuring your AWS WAF web ACL for hosted UI TOTP MFA](#hosted-ui-totp-waf)\. For more information about AWS WAF web ACLs and Amazon Cognito, see [Associating an AWS WAF web ACL with a user pool](user-pool-waf.md)\.
+
+To implement TOTP MFA in a custom UI where you use the [Amazon Cognito API](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/Welcome.html), see [Configuring MFA for a user in the Amazon Cognito native API](#totp-mfa-set-up-api)\.
 
 To add MFA to your user pool, see [Adding MFA to a user pool](user-pool-settings-mfa.md)\.
 
 **TOTP MFA considerations and limitations**
-
-1. The Amazon Cognito hosted UI currently doesn't support self\-service TOTP setup\. After your app associates and verifies a TOTP software token, your user can provide their TOTP in the hosted UI\.
 
 1. Amazon Cognito supports software token MFA through an authenticator app that generates TOTP codes\. Amazon Cognito doesn't support hardware\-based MFA\.
 
@@ -29,9 +31,17 @@ To add MFA to your user pool, see [Adding MFA to a user pool](user-pool-settings
 
 1. If your users have set up TOTP, they can use it for MFA, even if you deactivate TOTP for the user pool later\.
 
+## Configuring MFA for a user in the Amazon Cognito native API<a name="totp-mfa-set-up-api"></a>
+
 When a user first signs in, your app uses their one\-time access token to generate the TOTP private key and present it to your user in text or QR code format\. Your user configures their authenticator app and provides a TOTP for subsequent sign\-in attempts\. Your app or the hosted UI presents the TOTP to Amazon Cognito in MFA challenge responses\.
 
-## Associate the TOTP software token<a name="user-pool-settings-mfa-totp-associate-token"></a>
+**Topics**
++ [Associate the TOTP software token](#user-pool-settings-mfa-totp-associate-token)
++ [Verify the TOTP token](#user-pool-settings-mfa-totp-verification)
++ [Sign in with TOTP MFA](#user-pool-settings-mfa-totp-sign-in)
++ [Remove the TOTP token](#user-pool-settings-mfa-totp-remove)
+
+### Associate the TOTP software token<a name="user-pool-settings-mfa-totp-associate-token"></a>
 
 To associate the TOTP token, send your user a secret code that they must validate with a one\-time password\. Associating the token requires three steps\.
 
@@ -41,7 +51,7 @@ To associate the TOTP token, send your user a secret code that they must validat
 
 1. Your user enters the key, or scans the QR code into a authenticator app such as Google Authenticator, and the app begins generating codes\.
 
-## Verify the TOTP token<a name="user-pool-settings-mfa-totp-verification"></a>
+### Verify the TOTP token<a name="user-pool-settings-mfa-totp-verification"></a>
 
 Next, verify the TOTP token\. Request sample codes from your user and provide them to the Amazon Cognito service to confirm that the user is successfully generating TOTP codes, as follows\.
 
@@ -57,7 +67,7 @@ Next, verify the TOTP token\. Request sample codes from your user and provide th
 
 1. If the `VerifySoftwareToken` operation returns an `ERROR` response, make sure that the user's clock is correct and that they have not exceeded the maximum number of retries\. Amazon Cognito accepts TOTP tokens that are within 30 seconds before or after the attempt, to account for minor clock skew\. When you have resolved the issue, try the VerifySoftwareToken operation again\.
 
-## Sign in with TOTP MFA<a name="user-pool-settings-mfa-totp-sign-in"></a>
+### Sign in with TOTP MFA<a name="user-pool-settings-mfa-totp-sign-in"></a>
 
 At this point, your user signs in with the time\-based one\-time password\. The process is as follows\.
 
@@ -71,7 +81,7 @@ At this point, your user signs in with the time\-based one\-time password\. The 
 
 1. If the token is verified by Amazon Cognito, the sign\-in is successful and your user continues with the authentication flow\. 
 
-## Remove the TOTP token<a name="user-pool-settings-mfa-totp-remove"></a>
+### Remove the TOTP token<a name="user-pool-settings-mfa-totp-remove"></a>
 
 Finally, your app should allow your user to remove the TOTP token:
 
@@ -79,4 +89,20 @@ Finally, your app should allow your user to remove the TOTP token:
 
 1. If the password is correct, remove the TOTP token\. 
 **Note**  
-A delete TOTP software token operation is not currently available in the API\. This functionality is planned for a future release\. Use [SetUserMFAPreference](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserMFAPreference.html) to disable TOTP MFA for an individual user\.
+Currently, you can't delete a user's TOTP software token\. To replace your user's software token, associate and verify a new software token\. To deactivate TOTP MFA for a user, call [SetUserMFAPreference](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserMFAPreference.html) to modify your user to use no MFA, or only SMS MFA\.
+
+## Configuring your AWS WAF web ACL for hosted UI TOTP MFA<a name="hosted-ui-totp-waf"></a>
+
+When you have an AWS WAF web ACL associated with a user pool, and a rule in your web ACL presents a CAPTCHA, this can cause an unrecoverable error in hosted UI TOTP registration\. AWS WAF CAPTCHA rules only affect TOTP MFA in the hosted UI in this way\. SMS MFA is unaffected\. 
+
+Amazon Cognito displays the following error when your CAPTCHA rule doesn't let a user complete TOTP MFA setup\. 
+
+Request not allowed due to WAF captcha\.
+
+This error results when AWS WAF prompts for a CAPTCHA in response to [AssociateSoftwareToken](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html) and [VerifySoftwareToken](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerifySoftwareToken.html) API requests that your user pool makes in the background\. To create a rule that has a CAPTCHA action and doesn't affect hosted UI TOTP, exclude the `x-amzn-cognito-operation-name` header values of `AssociateSoftwareToken` and `VerifySoftwareToken` from the CAPTCHA action in your rule\.
+
+The following screenshot shows an example AWS WAF rule that applies a CAPTCHA action to all requests that don't have a `x-amzn-cognito-operation-name` header value of `AssociateSoftwareToken` or `VerifySoftwareToken`\.
+
+![\[A screenshot of a AWS WAF rule that applies a CAPTCHA action to all requests that don't have a x-amzn-cognito-operation-name header value of AssociateSoftwareToken or VerifySoftwareToken.\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[A screenshot of a AWS WAF rule that applies a CAPTCHA action to all requests that don't have a x-amzn-cognito-operation-name header value of AssociateSoftwareToken or VerifySoftwareToken.\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[A screenshot of a AWS WAF rule that applies a CAPTCHA action to all requests that don't have a x-amzn-cognito-operation-name header value of AssociateSoftwareToken or VerifySoftwareToken.\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
+
+For more information about AWS WAF web ACLs and Amazon Cognito, see [Associating an AWS WAF web ACL with a user pool](user-pool-waf.md)\.

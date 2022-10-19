@@ -1,22 +1,32 @@
 # Authorize endpoint<a name="authorization-endpoint"></a>
 
-The `/oauth2/authorize` endpoint signs in the user\. Its function is similar to the [Login endpoint](login-endpoint.md)\.
+The `/oauth2/authorize` endpoint is a redirection endpoint that supports two redirect destinations\. If you include an `identity_provider` or `idp_identifier` parameter in the URL, it silently redirects your user to the sign\-in page for that identity provider \(IdP\)\. Otherwise, it redirects to the [Login endpoint](login-endpoint.md) with the same URL parameters that you included in your request\. 
+
+To use the authorize endpoint, invoke your user's browser at `/oauth2/authorize` with parameters that provide your user pool with information about the following user pool details\.
++ The app client that you want to sign in to\.
++ The callback URL that you want to end up at\.
++ The OAuth 2\.0 scopes that you want to request in your user's access token\.
++ Optionally, the third\-party IdP that you want to use to sign in\.
+
+You can also supply `state` and `nonce` parameters that Amazon Cognito uses to validate incoming claims\.
 
 ## GET `/oauth2/authorize`<a name="get-authorize"></a>
 
-The `/oauth2/authorize` endpoint only supports `HTTPS GET`\. The user pool client typically makes this request through a browser\.
+The `/oauth2/authorize` endpoint only supports `HTTPS GET`\. Your app typically initiates this request in your user's browser\. You can only make requests to the `/oauth2/authorize` endpoint over HTTPS\.
 
-The authorization server requires HTTPS\. For more information about the OpenID Connect specification, see [Authorization Endpoint](http://openid.net/specs/openid-connect-core-1_0.html#ImplicitAuthorizationEndpoint)\.
+You can learn more about the definition of the authorization endpoint in the OpenID Connect \(OIDC\) standard at [Authorization Endpoint](http://openid.net/specs/openid-connect-core-1_0.html#ImplicitAuthorizationEndpoint)\.
 
 ### Request parameters<a name="get-authorize-request-parameters"></a>
 
 *response\_type*  
-The response type\. Must be `code` or `token`\. Indicates whether the client wants an authorization code for the user \(authorization code grant flow\), or directly issues tokens for the user \(implicit flow\)\.   
+The response type\. Must be `code` or `token`\.   
+A successful request with a `response_type` of `code` returns an authorization code grant\. An authorization code grant is a `code` parameter that Amazon Cognito appends to your redirect URL\. Your app can exchange the code with the [Token endpoint](token-endpoint.md) for access, ID, and refresh tokens\. As a security best practice, and to receive refresh tokens for your users, use an authorization code grant in your app\.  
+A successful request with a `response_type` of `token` returns an implicit grant\. An implicit grant is an ID and access token that Amazon Cognito appends to your redirect URL\. An implicit grant is less secure because it exposes tokens and potential identifying information to users\. You can deactivate support for implicit grants in the configuration of your app client\.  
 Required\.
 
 *client\_id*  
 The Client ID\.  
-Must be a client that you already registered in the user pool and that you qualified for federation\.  
+The value of `client_id` must be the ID of an app client in the user pool where you make the request\. Your app client must support sign\-in by Amazon Cognito native users or at least one third\-party IdP\.  
 Required\.
 
 *redirect\_uri*  
@@ -62,7 +72,7 @@ The challenge that you generated from the `code_verifier`\.
 Required only when you specify a `code_challenge_method` parameter\.
 
 *nonce*  
-A random value that you can add to the request\. The nonce value that you provide is included in the ID token that Amazon Cognito issues\. You can use a `nonce` value to guard against replay attacks\.
+A random value that you can add to the request\. The nonce value that you provide is included in the ID token that Amazon Cognito issues\. To guard against replay attacks, your app can inspect the `nonce` claim in the ID token and compare it to the one you generated\. For more information about the `nonce` claim, see [ID token validation](https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation) in the *OpenID Connect standard*\.
 
 ### Examples requests with positive responses<a name="get-authorize-positive"></a>
 

@@ -130,10 +130,10 @@ The following example sending authorization policy grants Amazon Cognito a limit
             "Resource": "<your SES identity ARN>",
             "Condition": {
                 "StringEquals": {
-                    "AWS:SourceAccount": "<your account number>"
+                    "aws:SourceAccount": "<your account number>"
                 },
                 "ArnLike": {
-                    "AWS:SourceArn": "<your identity pool ARN>"
+                    "aws:SourceArn": "<your user pool ARN>"
                 }
             }
         }

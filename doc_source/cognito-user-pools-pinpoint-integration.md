@@ -22,6 +22,9 @@ Amazon Pinpoint is available in several AWS Regions in North America, Europe, As
 
 ### Specifying Amazon Pinpoint analytics settings \(AWS Management Console\)<a name="cognito-user-pools-pinpoint-integration-console"></a>
 
+**Note**  
+Currently, you are directed to the original Amazon Cognito console when you want to modify the settings for Amazon Pinpoint analytics\. You can find your analytics configuration in the **App clients**tab of the new console, within the configuration of your app client under **App clients and analytics**\.
+
 **To specify analytics settings**
 
 1. Sign in to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\.
@@ -64,3 +67,36 @@ Use the following commands to specify Amazon Pinpoint analytics settings for you
 
 **Note**  
 Amazon Cognito supports in\-Region integrations when you use `ApplicationArn`
+
+## Integrating your app with Amazon Pinpoint<a name="cognito-user-pools-pinpoint-integration-client"></a>
+
+You can publish analytics metadata to Amazon Pinpoint for Amazon Cognito *native users* in the *native API*\.
+
+**Native users**  
+Users who signed up for an account or were created in your user pool instead of signing in through a third\-party identity provider \(IdP\)\.
+
+**Native API**  
+The operations that you can integrate with an AWS SDK, using an app with a custom user interface \(UI\)\. You can't pass analytics metadata for federated or native users who sign in through the hosted UI\. See the [Amazon Cognito API Reference](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/Welcome.html) for a list of native API operations\.
+
+After you configure your user pool to publish to a campaign, Amazon Cognito passes metadata to Amazon Pinpoint for the following API operations\.
++ `AdminInitiateAuth`
+
+  `AdminRespondToAuthChallenge`
+
+  `ConfirmForgotPassword`
+
+  `ConfirmSignUp`
+
+  `ForgotPassword`
+
+  `InitiateAuth`
+
+  `ResendConfirmationCode`
+
+  `RespondToAuthChallenge`
+
+  `SignUp`
+
+To pass metadata about your user's session to your Amazon Pinpoint campaign, include an `AnalyticsEndpointId` value in the `AnalyticsMetadata` parameter of your API request\. For a JavaScript example, see [Why aren't my Amazon Cognito user pool analytics appearing on my Amazon Pinpoint dashboard?](http://aws.amazon.com/premiumsupport/knowledge-center/pinpoint-cognito-user-pool-analytics/) in the *AWS Knowledge Center*\.
+
+\.

@@ -8,7 +8,7 @@ You can integrate SAML\-based IdPs directly from your user pool\.
 
    Alternatively, if your app gathered information before directing the user to your user pool, it can provide that information to Amazon Cognito through a query parameter\.
 
-1. Your user is redirected to the IdP\.
+1. Your user is redirected to the IdP with a SAML request\.
 
 1. The IdP authenticates the user if necessary\. If the IdP recognizes that the user has an active session, the IdP skips the authentication to provide a single sign\-in \(SSO\) experience\.
 

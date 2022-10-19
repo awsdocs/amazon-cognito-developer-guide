@@ -10,8 +10,35 @@ For an ongoing record of events in your AWS account, including events for Amazon
 
 **Amazon Cognito User Pools**
 
-Amazon Cognito supports logging for all of the actions listed on the [User pool actions](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_Operations.html) page as events in CloudTrail log files\. Amazon Cognito also logs requests to your hosted UI as events in CloudTrail\.
+Amazon Cognito supports logging for all of the actions listed on the [User pool actions](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_Operations.html) page as events in CloudTrail log files\. Amazon Cognito also logs the following request types to your hosted UI as events in CloudTrail\.
 
+
+**Hosted UI operations in Cloudtrail**  
+
+| Operation | Description | 
+| --- | --- | 
+| Login\_GET, CognitoAuthentication | A user views or submits credentials to your [Login endpoint](login-endpoint.md)\. | 
+| OAuth2\_Authorize\_GET | A user views your [Authorize endpoint](authorization-endpoint.md)\. | 
+| OAuth2Response\_GET, OAuth2Response\_POST | A user submits an IdP token to your /oauth2/idpresponse endpoint\. | 
+| SAML2Response\_POST | A user submits an IdP SAML assertion to your /saml2/idpresponse endpoint\. | 
+| Login\_OIDC\_SAML\_POST | A user enters a username at your [Login endpoint](login-endpoint.md) and matches with an [IdP identifier](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-integrating-3rd-party-saml-providers.html)\. | 
+| Token\_POST | A user submits an authorization code to your [Token endpoint](token-endpoint.md)\. | 
+| Signup\_GET, Signup\_POST | A user submits sign\-up information to your /signup endpoint\. | 
+| Confirm\_GET, Confirm\_POST | A user submits a confirmation code in the hosted UI\. | 
+| ResendCode\_POST | A user submits a request to resend a confirmation code in the hosted UI\. | 
+| ForgotPassword\_GET, ForgotPassword\_POST | A user submits a request to reset their password to your /forgotPassword endpoint\. | 
+| ConfirmForgotPassword\_GET, ConfirmForgotPassword\_POST | A user submits a code to your /confirmForgotPassword endpoint that confirms their ForgotPassword request\. | 
+| ResetPassword\_GET, ResetPassword\_POST | A user submits a new password in the hosted UI\. | 
+| Mfa\_GET, Mfa\_POST | A user submits a multi\-factor authentication \(MFA\) code in the hosted UI\. | 
+| MfaOption\_GET, MfaOption\_POST | A user chooses their preferred method for MFA in the hosted UI\. | 
+| Logout | A user signs out at your /logout endpoint\. | 
+| SAML2Logout\_POST | A user signs out at your /saml2/logout endpoint\. | 
+| Error\_GET | A user views an error page in the hosted UI\. | 
+| UserInfo\_GET, UserInfo\_POST | A user or IdP exchanges information with your [UserInfo endpoint](userinfo-endpoint.md)\. | 
+| Confirm\_With\_Link\_GET | A user submits a confirmation based on a link that Amazon Cognito sent in an email message\. | 
+| Event\_Feedback\_GET | A user submits feedback to Amazon Cognito about an [advanced security features](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html) event\. | 
+
+**Note**  
 Amazon Cognito records `UserSub` but not `UserName` in CloudTrail logs for requests that are specific to a user\. You can find a user for a given `UserSub` by calling the `ListUsers` API, and using a filter for sub\. 
 
 **Amazon Cognito Federated Identities**

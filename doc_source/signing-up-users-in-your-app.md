@@ -48,13 +48,13 @@ To help ensure that you send messages only to the right individuals, configure y
 
 1. An email address or phone number\.
 
-1. A verification code that Amazon Cognito sends to that email address or phone number\.
+1. A verification code that Amazon Cognito sends to that email address or phone number\. If 24 hours have passed and your user's code or link is no longer valid, call the [ResendConfirmationCode](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ResendConfirmationCode.html) API operation to generate and send a new code or link\.
 
 By providing the verification code, a user proves that they have access to the mailbox or phone that received the code\. After the user provides the code, Amazon Cognito updates the information about the user in your user pool by:
 + Setting the user's status to `CONFIRMED`\.
 + Updating the user's attributes to indicate that the email address or phone number is verified\.
 
-To view this information, you can use the Amazon Cognito console\. Or, you can use the `AdminGetUser` API action, the `admin-get-user` command with the AWS CLI, or a corresponding action in one of the AWS SDKs\.
+To view this information, you can use the Amazon Cognito console\. Or, you can use the `AdminGetUser` API operation, the `admin-get-user` command with the AWS CLI, or a corresponding action in one of the AWS SDKs\.
 
 If a user has a verified contact method, Amazon Cognito automatically sends a message to the user when the user requests a password reset\.
 

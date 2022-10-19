@@ -10,6 +10,46 @@ A user authenticates by answering successive challenges until authentication eit
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
+Typically, your app generates a prompt to gather information from your user, and submits that information in an API request to Amazon Cognito\. Consider an `InitiateAuth` flow in a user pool where you have configured your user with multi\-factor authentication \(MFA\)\. 
+
+1. Your app prompts your user for their user name and password\.
+
+1. You include the user name and password as parameters in `InitiateAuth`\.
+
+1. Amazon Cognito returns an `SMS_MFA` challenge and a session identifier\.
+
+1. Your app prompts your user for the MFA code from their phone\.
+
+1. You include that code and the session identifier in the `RespondToAuthChallenge` request\.
+
+Depending on the features of your user pool, you can end up responding to several challenges to `InitiateAuth` before your app retrieves tokens from Amazon Cognito\. Amazon Cognito includes a session string in the response to each request\. To combine your API requests into an authentication flow, include the session string from the response to the previous request in each subsequent request\. By default, your users have three minutes to complete each challenge before the session string expires\. To adjust this period, change your app client **Authentication flow session duration**\. The following procedure describes how to change this setting in your app client configuration\.
+
+------
+#### [ Amazon Cognito console ]
+
+**To configure app client authentication flow session duration \(AWS Management Console\)**
+
+1. From the **App integration** tab in your user pool, select the name of your app client from the **App clients and analytics** container\.
+
+1. Select **Edit** in the **App client information** container\.
+
+1. Change the value of **Authentication flow session duration** to the validity duration that you want, in minutes, for SMS MFA codes\. This also changes the amount of time that any user has to complete any authentication challenge in your app client\.
+
+1. Select **Save changes**\.
+
+------
+#### [ Amazon Cognito API ]
+
+**To configure app client authentication flow session duration \(Amazon Cognito API\)**
+
+1. Prepare an `UpdateUserPoolClient` request with your existing user pool settings from a `DescribeUserPoolClient` request\. Your `UpdateUserPoolClient` request must include all existing app client properties\.
+
+1. Change the value of `AuthSessionValidity` to the validity duration that you want, in minutes, for SMS MFA codes\. This also changes the amount of time that any user has to complete any authentication challenge in your app client\.
+
+------
+
+For more information about app clients, see [Configuring a user pool app client](user-pool-settings-client-apps.md)\.
+
 You can use AWS Lambda triggers to customize the way users authenticate\. These triggers issue and verify their own challenges as part of the authentication flow\.
 
 You can also use the admin authentication flow for secure backend servers\. You can use the user migration authentication flow to make user migration possible without the requirement that your users to reset their passwords\.

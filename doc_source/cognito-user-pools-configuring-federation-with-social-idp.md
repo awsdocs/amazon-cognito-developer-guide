@@ -22,14 +22,6 @@ Before you create a social IdP with Amazon Cognito, you must register your appli
 
 1. Choose **\+ Add Platform** from the bottom of the page\.
 
-1. Choose **Website**\.
-
-1. Under **Website**, enter a sign\-in URL for your app client endpoint into **Site URL**\. Your sign\-in URL should be in the following format:
-
-   ```
-   https://your_user_pool_domain/login?response_type=code&client_id=your_app_client_id&redirect_uri=your_callback_url
-   ```
-
 1. Choose **Save changes**\.
 
 1. For **App Domains**, enter your user pool domain\.

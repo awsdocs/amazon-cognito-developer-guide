@@ -1,5 +1,8 @@
 # Tutorial: Cleaning up your AWS resources<a name="tutorial-cleanup-tutorial"></a>
 
+**Important**  
+Currently, you must configure Amazon Cognito identity pools in the original console, even if you have migrated to the new console for Amazon Cognito user pools\. From the new console, choose **Federated identities** to navigate to the identity pools console\.
+
 **To delete an identity pool**
 
 1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\. If prompted, enter your AWS credentials\.

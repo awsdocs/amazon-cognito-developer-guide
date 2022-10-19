@@ -2,7 +2,9 @@
 
 When a user signs in with MFA enabled, they first enter and submit their user name and password\. The client app receives a `getMFA` response that indicates where the authorization code was sent\. The client app should indicate to the user where to look for the code \(such as which phone number the code was sent to\)\. Next, it provides a form for entering the code\. Finally, the client app submits the code to complete the sign\-in process\. The destination is masked, which hides all but the last four digits of the phone number\. If an app is using the Amazon Cognito hosted UI, it shows a page for the user to enter the MFA code\.
 
-The SMS text message authorization code is valid for 3 minutes\.
+The SMS text message authorization code is valid for the **Authentication flow session duration** that you set for you app client\.
+
+Set the duration of an authentication flow session in the Amazon Cognito console in the **App integration** tab, when you modify your app client under **App clients and analytics**\. You can also set the authentication flow session duration in a `CreateUserPoolClient` or `UpdateUserPoolClient` API request\. For more information, see [User pool authentication flow](amazon-cognito-user-pools-authentication-flow.md)\.
 
 If a user no longer has access to their device where the SMS text message MFA codes are sent, they must request help from your customer service office\. An administrator with necessary AWS account permissions can change the user's phone number, but only through the AWS CLI or the API\.
 

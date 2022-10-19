@@ -1,5 +1,8 @@
 # Tutorial: Creating an identity pool<a name="tutorial-create-identity-pool"></a>
 
+**Important**  
+Currently, you must configure Amazon Cognito identity pools in the original console, even if you have migrated to the new console for Amazon Cognito user pools\. From the new console, choose **Federated identities** to navigate to the identity pools console\.
+
 With an identity pool, your users can obtain temporary AWS credentials to access AWS services, such as Amazon S3 and DynamoDB\.
 
 **Note**  

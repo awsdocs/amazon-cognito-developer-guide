@@ -10,6 +10,8 @@ Amazon Cognito uses Amazon SNS to send SMS messages to your user pools\. You can
 
 **To send SMS text messages to user pool users**
 
+1. Prepare an IAM role that Amazon Cognito can use to send SMS messages with Amazon SNS\.
+
 1. Choose the AWS Region for Amazon SNS SMS messages\.
 
 1. Obtain an origination identity if you want to send SMS messages to US phone numbers\.
@@ -22,7 +24,38 @@ Amazon Cognito uses Amazon SNS to send SMS messages to your user pools\. You can
 
 1. Finish setting up the user pool in Amazon Cognito\.
 
-### Step 1: Choose the AWS Region for Amazon SNS SMS messages<a name="sms-choose-a-region"></a>
+### Step 1: Prepare an IAM role that Amazon Cognito can use to send SMS messages with Amazon SNS<a name="sms-create-a-role"></a>
+
+When you send an SMS message from your user pool, Amazon Cognito assumes an IAM role in your account\. Amazon Cognito uses the `sns:Publish` permission assigned to that role to send SMS messages to your users\. In the Amazon Cognito console, you can set an **IAM role selection** from the **Messaging** tab of your user pool, under **SMS** or make this selection during the user pool creation wizard\.
+
+The following example IAM role trust policy grants Amazon Cognito user pools a limited ability to assume the role\. Amazon Cognito can only assume the role when it does so on behalf of the user pools in the `aws:SourceArn` condition and the AWS account in the `aws:SourceAccount` condition\.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Effect": "Allow",
+        "Principal": {
+            "Service": "cognito-idp.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole",
+        "Condition": {
+            "StringEquals": {
+                "aws:SourceAccount": "<your account number>"
+            },
+            "ArnLike": {
+                "aws:SourceArn": "<your user pool ARN>"
+            }
+        }
+    }]
+}
+```
+
+You can specify an exact [user pool ARN](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazoncognitouserpools.html#amazoncognitouserpools-resources-for-iam-policies) or a wildcard ARN in the value of the `aws:SourceArn` condition\. Look up the ARNs of your user pools in the AWS Management Console or with a [DescribeUserPool](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_DescribeUserPool.html) API request\.
+
+For more information about IAM roles and trust policies, see [Roles terms and concepts](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html) in the *AWS Identity and Access Management User Guide*\.
+
+### Step 2: Choose the AWS Region for Amazon SNS SMS messages<a name="sms-choose-a-region"></a>
 
 In some AWS Regions, you can choose the Region that contains the Amazon SNS resources that you want to use for Amazon Cognito SMS messages\. In any AWS Region where Amazon Cognito is available, except for Asia Pacific \(Seoul\), you can use Amazon SNS resources in the AWS Region where you created your user pool\. To make your SMS messaging faster and more reliable when you have a choice of Regions, use Amazon SNS resources in the same Region as your user pool\.
 
@@ -60,7 +93,7 @@ You can send SMS messages for any **Amazon Cognito Region** in the following tab
 | Middle East \(Bahrain\) | Middle East \(Bahrain\) | 
 | South America \(São Paulo\) | South America \(São Paulo\) | 
 
-### Step 2: Obtain an origination identity to send SMS messages to US phone numbers<a name="user-pool-sms-settings-first-time-origination"></a>
+### Step 3: Obtain an origination identity to send SMS messages to US phone numbers<a name="user-pool-sms-settings-first-time-origination"></a>
 
 If you plan to send SMS text messages to US phone numbers, you must obtain an origination identity, regardless of whether you build an SMS sandbox testing environment, or a production environment\.
 
@@ -74,7 +107,9 @@ If you operate in the following AWS Regions, you must open an AWS Support ticket
 + South America \(São Paulo\)
 + US West \(N\. California\)
 
-### Step 3: Confirm that you are in the SMS sandbox<a name="user-pool-sms-settings-first-time-confirm-sandbox"></a>
+When you have more than one origination identity in the same AWS Region, Amazon SNS chooses an origination identity type in the following order of priority: short code, 10DLC, toll\-free number\. You can't change this priority\. For more information, see [Amazon SNS FAQs](http://aws.amazon.com/sns/faqs/)\.
+
+### Step 4: Confirm that you are in the SMS sandbox<a name="user-pool-sms-settings-first-time-confirm-sandbox"></a>
 
 Use the following procedure to confirm that you are in the SMS sandbox\. Repeat for each AWS Region where you have production Amazon Cognito user pools\.
 
@@ -93,7 +128,7 @@ Use the following procedure to confirm that you are in the SMS sandbox\. Repeat 
 
    `You are currently in a Sandbox environment in [Amazon SNS](https://console.aws.amazon.com/sns/home).`
 
-   If you don’t see this message, then someone has set up SMS messages in your account already\. Skip to [Step 6: Complete user pool setup in Amazon Cognito](#user-pool-sms-settings-first-time-finish-user-pool)\.
+   If you don’t see this message, then someone has set up SMS messages in your account already\. Skip to [Step 7: Complete user pool setup in Amazon Cognito](#user-pool-sms-settings-first-time-finish-user-pool)\.
 
 1. In the message to open the Amazon SNS console in a new tab, choose the [Amazon SNS](https://console.aws.amazon.com/sns/home) link\.
 
@@ -118,7 +153,7 @@ Use the following procedure to confirm that you are in the SMS sandbox\. Repeat 
 
    `You are currently in the SMS Sandbox and cannot send SMS messages to unverified numbers.`
 
-   If you don’t see this message, then someone has set up SMS messages in your account already\. Skip to [Step 6: Complete user pool setup in Amazon Cognito](#user-pool-sms-settings-first-time-finish-user-pool)\.
+   If you don’t see this message, then someone has set up SMS messages in your account already\. Skip to [Step 7: Complete user pool setup in Amazon Cognito](#user-pool-sms-settings-first-time-finish-user-pool)\.
 
 1. Choose the [Amazon SNS](https://console.aws.amazon.com/sns/home) link in the message\. This opens the Amazon SNS console in a new tab\.
 
@@ -128,7 +163,7 @@ Use the following procedure to confirm that you are in the SMS sandbox\. Repeat 
 
 ------
 
-### Step 4: Move your account out of Amazon SNS sandbox<a name="user-pool-sms-settings-first-time-out-sandbox"></a>
+### Step 5: Move your account out of Amazon SNS sandbox<a name="user-pool-sms-settings-first-time-out-sandbox"></a>
 
 If you are testing your app and you only need to send SMS messages to phone numbers that your administrators can verify, skip this step and proceed to step 5\.
 
@@ -136,7 +171,7 @@ To use your app in production, move your account out of the SMS sandbox and into
 
 For detailed instructions, see [Moving Out of the SMS Sandbox](https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox-moving-to-production.html) in the *Amazon Simple Notification Service Developer Guide*\.
 
-### Step 5: Verify phone numbers for Amazon Cognito in Amazon SNS<a name="user-pool-sms-settings-first-time-verify-numbers"></a>
+### Step 6: Verify phone numbers for Amazon Cognito in Amazon SNS<a name="user-pool-sms-settings-first-time-verify-numbers"></a>
 
 If you have moved your account out of the SMS sandbox, skip this step and proceed to step 6\.
 
@@ -155,6 +190,6 @@ For detailed instructions, see [Adding and verifying phone numbers in the SMS sa
 **Note**  
 Amazon SNS limits the number of destination phone numbers that you can verify while you are in the SMS sandbox\. See [SMS sandbox](https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html) in the *Amazon Simple Notification Service Developer Guide*\.
 
-### Step 6: Complete user pool setup in Amazon Cognito<a name="user-pool-sms-settings-first-time-finish-user-pool"></a>
+### Step 7: Complete user pool setup in Amazon Cognito<a name="user-pool-sms-settings-first-time-finish-user-pool"></a>
 
 Return to the browser tab where you were [creating](cognito-user-pool-as-user-directory.md) or [editing](signing-up-users-in-your-app.md#verification-configure) your user pool\. Complete the procedure\.

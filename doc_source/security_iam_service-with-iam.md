@@ -87,7 +87,9 @@ To specify multiple actions in a single statement, separate them with commas\.
 
 ### Signed versus unsigned APIs<a name="security_amazon-cognito-signed-versus-unsigned-apis"></a>
 
-APIs that are signed with AWS credentials are capable of being restricted via an IAM policy\. The following Cognito APIs are unsigned, and therefore cannot be restricted via an IAM policy:
+When you sign Amazon Cognito API requests with AWS credentials, you can restrict them in an AWS Identity and Access Management \(IAM\) policy\. API requests that you must sign with AWS credentials include server\-side sign\-in with `AdminInitiateAuth`, and actions that create, view, or modify your Amazon Cognito resources like `UpdateUserPool`\. For more information about signed API requests, see [Signing AWS API requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html)\.
+
+Because Amazon Cognito is a consumer identity product for apps that you want to make available to the public, you have access to the following unsigned APIs\. Your app makes these API requests for your users and your prospective users\. Some APIs require no prior authorization, like `InitiateAuth` to start a new authentication session\. Some APIs use access tokens or session keys for authorization, like `VerifySoftwareToken` to complete MFA setup for a user that has an existing authenticated session\. An unsigned, authorized Amazon Cognito user pools API supports a `Session` or `AccessToken` parameter in the request syntax as displayed in the [Amazon Cognito API Reference](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/Welcome.html)\. An unsigned Amazon Cognito Identity API supports an `IdentityId` parameter as displayed in the [Amazon Cognito Federated Identities API Reference](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/Welcome.html)\.
 
 **Amazon Cognito federated identities**
 + `GetId`
@@ -96,6 +98,7 @@ APIs that are signed with AWS credentials are capable of being restricted via an
 + `UnlinkIdentity`
 
 **Amazon Cognito your user pools**
++ `AssociateSoftwareToken`
 + `ChangePassword`
 + `ConfirmDevice`
 + `ConfirmForgotPassword`
@@ -112,10 +115,14 @@ APIs that are signed with AWS credentials are capable of being restricted via an
 + `ListDevices`
 + `ResendConfirmationCode`
 + `RespondToAuthChallenge`
++ `RevokeToken`
++ `SetUserMFAPreference`
 + `SetUserSettings`
 + `SignUp`
++ `UpdateAuthEventFeedback`
 + `UpdateDeviceStatus`
 + `UpdateUserAttributes`
++ `VerifySoftwareToken`
 + `VerifyUserAttribute`
 
 
@@ -231,6 +238,8 @@ Attribute\-based access control \(ABAC\) is an authorization strategy that defin
 ABAC is helpful in environments that are growing rapidly and helps with situations where policy management becomes cumbersome\.
 
 To control access based on tags, you provide tag information in the [condition element](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html) of a policy using the `aws:ResourceTag/key-name`, `aws:RequestTag/key-name`, or `aws:TagKeys` condition keys\.
+
+If a service supports all three condition keys for every resource type, then the value is **Yes** for the service\. If a service supports all three condition keys for only some resource types, then the value is **Partial**\.
 
 For more information about ABAC, see [What is ABAC?](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html) in the *IAM User Guide*\. To view a tutorial with steps for setting up ABAC, see [Use attribute\-based access control \(ABAC\)](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html) in the *IAM User Guide*\.
 

@@ -1,5 +1,8 @@
 # Getting started with Amazon Cognito identity pools \(federated identities\)<a name="getting-started-with-identity-pools"></a>
 
+**Important**  
+Currently, you must configure Amazon Cognito identity pools in the original console, even if you have migrated to the new console for Amazon Cognito user pools\. From the new console, choose **Federated identities** to navigate to the identity pools console\.
+
 With Amazon Cognito identity pools, you can create unique identities and assign permissions for users\. Your identity pool can include:
 + Users in an Amazon Cognito user pool
 + Users who authenticate with external identity providers such as Facebook, Google, Apple, or an OIDC or SAML identity provider\.
@@ -25,6 +28,8 @@ To use Amazon Cognito identity pools, you need an AWS account\. If you don't alr
 1. Follow the online instructions\.
 
    Part of the sign\-up procedure involves receiving a phone call and entering a verification code on the phone keypad\.
+
+   When you sign up for an AWS account, an *AWS account root user* is created\. The root user has access to all AWS services and resources in the account\. As a security best practice, [assign administrative access to an administrative user](https://docs.aws.amazon.com/singlesignon/latest/userguide/getting-started.html), and use only the root user to perform [tasks that require root user access](https://docs.aws.amazon.com/general/latest/gr/root-vs-iam.html#aws_tasks-that-require-root)\.
 
 ## Create an identity pool in Amazon Cognito<a name="create-identity-pool"></a>
 

@@ -4,13 +4,13 @@
 *****Copyright &copy; Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
-Amazon's trademarks and trade dress may not be used in 
-     connection with any product or service that is not Amazon's, 
-     in any manner that is likely to cause confusion among customers, 
-     or in any manner that disparages or discredits Amazon. All other 
-     trademarks not owned by Amazon are the property of their respective
-     owners, who may or may not be affiliated with, connected to, or 
-     sponsored by Amazon.
+Amazon's trademarks and trade dress may not be used in
+connection with any product or service that is not Amazon's,
+in any manner that is likely to cause confusion among customers,
+or in any manner that disparages or discredits Amazon. All other
+trademarks not owned by Amazon are the property of their respective
+owners, who may or may not be affiliated with, connected to, or
+sponsored by Amazon.
 
 -----
 ## Contents
@@ -44,6 +44,10 @@ Amazon's trademarks and trade dress may not be used in
          + [Using the Amazon Cognito domain for the hosted UI](cognito-user-pools-assign-domain-prefix.md)
          + [Using your own domain for the hosted UI](cognito-user-pools-add-custom-domain.md)
       + [Customizing the built-in sign-in and sign-up webpages](cognito-user-pools-app-ui-customization.md)
+      + [Signing up and signing in with the hosted UI](cognito-user-pools-hosted-ui-user-experience.md)
+         + [How to sign up for a new account in the Amazon Cognito hosted UI](cognito-user-pools-hosted-ui-user-sign-up.md)
+         + [How to sign in with the Amazon Cognito hosted UI](cognito-user-pools-hosted-ui-user-sign-in.md)
+         + [How to reset a password with the Amazon Cognito hosted UI](cognito-user-pools-hosted-ui-user-forgot-password.md)
       + [Defining resource servers for your user pool](cognito-user-pools-define-resource-servers.md)
    + [Adding user pool sign-in through a third party](cognito-user-pools-identity-federation.md)
       + [Adding social identity providers to a user pool](cognito-user-pools-social-idp.md)
@@ -96,10 +100,22 @@ Amazon's trademarks and trade dress may not be used in
       + [Using the refresh token](amazon-cognito-user-pools-using-the-refresh-token.md)
       + [Revoking tokens](token-revocation.md)
       + [Verifying a JSON web token](amazon-cognito-user-pools-using-tokens-verifying-a-jwt.md)
+      + [Caching tokens](amazon-cognito-user-pools-using-tokens-caching-tokens.md)
    + [Accessing resources after a successful user pool authentication](accessing-resources.md)
       + [Accessing server-side resources after sign-in](scenario-backend.md)
       + [Accessing resources with API Gateway and Lambda after sign-in](user-pool-accessing-resources-api-gateway-and-lambda.md)
       + [Accessing AWS services using an identity pool after sign-in](amazon-cognito-integrating-user-pools-with-identity-pools.md)
+   + [Using Amazon Cognito user pools security features](managing-security.md)
+      + [Adding MFA to a user pool](user-pool-settings-mfa.md)
+         + [SMS text message MFA](user-pool-settings-mfa-sms-text-message.md)
+         + [TOTP software token MFA](user-pool-settings-mfa-totp.md)
+      + [Adding advanced security to a user pool](cognito-user-pool-settings-advanced-security.md)
+         + [Checking for compromised credentials](cognito-user-pool-settings-compromised-credentials.md)
+         + [Using adaptive authentication](cognito-user-pool-settings-adaptive-authentication.md)
+         + [Viewing advanced security metrics](user-pool-settings-viewing-advanced-security-metrics.md)
+         + [Activating user pool advanced security from your app](user-pool-settings-viewing-advanced-security-app.md)
+      + [Associating an AWS WAF web ACL with a user pool](user-pool-waf.md)
+      + [User pool case sensitivity](user-pool-case-sensitivity.md)
    + [User pools reference (AWS Management Console)](cognito-user-pools-getting-started-step-through-settings.md)
       + [Adding a user pool name](user-pool-settings-name.md)
       + [Importing and creating users and groups](user-pool-settings-users-and-groups.md)
@@ -188,21 +204,11 @@ Amazon's trademarks and trade dress may not be used in
       + [Regional data considerations](security-cognito-regional-data-considerations.md)
    + [Infrastructure security in Amazon Cognito](infrastructure-security.md)
    + [Configuration and vulnerability analysis in Amazon Cognito user pools](vulnerability-analysis-and-management.md)
-   + [Security best practices for Amazon Cognito user pools](managing-security.md)
-      + [Adding MFA to a user pool](user-pool-settings-mfa.md)
-         + [SMS text message MFA](user-pool-settings-mfa-sms-text-message.md)
-         + [TOTP software token MFA](user-pool-settings-mfa-totp.md)
-      + [Adding advanced security to a user pool](cognito-user-pool-settings-advanced-security.md)
-         + [Checking for compromised credentials](cognito-user-pool-settings-compromised-credentials.md)
-         + [Using adaptive authentication](cognito-user-pool-settings-adaptive-authentication.md)
-         + [Viewing advanced security metrics](user-pool-settings-viewing-advanced-security-metrics.md)
-         + [Activating user pool advanced security from your app](user-pool-settings-viewing-advanced-security-app.md)
-      + [User pool case sensitivity](user-pool-case-sensitivity.md)
    + [AWS managed policies for Amazon Cognito](security-iam-awsmanpol.md)
 + [Tagging Amazon Cognito resources](tagging.md)
 + [Quotas in Amazon Cognito](limits.md)
 + [Amazon Cognito API references](cognito-reference.md)
-   + [User pool authentication and authorization endpoints reference](cognito-userpools-server-contract-reference.md)
+   + [User pool OIDC and hosted UI API endpoints reference](cognito-userpools-server-contract-reference.md)
       + [Authorize endpoint](authorization-endpoint.md)
       + [Token endpoint](token-endpoint.md)
       + [UserInfo endpoint](userinfo-endpoint.md)

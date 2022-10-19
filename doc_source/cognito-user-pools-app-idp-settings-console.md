@@ -50,6 +50,8 @@
 
 1. Select the **Authentication flows** you want to allow in your app client\. For more information, see [User Pool Authentication Flow](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow.html)\.
 
+1. Configure the **Authentication flow session duration**\. This is the amount of time your users have to complete each authentication challenge before their session token expires\.
+
 1. \(Optional\) configure token expiration\.
 
    1. Specify the **Refresh token expiration** for the app client\. The default value is 30 days\. You can change it to any value between 1 hour and 10 years\.

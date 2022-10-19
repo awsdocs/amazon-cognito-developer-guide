@@ -98,11 +98,11 @@ We recommend that you enter a metadata document URL if your provider has a publi
 If you see `InvalidParameterException` while creating a SAML IdP with an HTTPS metadata endpoint URL, for example, "Error retrieving metadata from *<metadata endpoint>*," make sure that the metadata endpoint has SSL correctly set up and that there is a valid SSL certificate associated with it\.
 
 **To set up the SAML IdP to add a user pool as a relying party**
-+ The user pools service provider URN is: `urn:amazon:cognito:sp:<user_pool_id>`\. Amazon Cognito issues the `AuthnRequest` to SAML IdP to issue a SAML assertion with audience restriction to this URN\. Your IdP uses the following POST binding endpoint for the IdP\-to\-SP response message: `https://<domain_prefix>.auth.<region>.amazoncognito.com/saml2/idpresponse`\.
++ The user pools service provider URN is: `urn:amazon:cognito:sp:<user_pool_id>`\. Amazon Cognito issues the `AuthnRequest` to SAML IdP to issue a SAML assertion with audience restriction to this URN\. Your IdP uses the following POST binding endpoint for the IdP\-to\-SP response message: `https://Your user pool domain/saml2/idpresponse`\.
 + Make sure your SAML IdP populates `NameID` and any required attributes for your user pool in the SAML assertion\. `NameID` is used for uniquely identifying your SAML federated user in the user pool\. Use persistent SAML Name ID format\.
 
-**To set up the SAML IdP to add a signing certificate**
-+ To get the certificate containing the public key which will be used by the IdP to verify the signed logout request, choose **Show signing certificate** under **Active SAML Providers** on the **SAML** dialog under **Identity providers** on the **Federation** console page\.
+**To provide a signing certificate to your SAML 2\.0 IDP**
++ To get a copy of the the public key from Amazon Cognito that your IdP can use to validate SAML requests and logout requests, choose **View signing certificate** or **Download as \.crt** under **Signing certificate** in the **Sign\-in experience** tab of your user pool\.
 
 You can delete any SAML provider you have set up in your user pool with the Amazon Cognito console\.
 

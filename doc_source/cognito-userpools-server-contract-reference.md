@@ -1,4 +1,4 @@
-# User pool authentication and authorization endpoints reference<a name="cognito-userpools-server-contract-reference"></a>
+# User pool OIDC and hosted UI API endpoints reference<a name="cognito-userpools-server-contract-reference"></a>
 
 Amazon Cognito creates the public webpages listed here when you set up domains for your app clients\. They include the hosted UI, where your users can sign up and sign in \(the [Login endpoint](login-endpoint.md)\), and sign out \(the [Logout endpoint](logout-endpoint.md)\)\. For more information about these resources, see [Using the Amazon Cognito hosted UI for sign\-up and sign\-in](cognito-user-pools-app-integration.md)\.
 
@@ -17,6 +17,8 @@ Along with the endpoints in this guide, Amazon Cognito creates the following end
 | https://cognito\-idp\.Region\.amazonaws\.com/your user pool ID/\.well\-known/jwks\.json | Public keys that you can use to validate Amazon Cognito tokens\. | 
 | https://Your user pool domain/oauth2/idpresponse | Social identity providers must redirect your users to this endpoint with an authorization code\. Amazon Cognito redeems the code for a token when it authenticates your federated user\. | 
 | https://Your user pool domain/saml2/idpresponse | To authenticate your SAML 2\.0 federated user, your identity provider must redirect your users to this endpoint with a SAML response\. | 
+| https://Your user pool domain/confirmUser | Confirms users who have selected an email link to verify their user account\. | 
+| https://Your user pool domain/signup | Signs up a new user\. The /login page directs your user to /signup when they select Sign up on the sign\-in page\. | 
 
 For more information on the OpenID and OAuth standards, see [OpenID Connect 1\.0](http://openid.net/specs/openid-connect-core-1_0.html) and [OAuth 2\.0](https://tools.ietf.org/html/rfc6749)\.
 

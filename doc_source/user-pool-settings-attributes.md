@@ -276,10 +276,10 @@ Use the following procedure to create a new custom attribute\.
 1. Under **Do you want to add custom attributes?**, choose **Add custom attribute**\.
 
 1. Provide the following details about the new attribute:
-   + Select the data **Type** \(string or number\)
-   + Enter a **Name** value
-   + Enter a **Min length** value with type string or a **Min value** with type number
-   + Enter a **Max length** value with type string or a **Max value** with type number
+   + Enter a **Name**\.
+   + Select a** Type** of either **String** or **Number**\.
+   + Enter a **Min** string length or number value\.
+   + Enter a **Max** string length or number value\.
    + Select **Mutable** if you want to give users permission to change the value of a custom attribute after they set the initial value\.
 
 1. Choose **Save changes**\.
@@ -298,10 +298,10 @@ Use the following procedure to create a new custom attribute\.
 1. Choose the **Sign\-up experience** tab, and in the **Custom attributes** section, choose **Add custom attributes**\.
 
 1. On the **Add custom attributes** page, provide the following details about the new attribute:
-   + Enter a **Name** value
-   + Select the **Type** \(string or number\)
-   + Enter a **Min** length value
-   + Enter a **Max** length value
+   + Enter a **Name**\.
+   + Select a** Type** of either **String** or **Number**\.
+   + Enter a **Min** string length or number value\.
+   + Enter a **Max** string length or number value\.
    + Select **Mutable** if you want to give users permission to change the value of a custom attribute after they set the initial value\.
 
 1. Choose **Save changes**\.
@@ -310,7 +310,7 @@ Use the following procedure to create a new custom attribute\.
 
 ## Attribute permissions and scopes<a name="user-pool-settings-attribute-permissions-and-scopes"></a>
 
-For each app client, you can set read and write permissions for each user attribute\. This way, you can control the access that any app has to read and modify each attribute that you store for your users\. For example, you might have a custom attribute that indicates whether a user is a paying customer or not\. Your apps might be able to see this attribute but not change it directly\. Instead, you would update this attribute using an administrative tool or a background process\. You can set permissions for user attributes from the Amazon Cognito console, the Amazon Cognito API, or the AWS CLI\. By default, any new custom attributes aren't available until you set read and write permissions for them\.
+For each app client, you can set read and write permissions for each user attribute\. This way, you can control the access that any app has to read and modify each attribute that you store for your users\. For example, you might have a custom attribute that indicates whether a user is a paying customer or not\. Your apps might be able to see this attribute but not change it directly\. Instead, you would update this attribute using an administrative tool or a background process\. You can set permissions for user attributes from the Amazon Cognito console, the Amazon Cognito API, or the AWS CLI\. By default, any new custom attributes aren't available until you set read and write permissions for them\. When you create a new app client in the Amazon Cognito console, you grant your app read and write permissions for all standard and custom attributes by default\. To limit your app to only the amount of information that it requires, choose a subset of scopes that your app needs\.
 
 ------
 #### [ Original console ]

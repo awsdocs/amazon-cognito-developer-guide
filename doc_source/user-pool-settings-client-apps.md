@@ -90,6 +90,8 @@ You can't remove required attributes from write permissions in any app\.
 
 1. Select the **Authentication flows** you want to allow in your app client\.
 
+1. Configure the **Authentication flow session duration**\. This is the amount of time your users have to complete each authentication challenge before their session token expires\.
+
 1. \(Optional\) If you want to configure token expiration, complete the following steps:
 
    1. Specify the **Refresh token expiration** for the app client\. The default value is 30 days\. You can change it to any value between 1 hour and 10 years\.

@@ -33,7 +33,7 @@ In this example, the "Sid" value is an arbitrary string that uniquely identifies
                     "aws:SourceAccount": "<your account number>"
                 },
                 "ArnLike": {
-                    "aws:SourceArn": "<your identity pool ARN>"
+                    "aws:SourceArn": "<your user pool ARN>"
                 }
             }
         }

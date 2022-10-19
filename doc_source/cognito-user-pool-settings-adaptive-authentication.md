@@ -111,7 +111,7 @@ The console lists the sign\-in history on the **Users and groups** tab\. If you 
 
 With advanced security protections, Amazon Cognito can notify your users of sign\-in attempts\. Amazon Cognito can also prompt users to select links to indicate if the sign\-in was valid or not valid\. Amazon Cognito uses this feedback to improve the risk detection accuracy for your user pool\. 
 
-In the **How do you want to use adaptive authentication for sign\-in attempts rated as low, medium and high risk?** section choose **Notify Users** for the low, medium, and high\-risk cases\.
+In the **Automatic risk response** section choose **Notify Users** for the low, medium, and high\-risk cases\.
 
 ![\[Notify users\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Notify users\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Notify users\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 

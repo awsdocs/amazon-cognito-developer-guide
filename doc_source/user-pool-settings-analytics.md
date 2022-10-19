@@ -1,7 +1,8 @@
 # Configuring user pool analytics<a name="user-pool-settings-analytics"></a>
 
 **Note**  
-The **Analytics** tab appears only when you're editing an existing user pool\.
+The **Analytics** tab appears only when you're editing an existing user pool in the original Amazon Cognito console\.  
+In the new Amazon Cognito console, configure analytics from an existing app client in the **App integration** tab, under **App clients and analytics**\. **Amazon Pinpoint analytics** will direct you temporarily to the original console to complete configuration\.
 
 Using Amazon Pinpoint Analytics, you can track Amazon Cognito user pools sign\-ups, sign\-ins, failed authentications, daily active users \(DAUs\), and monthly active users \(MAUs\)\. You can also set up user attributes specific to your app using the AWS Mobile SDK for Android or AWS Mobile SDK for iOS\. Those can then be used to segment your users in Amazon Pinpoint and send them targeted push notifications\.
 

@@ -22,7 +22,10 @@ Attributes with custom names\. You can change the value of a user's custom attri
 
 ## Updating a user pool with the Amazon Cognito API or AWS CLI<a name="cognito-user-pool-updating-api-cli"></a>
 
-You can change the configuration of an Amazon Cognito user pool with automation tools like the Amazon Cognito API or AWS Command Line Interface \(AWS CLI\)\. If you don't provide values for existing parameters like `LambdaConfig`, Amazon Cognito sets them to default values\. Plan accordingly when you want to automate changes to your user pool configuration\. The following procedure updates your configuration with the [ UpdateUserPool](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UpdateUserPool.html) API operation\.
+You can change the configuration of an Amazon Cognito user pool with automation tools like the Amazon Cognito API or AWS Command Line Interface \(AWS CLI\)\. The following procedure updates your configuration with the [ UpdateUserPool](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UpdateUserPool.html) API operation\. The same approach, with different input fields, applies to [ UpdateUserPoolClient](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UpdateUserPoolClient.html)\.
+
+**Important**  
+If you don't provide values for existing parameters, Amazon Cognito sets them to default values\. For example, when you have existing `LambdaConfig` and you submit an `UpdateUserPool` with an empty `LambdaConfig`, you delete the assignment of all Lambda functions to user pool triggers\. Plan accordingly when you want to automate changes to your user pool configuration\.
 
 1. Capture the existing state of your user pool with [ DescribeUserPool](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_DescribeUserPool.html)\.
 
@@ -49,3 +52,15 @@ You can change the configuration of an Amazon Cognito user pool with automation 
 1. Submit an `UpdateUserPool` API request with your modified JSON as the request input\.
 
 You can also use this modified `DescribeUserPool` output in the `--cli-input-json` parameter of `update-user-pool` in the AWS CLI\.
+
+Alternately, run the following AWS CLI command to generate JSON with blank values for the accepted input fields for `update-user-pool`\. You can then populate these fields with the existing values from your user pool\.
+
+```
+aws cognito-idp update-user-pool --generate-cli-skeleton --output json
+```
+
+Run the following command to generate the same JSON object for an app client\.
+
+```
+aws cognito-idp update-user-pool-client --generate-cli-skeleton --output json
+```

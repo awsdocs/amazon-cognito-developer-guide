@@ -9,9 +9,9 @@ You can use the following characters in passwords:
 
 ## Creating a password policy<a name="user-pool-settings-password-policies"></a>
 
-You can specify the following password requirements in the AWS Management Console:
-+ **Minimum length**, which must be at least six characters, but fewer than 99 characters
-+ **Includes at least one:**
+You can specify the following requirements in the **Password policy** in the AWS Management Console under the **Sign\-in experience** tab\.
++ A **Password minimum length** of at least six characters and at most 99 characters\. This is the shortest password you want your users to be able to set\. Amazon Cognito passwords can be up to 256 characters in length\.
++ Your users must create a password that **Contains at least 1** of the following types of characters\.
   + **Number**
   + **Special character** from the following set\. The space character is also treated as a special character\.
 

@@ -4,10 +4,14 @@ You can enable your app users to sign in through a SAML identity provider \(IdP\
 
 You need to update your SAML identity provider and configure your user pool\. See the documentation for your SAML identity provider for information about how to add your user pool as a relying party or application for your SAML 2\.0 identity provider\.
 
-You also need to provide an assertion consumer endpoint to your SAML identity provider\. Configure this endpoint for SAML 2\.0 POST binding in your SAML identity provider:
+You also need to provide an assertion consumer endpoint to your SAML identity provider\. Configure the following endpoint in your user pool domain for SAML 2\.0 POST binding in your SAML identity provider\. See [Configuring a user pool domain](cognito-user-pools-assign-domain.md) for more information about user pool domains\.
 
 ```
+https://Your user pool domain/saml2/idpresponse
+With an Amazon Cognito domain:
 https://<yourDomainPrefix>.auth.<region>.amazoncognito.com/saml2/idpresponse
+With a custom domain:
+https://Your custom domain/saml2/idpresponse
 ```
 
 You can find your domain prefix and the region value for your user pool on the **Domain name** tab of the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\.

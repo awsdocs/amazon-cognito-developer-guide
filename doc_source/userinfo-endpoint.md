@@ -1,10 +1,10 @@
 # UserInfo endpoint<a name="userinfo-endpoint"></a>
 
-The `/oauth2/userInfo` endpoint returns information about the authenticated user\.
+The `/oauth2/userInfo` endpoint returns information about the authenticated user\. When your app presents an Amazon Cognito access token to a service provider \(SP\), the SP can request more information about the user from your `userInfo` endpoint\. Amazon Cognito also retrieves information about your users that authenticate through an OAuth 2\.0 \(social\) identity provider \(IdP\) from the social IdP's `userInfo` endpoint\.
 
 ## GET /oauth2/userInfo<a name="get-userinfo"></a>
 
-The user pool client makes requests to this endpoint directly and not through a browser\.
+Your app makes requests to this endpoint directly and not through a browser\.
 
 For more information, see [UserInfo Endpoint](http://openid.net/specs/openid-connect-core-1_0.html#UserInfo) in the OpenID Connect \(OIDC\) specification\.
 

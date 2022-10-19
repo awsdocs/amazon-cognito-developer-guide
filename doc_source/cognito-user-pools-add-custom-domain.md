@@ -14,7 +14,7 @@ To add a custom domain to your user pool, you specify the domain name in the Ama
 
 Before you begin, you need:
 + A user pool with an app client\. For more information, see [Getting started with user pools](getting-started-with-cognito-user-pools.md)\.
-+ A web domain that you own\. Its root must have a valid **A record** in DNS\. For example, if your custom domain is *auth\.example\.com*, you must be able to resolve *example\.com* to an IP address\. For more information see [Domain Names](https://tools.ietf.org/html/rfc1035)\.
++ A web domain that you own\. Its *parent domain* must have a valid **A record** in DNS\. The parent may be the root of the domain, or a child domain that is one step up in the domain hierarchy\. For example, if your custom domain is *auth\.xyz\.example\.com*, Amazon Cognito must be able to resolve *xyz\.example\.com* to an IP address\. To prevent accidental impact on customer infrastructure, Amazon Cognito doesn't support the use of top\-level domains \(TLDs\) for custom domains\. For more information see [Domain Names](https://tools.ietf.org/html/rfc1035)\.
 + The ability to create a subdomain for your custom domain\. We recommend using **auth** as the subdomain\. For example: *auth\.example\.com*\.
 **Note**  
 You might need to obtain a new certificate for your custom domain's subdomain if you don't have a [wildcard certificate](https://en.wikipedia.org/wiki/Wildcard_certificate)\.
@@ -41,9 +41,9 @@ You must change the AWS region to US East \(N\. Virginia\) in the ACM console be
   }
   ```
 
-  See [Using Identity\-Based Policies \(IAM Policies\) for CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/access-control-managing-permissions.html)\.
+  For more information about authorizing actions in CloudFront, ee [Using Identity\-Based Policies \(IAM Policies\) for CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/access-control-managing-permissions.html)\.
 
-
+  Amazon Cognito initially uses your IAM permissions to configure the CloudFront distribution, but the distribution is managed by AWS\. You can't change the configuration of the CloudFront distribution that Amazon Cognito associated with your user pool\. For example, you can't update the supported TLS versions in the security policy\.
 
 ### Step 1: Enter your custom domain name<a name="cognito-user-pools-add-custom-domain-console-step-1"></a>
 
