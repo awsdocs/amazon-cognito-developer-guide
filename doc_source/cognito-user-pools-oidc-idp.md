@@ -1,13 +1,13 @@
 # Adding OIDC identity providers to a user pool<a name="cognito-user-pools-oidc-idp"></a>
 
-You can enable your users who already have accounts with [OpenID Connect \(OIDC\)](http://openid.net/specs/openid-connect-core-1_0.html) identity providers \(IdPs\) \(like [Salesforce](https://developer.salesforce.com/page/Inside_OpenID_Connect_on_Force.com) or [Ping Identity](https://www.pingidentity.com/developer/en/index.html)\) to skip the sign\-up step and sign in to your application using an existing account\. With the built\-in hosted web UI, Amazon Cognito provides token handling and management for all authenticated users\. This way, your backend systems can standardize on one set of user pool tokens\.
+You can enable your users who already have accounts with [OpenID Connect \(OIDC\)](http://openid.net/specs/openid-connect-core-1_0.html) identity providers \(IdPs\) to skip the sign\-up step and sign in to your application using an existing account\. With the built\-in hosted web UI, Amazon Cognito provides token handling and management for all authenticated users\. This way, your backend systems can standardize on one set of user pool tokens\.
 
 ![\[Authentication overview with an OIDC IdP\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Authentication overview with an OIDC IdP\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Authentication overview with an OIDC IdP\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
 **Note**  
 Sign\-in through a third party \(federation\) is available in Amazon Cognito user pools\. This feature is independent of federation through Amazon Cognito identity pools \(federated identities\)\.
 
-You can add an OIDC IdP to your user pool in the AWS Management Console, with the AWS CLI, or by using the user pool API method [CreateIdentityProvider](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateIdentityProvider.html)\.
+You can add an OIDC IdP to your user pool in the AWS Management Console, through the AWS CLI, or with the user pool API method [CreateIdentityProvider](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateIdentityProvider.html)\.
 
 **Topics**
 + [Prerequisites](#cognito-user-pools-oidc-idp-prerequisites)
@@ -18,9 +18,13 @@ You can add an OIDC IdP to your user pool in the AWS Management Console, with th
 
 ## Prerequisites<a name="cognito-user-pools-oidc-idp-prerequisites"></a>
 
-Before you begin, you need:
-+ A user pool with an application client and a user pool domain\. For more information, see [Create a user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-as-user-directory.html)\.
-+ An OIDC IdP\.
+Before you begin, you need the following:
++ A user pool with an app client and a user pool domain\. For more information, see [Create a user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-as-user-directory.html)\.
++ An OIDC IdP with the following configuration: 
+  + Supports `client_secret_post` client authentication\. Amazon Cognito doesn't check the `token_endpoint_auth_methods_supported` claim at the OIDC discovery endpoint for your IdP\. Amazon Cognito doesn't support `client_secret_basic` client authentication\. For more information on client authentication, see [Client Authentication](https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication) in the OpenID Connect documentation\.
+  + Only uses HTTPS for OIDC endpoints such as `openid_configuration`, `userInfo`, and `jwks_uri`\.
+  + Only uses TCP ports 80 and 443 for OIDC endpoints\.
+  + Only signs ID tokens with HMAC\-SHA or RSA algorithms\.
 
 ## Step 1: Register with an OIDC IdP<a name="cognito-user-pools-oidc-idp-step-1"></a>
 
@@ -38,7 +42,7 @@ Before you create an OIDC IdP with Amazon Cognito, you must register your applic
    https://<your-user-pool-domain>/oauth2/idpresponse
    ```
 
-1. Register your callback URL with your Cognito user pool\. This is the URL of the page where your user will be redirected after a successful authentication\.
+1. Register your callback URL with your Amazon Cognito user pool\. This is the URL of the page where Amazon Cognito redirects your user after a successful authentication\.
 
    ```
    https://www.example.com
@@ -50,14 +54,14 @@ Before you create an OIDC IdP with Amazon Cognito, you must register your applic
 
 **Example: Use Salesforce as an OIDC IdP with your user pool**
 
- You use an OIDC identity provider when you want to establish trust between an OIDC\-compatible IdP such as Salesforce and your user pool\.
+ You use an OIDC IdP when you want to establish trust between an OIDC\-compatible IdP such as Salesforce and your user pool\.
 
 1. [Create an account](https://developer.salesforce.com/signup) on the Salesforce Developers website\.
 
 1. [Sign in](https://developer.salesforce.com) through your developer account that you set up in the previous step\.
 
 1. From your Salesforce page, do one of the following:
-   +  If you’re using Lightning Experience, choose the Setup gear icon, then choose **Setup Home**\.
+   +  If you’re using Lightning Experience, choose the setup gear icon, then choose **Setup Home**\.
    +  If you’re using Salesforce Classic and you see **Setup** in the user interface header, choose it\.
    +  If you’re using Salesforce Classic and you don’t see **Setup** in the header, choose your name from the top navigation bar, and choose **Setup** from the drop\-down list\.
 
@@ -75,19 +79,19 @@ Before you create an OIDC IdP with Amazon Cognito, you must register your applic
 
    1. Complete the required fields\.
 
-      Under **Start URL**, enter your user pool domain URL with the `/oauth2/idpresponse` endpoint\.
+      Under **Start URL**, enter a URL at the `/authorize` endpoint for the user pool domain that signs in with your Salesforce IdP\. When your users access your connected app, Salesforce directs them to this URL to complete sign\-in\. Then Salesforce redirects the users to the callback URL that you have associated with your app client\.
 
       ```
-      https://<your-user-pool-domain>/oauth2/idpresponse
+      https://<your_user_pool_domain>/authorize?response_type=code&client_id=<your_client_id>&redirect_uri=https://www.example.com&identity_provider=CorpSalesforce
       ```
 
-   1. Enable **OAuth settings** and enter your callback URL into **Callback URL**\. This is the URL of the page where your user will be redirected after a successful sign\-in\.
+   1. Enable **OAuth settings** and enter the URL of the `/oauth2/idpresponse` endpoint for your user pool domain in **Callback URL**\. This is the URL where Salesforce issues the authorization code that Amazon Cognito exchanges for an OAuth token\.
 
       ```
-      https://www.example.com
+      https://<your_user_pool_domain>/oauth2/idpresponse
       ```
 
-1. Select your [scopes](https://openid.net/specs/openid-connect-basic-1_0.html#Scopes)\. The scope **openid** is required\. The **email** scope is needed to grant access to the **email** and **email\_verified** [claims](https://openid.net/specs/openid-connect-basic-1_0.html#StandardClaims)\. Scopes are separated by spaces\.
+1. Select your [scopes](https://openid.net/specs/openid-connect-basic-1_0.html#Scopes)\. You must include the scope **openid**\. To grant access to the **email** and **email\_verified** [claims](https://openid.net/specs/openid-connect-basic-1_0.html#StandardClaims), add the **email** scope\. Separate scopes by spaces\.
 
 1. Choose **Create**\.
 
@@ -114,7 +118,7 @@ In this section, you configure your user pool to process OIDC\-based authenticat
 
 1. Enter a unique name into **Provider name**\.
 
-1. Enter the OIDC IdP's client ID from the previous section into **Client ID**\.
+1. Enter the OIDC IdP client ID from the previous section into **Client ID**\.
 
 1. Enter the client secret from the previous section into **Client secret**\.
 
@@ -172,7 +176,7 @@ If provider uses discovery for federated login, the discovery document must use 
 
 1. Choose the **Sign\-in experience** tab\. Locate **Federated sign\-in** and select **Add an identity provider**\.
 
-1. Choose an **OpenID Connect** identity provider\.
+1. Choose an **OpenID Connect** IdP\.
 
 1. Enter a unique name into **Provider name**\.
 
@@ -196,11 +200,11 @@ If you choose auto fill, the discovery document must use HTTPS for the following
 
 1. The OIDC claim **sub** is mapped to the user pool attribute **Username** by default\. You can map other OIDC [claims](https://openid.net/specs/openid-connect-basic-1_0.html#StandardClaims) to user pool attributes\. Enter the OIDC claim, and choose the corresponding user pool attribute from the drop\-down list\. For example, the claim **email** is often mapped to the user pool attribute **Email**\.
 
-1. Map attributes from your identity provider to your user pool\. For more information, see [Specifying Identity Provider Attribute Mappings for Your User Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html)\.
+1. Map attributes from your IdP to your user pool\. For more information, see [Specifying Identity Provider Attribute Mappings for Your User Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html)\.
 
 1. Choose **Create**\.
 
-1. From the **App client integration** tab, choose one of the **App clients** in the list and **Edit hosted UI settings**\. Add the new OIDC identity provider to the app client under **Identity providers**\.
+1. From the **App client integration** tab, choose one of the **App clients** in the list and **Edit hosted UI settings**\. Add the new OIDC IdP to the app client under **Identity providers**\.
 
 1. Choose **Save changes**\.
 

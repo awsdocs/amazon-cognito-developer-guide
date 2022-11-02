@@ -1,10 +1,10 @@
 # Next steps<a name="user-pool-next-steps"></a>
 
-Now that you've created a user pool, you can explore more of the features in Amazon Cognito\.
+Now that you've created a user pool, you can explore more of the features in Amazon Cognito
 
 Dive deep into these user pool features:
 + [Customizing the built\-in sign\-in and sign\-up webpages](cognito-user-pools-app-ui-customization.md)
-+ [Adding multi\-factor authentication \(MFA\) to a user pool](user-pool-settings-mfa.md)
++ [Adding MFA to a user pool](user-pool-settings-mfa.md)
 + [Adding advanced security to a user pool](cognito-user-pool-settings-advanced-security.md)
 + [Customizing user pool workflows with Lambda triggers](cognito-user-identity-pools-working-with-aws-lambda-triggers.md)
 + [Using Amazon Pinpoint analytics with Amazon Cognito user pools](cognito-user-pools-pinpoint-integration.md)

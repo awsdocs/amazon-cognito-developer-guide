@@ -1,4 +1,4 @@
-# TOKEN endpoint<a name="token-endpoint"></a>
+# Token endpoint<a name="token-endpoint"></a>
 
 The `/oauth2/token` endpoint gets the user's tokens\.
 
@@ -6,12 +6,17 @@ The `/oauth2/token` endpoint gets the user's tokens\.
 
 The `/oauth2/token` endpoint only supports `HTTPS POST`\. Your app makes requests to this endpoint directly, not through the user's browser\.
 
-For more information on the specification see [Token Endpoint](http://openid.net/specs/openid-connect-core-1_0.html#TokenEndpoint)\.
+The token endpoint supports `client_secret_basic` and `client_secret_post` authentication\. For more information from the OpenID Connect specification, see [Client Authentication](https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication)\. For more information about the token endpoint from the OpenID Connect specification, see [Token Endpoint](http://openid.net/specs/openid-connect-core-1_0.html#TokenEndpoint)\.
 
 ### Request parameters in header<a name="post-token-request-parameters"></a>
 
 *Authorization*  
-If the client was issued a secret, the client must pass its `client_id` and `client_secret` in the authorization header through Basic HTTP authorization\. The secret is [Basic](https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side) `Base64Encode(client_id:client_secret)`\.
+If the client was issued a secret, the client can pass its `client_id` and `client_secret` in the authorization header as `client_secret_basic` HTTP authorization\. You can also include the `client_id` and `client_secret` in the request body as `client_secret_post` authorization\.  
+The authorization header string is [Basic](https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side) `Base64Encode(client_id:client_secret)`\. The following example is an authorization header for app client `djc98u3jiedmi283eu928` with client secret `abcdef01234567890`, using the Base64\-encoded version of the string `djc98u3jiedmi283eu928:abcdef01234567890`\.  
+
+```
+Authorization: Basic ZGpjOTh1M2ppZWRtaTI4M2V1OTI4OmFiY2RlZjAxMjM0NTY3ODkw
+```
 
 *Content\-Type*  
 Must always be `'application/x-www-form-urlencoded'`\.
@@ -20,16 +25,18 @@ Must always be `'application/x-www-form-urlencoded'`\.
 
 *grant\_type*  
 Grant type\.  
-Must be `authorization_code` or `refresh_token` or `client_credentials`\.  
+Must be `authorization_code` or `refresh_token` or `client_credentials`\. You can request an access token for a custom scope from the token endpoint when, in the app client, the requested scope is enabled, you have configured a client secret, and you have allowed `client_credentials` grants\.  
 Required\.
 
 *client\_id*  
-Client ID\.  
-Must be a preregistered client in the user pool\. The client must be enabled for Amazon Cognito federation\.  
-Required if the client is public and does not have a secret\.
+The ID of an app client in your user pool\. You must specify the same app client that authenticated your user\.  
+Required if the client is public and does not have a secret, or with `client_secret` if you want to use `client_secret_post` authorization\.
+
+*client\_secret*  
+The client secret for the app client that authenticated your user\. Required if your app client has a client secret and you did not send an `Authorization` header\.
 
 *scope*  
-Can be a combination of any custom scopes associated with a client\. Any scope requested must be preassociated with the client or it will be ignored at runtime\. If the client doesn't request any scopes, the authentication server uses all custom scopes associated with the client\.  
+Can be a combination of any custom scopes associated with an app client\. Any scope that you request must be activated for the app client, or Amazon Cognito will ignore it\. If the client doesn't request any scopes, the authentication server uses all custom scopes associated with the client\.  
 Optional\. Only used if the `grant_type` is `client_credentials`\.
 
 *redirect\_uri*  
@@ -37,8 +44,7 @@ Must be the same `redirect_uri` that was used to get `authorization_code` in `/o
 Required only if `grant_type` is `authorization_code`\.
 
 *refresh\_token*  
-The refresh token\.  
-The token endpoint returns `refresh_token` only when the `grant_type` is `authorization_code`\.
+To generate new access and ID tokens for a user's session, set the value of a `refresh_token` parameter in your `/oauth2/token` request to a previously\-issued refresh token from the same app client\.
 
 *code*  
 Required if `grant_type` is `authorization_code`\.
@@ -194,10 +200,11 @@ Client authentication failed\. For example, when the client includes `client_id`
 
 *invalid\_grant*  
 Refresh token has been revoked\.   
-Authorization code has been consumed already or does not exist\. 
+Authorization code has been consumed already or does not exist\.   
+App client doesn't have read access to all [attributes](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html) in the requested scope\. For example, your app requests the `email` scope and your app client can read the `email` attribute, but not `email_verified`\.
 
 *unauthorized\_client*  
 Client is not allowed for code grant flow or for refreshing tokens\. 
 
 *unsupported\_grant\_type*  
-Returned if `grant_type` is anything other than `authorization_code` or `refresh_token`\. 
+Returned if `grant_type` is anything other than `authorization_code` or `refresh_token` or `client_credentials`\. 

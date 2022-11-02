@@ -4,9 +4,21 @@ An app is an entity within a user pool that has permission to call unauthenticat
 
 You can create multiple apps for a user pool\. Typically, an app corresponds to the platform of an app\. For example, you might create an app for a server\-side application and a different Android app\. Each app has its own app client ID\.
 
-When you create an app, you can optionally choose to create a secret for that app\. If a secret is created for the app, the secret must be provided to use the app\. Browser\-based applications written in JavaScript might not need an app with a secret\.
+When you create an app client in Amazon Cognito, you can pre\-populate options based on the standard OAuth client types **public client** and **confidential client**\. Configure a **confidential client** with a **client secret**\.
 
-Secrets can't be changed after an app is created\. You can create a new app with a new secret if you want to rotate the secret that you are using\. You can also delete an app to block access from apps that use that app client ID\.
+**Public client**  
+A public client runs in a browser or on a mobile device\. Because it does not have trusted server\-side resources, it does not have a client secret\.
+
+**Confidential client**  
+A confidential client has server\-side resources that can be trusted with a **client secret** for unauthenticated API operations\. The app might run as a daemon or shell script on your backend server\.
+
+**Client secret**  
+A client secret is a fixed string that your app must use in all API requests to the app client\. Your app client must have a client secret to perform `client_credentials` grants\.  
+You can't change secrets after you create an app\. You can create a new app with a new secret if you want to rotate the secret\. You can also delete an app to block access from apps that use that app client ID\.
+
+You can use a confidential client, and a client secret, with a public app\. Use an Amazon CloudFront proxy to add a `SECRET_HASH` in transit\. For more information, see [Protect public clients for Amazon Cognito by using an Amazon CloudFront proxy](https://aws.amazon.com/blogs/security/protect-public-clients-for-amazon-cognito-by-using-an-amazon-cloudfront-proxy/) on the AWS blog\.
+
+**Creating an app client \(AWS Management Console\)**
 
 ------
 #### [ Original console ]
@@ -27,21 +39,21 @@ Secrets can't be changed after an app is created\. You can create a new app with
 
 1. Enter an **App client name**\.
 
-1. Specify the app's **Refresh token expiration**\. The default value is 30 days\. You can change it to any value between 1 hour and 10 years\.
+1. Specify the **Refresh token expiration** for the app\. The default value is 30 days\. You can change this default to any value between 1 hour and 10 years\.
 
-1. Specify the app's **Access token expiration**\. The default value is 1 hour\. You can change it to any value between 5 minutes and 24 hours\.
+1. Specify the app's **Access token expiration**\. The default value is 1 hour\. You can change this default to any value between 5 minutes and 24 hours\.
 
-1. Specify the app's **ID token expiration**\. The default value is 1 hour\. You can change it to any value between 5 minutes and 24 hours\.
+1. Specify the **ID token expiration** for the app\. The default value is 1 hour\. You can change this default to any value between 5 minutes and 24 hours\.
 **Important**  
-If you use the hosted UI and set token expiration to less than an hour, your user will be able to get new tokens based on their session cookie which is currently fixed at one hour\.
+If you use the hosted UI and set token expiration to less than an hour, your user can get new tokens based on their session cookie, which expires after 1 hour\. You can't change the duration of this cookie\.
 
 1. By default, user pools generate a client secret for your app\. If you do not need a client secret, clear **Generate client secret**\.
 
-1. If your server app requires developer credentials \(using [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html)\) and doesn't use [Secure remote password \(SRP\) authentication](http://srp.stanford.edu/), select **Enable username password auth for admin APIs for authentication \(ALLOW\_ADMIN\_USER\_PASSWORD\_AUTH\)** to enable server\-side authentication\. For more information, see [Admin authentication flow](amazon-cognito-user-pools-authentication-flow.md#amazon-cognito-user-pools-admin-authentication-flow)\. 
+1. If your server app requires developer credentials \(using [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html)\) and doesn't use [Secure remote password \(SRP\) authentication](http://srp.stanford.edu/), select **Enable username password auth for admin APIs for authentication \(ALLOW\_ADMIN\_USER\_PASSWORD\_AUTH\)** to activate server\-side authentication\. For more information, see [Admin authentication flow](amazon-cognito-user-pools-authentication-flow.md#amazon-cognito-user-pools-admin-authentication-flow)\. 
 
 1. Under **Prevent User Existence Errors**, choose **Legacy** or **Enabled**\. For more information, see [Managing error response](https://docs.aws.amazon.com//cognito/latest/developerguide/cognito-user-pool-managing-errors.html)\. 
 
-1. By default, user pools allow your app to read and write all attributes\. If you want to set different permissions for your app, complete the following steps\. Otherwise, skip to Step 15\.
+1. By default, user pools give your app permission to read and write all attributes\. If you want to set different permissions for your app, complete the following steps\. Otherwise, skip to Step 15\.
 
    1. Choose **Set attribute read and write permissions**\.
 
@@ -77,6 +89,8 @@ You can't remove required attributes from write permissions in any app\.
 1. Enter an **App client name**\.
 
 1. Select the **Authentication flows** you want to allow in your app client\.
+
+1. Configure the **Authentication flow session duration**\. This is the amount of time your users have to complete each authentication challenge before their session token expires\.
 
 1. \(Optional\) If you want to configure token expiration, complete the following steps:
 

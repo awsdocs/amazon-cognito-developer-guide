@@ -34,17 +34,18 @@ Because creating a new identity pool also requires creating IAM roles, any IAM u
 
 
 
-## Cognito updates to AWS managed policies<a name="security-iam-awsmanpol-updates"></a>
+## Amazon Cognito updates to AWS managed policies<a name="security-iam-awsmanpol-updates"></a>
 
 
 
-View details about updates to AWS managed policies for Cognito since this service began tracking these changes\. For automatic alerts about changes to this page, subscribe to the RSS feed on the Cognito [Document history](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-document-history.html) page\.
+View details about updates to AWS managed policies for Amazon Cognito since this service began tracking these changes\. For automatic alerts about changes to this page, subscribe to the RSS feed on the Amazon Cognito [Document history](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-document-history.html) page\.
 
 
 
 
 | Change | Description | Date | 
 | --- | --- | --- | 
-|  `AmazonCognitoPowerUser` – Update to an existing policy  | Added a new permission to allow Amazon Cognito to call Amazon Simple Email Service PutIdentityPolicy and ListConfigurationSets operations\.This change allows Amazon Cognito user pools to update Amazon SES sending authorization policies and to apply Amazon SES configuration sets when you configure email sending in your user pool\. | November 17, 2021 | 
+|  `AmazonCognitoPowerUser` and `AmazonCognitoReadOnly` – Updates to existing policies  | Added new permissions to allow power users to view and manage associations of AWS WAF web ACLs to Amazon Cognito user pools\.Added new permissions to allow read\-only users to view associations of AWS WAF web ACLs to Amazon Cognito user pools\. | July 19, 2022 | 
+| AmazonCognitoPowerUser – Update to an existing policy | Added a new permission to allow Amazon Cognito to call Amazon Simple Email Service PutIdentityPolicy and ListConfigurationSets operations\.This change allows Amazon Cognito user pools to update Amazon SES sending authorization policies and to apply Amazon SES configuration sets when you configure email sending in your user pool\. | November 17, 2021 | 
 | AmazonCognitoPowerUser – Update to an existing policy |  Added a new permission to allow Amazon Cognito to call Amazon Simple Notification Service's `GetSMSSandboxAccountStatus` operation\. This change allows Amazon Cognito user pools to decide if you need to graduate out of the Amazon Simple Notification Service sandbox in order to send messages to all end users through user pools\.  | June 1, 2021 | 
-|  Cognito started tracking changes  |  Cognito started tracking changes for its AWS managed policies\.  | March 1, 2021 | 
+|  Amazon Cognito started tracking changes  |  Amazon Cognito started tracking changes for its AWS managed policies\.  | March 1, 2021 | 

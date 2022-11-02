@@ -19,7 +19,7 @@ This action cannot currently be performed using the AWS Management Console\.
 
 The authentication flow for these users includes the extra step to submit the new password and provide any missing values for required attributes\. The steps are outlined next; steps 5, 6, and 7 are specific to these users\.
 
-1. The user starts to sign in for the first time by submitting the username and password provided to him or her\.
+1. The user starts to sign in for the first time by submitting the user name and password provided to him or her\.
 
 1. The SDK calls `InitiateAuth(Username, USER_SRP_AUTH)`\.
 
@@ -27,7 +27,7 @@ The authentication flow for these users includes the extra step to submit the ne
 
 1. The SDK performs the SRP calculations and calls `RespondToAuthChallenge(Username, <SRP variables>, PASSWORD_VERIFIER)`\.
 
-1. Amazon Cognito returns the `NEW_PASSWORD_REQUIRED` challenge along with the current and required attributes\.
+1. Amazon Cognito returns the `NEW_PASSWORD_REQUIRED` challenge\. The body of this challenge includes the user's current attributes, and any required attributes in your user pool that don't currently have a value in the user's profile\. For more information, see [RespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html)\.
 
 1. The user is prompted and enters a new password and any missing values for required attributes\.
 
@@ -89,9 +89,9 @@ You can configure settings for minimum password complexity and whether users can
 
 1. Choose the **Sign\-up experience** tab and locate **Self\-service sign\-up**\. Select **Edit**\.
 
-1. Choose whether to **Enable self\-registration**\. Self\-registration is typically used with public app clients that need to register new users in your user pool without distributing a client secret or AWS Identity and Access Management API credentials\.
+1. Choose whether to **Enable self\-registration**\. Self\-registration is typically used with public app clients that need to register new users in your user pool without distributing a client secret or AWS Identity and Access Management \(IAM\) API credentials\.
 **Disabling self\-registration**  
-If you do not enable self\-registration, new users must be created by administrative API actions using AWS Identity and Access Management API credentials or by sign\-in with federated providers\.
+If you do not enable self\-registration, new users must be created by administrative API actions using IAM API credentials or by sign\-in with federated providers\.
 
 1. Choose **Save changes**\.
 
@@ -187,24 +187,26 @@ For user accounts that you create by using the **Create user** form in the AWS M
 
 **Create a user**
 
-You can create new users for your user pool from the Amazon Cognito console\. Typically, users can sign in after they have set a password\. To sign in with an email address or phone number, a user must verify the `email` or `phone_number` attribute respectively\. You can also confirm accounts as an administrator using the AWS CLI or API, or create user profiles with a federated identity provider\. For more information, see the [Amazon Cognito API Reference](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/)\.
+You can create new users for your user pool from the Amazon Cognito console\. Typically, users can sign in after they set a password\. To sign in with an email address, a user must verify the `email` attribute\. To sign in with a phone number, the user must verify the `phone_number` attribute\. To confirm accounts as an administrator, you can also use the AWS CLI or API, or create user profiles with a federated identity provider\. For more information, see the [Amazon Cognito API Reference](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/)\.
 
 1. Navigate to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), and choose **User Pools**\.
 
 1. Choose an existing user pool from the list, or [create a user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-as-user-directory.html)\.
 
-1. Choose the **Users** tab and choose **Create a user**\.
+1. Choose the **Users** tab, and choose **Create a user**\.
 
-1. Review the **User pool sign\-in and security requirements** for guidance on password requirements, available account\-recovery methods, and alias attributes for your user pool\.
+1. Review the **User pool sign\-in and security requirements** for guidance on password requirements, available account recovery methods, and alias attributes for your user pool\.
 
-1. Choose how you will send an **Invitation message**: by SMS message, email message, or both\.
+1. Choose how you want to send an **Invitation message**\. Choose SMS message, email message, or both\.
 **Note**  
-You must configure a sender and AWS Region with Amazon Simple Notification Service and Amazon Simple Email Service in the **Messaging** tab of your user pool before you can send invitation messages\. Recipient message and data rates apply\. Email messages are charged separately by Amazon SES, and SMS messages are charged separately by Amazon SNS\.
+Before you can send invitation messages, configure a sender and an AWS Region with Amazon Simple Notification Service and Amazon Simple Email Service in the **Messaging** tab of your user pool \. Recipient message and data rates apply\. Amazon SES bills you for email messages separately, and Amazon SNS bills you for SMS messages separately\.
 
 1. Choose a **Username** for the new user\.
 
-1. Choose whether you would like to **Create a password** or allow Amazon Cognito to **Generate a password** for the user\. Any temporary password must adhere to the user pool password policy\.
+1. Choose if you want to **Create a password** or have Amazon Cognito **Generate a password** for the user\. Any temporary password must adhere to the user pool password policy\.
 
 1. Choose **Create**\.
+
+1. Choose the **Users** tab, and choose the **User name** entry for the user\. Add and edit **User attributes** and **Group memberships**\. Review **User event history**\.
 
 ------

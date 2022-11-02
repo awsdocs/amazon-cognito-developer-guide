@@ -18,7 +18,7 @@ Your domain is shown on the **Domain name** tab\. Your app client ID and callbac
 
 1. To add a logo to the default app UI, choose **Choose a file**, or drag a file onto the **Logo** box\.
 
-1. Under **CSS customizations \(optional\)**, you can customize the appearance of the app by changing the UI's CSS properties from their default values\.
+1. Under **CSS customizations \(optional\)**, you can customize the appearance of the app by changing the CSS properties for the UI from their default values\.
 
 1. Choose **Save changes**\.
 

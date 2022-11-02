@@ -4,7 +4,7 @@ As a way of providing additional security, you can track devices that users have
 
 ## Setting up remembered devices<a name="amazon-cognito-user-pools-setting-up-remembered-devices"></a>
 
-With Amazon Cognito user pools, you can choose to have Amazon Cognito remember devices used to access your application and associate these remembered devices with your application's users in a user pool\. You can also choose to use remembered devices to stop sending codes to your users when you have set up multi\-factor authentication \(MFA\)\. You must use the USER\_SRP\_AUTH authentication flow to use the device tracking feature\. You must also enable MFA for your user pool\.
+With Amazon Cognito user pools, you can choose to have Amazon Cognito remember devices used to access your application and associate these remembered devices with your application's users in a user pool\. You can also choose to use remembered devices to stop sending codes to your users when you have set up multi\-factor authentication \(MFA\)\. You must use the USER\_SRP\_AUTH authentication flow to use the device tracking feature\. To use remembered devices to replace MFA, you must also enable MFA for your user pool\.
 
 When setting up the remembered devices functionality through the Amazon Cognito console, you have three options: **Always**, **User Opt\-In**, and **No**\.
 
@@ -24,7 +24,7 @@ The AWS Mobile SDKs have additional APIs to see remembered devices \([ListDevice
 
 ## Using remembered devices to suppress multi factor authentication \(MFA\)<a name="amazon-cognito-user-pools-using-remembered-devices-to-suppress-mfa"></a>
 
-If you have selected either **Always** or **User Opt\-In**, you also can suppress MFA challenges on remembered devices for the users of your application\. To use this feature, you must enable MFA for your user pool\. For more information, see [Adding multi\-factor authentication \(MFA\) to a user pool](user-pool-settings-mfa.md)\.
+If you have selected either **Always** or **User Opt\-In**, you also can suppress MFA challenges on remembered devices for the users of your application\. To use this feature, you must enable MFA for your user pool\. For more information, see [Adding MFA to a user pool](user-pool-settings-mfa.md)\.
 
 **Note**  
 If the device remembering feature is set to **Always** and **Do you want to use a remembered device to suppress the second factor during multi\-factor authentication \(MFA\)?** is set to **Yes**, then the MFA settings for medium/high risks in risk\-based MFA are ignored\. 

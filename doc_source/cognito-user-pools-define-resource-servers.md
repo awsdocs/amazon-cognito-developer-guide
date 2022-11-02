@@ -1,8 +1,10 @@
 # Defining resource servers for your user pool<a name="cognito-user-pools-define-resource-servers"></a>
 
-Once you configure a domain for your user pool, Amazon Cognito automatically provisions a hosted web UI with which you can add sign\-up and sign\-in pages to your app\. For more information see [Step 2\. Add an app to enable the hosted web UI](cognito-user-pools-configuring-app-integration.md)\.
+After you configure a domain for your user pool, Amazon Cognito automatically provisions a hosted web UI with sign\-up and sign\-in pages that your app can present to your users\. For more information see [Step 2\. Add an app client and set up the hosted UI](cognito-user-pools-configuring-app-integration.md)\.
 
-A *resource server* is a server for access\-protected resources\. It handles authenticated requests from an app that has an access token\. Typically the resource server provides a [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) API for making these access requests\. This API can be hosted in Amazon API Gateway or outside of AWS\. The app passes the access token in the API call to the resource server\. The app should treat the access token as opaque when it passes the token in the access request\. The resource server inspects the access token to determine if access should be granted\. 
+A *resource server* is an [OAuth 2\.0 API server](https://www.oauth.com/oauth2-servers/the-resource-server/)\. To secure access\-protected resources, it verifies access tokens from your app and authorizes access to your API\. It verifies the issuer based on the token signature, validity based on token expiration, and access level based on the scopes in token claims\.
+
+A resource server API might grant access to the information in a database, or control your IT resources\. An Amazon Cognito access token can authorize access to APIs that support OAuth 2\.0\. Amazon API Gateway REST APIs have [built\-in support](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-integrate-with-cognito.html) for authorization with Amazon Cognito access tokens\. Your app passes the access token in the API call to the resource server\. The app should treat the access token as opaque when it passes the token in the access request\. The resource server inspects the access token to determine if access should be granted\. 
 
 **Note**  
 Your resource server must verify the access token signature and expiration date before processing any claims inside the token\. For more information about verifying and using user pool tokens, see [Integrating Amazon Cognito User Pools with API Gateway](https://aws.amazon.com/blogs/mobile/integrating-amazon-cognito-user-pools-with-api-gateway/) on the *AWS Blog*\. Amazon API Gateway is a good option for inspecting access tokens and protecting your resources\. For more about API Gateway Lambda authorizers, see [Use API Gateway Lambda authorizers](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html)\.
@@ -11,13 +13,14 @@ A *scope* is a level of access that an app can request to a resource\. For examp
 
 **Overview**
 
-Amazon Cognito allows app developers to create their own OAuth2\.0 resource servers, and define custom scopes within them\. Custom scopes can then be associated with a client, and the client can request those scopes in OAuth2\.0 authorization code grant flow, implicit flow, and client credentials flow\. Custom scopes are added in the `scope` claim in the access token\. A client can use the access token against its resource server, which makes the authorization decision based on the scopes present in the token\. For more information about access token scope, see [Using Tokens with User Pools](amazon-cognito-user-pools-using-tokens-with-identity-providers.md)\.
+With Amazon Cognito, app developers can create their own OAuth2\.0 resource servers and associate custom scopes with them\. Associate your custom scopes with an app client, and your app can request those scopes in OAuth2\.0 authorization code grants, implicit grants, and client credentials grants from the [Token endpoint](token-endpoint.md)\. Amazon Cognito passes custom scopes in the `scope` claim in an access token\. A client can use the access token against its resource server, which makes the authorization decision based on the scopes present in the token\. For more information about access token scope, see [Using Tokens with User Pools](amazon-cognito-user-pools-using-tokens-with-identity-providers.md)\.
+
+![\[An overview of the flow of a resource server. The client requests a grant with a custom scope, the user pool returns an access token with the custom scope, and the client presents the access token to an API.\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[An overview of the flow of a resource server. The client requests a grant with a custom scope, the user pool returns an access token with the custom scope, and the client presents the access token to an API.\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[An overview of the flow of a resource server. The client requests a grant with a custom scope, the user pool returns an access token with the custom scope, and the client presents the access token to an API.\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
+
+To get an access token with custom scopes, your app must make a request to the [Token endpoint](token-endpoint.md) to redeem an authorization code or to request a client credentials grant\. In the hosted UI, you can also request custom scopes in an access token from an implicit grant\.
 
 **Note**  
-Your resource server must verify the access token signature and expiration date before processing any claims inside the token\.
-
-**Note**  
-An app client can only use the client credentials flow if the app client has a client secret\.
+Because they are designed for human\-interactive authentication, [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html) and [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) requests produce access tokens that don't contain any custom scopes\.
 
 **Managing the Resource Server and Custom Scopes**
 

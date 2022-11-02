@@ -16,5 +16,4 @@ This documentation helps you understand how to apply the shared responsibility m
 + [Resilience in Amazon Cognito](disaster-recovery-resiliency.md)
 + [Infrastructure security in Amazon Cognito](infrastructure-security.md)
 + [Configuration and vulnerability analysis in Amazon Cognito user pools](vulnerability-analysis-and-management.md)
-+ [Security best practices for Amazon Cognito user pools](managing-security.md)
 + [AWS managed policies for Amazon Cognito](security-iam-awsmanpol.md)

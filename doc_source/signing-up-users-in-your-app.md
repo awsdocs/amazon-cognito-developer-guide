@@ -1,11 +1,11 @@
 # Signing up and confirming user accounts<a name="signing-up-users-in-your-app"></a>
 
 User accounts are added to your user pool in one of the following ways:
-+ The user signs up in your user pool's client app, which can be a mobile or web app\.
++ The user signs up in your user pool's client app\. This can be a mobile or web app\.
 + You can import the user's account into your user pool\. For more information, see [Importing users into user pools from a CSV file](cognito-user-pools-using-import-tool.md)\.
 + You can create the user's account in your user pool and invite the user to sign in\. For more information, see [Creating user accounts as administrator](how-to-create-user-accounts.md)\.
 
-Users who sign themselves up need to be confirmed before they can sign in\. Imported and created users are already confirmed, but they need to create their password the first time they sign in\. The following sections explain the confirmation process and email and phone verification\.
+Users who sign themselves up need to be confirmed before they can sign in\. Imported and created users are already confirmed, but they must create their password the first time they sign in\. The following sections explain the confirmation process and email and phone verification\.
 
 ## Overview of user account confirmation<a name="signup-confirmation-verification-overview"></a>
 
@@ -20,24 +20,24 @@ The user has successfully signed up, but cannot sign in until the user account i
 New users who sign themselves up start in this state\.
 
 **Confirmed**  
-The user account is confirmed and the user can sign in\. If the user confirmed the user account by entering a confirmation code that was received via email or phone \(SMS\)—or, in the case of email, by clicking a confirmation link—that email or phone number is automatically verified\. The code or link is valid for 24 hours\.  
-If the user account was confirmed by the administrator or a Pre Sign\-up Lambda trigger, there might not be a verified email or phone number associated with the account\.
+The user account is confirmed and the user can sign in\. When a user enters a code or follows an email link to confirm their user account, that email or phone number is automatically verified\. The code or link is valid for 24 hours\.  
+If the user account was confirmed by the administrator or a pre sign\-up Lambda trigger, there might not be a verified email or phone number associated with the account\.
 
 **Password Reset Required**  
-The user account is confirmed, but the user must request a code and reset his or her password before he or she can sign in\.  
+The user account is confirmed, but the user must request a code and reset their password before they can sign in\.  
 User accounts that are imported by an administrator or developer start in this state\.
 
 **Force Change Password**  
-The user account is confirmed and the user can sign in using a temporary password, but on first sign\-in, the user must change his or her password to a new value before doing anything else\.  
+The user account is confirmed and the user can sign in using a temporary password, but on first sign\-in, the user must changetheir password to a new value before doing anything else\.  
 User accounts that are created by an administrator or developer start in this state\.
 
 **Disabled**  
-Before a user account can be deleted, it must be disabled\.
+Before you can delete a user account, you must disable sign\-in access for that user\.
 
 ## Verifying contact information at sign\-up<a name="allowing-users-to-sign-up-and-confirm-themselves"></a>
 
 When new users sign up in your app, you probably want them to provide at least one contact method\. For example, with your users' contact information, you might:
-+ Send a temporary password when a user chooses to reset his or her password\.
++ Send a temporary password when a user chooses to reset their password\.
 + Notify users when their personal or financial information is updated\.
 + Send promotional messages, such as special offers or discounts\.
 + Send account summaries or billing reminders\.
@@ -48,22 +48,22 @@ To help ensure that you send messages only to the right individuals, configure y
 
 1. An email address or phone number\.
 
-1. A verification code that Amazon Cognito sends to that email address or phone number\.
+1. A verification code that Amazon Cognito sends to that email address or phone number\. If 24 hours have passed and your user's code or link is no longer valid, call the [ResendConfirmationCode](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ResendConfirmationCode.html) API operation to generate and send a new code or link\.
 
-By providing the verification code, a user proves that he or she has access to the mailbox or phone that received the code\. After the user provides the code, Amazon Cognito updates the information about the user in your user pool by:
+By providing the verification code, a user proves that they have access to the mailbox or phone that received the code\. After the user provides the code, Amazon Cognito updates the information about the user in your user pool by:
 + Setting the user's status to `CONFIRMED`\.
 + Updating the user's attributes to indicate that the email address or phone number is verified\.
 
-To view this information, you can use the Amazon Cognito console\. Or, you can use the `AdminGetUser` API action, the `admin-get-user` command with the AWS CLI, or a corresponding action in one of the AWS SDKs\.
+To view this information, you can use the Amazon Cognito console\. Or, you can use the `AdminGetUser` API operation, the `admin-get-user` command with the AWS CLI, or a corresponding action in one of the AWS SDKs\.
 
 If a user has a verified contact method, Amazon Cognito automatically sends a message to the user when the user requests a password reset\.
 
 ### To configure your user pool to require email or phone verification<a name="verification-configure"></a>
 
-By requiring email or phone verification, you help ensure that you have a reliable way to contact your users\. Complete the following steps to configure your user pool by using the Amazon Cognito console\.
+When you verify your users' email addresses and phone numbers, you ensure that you can contact your users\. Complete the following steps in the AWS Management Console to configure your user pool to require that your users confirm their email addresses or phone numbers\.
 
-**Before you begin**  
-If you don't already, you need to have a user pool in your account\. To create one, see [Getting started with user pools](getting-started-with-cognito-user-pools.md)\.
+**Note**  
+If you don't yet have a user pool in your account, see [Getting started with user pools](getting-started-with-cognito-user-pools.md)\.
 
 ------
 #### [ Original console ]
@@ -83,7 +83,7 @@ If you don't already, you need to have a user pool in your account\. To create o
 **Email**  
 If you choose this option, Amazon Cognito emails a verification code when the user signs up\. Choose this option if you typically communicate with your users through email\. For example, you will want to use verified email addresses if you send billing statements, order summaries, or special offers\.  
 **Phone number**  
-If you choose this option, Amazon Cognito sends a verification code through SMS when the user signs up\. Choose this option if you typically communicate with your users through SMS\. For example, you will want to use verified phone numbers if you send delivery notifications, appointment confirmations, or alerts\.   
+If you choose this option, Amazon Cognito sends a verification code through SMS message when the user signs up\. Choose this option if you typically communicate with your users through SMS messages\. For example, you will want to use verified phone numbers if you send delivery notifications, appointment confirmations, or alerts\.   
 **Email or phone number**  
 Choose this option if you don't require all users to have the same verified contact method\. In this case, the sign\-up page in your app could ask users to verify only their preferred contact method\. When Amazon Cognito sends a verification code, it sends the code to the contact method provided in the `SignUp` request from your app\. If a user provides both an email address and a phone number, and your app provides both contact methods in the `SignUp` request, Amazon Cognito sends a verification code only to the phone number\.  
 If you require users to verify both an email address and a phone number, choose this option\. Amazon Cognito verifies one contact method when the user signs up, and your app must verify the other contact method after the user signs in\. For more information, see [If you require users to confirm both email addresses and phone numbers](#verification-email-plus-phone)\.  
@@ -102,11 +102,11 @@ If you don't verify your users' contact information, they may be unable to use y
 
 1. Navigate to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\. If prompted, enter your AWS credentials\.
 
-1. From the navigation pane, choose User Pools\. Choose an existing user pool from the list, or [create a user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-as-user-directory.html)\.
+1. From the navigation pane, choose **User Pools**\. Choose an existing user pool from the list, or [create a user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-as-user-directory.html)\.
 
-1. Choose the **Messaging** tab and locate **Attribute verification and user account confirmation**\. Choose **Edit**\.
+1. Choose the **Sign\-up experience** tab and locate **Attribute verification and user account confirmation**\. Choose **Edit**\.
 
-1. Choose whether you will enable **Cognito\-assisted verification and confirmation** to have Amazon Cognito send messages to the user contact attributes you choose when a user signs up, or you create a user profile\. The messages that Amazon Cognito sends provide users with a code or link that, after they have confirmed they received it, verifies the attribute and confirms the user profile for sign\-in\. 
+1. Choose whether you will activate **Cognito\-assisted verification and confirmation** to have Amazon Cognito send messages to the user contact attributes you choose when a user signs up, or you create a user profile\. The messages that Amazon Cognito sends provide users with a code or link that, after they have confirmed they received it, verifies the attribute and confirms the user profile for sign\-in\. 
 **Note**  
 You can also disable **Cognito\-assisted verification and confirmation** and use authenticated API actions or Lambda triggers to verify attributes and confirm users\.  
 If you choose this option, Amazon Cognito doesn't send verification codes when users sign up\. Choose this option if you are using a custom authentication flow that verifies at least one contact method without using verification codes from Amazon Cognito\. For example, you might use a pre sign\-up Lambda trigger that automatically verifies email addresses that belong to a specific domain\.  
@@ -133,7 +133,7 @@ If your user pool requires users to verify their contact information, your app m
 
 1. A user signs up in your app by entering a username, phone number and/or email address, and possibly other attributes\.
 
-1. The Amazon Cognito service receives the sign\-up request from the app\. After verifying that the request contains all attributes required for sign\-up, the service completes the sign\-up process and sends a confirmation code to the user's phone \(via SMS\) or email\. The code is valid for 24 hours
+1. The Amazon Cognito service receives the sign\-up request from the app\. After verifying that the request contains all attributes required for sign\-up, the service completes the sign\-up process and sends a confirmation code to the user's phone \(in an SMS message\) or email\. The code is valid for 24 hours
 
 1. The service returns to the app that sign\-up is complete and that the user account is pending confirmation\. The response contains information about where the confirmation code was sent\. At this point the user's account is in an unconfirmed state, and the user's email address and phone number are unverified\.
 
@@ -141,13 +141,13 @@ If your user pool requires users to verify their contact information, your app m
 
 1. The user enters the confirmation code in the app\.
 
-1. The app calls [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmSignUp.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmSignUp.html) to send the code to the Amazon Cognito service, which verifies the code and, if the code is correct, sets the user's account to the confirmed state\. After successfully confirming the user account, the Amazon Cognito service automatically marks the attribute that was used to confirm \(email or phone number\) as verified\. Unless the value of this attribute is changed, the user will not have to verify it again\.
+1. The app calls [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmSignUp.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmSignUp.html) to send the code to the Amazon Cognito service, which verifies the code and, if the code is correct, sets the user's account to the confirmed state\. After successfully confirming the user account, the Amazon Cognito service automatically marks the attribute that was used to confirm \(email address or phone number\) as verified\. Unless the value of this attribute is changed, the user will not have to verify it again\.
 
 1. At this point the user's account is in a confirmed state, and the user can sign in\.
 
 ### If you require users to confirm both email addresses and phone numbers<a name="verification-email-plus-phone"></a>
 
-Amazon Cognito verifies only one contact method when a user signs up\. In cases where Amazon Cognito must choose between verifying an email address or phone number, it chooses to verify the phone number by sending a verification code through SMS\. For example, if you configure your user pool to allow users to verify either email addresses or phone numbers, and if your app provides both of these attributes upon sign\-up, Amazon Cognito verifies only the phone number\. After a user verifies his or her phone number, Amazon Cognito sets the user's status to `CONFIRMED`, and the user is allowed to sign in to your app\.
+Amazon Cognito verifies only one contact method when a user signs up\. In cases where Amazon Cognito must choose between verifying an email address or phone number, it chooses to verify the phone number by sending a verification code through SMS message\. For example, if you configure your user pool to allow users to verify either email addresses or phone numbers, and if your app provides both of these attributes upon sign\-up, Amazon Cognito verifies only the phone number\. After a user verifies his or her phone number, Amazon Cognito sets the user's status to `CONFIRMED`, and the user is allowed to sign in to your app\.
 
 After the user signs in, your app can provide the option to verify the contact method that wasn't verified during sign\-up\. To verify this second method, your app calls the `VerifyUserAttribute` API action\. Note that this action requires an `AccessToken` parameter, and Amazon Cognito only provides access tokens for authenticated users\. Therefore, you can verify the second contact method only after the user signs in\.
 
@@ -199,7 +199,9 @@ The `SecretHash` value is a Base 64\-encoded keyed\-hash message authentication 
 Base64 ( HMAC_SHA256 ( "Client Secret Key", "Username" + "Client Id" ) )
 ```
 
-Alternatively, you can use the following code example in your server\-side Java application code:
+For a detailed overview of how to calculate and use the `SecretHash` parameter, see [How do I troubleshoot "Unable to verify secret hash for client <client\-id>" errors from my Amazon Cognito user pools API?](https://aws.amazon.com/premiumsupport/knowledge-center/cognito-unable-to-verify-secret-hash/) in the AWS Knowledge Center\.
+
+You can use the following code example in your server\-side Java application code:
 
 ```
 import javax.crypto.Mac;
@@ -225,18 +227,24 @@ public static String calculateSecretHash(String userPoolClientId, String userPoo
 
 ## Confirming user accounts without verifying email or phone number<a name="confirming-user-without-verification-of-email-or-phone-number"></a>
 
-The Pre\-Sign Up Lambda trigger can be used to auto\-confirm user accounts at sign\-up time, without requiring a confirmation code or verifying email or phone number\. Users who are confirmed this way can immediately sign in without having to receive a code\.
+The pre sign\-up Lambda trigger can be used to auto\-confirm user accounts at sign\-up, without requiring a confirmation code or verifying email or phone number\. Users who are confirmed this way can immediately sign in without having to receive a code\.
 
 You can also mark a user's email or phone number verified through this trigger\. 
 
 **Note**  
 While this approach is convenient for users when they're getting started, we recommend auto\-verifying at least one of email or phone number\. Otherwise the user can be left unable to recover if they forget their password\.
 
-If you don't require the user to receive and enter a confirmation code at sign\-up and you don't auto\-verify email and phone number in the Pre\-Sign Up Lambda trigger, you risk not having a verified email address or phone number for that user account\. The user can verify the email address or phone number at a later time\. However, if the user forgets his or her password and doesn't have a verified email address or phone number, the user is locked out of the account, because the Forgot Password flow requires a verified email or phone number in order to send a verification code to the user\.
+If you don't require the user to receive and enter a confirmation code at sign\-up and you don't auto\-verify email and phone number in the pre sign\-up Lambda trigger, you risk not having a verified email address or phone number for that user account\. The user can verify the email address or phone number at a later time\. However, if the user forgets his or her password and doesn't have a verified email address or phone number, the user is locked out of the account, because the forgot\-password flow requires a verified email or phone number in order to send a verification code to the user\.
 
 ## Verifying when users change their email or phone number<a name="verifying-when-users-change-their-email-or-phone-number"></a>
 
-When a user changes his or her email address or phone number in your app, that attribute is marked as unverified\. If auto\-verification was enabled for the attribute being updated, the service immediately sends the user a message containing a verification code, which the user should enter to verify the change\. You can use a Custom Message Lambda trigger to customize this message\. For more information, see [Customizing user pool workflows with Lambda triggers](cognito-user-identity-pools-working-with-aws-lambda-triggers.md)\. Whenever the user's email address or phone number is unverified, your app should display the unverified status and provide a button or link for users to verify their new email or phone number\.
+When a user updates their email address or phone number in your app, Amazon Cognito immediately sends a message with a verification code to a user if you configured your user pool to automatically verify that attribute\. The user must then provide the code from the verification message to your app\. Your app then submits the code in a [VerifyUserAttribute](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerifyUserAttribute.html) API request to complete verification of the new attribute value\.
+
+If your user pool doesn’t require that users verify an updated email address or phone number, Amazon Cognito immediately changes the value of an updated `email ` or `phone_number` attribute and marks the attribute as unverified\. Your user can’t sign in with an unverified email or phone number\. They must complete verification of the updated value before they can use that attribute as a sign\-in alias\.
+
+If your user pool requires that users verify an updated email address or phone number, Amazon Cognito leaves the attribute verified and set to its original value until your user verifies the new attribute value\. If the attribute is an alias for sign\-in, your user can sign in with the original attribute value until verification changes the attribute to the new value\. For more information about how to configure your user pool to require users to verify updated attributes, see [Configuring email or phone verification](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html)\.
+
+ You can use a custom message Lambda trigger to customize the verification message\. For more information, see [Custom message Lambda trigger](user-pool-lambda-custom-message.md)\. When a user's email address or phone number is unverified, your app should inform the user that they must verify the attribute, and provide a button or link for users to verify their new email address or phone number\.
 
 
 
@@ -252,7 +260,7 @@ Either the user's email or phone number must be marked as verified when the user
 
 ## Sending emails while testing your app<a name="managing-users-accounts-email-testing"></a>
 
-Amazon Cognito emails your users when they create and manage their accounts in the client app for your user pool\. If you configure your user pool to require email verification, Amazon Cognito sends an email when:
+Amazon Cognito sends email messages to your users when they create and manage their accounts in the client app for your user pool\. If you configure your user pool to require email verification, Amazon Cognito sends an email when:
 + A user signs up\.
 + A user updates their email address\.
 + A user performs an action that calls the `ForgotPassword` API action\.

@@ -1,32 +1,32 @@
 # Login with Amazon \(identity pools\)<a name="amazon"></a>
 
-Amazon Cognito integrates with Login with Amazon to provide federated authentication for your mobile application and web application users\. This section explains how to register and set up your application using Login with Amazon as an identity provider\.
+Amazon Cognito integrates with Login with Amazon to provide federated authentication for your mobile and web app users\. This section explains how to register and set up your application with Login with Amazon as an identity provider \(IdP\)\.
 
-There are two ways to set up Login with Amazon to work with Amazon Cognito\. If you're not sure which one to use, or if you need to use both, see "Setting Up Login with Amazon" in the [Login with Amazon FAQ](https://developer.amazon.com/public/apis/engage/login-with-amazon/docs/faq.html#Setting%20up%20Login%20with%20Amazon)\.
-+ Through the [Amazon Developer Portal](https://developer.amazon.com/login-with-amazon)\. Use this method if you want to let your end users authenticate with Login with Amazon, but you don’t have a Seller Central account\.
-+ Through Seller Central using [http://login\.amazon\.com/](http://login.amazon.com/)\. Use this method if you are a retail merchant that uses Seller Central\.
+Set up Login with Amazon to work with Amazon Cognito in the [Developer Portal](https://developer.amazon.com/login-with-amazon)\. For more information, see [Setting Up Login with Amazon](https://developer.amazon.com/docs/login-with-amazon/faq.html#setting-up-login-with-amazon) in the Login with Amazon FAQ\.
 
 **Note**  
-For Xamarin, follow the [Xamarin Getting Started Guide](https://developer.xamarin.com/guides/cross-platform/getting_started/) to integrate Login with Amazon into your Xamarin application\.
+To integrate Login with Amazon into a Xamarin application, follow the [Xamarin Getting Started Guide](https://developer.xamarin.com/guides/cross-platform/getting_started/)\.
 
 **Note**  
-Login with Amazon integration is not natively supported on the Unity platform\. Integration currently requires the use of a web view to go through the browser sign\-in flow\.
+You can't natively integrate Login with Amazon on the Unity platform\. Instead, use a web view and go through the browser sign\-in flow\.
 
-## Setting up login with Amazon<a name="login-with-amazon-setup"></a>
+## Setting up Login with Amazon<a name="login-with-amazon-setup"></a>
 
-To implement Login with Amazon, do one of the following:
-+ Create a Security Profile ID for your application through the [Amazon Developer Portal](https://developer.amazon.com/login-with-amazon)\. Use this method if you want to let your end users authenticate with Amazon, but you don’t have a Seller Central account\. The Developer Portal [Login with Amazon](https://developer.amazon.com/public/apis/engage/login-with-amazon/content/documentation.html) documentation takes you through the process of setting up Login with Amazon in your application, downloading the client SDK, and declaring your application on the Amazon developer platform\. Make a note of the Security Profile ID, as you'll need to enter it as the Amazon App ID when you create an Amazon Cognito identity pool, as described in [Getting Credentials](getting-credentials.md)\.
-+ Create an Application ID for your application through Seller Central using [http://login\.amazon\.com/](http://login.amazon.com/)\. Use this method if you are a retail merchant that uses Seller Central\. The Seller Central [Login with Amazon](http://login.amazon.com/documentation) documentation takes you through the process of setting up Login with Amazon in your application, downloading the client SDK, and declaring your application on the Amazon developer platform\. Make a note of the Application ID, as you'll need to enter it as the Amazon App ID when you create an Amazon Cognito identity pool, as described in [Getting Credentials](getting-credentials.html)\.
+**Implement Login with Amazon **
+
+In the [Amazon developer portal](https://developer.amazon.com/apps-and-games/login-with-amazon), you can set up an OAuth application to integrate with your identity pool, find Login with Amazon documentation, and download SDKs\. Choose **Developer console**, then **Login with Amazon** in the developer portal\. You can create a security profile for your application and then build Login with Amazon authentication mechanisms into your app\. See [Getting credentials](getting-credentials.md) for more information about how to integrate Login with Amazon authentication with your app\.
+
+Amazon issues an OAuth 2\.0 **client ID** for your new security profile\. You can find the **client ID** on the security profile **Web Settings** tab\. Enter the **client ID** in the **Amazon App ID** field of the Login with Amazon IdP in your identity pool\.
 
 ## Configure the external provider in the Amazon Cognito console<a name="login-with-amazon-configure-provider"></a>
 
 Choose **Manage Identity Pools** from the [Amazon Cognito console home page](https://console.aws.amazon.com/cognito/home):
 
-1. Choose the name of the identity pool for which you want to enable Login with Amazon as an external provider\. The **Dashboard** page for your identity pool appears\.
+1. Choose the name of the identity pool where you want to enable Login with Amazon as an external provider\. The **Dashboard** page for your identity pool appears\.
 
 1. In the top\-right corner of the **Dashboard** page, choose **Edit identity pool**\. The Edit identity pool page appears\.
 
-1. Scroll down and choose **Authentication providers** to expand it\.
+1. Scroll down and choose **Authentication providers** to expand the section\.
 
 1. Choose the **Amazon** tab\.
 
@@ -36,7 +36,7 @@ Choose **Manage Identity Pools** from the [Amazon Cognito console home page](htt
 
 ## Use Login with Amazon: Android<a name="set-up-amazon-1.android"></a>
 
-Once you've implemented Amazon login, you can pass the token to the Amazon Cognito credentials provider in the onSuccess method of the TokenListener interface\. The code looks like this:
+After you authenticate Amazon login, you can pass the token to the Amazon Cognito credentials provider in the onSuccess method of the TokenListener interface\. The code looks like this:
 
 ```
 @Override
@@ -50,7 +50,7 @@ public void onSuccess(Bundle response) {
 
 ## Use Login with Amazon: iOS \- Objective\-C<a name="set-up-amazon-1.ios-objc"></a>
 
-Once you've implemented Amazon login, you can pass the token to the Amazon Cognito credentials provider in the requestDidSucceed method of the AMZNAccessTokenDelegate:
+After you authenticate Amazon login, you can pass the token to the Amazon Cognito credentials provider in the requestDidSucceed method of the AMZNAccessTokenDelegate:
 
 ```
 - (void)requestDidSucceed:(APIResult \*)apiResult {
@@ -65,7 +65,7 @@ Once you've implemented Amazon login, you can pass the token to the Amazon Cogni
 
 ## Use Login with Amazon: iOS \- Swift<a name="set-up-amazon-1.ios-swift"></a>
 
-Once you've implemented Amazon login, you can pass the token to the Amazon Cognito credentials provider in the `requestDidSucceed` method of the `AMZNAccessTokenDelegate`:
+After you authenticate Amazon login, you can pass the token to the Amazon Cognito credentials provider in the `requestDidSucceed` method of the `AMZNAccessTokenDelegate`:
 
 ```
 func requestDidSucceed(apiResult: APIResult!) {

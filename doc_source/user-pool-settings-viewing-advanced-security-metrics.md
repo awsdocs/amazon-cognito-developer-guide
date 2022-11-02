@@ -1,8 +1,8 @@
 # Viewing advanced security metrics<a name="user-pool-settings-viewing-advanced-security-metrics"></a>
 
-Amazon Cognito publishes metrics for advanced security features to your account in Amazon CloudWatch\. The advanced security metrics are grouped together by risk level and also by request level\.
+Amazon Cognito publishes metrics for advanced security features to your account in Amazon CloudWatch\. Amazon Cognito groups the advanced security metrics together by risk level and also by request level\.
 
-**To view metrics by using the CloudWatch console**
+**To view metrics in the CloudWatch console**
 
 1. Open the CloudWatch console at [https://console\.aws\.amazon\.com/cloudwatch/](https://console.aws.amazon.com/cloudwatch/)\.
 
@@ -21,16 +21,16 @@ Amazon Cognito publishes metrics for advanced security features to your account 
 
 | Metric | Description | Metric Dimensions | 
 | --- | --- | --- | 
-| CompromisedCredentialRisk | Requests where Amazon Cognito detected compromised credentials\. |  Operation: The type of operation `PasswordChange`, `SignIn`, or `SignUp` are the only dimensions\. UserPoolId: The identifier of the user pool\. RiskLevel: high \(default\), medium, or low\.  | 
-| AccountTakeOverRisk | Requests where Amazon Cognito detected account take\-over risk\. |  Operation: The type of operation `PasswordChange`, `SignIn`, or `SignUp` are the only dimensions\. UserPoolId: The identifier of the user pool\. RiskLevel: high, medium, or low\. | 
-| OverrideBlock | Requests that Amazon Cognito blocked because of the configuration provided by the developer\. |  Operation: The type of operation `PasswordChange`, `SignIn`, or `SignUp` are the only dimensions\. UserPoolId: The identifier of the user pool\. RiskLevel: high, medium, or low\. | 
-| Risk | Requests that Amazon Cognito marked as risky\. | Operation: The type of operation such as `PasswordChange`, `SignIn`, or `SignUp`\. UserPoolId: The identifier of the user pool\. | 
-| NoRisk | Requests where Amazon Cognito did not identify any risk\.  | Operation: The type of operation such as `PasswordChange`, `SignIn`, or `SignUp`\. UserPoolId: The identifier of the user pool\. | 
+| CompromisedCredentialRisk | Requests where Amazon Cognito detected compromised credentials\. |  Operation: The type of operation\. `PasswordChange`, `SignIn`, or `SignUp` are the only dimensions\. UserPoolId: The identifier of the user pool\. RiskLevel: high \(default\), medium, or low\.  | 
+| AccountTakeOverRisk | Requests where Amazon Cognito detected account take\-over risk\. |  Operation: The type of operation\. `PasswordChange`, `SignIn`, or `SignUp` are the only dimensions\. UserPoolId: The identifier of the user pool\. RiskLevel: high, medium, or low\. | 
+| OverrideBlock | Requests that Amazon Cognito blocked because of the configuration provided by the developer\. |  Operation: The type of operation\. `PasswordChange`, `SignIn`, or `SignUp` are the only dimensions\. UserPoolId: The identifier of the user pool\. RiskLevel: high, medium, or low\. | 
+| Risk | Requests that Amazon Cognito marked as risky\. | Operation: The type of operation, such as `PasswordChange`, `SignIn`, or `SignUp`\. UserPoolId: The identifier of the user pool\. | 
+| NoRisk | Requests where Amazon Cognito did not identify any risk\.  | Operation: The type of operation, such as `PasswordChange`, `SignIn`, or `SignUp`\. UserPoolId: The identifier of the user pool\. | 
 
-Amazon Cognito offers you two predefined groups of metrics for ready analysis in CloudWatch\. **By Risk Classification** identifies the granularity of the risk level for requests that Amazon Cognito identified as risky, and the **By Request Classification** reflects metrics aggregated by request level\.
+Amazon Cognito offers you two predefined groups of metrics for ready analysis in CloudWatch\. **By Risk Classification** identifies the granularity of the risk level for requests that Amazon Cognito identifies as risky\. **By Request Classification** reflects metrics aggregated by request level\.
 
 
 | Aggregated Metrics Group | Description | 
 | --- | --- | 
-| By Risk Classification | Requests that Amazon Cognito identified as risky\. | 
+| By Risk Classification | Requests that Amazon Cognito identifies as risky\. | 
 | By Request Classification | Metrics aggregated by request\. | 

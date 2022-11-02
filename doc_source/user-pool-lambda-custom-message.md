@@ -1,16 +1,16 @@
 # Custom message Lambda trigger<a name="user-pool-lambda-custom-message"></a>
 
-Amazon Cognito invokes this trigger before sending an email or phone verification message or a multi\-factor authentication \(MFA\) code, allowing you to customize the message dynamically\. Static custom messages can be edited in the **Message Customizations** tab of the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\.
+Amazon Cognito invokes this trigger before it sends an email or phone verification message or a multi\-factor authentication \(MFA\) code\. You can customize the message dynamically with your custom message trigger\. You can edit static custom messages in the **Message customizations** tab of the original [Amazon Cognito](https://console.aws.amazon.com/cognito/home) console\.
 
-The request includes `codeParameter`, which is a string that acts as a placeholder for the code that's being delivered to the user\. Insert the `codeParameter` string into the message body, at the position where you want the verification code to be inserted\. On receiving this response, the Amazon Cognito service replaces the `codeParameter` string with the actual verification code\. 
+The request includes `codeParameter`\. This is a string that acts as a placeholder for the code that Amazon Cognito delivers to the user\. Insert the `codeParameter` string into the message body where you want the verification code to appear\. When Amazon Cognito receives this response, Amazon Cognito replaces the `codeParameter` string with the actual verification code\. 
 
 **Note**  
-A custom message Lambda function with the `CustomMessage_AdminCreateUser` trigger returns a user name and verification code and so the request must include both `request.usernameParameter` and `request.codeParameter`\. 
+A custom message Lambda function with the `CustomMessage_AdminCreateUser` trigger source returns a user name and verification code\. Because an admin\-created user must receive both their user name and code, the response from your function must include both `request.usernameParameter` and `request.codeParameter`\. 
 
 **Topics**
 + [Custom message Lambda trigger sources](#cognito-user-pools-lambda-trigger-syntax-custom-message-trigger-source)
 + [Custom message Lambda trigger parameters](#cognito-user-pools-lambda-trigger-syntax-custom-message)
-+ [Custom message for sign up example](#aws-lambda-triggers-custom-message-example)
++ [Custom message for sign\-up example](#aws-lambda-triggers-custom-message-example)
 + [Custom message for admin create user example](#aws-lambda-triggers-custom-message-admin-example)
 
 ## Custom message Lambda trigger sources<a name="cognito-user-pools-lambda-trigger-syntax-custom-message-trigger-source"></a>
@@ -28,7 +28,7 @@ A custom message Lambda function with the `CustomMessage_AdminCreateUser` trigge
 
 ## Custom message Lambda trigger parameters<a name="cognito-user-pools-lambda-trigger-syntax-custom-message"></a>
 
-These are the parameters required by this Lambda function in addition to the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-sample-event-parameter-shared)\.
+These are the parameters that Amazon Cognito passes to this Lambda function along with the event information in the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-syntax-shared)\.
 
 ------
 #### [ JSON ]
@@ -66,10 +66,10 @@ One or more name\-value pairs representing user attributes\.
 A string for you to use as the placeholder for the verification code in the custom message\.
 
 **usernameParameter**  
-The username parameter\. It is a required request parameter for the admin create user flow\.
+The user name\. Amazon Cognito includes this parameter in requests that result from admin\-created users\.
 
 **clientMetadata**  
-One or more key\-value pairs that you can provide as custom input to the Lambda function that you specify for the custom message trigger\. You can pass this data to your Lambda function by using the ClientMetadata parameter in the following API actions:  
+One or more key\-value pairs that you can provide as custom input to the Lambda function that you specify for the custom message trigger\. The request that invokes a custom message function doesn't include data passed in the ClientMetadata parameter in [AdminInitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) and [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html) API operations\. To pass this data to your Lambda function, you can use the ClientMetadata parameter in the following API actions:  
 +  [AdminResetUserPassword](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminResetUserPassword.html) 
 +  [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) 
 +  [AdminUpdateUserAttributes](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminUpdateUserAttributes.html)
@@ -81,26 +81,26 @@ One or more key\-value pairs that you can provide as custom input to the Lambda 
 
 ### Custom message response parameters<a name="cognito-user-pools-lambda-trigger-syntax-custom-message-response"></a>
 
-In the response, you specify the custom text to use in messages to your users\.
+In the response, specify the custom text to use in messages to your users\.
 
 **smsMessage**  
-The custom SMS message to be sent to your users\. Must include the `codeParameter` value received in the request\.
+The custom SMS message to be sent to your users\. Must include the `codeParameter` value that you received in the request\.
 
 **emailMessage**  
-The custom email message to be sent to your users\. Must include the `codeParameter` value received in the request\. If the EmailSendingAccount attribute of the user pool is not `DEVELOPER` and an emailMessage parameter is returned, Amazon Cognito throws a 400 error code `com.amazonaws.cognito.identity.idp.model.InvalidLambdaResponseException`\. The emailMessage parameter is allowed only if the EmailSendingAccount attribute of the user pool is `DEVELOPER`\. The EmailSendingAccount attribute of a user pool is `DEVELOPER` when you choose to use Amazon Simple Email Service \(Amazon SES\) to send email messages; otherwise, the value is `COGNITO_DEFAULT`\.
+The custom email message to send to your users\. You can use HTML formatting in the `emailMessage` parameter\. Must include the `codeParameter` value that you received in the request as the variable `{####}`\. Amazon Cognito can use the `emailMessage` parameter only if the `EmailSendingAccount` attribute of the user pool is `DEVELOPER`\. If the `EmailSendingAccount` attribute of the user pool isn't `DEVELOPER` and an `emailMessage` parameter is returned, Amazon Cognito generates a 400 error code `com.amazonaws.cognito.identity.idp.model.InvalidLambdaResponseException`\. When you choose Amazon Simple Email Service \(Amazon SES\) to send email messages, the `EmailSendingAccount` attribute of a user pool is `DEVELOPER`\. Otherwise, the value is `COGNITO_DEFAULT`\.
 
 **emailSubject**  
-The subject line for the custom message\. If the EmailSendingAccount attribute of the user pool is not `DEVELOPER` and an emailSubject parameter is returned, Amazon Cognito throws a 400 error code `com.amazonaws.cognito.identity.idp.model.InvalidLambdaResponseException`\. The emailSubject parameter is allowed only if the EmailSendingAccount attribute of the user pool is `DEVELOPER`\. The EmailSendingAccount attribute of a user pool is `DEVELOPER` when you choose to use Amazon Simple Email Service \(Amazon SES\) to send email messages; otherwise, the value is `COGNITO_DEFAULT`\.
+The subject line for the custom message\. You can only use the `emailSubject` parameter if the EmailSendingAccount attribute of the user pool is `DEVELOPER`\. If the `EmailSendingAccount` attribute of the user pool isn't `DEVELOPER` and Amazon Cognito returns an `emailSubject` parameter, Amazon Cognito generates a 400 error code `com.amazonaws.cognito.identity.idp.model.InvalidLambdaResponseException`\. The `EmailSendingAccount` attribute of a user pool is `DEVELOPER` when you choose to use Amazon Simple Email Service \(Amazon SES\) to send email messages\. Otherwise, the value is `COGNITO_DEFAULT`\.
 
-## Custom message for sign up example<a name="aws-lambda-triggers-custom-message-example"></a>
+## Custom message for sign\-up example<a name="aws-lambda-triggers-custom-message-example"></a>
 
-This Lambda function is invoked to customize an email or SMS message when the service requires an app to send a verification code to the user\.
+This example Lambda function customizes an email or SMS message when the service requires an app to send a verification code to the user\.
 
- A Lambda trigger can be invoked at multiple points: post\-registration, resending a verification code, forgotten password, or verifying a user attribute\. The response includes messages for both SMS and email\. The message must include the code parameter, `"####"`, which is the placeholder for the verification code that is delivered to the user\.
+Amazon Cognito can invoke a Lambda trigger at multiple events: post\-registration, resending a verification code, recovering a forgotten password, or verifying a user attribute\. The response includes messages for both SMS and email\. The message must include the code parameter `"####"`\. This parameter is the placeholder for the verification code that the user receives\.
 
-For email, the maximum length for the message is 20,000 UTF\-8 characters, including the verification code\. HTML tags can be used in these emails\.
+The maximum length for an email message is 20,000 UTF\-8 characters,\. This length includes the verification code\. You can use HTML tags in these email messages\.
 
-For SMS, the maximum length is 140 UTF\-8 characters, including the verification code\.
+The maximum length of SMS messages is 140 UTF\-8 characters\. This length includes the verification code\.
 
 ------
 #### [ Node\.js ]
@@ -127,7 +127,7 @@ exports.handler = (event, context, callback) => {
 
 ------
 
-Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object back to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that’s relevant to your Lambda trigger\. The following is a test event for this code sample:
+Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that is relevant to your Lambda trigger\. The following is a test event for this code sample:
 
 ------
 #### [ JSON ]
@@ -164,11 +164,11 @@ Amazon Cognito passes event information to your Lambda function\. The function t
 
 ## Custom message for admin create user example<a name="aws-lambda-triggers-custom-message-admin-example"></a>
 
-A custom message Lambda function with the `CustomMessage_AdminCreateUser` trigger returns a user name and verification code and so include both `request.usernameParameter` and `request.codeParameter` in the message body\.
+A custom message Lambda function with the `CustomMessage_AdminCreateUser` trigger returns a user name and verification code\. For this reason, include both `request.usernameParameter` and `request.codeParameter` in the message body\.
 
-The code parameter value `"####"` is a placeholder for the temporary password and "username" is a placeholder for the username delivered to your user\.
+The code parameter value `####` is a placeholder for the temporary password, and "username" is a placeholder for the username that your user receives\.
 
-For email, the maximum length for the message is 20,000 UTF\-8 characters, including the verification code\. HTML tags can be used in these emails\. For SMS, the maximum length is 140 UTF\-8 characters, including the verification code\.
+The maximum length of an email message is 20,000 UTF\-8 characters\. This length includes the verification code\. You can use HTML tags in these emails\. The maximum length of SMS messages is 140 UTF\-8 characters\. This length includes the verification code\.
 
 The response includes messages for both SMS and email\. 
 
@@ -197,7 +197,7 @@ exports.handler = (event, context, callback) => {
 
 ------
 
-Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object back to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that’s relevant to your Lambda trigger\. The following is a test event for this code sample:
+Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that is relevant to your Lambda trigger\. The following is a test event for this code sample:
 
 ------
 #### [ JSON ]

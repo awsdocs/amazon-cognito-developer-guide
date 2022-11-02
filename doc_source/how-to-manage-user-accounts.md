@@ -162,7 +162,7 @@ You can only search for standard attributes\. Custom attributes are not searchab
   +  `Filter-Type`: For an exact match, use `=`, for example, `given_name = "Jon"`\. For a prefix \("starts with"\) match, use `^=`, for example, `given_name ^= "Jon"`\. 
   +  `AttributeValue`: The attribute value that must be matched for each user\.
 +  `Limit`: Maximum number of users to be returned\.
-+  `PaginationToken`: A token to get more results from a previous search\.
++  `PaginationToken`: A token to get more results from a previous search\. Amazon Cognito expires the pagination token after one hour\.
 +  `UserPoolId`: The user pool ID for the user pool on which the search should be performed\.
 
 All searches are case\-insensitive\. Search results are sorted by the attribute named by the `AttributeName` string, in ascending order\.

@@ -4,7 +4,7 @@ When your user signs in to your application using an OIDC IdP, they pass through
 
 1. Your user lands on the Amazon Cognito built\-in sign\-in page, and is offered the option to sign in through an OIDC IdP such as Salesforce\.
 
-1. Your user is redirected to the OIDC IdP's `authorization` endpoint\.
+1. Your user is redirected to the `authorization` endpoint of the OIDC IdP\.
 
 1. After your user is authenticated, the OIDC IdP redirects to Amazon Cognito with an authorization code\.
 
@@ -17,7 +17,7 @@ When your user signs in to your application using an OIDC IdP, they pass through
 ![\[User pool OIDC IdP authentication flow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[User pool OIDC IdP authentication flow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[User pool OIDC IdP authentication flow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
 **Note**  
-Requests that are not completed within 5 minutes will be cancelled\. The user is redirected to the login page, which will display a `Something went wrong` error message\.
+Amazon Cognito cancels authentication requests that do not complete within 5 minutes, and redirects the user to the hosted UI\. The page displays a `Something went wrong` error message\.
 
 OIDC is an identity layer on top of OAuth 2\.0, which specifies JSON\-formatted \(JWT\) identity tokens that are issued by IdPs to OIDC client apps \(relying parties\)\. See the documentation for your OIDC IdP for information about to add Amazon Cognito as an OIDC relying party\.
 

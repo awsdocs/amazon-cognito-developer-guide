@@ -1,5 +1,8 @@
 # Using attributes for access control with Amazon Cognito identity pools<a name="using-afac-with-cognito-identity-pools"></a>
 
+**Important**  
+Currently, you must configure Amazon Cognito identity pools in the original console, even if you have migrated to the new console for Amazon Cognito user pools\. From the new console, choose **Federated identities** to navigate to the identity pools console\.
+
 Before you can use attributes for access control, ensure that you meet the following prerequisites:
 + [An AWS account](https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-with-identity-pools.html#aws-sign-up-identity-pools)
 + [User pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-as-user-directory.html)

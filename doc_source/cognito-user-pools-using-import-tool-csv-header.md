@@ -87,7 +87,7 @@ In order for users to reset their passwords, they must have a verified email or 
 + The **cognito:mfa\_enabled** field is required\. If you've set multi\-factor authentication \(MFA\) to be required in your user pool, this field must be `true` for all users\. If you've set MFA to be off, this field must be `false` for all users\. If you've set MFA to be optional, this field can be either `true` or `false`, but it can't be empty\.
 + The maximum row length is 16,000 characters\.
 + The maximum `.csv` file size is 100 MB\.
-+ The maximum number of rows \(users\) in the file is 500,000\. This maxiumum doesn't include the header row\.
++ The maximum number of rows \(users\) in the file is 500,000\. This maximum doesn't include the header row\.
 + The **updated\_at** field value is expected to be epoch time in seconds, for example: **1471453471**\.
 + Any leading or trailing white space in an attribute value will be trimmed\.
 

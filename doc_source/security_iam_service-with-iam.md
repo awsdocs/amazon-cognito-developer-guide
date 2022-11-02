@@ -11,17 +11,17 @@ Before you use IAM to manage access to Cognito, learn what IAM features are avai
 
 | IAM feature | Cognito support | 
 | --- | --- | 
-|  [Identity\-based policies](#security_iam_service-with-iam-id-based-policies)  |  Yes  | 
-|  [Resource\-based policies](#security_iam_service-with-iam-resource-based-policies)  |  No   | 
-|  [Policy actions](#security_iam_service-with-iam-id-based-policies-actions)  |  Yes  | 
-|  [Policy resources](#security_iam_service-with-iam-id-based-policies-resources)  |  Yes  | 
-|  [Policy condition keys](#security_iam_service-with-iam-id-based-policies-conditionkeys)  |  Yes  | 
-|  [ACLs](#security_iam_service-with-iam-acls)  |  No   | 
-|  [ABAC \(tags in policies\)](#security_iam_service-with-iam-tags)  |  Partial  | 
-|  [Temporary credentials](#security_iam_service-with-iam-roles-tempcreds)  |  Yes  | 
-|  [Principal permissions](#security_iam_service-with-iam-principal-permissions)  |  No   | 
-|  [Service roles](#security_iam_service-with-iam-roles-service)  |  Yes  | 
-|  [Service\-linked roles](#security_iam_service-with-iam-roles-service-linked)  |  Yes  | 
+|  [Identity\-based policies](#security_iam_service-with-iam-id-based-policies)  |    Yes  | 
+|  [Resource\-based policies](#security_iam_service-with-iam-resource-based-policies)  |    No   | 
+|  [Policy actions](#security_iam_service-with-iam-id-based-policies-actions)  |    Yes  | 
+|  [Policy resources](#security_iam_service-with-iam-id-based-policies-resources)  |    Yes  | 
+|  [Policy condition keys](#security_iam_service-with-iam-id-based-policies-conditionkeys)  |    Yes  | 
+|  [ACLs](#security_iam_service-with-iam-acls)  |    No   | 
+|  [ABAC \(tags in policies\)](#security_iam_service-with-iam-tags)  |    Partial  | 
+|  [Temporary credentials](#security_iam_service-with-iam-roles-tempcreds)  |    Yes  | 
+|  [Principal permissions](#security_iam_service-with-iam-principal-permissions)  |    No   | 
+|  [Service roles](#security_iam_service-with-iam-roles-service)  |    Yes  | 
+|  [Service\-linked roles](#security_iam_service-with-iam-roles-service-linked)  |    Yes  | 
 
 To get a high\-level view of how Cognito and other AWS services work with most IAM features, see [AWS services that work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html) in the *IAM User Guide*\.
 
@@ -30,7 +30,7 @@ To get a high\-level view of how Cognito and other AWS services work with most I
 
 |  |  | 
 | --- |--- |
-|  Supports identity\-based policies  |  Yes  | 
+|  Supports identity\-based policies  |    Yes  | 
 
 Identity\-based policies are JSON permissions policy documents that you can attach to an identity, such as an IAM user, group of users, or role\. These policies control what actions users and roles can perform, on which resources, and under what conditions\. To learn how to create an identity\-based policy, see [Creating IAM policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html) in the *IAM User Guide*\.
 
@@ -47,7 +47,7 @@ To view examples of Cognito identity\-based policies, see [Identity\-based polic
 
 |  |  | 
 | --- |--- |
-|  Supports resource\-based policies  |  No   | 
+|  Supports resource\-based policies  |    No   | 
 
 Resource\-based policies are JSON policy documents that you attach to a resource\. Examples of resource\-based policies are IAM *role trust policies* and Amazon S3 *bucket policies*\. In services that support resource\-based policies, service administrators can use them to control access to a specific resource\. For the resource where the policy is attached, the policy defines what actions a specified principal can perform on that resource and under what conditions\. You must [specify a principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html) in a resource\-based policy\. Principals can include accounts, users, roles, federated users, or AWS services\.
 
@@ -58,7 +58,7 @@ To enable cross\-account access, you can specify an entire account or IAM entiti
 
 |  |  | 
 | --- |--- |
-|  Supports policy actions  |  Yes  | 
+|  Supports policy actions  |    Yes  | 
 
 Administrators can use AWS JSON policies to specify who has access to what\. That is, which **principal** can perform **actions** on what **resources**, and under what **conditions**\.
 
@@ -87,7 +87,9 @@ To specify multiple actions in a single statement, separate them with commas\.
 
 ### Signed versus unsigned APIs<a name="security_amazon-cognito-signed-versus-unsigned-apis"></a>
 
-APIs that are signed with AWS credentials are capable of being restricted via an IAM policy\. The following Cognito APIs are unsigned, and therefore cannot be restricted via an IAM policy:
+When you sign Amazon Cognito API requests with AWS credentials, you can restrict them in an AWS Identity and Access Management \(IAM\) policy\. API requests that you must sign with AWS credentials include server\-side sign\-in with `AdminInitiateAuth`, and actions that create, view, or modify your Amazon Cognito resources like `UpdateUserPool`\. For more information about signed API requests, see [Signing AWS API requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html)\.
+
+Because Amazon Cognito is a consumer identity product for apps that you want to make available to the public, you have access to the following unsigned APIs\. Your app makes these API requests for your users and your prospective users\. Some APIs require no prior authorization, like `InitiateAuth` to start a new authentication session\. Some APIs use access tokens or session keys for authorization, like `VerifySoftwareToken` to complete MFA setup for a user that has an existing authenticated session\. An unsigned, authorized Amazon Cognito user pools API supports a `Session` or `AccessToken` parameter in the request syntax as displayed in the [Amazon Cognito API Reference](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/Welcome.html)\. An unsigned Amazon Cognito Identity API supports an `IdentityId` parameter as displayed in the [Amazon Cognito Federated Identities API Reference](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/Welcome.html)\.
 
 **Amazon Cognito federated identities**
 + `GetId`
@@ -96,6 +98,7 @@ APIs that are signed with AWS credentials are capable of being restricted via an
 + `UnlinkIdentity`
 
 **Amazon Cognito your user pools**
++ `AssociateSoftwareToken`
 + `ChangePassword`
 + `ConfirmDevice`
 + `ConfirmForgotPassword`
@@ -112,10 +115,14 @@ APIs that are signed with AWS credentials are capable of being restricted via an
 + `ListDevices`
 + `ResendConfirmationCode`
 + `RespondToAuthChallenge`
++ `RevokeToken`
++ `SetUserMFAPreference`
 + `SetUserSettings`
 + `SignUp`
++ `UpdateAuthEventFeedback`
 + `UpdateDeviceStatus`
 + `UpdateUserAttributes`
++ `VerifySoftwareToken`
 + `VerifyUserAttribute`
 
 
@@ -129,7 +136,7 @@ To view examples of Cognito identity\-based policies, see [Identity\-based polic
 
 |  |  | 
 | --- |--- |
-|  Supports policy resources  |  Yes  | 
+|  Supports policy resources  |    Yes  | 
 
 Administrators can use AWS JSON policies to specify who has access to what\. That is, which **principal** can perform **actions** on what **resources**, and under what **conditions**\.
 
@@ -194,7 +201,7 @@ To view examples of Cognito identity\-based policies, see [Identity\-based polic
 
 |  |  | 
 | --- |--- |
-|  Supports policy condition keys  |  Yes  | 
+|  Supports service\-specific policy condition keys  |    Yes  | 
 
 Administrators can use AWS JSON policies to specify who has access to what\. That is, which **principal** can perform **actions** on what **resources**, and under what **conditions**\.
 
@@ -215,7 +222,7 @@ To view examples of Cognito identity\-based policies, see [Identity\-based polic
 
 |  |  | 
 | --- |--- |
-|  Supports ACLs  |  No   | 
+|  Supports ACLs  |    No   | 
 
 Access control lists \(ACLs\) control which principals \(account members, users, or roles\) have permissions to access a resource\. ACLs are similar to resource\-based policies, although they do not use the JSON policy document format\.
 
@@ -224,13 +231,15 @@ Access control lists \(ACLs\) control which principals \(account members, users,
 
 |  |  | 
 | --- |--- |
-|  Supports ABAC \(tags in policies\)  |  Partial  | 
+|  Supports ABAC \(tags in policies\)  |    Partial  | 
 
 Attribute\-based access control \(ABAC\) is an authorization strategy that defines permissions based on attributes\. In AWS, these attributes are called *tags*\. You can attach tags to IAM entities \(users or roles\) and to many AWS resources\. Tagging entities and resources is the first step of ABAC\. Then you design ABAC policies to allow operations when the principal's tag matches the tag on the resource that they are trying to access\.
 
 ABAC is helpful in environments that are growing rapidly and helps with situations where policy management becomes cumbersome\.
 
 To control access based on tags, you provide tag information in the [condition element](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html) of a policy using the `aws:ResourceTag/key-name`, `aws:RequestTag/key-name`, or `aws:TagKeys` condition keys\.
+
+If a service supports all three condition keys for every resource type, then the value is **Yes** for the service\. If a service supports all three condition keys for only some resource types, then the value is **Partial**\.
 
 For more information about ABAC, see [What is ABAC?](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html) in the *IAM User Guide*\. To view a tutorial with steps for setting up ABAC, see [Use attribute\-based access control \(ABAC\)](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html) in the *IAM User Guide*\.
 
@@ -239,7 +248,7 @@ For more information about ABAC, see [What is ABAC?](https://docs.aws.amazon.com
 
 |  |  | 
 | --- |--- |
-|  Supports temporary credentials  |  Yes  | 
+|  Supports temporary credentials  |    Yes  | 
 
 Some AWS services don't work when you sign in using temporary credentials\. For additional information, including which AWS services work with temporary credentials, see [AWS services that work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html) in the *IAM User Guide*\.
 
@@ -252,7 +261,7 @@ You can manually create temporary credentials using the AWS CLI or AWS API\. You
 
 |  |  | 
 | --- |--- |
-|  Supports principal permissions  |  No   | 
+|  Supports principal permissions  |    No   | 
 
   When you use an IAM user or role to perform actions in AWS, you are considered a principal\. Policies grant permissions to a principal\. When you use some services, you might perform an action that then triggers another action in a different service\. In this case, you must have permissions to perform both actions\. To see whether an action requires additional dependent actions in a policy, see [Actions, resources, and condition keys for Amazon Cognito](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazoncognitoidentity.html) in the *Service Authorization Reference*\. 
 
@@ -261,7 +270,7 @@ You can manually create temporary credentials using the AWS CLI or AWS API\. You
 
 |  |  | 
 | --- |--- |
-|  Supports service roles  |  Yes  | 
+|  Supports service roles  |    Yes  | 
 
   A service role is an [IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) that a service assumes to perform actions on your behalf\. An IAM administrator can create, modify, and delete a service role from within IAM\. For more information, see [Creating a role to delegate permissions to an AWS service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html) in the *IAM User Guide*\. 
 
@@ -275,7 +284,7 @@ Changing the permissions for a service role might break Cognito functionality\. 
 
 |  |  | 
 | --- |--- |
-|  Supports service\-linked roles  |  Yes  | 
+|  Supports service\-linked roles  |    Yes  | 
 
   A service\-linked role is a type of service role that is linked to an AWS service\. The service can assume the role to perform an action on your behalf\. Service\-linked roles appear in your IAM account and are owned by the service\. An IAM administrator can view, but not edit the permissions for service\-linked roles\. 
 

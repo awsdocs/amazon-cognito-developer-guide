@@ -1,6 +1,6 @@
 # Pre sign\-up Lambda trigger<a name="user-pool-lambda-pre-sign-up"></a>
 
-The pre sign\-up Lambda function is triggered just before Amazon Cognito signs up a new user\. It allows you to perform custom validation to accept or deny the registration request as part of the sign\-up process\.
+Shortly before Amazon Cognito signs up a new user, it activates the pre sign\-up AWS Lambda function\. As part of the sign\-up process, you can use this function to perform custom validation and, based on the results of your validation, accept or deny the registration request\.
 
 **Topics**
 + [Pre sign\-up Lambda flows](#user-pool-lambda-pre-sign-up-flows)
@@ -8,6 +8,7 @@ The pre sign\-up Lambda function is triggered just before Amazon Cognito signs u
 + [Sign\-up tutorials](#aws-lambda-triggers-pre-registration-tutorials)
 + [Pre sign\-up example: Auto\-confirm users from a registered domain](#aws-lambda-triggers-pre-registration-example)
 + [Pre sign\-up example: Auto\-confirm and auto\-verify all users](#aws-lambda-triggers-pre-registration-example-2)
++ [Pre sign\-up example: Deny sign\-up if user name has fewer than five characters](#aws-lambda-triggers-pre-registration-example-3)
 
 ## Pre sign\-up Lambda flows<a name="user-pool-lambda-pre-sign-up-flows"></a>
 
@@ -19,11 +20,11 @@ The pre sign\-up Lambda function is triggered just before Amazon Cognito signs u
 
 ![\[Pre sign-up Lambda trigger - server flow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Pre sign-up Lambda trigger - server flow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Pre sign-up Lambda trigger - server flow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
-The request includes validation data from the client which comes from the `ValidationData` values passed to the user pool SignUp and AdminCreateUser API methods\.
+The request includes validation data from the client\. This data comes from the `ValidationData` values passed to the user pool SignUp and AdminCreateUser API methods\.
 
 ## Pre sign\-up Lambda trigger parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-signup"></a>
 
-These are the parameters required by this Lambda function in addition to the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-sample-event-parameter-shared)\.
+These are the parameters that Amazon Cognito passes to this Lambda function along with the event information in the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-syntax-shared)\.
 
 ------
 #### [ JSON ]
@@ -77,8 +78,8 @@ Response parameters `autoVerifyPhone`, `autoVerifyEmail` and `autoConfirmUser` a
 Set to `true` to auto\-confirm the user, or `false` otherwise\.
 
 **autoVerifyEmail**  
-Set to `true` to set as verified the email of a user who is signing up, or `false` otherwise\. If `autoVerifyEmail` is set to `true`, the `email` attribute must have a valid, non\-null value\. Otherwise an error will occur and the user will not be able to complete sign\-up\.  
-If the `email` attribute is selected as an alias, an alias will be created for the user's email when `autoVerifyEmail` is set\. If an alias with that email already exists, the alias will be moved to the new user and the previous user's email will be marked as unverified\. For more information, see [Aliases](user-pool-settings-attributes.md#user-pool-settings-aliases)\.
+Set to `true` to set as verified the email address of a user who is signing up, or `false` otherwise\. If `autoVerifyEmail` is set to `true`, the `email` attribute must have a valid, non\-null value\. Otherwise an error will occur and the user will not be able to complete sign\-up\.  
+If the `email` attribute is selected as an alias, an alias will be created for the user's email address when `autoVerifyEmail` is set\. If an alias with that email address already exists, the alias will be moved to the new user and the previous user's email address will be marked as unverified\. For more information, see [Aliases](user-pool-settings-attributes.md#user-pool-settings-aliases)\.
 
 **autoVerifyPhone**  
 Set to `true` to set as verified the phone number of a user who is signing up, or `false` otherwise\. If `autoVerifyPhone` is set to `true`, the `phone_number` attribute must have a valid, non\-null value\. Otherwise an error will occur and the user will not be able to complete sign\-up\.  
@@ -97,7 +98,7 @@ The pre sign\-up Lambda function is triggered before user sign\-up\. See these A
 
 ## Pre sign\-up example: Auto\-confirm users from a registered domain<a name="aws-lambda-triggers-pre-registration-example"></a>
 
-With the pre sign\-up Lambda trigger, You can add custom logic to validate new users signing up for your user pool\. This is a sample JavaScript program that demonstrates how to sign up a new user\. It will invoke a pre sign\-up Lambda trigger as part of the authentication\.
+You can use the pre sign\-up Lambda trigger to add custom logic that validates new users who sign up for your user pool\. This is a sample JavaScript program that shows how to sign up a new user\. It invokes a pre sign\-up Lambda trigger as part of the authentication\.
 
 ------
 #### [ JavaScript ]
@@ -188,7 +189,7 @@ def lambda_handler(event, context):
 
 ------
 
-Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object back to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that’s relevant to your Lambda trigger\. The following is a test event for this code sample:
+Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that is relevant to your Lambda trigger\. The following is a test event for this code sample:
 
 ------
 #### [ JSON ]
@@ -260,7 +261,7 @@ def lambda_handler(event, context):
 
 ------
 
-Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object back to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that’s relevant to your Lambda trigger\. The following is a test event for this code sample:
+Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that is relevant to your Lambda trigger\. The following is a test event for this code sample:
 
 ------
 #### [ JSON ]
@@ -273,6 +274,53 @@ Amazon Cognito passes event information to your Lambda function\. The function t
       "phone_number": "+12065550100"
     }
   },
+  "response": {}
+}
+```
+
+------
+
+## Pre sign\-up example: Deny sign\-up if user name has fewer than five characters<a name="aws-lambda-triggers-pre-registration-example-3"></a>
+
+This example checks the length of the user name in a sign\-up request\. The example returns an error if the user has entered a name less than five characters long\.
+
+------
+#### [ Node\.js ]
+
+```
+exports.handler = (event, context, callback) => {
+    // Impose a condition that the minimum length of the username is 5 is imposed on all user pools.
+    if (event.userName.length < 5) {
+        var error = new Error("Cannot register users with username less than the minimum length of 5");
+        // Return error to Amazon Cognito
+        callback(error, event);
+    }
+    // Return to Amazon Cognito
+    callback(null, event);
+};
+```
+
+------
+#### [ Python ]
+
+```
+def lambda_handler(event, context):
+    if len(event['userName']) < 5:
+        raise Exception("Cannot register users with username less than the minimum length of 5")
+    # Return to Amazon Cognito
+    return event
+```
+
+------
+
+Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that is relevant to your Lambda trigger\. The following is a test event for this code sample:
+
+------
+#### [ JSON ]
+
+```
+{
+  "userName": "rroe",
   "response": {}
 }
 ```

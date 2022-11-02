@@ -20,7 +20,7 @@ You can generalize authentication into two common steps with the user pool Initi
 In this flow, a user authenticates by answering successive challenges until authentication either fails or the user is issued tokens\. These two API calls can be repeated to include different challenges\.
 
 **Note**  
-The Amazon Cognito hosted sign\-in web page does not support the custom authentication flow\.
+The Amazon Cognito hosted UI does not support the custom authentication flow\.
 
 **Topics**
 + [Define Auth challenge Lambda trigger](user-pool-lambda-define-auth-challenge.md)

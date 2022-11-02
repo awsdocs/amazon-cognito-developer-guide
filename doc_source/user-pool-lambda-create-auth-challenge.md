@@ -15,7 +15,7 @@ The challenge loop will repeat until all challenges are answered\.
 
 ## Create Auth challenge Lambda trigger parameters<a name="cognito-user-pools-lambda-trigger-syntax-create-auth-challenge"></a>
 
-These are the parameters required by this Lambda function in addition to the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-sample-event-parameter-shared)\.
+These are the parameters that Amazon Cognito passes to this Lambda function along with the event information in the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-syntax-shared)\.
 
 ------
 #### [ JSON ]
@@ -75,7 +75,7 @@ Set to `true` if the user successfully completed the challenge, or `false` other
 Your name for the custom challenge\. Used only if `challengeName` is `"CUSTOM_CHALLENGE"`\.
 
 **clientMetadata**  
-One or more key\-value pairs that you can provide as custom input to the Lambda function that you specify for the create auth challenge trigger\. You can pass this data to your Lambda function by using the ClientMetadata parameter in the [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) and [RespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html) API actions\.
+One or more key\-value pairs that you can provide as custom input to the Lambda function that you specify for the create auth challenge trigger\. You can use the ClientMetadata parameter in the [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) and [RespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html) API actions to pass this data to your Lambda function\. The request that invokes the create auth challenge function does not include data passed in the ClientMetadata parameter in [AdminInitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) and [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html) API operations\.
 
 ### Create Auth challenge response parameters<a name="cognito-user-pools-lambda-trigger-syntax-create-auth-challenge-response"></a>
 

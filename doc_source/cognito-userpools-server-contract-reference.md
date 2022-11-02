@@ -1,17 +1,31 @@
-# Amazon Cognito user pools Auth API reference<a name="cognito-userpools-server-contract-reference"></a>
+# User pool OIDC and hosted UI API endpoints reference<a name="cognito-userpools-server-contract-reference"></a>
 
-Once a domain has been configured for your user pool, Amazon Cognito hosts an authentication server where you can add sign\-up and sign\-in webpages to your app\. For more information see [Add an app to enable the hosted UI](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-configuring-app-integration.html)\.
+Amazon Cognito creates the public webpages listed here when you set up domains for your app clients\. They include the hosted UI, where your users can sign up and sign in \(the [Login endpoint](login-endpoint.md)\), and sign out \(the [Logout endpoint](logout-endpoint.md)\)\. For more information about these resources, see [Using the Amazon Cognito hosted UI for sign\-up and sign\-in](cognito-user-pools-app-integration.md)\.
 
-This section contains the HTTPS contract to the Amazon Cognito authentication server from a user pool client, including sample requests and responses\. It describes the expected behavior from the authentication server for positive and negative conditions\.
+These pages also include the public web resources that allow your user pool to communicate with third\-party SAML, OpenID Connect \(OIDC\) and OAuth 2\.0 identity providers \(IdPs\)\. To sign in a user with a federated identity provider, your users must initiate a request to the [Login endpoint](login-endpoint.md) or the [Authorize endpoint](authorization-endpoint.md)\. Your app can also sign in *native users* with the [Amazon Cognito API](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/Welcome.html)\. Native users are those that you created or who signed up in your user pool\.
 
-In addition to the server contract REST API, Amazon Cognito also provides Auth SDKs for Android, iOS, and JavaScript that make it easier to form requests and interact with the server\. Learn more about the [Amazon Cognito SDKs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sdk-links.html)\.
+In addition to the OAuth 2\.0 REST API endpoints, Amazon Cognito also integrates with SDKs for Android, iOS, JavaScript, and more\. The SDKs provide tools to interact both with your user pool API endpoints and Amazon Cognito API service endpoints\. For more information about service endpoints, see [Amazon Cognito Identity endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/cognito_identity.html)\.
 
-For more information on the specification see [OpenID Connect 1\.0](http://openid.net/specs/openid-connect-core-1_0.html) and [OAuth 2\.0](https://tools.ietf.org/html/rfc6749)\.
+Along with the endpoints in this guide, Amazon Cognito creates the following endpoints when you assign a domain to your user pool\.
+
+
+**Additional user pool endpoints**  
+
+| Endpoint URL | Description | 
+| --- | --- | 
+| https://cognito\-idp\.Region\.amazonaws\.com/your user pool ID/\.well\-known/openid\-configuration | A directory of the OIDC architecture of your user pool\. | 
+| https://cognito\-idp\.Region\.amazonaws\.com/your user pool ID/\.well\-known/jwks\.json | Public keys that you can use to validate Amazon Cognito tokens\. | 
+| https://Your user pool domain/oauth2/idpresponse | Social identity providers must redirect your users to this endpoint with an authorization code\. Amazon Cognito redeems the code for a token when it authenticates your federated user\. | 
+| https://Your user pool domain/saml2/idpresponse | To authenticate your SAML 2\.0 federated user, your identity provider must redirect your users to this endpoint with a SAML response\. | 
+| https://Your user pool domain/confirmUser | Confirms users who have selected an email link to verify their user account\. | 
+| https://Your user pool domain/signup | Signs up a new user\. The /login page directs your user to /signup when they select Sign up on the sign\-in page\. | 
+
+For more information on the OpenID and OAuth standards, see [OpenID Connect 1\.0](http://openid.net/specs/openid-connect-core-1_0.html) and [OAuth 2\.0](https://tools.ietf.org/html/rfc6749)\.
 
 **Topics**
-+ [AUTHORIZATION endpoint](authorization-endpoint.md)
-+ [TOKEN endpoint](token-endpoint.md)
-+ [USERINFO endpoint](userinfo-endpoint.md)
-+ [LOGIN endpoint](login-endpoint.md)
-+ [LOGOUT endpoint](logout-endpoint.md)
-+ [REVOCATION endpoint](revocation-endpoint.md)
++ [Authorize endpoint](authorization-endpoint.md)
++ [Token endpoint](token-endpoint.md)
++ [UserInfo endpoint](userinfo-endpoint.md)
++ [Login endpoint](login-endpoint.md)
++ [Logout endpoint](logout-endpoint.md)
++ [Revoke endpoint](revocation-endpoint.md)

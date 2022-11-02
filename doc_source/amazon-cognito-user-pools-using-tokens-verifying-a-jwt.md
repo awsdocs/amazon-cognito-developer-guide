@@ -10,9 +10,9 @@ These steps describe verifying a user pool JSON Web Token \(JWT\)\.
 
 ## Prerequisites<a name="amazon-cognito-user-pools-using-tokens-prerequisites"></a>
 
-The tasks in this section might be already handled by your library, SDK, or software framework\. For example, user pool token handling and management are provided on the client side through the Amazon Cognito SDKs\. Likewise, the Mobile SDK for iOS and the Mobile SDK for Android automatically refresh your ID and access tokens if two conditions are met: A valid \(unexpired\) refresh token must present, and the ID and access tokens must have a minimum remaining validity of 5 minutes\. For information on the SDKs, and sample code for JavaScript, Android, and iOS see [Amazon Cognito user pool SDKs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sdk-links.html)\.
+Your library, SDK, or software framework might already handle the tasks in this section\. For example, Amazon Cognito SDKs provide user pool token handling and management on the client side\. Likewise, the Mobile SDK for iOS and the Mobile SDK for Android automatically refresh your ID and access tokens if two conditions are met: A valid \(unexpired\) refresh token must present, and the ID and access tokens must have a minimum remaining validity time of 5 minutes\. For information on the SDKs, and sample code for JavaScript, Android, and iOS, see [Amazon Cognito user pool SDKs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sdk-links.html)\.
 
-Many good libraries are available for decoding and verifying a JSON Web Token \(JWT\)\. Such libraries can help if you need to manually process tokens for server\-side API processing or if you are using other programming languages\. See the [OpenID foundation list of libraries for working with JWT tokens](http://openid.net/developers/jwt/)\.
+Many libraries are available for decoding and verifying a JSON Web Token \(JWT\)\. If you must manually process tokens for server\-side API processing or if you are using other programming languages, these libraries can help\. See the [OpenID foundation list of libraries for working with JWT tokens](http://openid.net/developers/jwt/)\.
 
 ## Step 1: Confirm the structure of the JWT<a name="amazon-cognito-user-pools-using-tokens-step-1"></a>
 
@@ -29,7 +29,7 @@ A JSON Web Token \(JWT\) includes three sections:
 | --- |
 |  11111111111\.22222222222\.33333333333  | 
 
-These sections are encoded as base64url strings and are separated by dot \(\.\) characters\. If your JWT does not conform to this structure, consider it invalid and do not accept it\.
+These sections are encoded as base64url strings and are separated by dot \(\.\) characters\. If your JWT does not conform to this structure, consider it not valid and do not accept it\.
 
 ## Step 2: Validate the JWT signature<a name="amazon-cognito-user-pools-using-tokens-step-2"></a>
 
@@ -39,17 +39,21 @@ The JWT signature is a hashed combination of the header and the payload\. Amazon
 
 1. Decode the ID token\.
 
-   You can use AWS Lambda to decode user pool JWTs\. For more information see [Decode and verify Amazon Cognito JWT tokens using Lambda](https://github.com/awslabs/aws-support-tools/tree/master/Cognito/decode-verify-jwt)\.
+   You can use AWS Lambda to decode user pool JWTs\. For more information, see [Decode and verify Amazon Cognito JWT tokens using AWS Lambda](https://github.com/awslabs/aws-support-tools/tree/master/Cognito/decode-verify-jwt)\.
 
    The OpenID Foundation also [maintains a list of libraries for working with JWT tokens](http://openid.net/developers/jwt/)\.
 
 1. Compare the local key ID \(`kid`\) to the public kid\.
 
-   1. Download and store the corresponding public JSON Web Key \(JWK\) for your user pool\. It is available as part of a JSON Web Key Set \(JWKS\)\. You can locate it at https://cognito\-idp\.\{region\}\.amazonaws\.com/\{userPoolId\}/\.well\-known/jwks\.json\.
+   1. Download and store the corresponding public JSON Web Key \(JWK\) for your user pool\. It is available as part of a JSON Web Key Set \(JWKS\)\. You can locate it by constructing the following URL for your environment:
+
+      ```
+      https://cognito-idp.{region}.amazonaws.com/{userPoolId}/.well-known/jwks.json
+      ```
 
       For more information on JWK and JWK sets, see [JSON web key \(JWK\)](https://tools.ietf.org/html/rfc7517)\.
 **Note**  
-This is a one\-time step before your web API operations can process tokens\. Now you can perform the following steps each time the ID token or the access token are used with your web API operations\.
+Downloading and storing the JWK for your user pool is a one\-time step before your web API operations can process tokens\. After doing so, you can perform the following steps each time the ID token or the access token is used with your web API operations\.
 
       This is a sample `jwks.json` file:
 
@@ -108,7 +112,7 @@ The `use` parameter describes the intended use of the public key\. For this exam
 
 1. Verify that the token is not expired\.
 
-1. The audience \(`aud`\) claim should match the app client ID that was created in the Amazon Cognito user pool\.
+1. The `aud` claim in an ID token and the `client_id` claim in an access token should match the app client ID that was created in the Amazon Cognito user pool\.
 
 1. The issuer \(`iss`\) claim should match your user pool\. For example, a user pool created in the `us-east-1` Region will have the following `iss` value:
 

@@ -22,14 +22,6 @@ Before you create a social IdP with Amazon Cognito, you must register your appli
 
 1. Choose **\+ Add Platform** from the bottom of the page\.
 
-1. Choose **Website**\.
-
-1. Under **Website**, enter a sign\-in URL for your app client endpoint into **Site URL**\. Your sign\-in URL should be in the following format:
-
-   ```
-   https://your_user_pool_domain/login?response_type=code&client_id=your_app_client_id&redirect_uri=your_callback_url
-   ```
-
 1. Choose **Save changes**\.
 
 1. For **App Domains**, enter your user pool domain\.
@@ -88,61 +80,63 @@ Before you create a social IdP with Amazon Cognito, you must register your appli
 
 ### To register an app with Google<a name="register-an-app-with-google"></a>
 
+For more information about OAuth 2\.0 in the Google Cloud platform, see [Learn about authentication & authorization](https://developers.google.com/workspace/guides/auth-overview) in the Google Workspace for Developers documentation\.
+
 1. Create a [developer account with Google](https://developers.google.com/identity)\.
 
-1. [Sign in](https://developers.google.com/identity/sign-in/web/sign-in) with your Google credentials\.
+1. Sign in to the [Google Cloud Platform console](https://console.cloud.google.com/home/dashboard)\.
 
-1. Choose **CONFIGURE A PROJECT**\.
+1. From the top navigation bar, choose **Select a project**\. If you already have a project in the Google platform, this menu displays your default project instead\.
 
-1. Enter a project name, and then choose **NEXT**\.
+1. Select **NEW PROJECT**\.
 
-1. Enter your product name, and then choose **NEXT**\.
+1. Enter a name for your product and then choose **CREATE**\.
 
-1. Select **Web browser** from the **Where are you calling from?** drop\-down list\.
+1. On the left navigation bar, choose **APIs and Services**, then **Oauth consent screen**\.
 
-1. Enter your user pool domain into the **Authorized JavaScript origins** field\.
+1. Enter App information, an **App domain**, **Authorized domains**, and **Developer contact information**\. Your **Authorized domains** must include `amazoncognito.com` and the root of your custom domain, for example `example.com`\. Choose **SAVE AND CONTINUE**\.
+
+1. 1\. Under **Scopes**, choose **Add or remove scopes**, and choose, at minimum, the following OAuth scopes\.
+
+   1. `.../auth/userinfo.email`
+
+   1. `.../auth/userinfo.profile`
+
+   1. openid
+
+1. Under **Test users**, choose **Add users**\. Enter your email address and any other authorized test users, then choose **SAVE AND CONTINUE**\.
+
+1. Expand the left navigation bar again, and choose **APIs and Services**, then **Credentials**\. 
+
+1. Choose **CREATE CREDENTIALS**, then **OAuth client ID**\.
+
+1. Choose an **Application type** and give your client a **Name**\.
+
+1. Under **Authorized JavaScript origins**, choose **ADD URI**\. Enter your user pool domain\.
 
    ```
    https://<your-user-pool-domain>
    ```
 
-1. Choose **CREATE**\. You will not use the **Client ID** and **Client Secret** from this step\.
-
-1. Choose **DONE**\.
-
-1. [Sign in](https://console.developers.google.com) to the Google Console\.
-
-1. On the left navigation bar, choose **Credentials**\.
-
-1. Create your OAuth 2\.0 credentials by choosing **OAuth client ID** from the **Create credentials** drop\-down list\.
-
-1. Choose **Web application**\.
-
-1. Enter your user pool domain into the **Authorized JavaScript origins** field\.
-
-   ```
-   https://<your-user-pool-domain>
-   ```
-
-1. Enter your user pool domain with the `/oauth2/idpresponse` endpoint into the **Authorized Redirect URIs** field\.
+1. Under **Authorized redirect URIs**, choose **ADD URI**\. Enter the path to the `/oauth2/idpresponse` endpoint of your user pool domain\.
 
    ```
    https://<your-user-pool-domain>/oauth2/idpresponse
    ```
 
-1. Choose **Create** twice\.
+1. Choose **CREATE**\.
 
-1. Note the **OAuth client ID** and **client secret**\. You will need them for the next section\.
-
-1. Choose **OK**\.
+1. Securely store the values the Google displays under **Your client ID** and **Your client secret**\. Provide these values to Amazon Cognito when you add a Google IdP\.
 
 ### To register an app with Apple<a name="register-an-app-with-apple"></a>
+
+For more information about setting up Sign in with Apple, see [Configuring Your Environment for Sign in with Apple](https://developer.apple.com/documentation/sign_in_with_apple/configuring_your_environment_for_sign_in_with_apple) in the Apple Developer documentation\.
 
 1. Create a [developer account with Apple](https://developer.apple.com/programs/enroll/)\.
 
 1. [Sign in](https://developer.apple.com/account/#/welcome) with your Apple credentials\.
 
-1. On the left navigation bar, choose **Certificates, IDs & Profiles**\.
+1. On the left navigation bar, choose **Certificates, Identifiers & Profiles**\.
 
 1. On the left navigation bar, choose **Identifiers**\.
 
@@ -150,21 +144,23 @@ Before you create a social IdP with Amazon Cognito, you must register your appli
 
 1. On the **Register a New Identifier** page, choose **App IDs**, and then choose **Continue**\.
 
+1. On the **Select a type** page, choose **App**, then choose **Continue**\.
+
 1. On the **Register an App ID** page, do the following:
 
-   1. Under **Description**, type a description\.
+   1. Under **Description**, enter a description\.
 
-   1. Under **App ID Prefix**, type an identifier\. Make a note of the value under **App ID Prefix**\. You will use this value after you choose Apple as your identity provider in [Step 2: Add a social IdP to your user pool](cognito-user-pools-social-idp.md#cognito-user-pools-social-idp-step-2)\.
+   1. Under **App ID Prefix**, enter a **Bundle ID**\. Make a note of the value under **App ID Prefix**\. You will use this value after you choose Apple as your identity provider in [Step 2: Add a social IdP to your user pool](cognito-user-pools-social-idp.md#cognito-user-pools-social-idp-step-2)\.
 
    1. Under **Capabilities**, choose **Sign In with Apple**, and then choose **Edit**\.
 
-   1. On the **Sign in with Apple: App ID Configuration** page, select the appropriate setting for you app, and then choose **Save**\.
+   1. On the **Sign in with Apple: App ID Configuration** page, choose to set up the app as either primary or grouped with other App IDs, and then choose **Save**\.
 
    1. Choose **Continue**\.
 
 1. On the **Confirm your App ID** page, choose **Register**\.
 
-1. On the **Identifiers** page, hover over **App IDs** on the right side of the page, choose **Services IDs**, and then choose the **\+** icon\.
+1. On the **Identifiers** page, choose the **\+** icon\.
 
 1. On the **Register a New Identifier** page, choose **Services IDs**, and then choose **Continue**\.
 
@@ -174,17 +170,31 @@ Before you create a social IdP with Amazon Cognito, you must register your appli
 
    1. Under **Identifier**, type an identifier\. Make a note of this Services ID as you will need this value after you choose Apple as your identity provider in [Step 2: Add a social IdP to your user pool](cognito-user-pools-social-idp.md#cognito-user-pools-social-idp-step-2)\.
 
+   1. Choose **Continue**, then **Register**\.
+
+1. Choose the Services ID you just create from the Identifiers page\.
+
    1. Select **Sign In with Apple**, and then choose **Configure**\.
 
-   1. On the **Web Authentication Configuration** page, choose a **Primary App ID**\. Under **Web Domain**, type your user pool domain\. Under **Return URLs**, type your user pool domain and include the `/oauth2/idpresponse` endpoint\. For example:
+   1. On the **Web Authentication Configuration** page, select the app ID that you created earlier as the **Primary App ID**\. 
+
+   1. Choose the **\+** icon next to **Website URLs**\. 
+
+   1. Under **Domains and subdomains**, enter your user pool domain without an `https://` prefix\.
+
+      ```
+      <your-user-pool-domain>
+      ```
+
+   1. Under **Return URLs**, enter the path to the `/oauth2/idpresponse` endpoint of your user pool domain\.
 
       ```
       https://<your-user-pool-domain>/oauth2/idpresponse
       ```
 
-   1. Choose **Add**, and then **Save**\. You do not need to verify the domain\.
+   1. Choose **Next**, and then **Done**\. You don't need to verify the domain\.
 
-   1. Choose **Continue**, and then choose **Register**\.
+   1. Choose **Continue**, and then choose **Save**\.
 
 1. On the left navigation bar, choose **Keys**\.
 
@@ -196,7 +206,7 @@ Before you create a social IdP with Amazon Cognito, you must register your appli
 
    1. Choose **Sign In with Apple**, and then choose **Configure**\.
 
-   1. On the **Configure Key** page, choose a **Primary App ID**, and then choose **Save**\.
+   1. On the **Configure Key** page and select the app ID that you created earlier as the **Primary App ID**\. Choose **Save**\.
 
    1. Choose **Continue**, and then choose **Register**\.
 
@@ -219,12 +229,12 @@ In this section, you configure a social IdP in your user pool using the client I
 
 1. On the left navigation bar, choose **Identity providers**\.
 
-1. Choose a social identity provider: **Facebook**, **Google**, **Login with Amazon**, or **Apple**\.
+1. Choose a social identity provider: **Facebook**, **Google**, **Login with Amazon**, or **Sign in with Apple**\.
 
 1. Choose from the following steps, based on your choice of social identity provider:
    + **Google** and **Login with Amazon** — Enter the **app client ID** and **app client secret** generated in the previous section\.
-   + **Facebook** — Enter the **app client ID** and **app client secret** generated in the previous section, and then choose an API version \(for example, version 2\.12\)\. We recommend chosing the latest possible version, as each Facebook API has a lifecycle and deprecation date\. Facebook scopes and attributes can vary between API versions\. We recommend testing your social identity log in with Facebook to ensure that federation works as intended\.
-   + **Sign In with Apple** — Enter the **Services ID**, **Team ID**, **Key ID**, and **private key** generated in the previous section\.
+   + **Facebook** — Enter the **app client ID** and **app client secret** generated in the previous section, and then choose an API version \(for example, version 2\.12\)\. We recommend choosing the latest possible version, as each Facebook API has a lifecycle and deprecation date\. Facebook scopes and attributes can vary between API versions\. We recommend testing your social identity log in with Facebook to ensure that federation works as intended\.
+   + **Sign in with Apple** — Enter the **Services ID**, **Team ID**, **Key ID**, and **private key** generated in the previous section\.
 
 1. Enter the names of the scopes that you want to authorize\. Scopes define which user attributes \(such as `name` and `email`\) you want to access with your app\. For Facebook, these should be separated by commas\. For Google and Login with Amazon, they should be separated by spaces\. For Sign in with Apple, select the check boxes for the scopes you want access to\.    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-configuring-federation-with-social-idp.html)
@@ -233,8 +243,8 @@ In this section, you configure a social IdP in your user pool using the client I
 
    With Sign in with Apple, the following are user scenarios where scopes might not be returned:
    + An end user encounters failures after leaving Apple’s sign in page \(can be from Internal failures within Amazon Cognito or anything written by the developer\)
-   + The service ID identifier is used across user pools and/or other authentication services
-   + A developer adds additional scopes after the end user has signed in before \(no new information is retrieved\)
+   + The service ID identifier is used across user pools or other authentication services
+   + A developer adds additional scopes after the user signs in\. Users only retrieve new information when they authenticate and when they refresh their tokens\.
    + A developer deletes the user and then the user signs in again without removing the app from their Apple ID profile
 
 1. Choose **Enable** for the social identity provider that you are configuring\.
@@ -276,12 +286,10 @@ In this section, you configure a social IdP in your user pool using the client I
 
 1. Choose a social identity provider: **Facebook**, **Google**, **Login with Amazon**, or **Sign in with Apple**\.
 
-1. 
-
-   Choose from the following steps, based on your choice of social identity provider:
+1. Choose from the following steps, based on your choice of social identity provider:
    + **Google** and **Login with Amazon** — Enter the **app client ID** and **app client secret** generated in the previous section\.
-   + **Facebook** — Enter the **app client ID** and **app client secret** generated in the previous section, and then choose an API version \(for example, version 2\.12\)\. We recommend chosing the latest possible version, as each Facebook API has a lifecycle and deprecation date\. Facebook scopes and attributes can vary between API versions\. We recommend testing your social identity log in with Facebook to ensure that federation works as intended\.
-   + **Sign In with Apple** — Enter the **Services ID**, **Team ID**, **Key ID**, and **private key** generated in the previous section\.
+   + **Facebook** — Enter the **app client ID** and **app client secret** generated in the previous section, and then choose an API version \(for example, version 2\.12\)\. We recommend choosing the latest possible version, as each Facebook API has a lifecycle and deprecation date\. Facebook scopes and attributes can vary between API versions\. We recommend testing your social identity log in with Facebook to ensure that federation works as intended\.
+   + **Sign in with Apple** — Enter the **Services ID**, **Team ID**, **Key ID**, and **private key** generated in the previous section\.
 
 1. Enter the names of the **Authorized scopes** you want to use\. Scopes define which user attributes \(such as `name` and `email`\) you want to access with your app\. For Facebook, these should be separated by commas\. For Google and Login with Amazon, they should be separated by spaces\. For Sign in with Apple, select the check boxes for the scopes you want access to\.    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-configuring-federation-with-social-idp.html)
@@ -291,7 +299,7 @@ In this section, you configure a social IdP in your user pool using the client I
    With Sign in with Apple, the following are user scenarios where scopes might not be returned:
    + An end user encounters failures after leaving Apple’s sign in page \(can be from Internal failures within Amazon Cognito or anything written by the developer\)
    + The service ID identifier is used across user pools and/or other authentication services
-   + A developer adds additional scopes after the end user has signed in before \(no new information is retrieved\)
+   + A developer adds additional scopes after the user signs in\. Users only retrieve new information when they authenticate and when they refresh their tokens\.
    + A developer deletes the user and then the user signs in again without removing the app from their Apple ID profile
 
 1. Map attributes from your identity provider to your user pool\. For more information, see [Specifying Identity Provider Attribute Mappings for Your User Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html)\.
@@ -315,7 +323,7 @@ https://<your_user_pool_domain>/login?response_type=code&client_id=<your_client_
 You can find your domain on the user pool **Domain name** console page\. The client\_id is on the **App client settings** page\. Use your callback URL for the **redirect\_uri** parameter\. This is the URL of the page where your user will be redirected after a successful authentication\.
 
 **Note**  
-Requests that are not completed within 5 minutes will be cancelled, redirected to the login page, and then display a `Something went wrong` error message\.
+Amazon Cognito cancels authentication requests that do not complete within 5 minutes, and redirects the user to the hosted UI\. The page displays a `Something went wrong` error message\.
 
 ## Next step<a name="cognito-user-pools-configuring-federation-with-social-idp-next-step"></a>
 

@@ -1,6 +1,6 @@
 # Using the Amazon Cognito hosted UI for sign\-up and sign\-in<a name="cognito-user-pools-app-integration"></a>
 
-The Amazon Cognito Hosted UI provides you an OAuth 2\.0 compliant authorization server\. It includes default implementation of end user flows such as registration and authentication\. You can also customize user flows, such as the addition of Multi Factor Authentication \(MFA\), by changing your user pool configuration\. Your application will redirect to the Hosted UI,which will handle your user flows\. The user experience can be customized by providing brand\-specific logos, as well as customizing the design of Hosted UI elements\. The Amazon Cognito Hosted UI also allows you to add the ability for end users to sign in with social providers \(Facebook, Amazon, Google, and Apple\), as well as any OpenID Connect \(OIDC\)\-compliant and SAML providers\. 
+The Amazon Cognito Hosted UI provides you an OAuth 2\.0 compliant authorization server\. It includes default implementation of end user flows such as registration and authentication\. You can also customize user flows, such as the addition of Multi Factor Authentication \(MFA\), by changing your user pool configuration\. Your application will redirect to the Hosted UI, which will handle your user flows\. The user experience can be customized by providing brand\-specific logos, as well as customizing the design of Hosted UI elements\. The Amazon Cognito Hosted UI also allows you to add the ability for end users to sign in with social providers \(Facebook, Amazon, Google, and Apple\), as well as any OpenID Connect \(OIDC\)\-compliant and SAML providers\. 
 
 **Topics**
 + [Setting up the hosted UI with AWS Amplify](#cognito-user-pools-app-integration-amplify)
@@ -8,13 +8,14 @@ The Amazon Cognito Hosted UI provides you an OAuth 2\.0 compliant authorization 
 + [Configuring a user pool app client](cognito-user-pools-app-idp-settings.md)
 + [Configuring a user pool domain](cognito-user-pools-assign-domain.md)
 + [Customizing the built\-in sign\-in and sign\-up webpages](cognito-user-pools-app-ui-customization.md)
++ [Signing up and signing in with the hosted UI](cognito-user-pools-hosted-ui-user-experience.md)
 + [Defining resource servers for your user pool](cognito-user-pools-define-resource-servers.md)
 
 ## Setting up the hosted UI with AWS Amplify<a name="cognito-user-pools-app-integration-amplify"></a>
 
 If you use AWS Amplify to add authentication to your web or mobile app, you can set up your hosted UI by using the command line interface \(CLI\) and libraries in the AWS Amplify framework\. To add authentication to your app, you use the AWS Amplify CLI to add the `Auth` category to your project\. Then, in your client code, you use the AWS Amplify libraries to authenticate users with your Amazon Cognito user pool\.
 
-You can display a pre\-built hosted UI, or you can federate users through an OAuth 2\.0 endpoint that redirects to a social sign\-in provider, such as Facebook, Google, Amazon, or Apple\. After a user successfully authenticates with the social provider, AWS Amplify creates a new user in your user pool if needed, and then provides the user's OIDC token to you app\.
+You can display a pre\-built hosted UI, or you can federate users through an OAuth 2\.0 endpoint that redirects to a social sign\-in provider, such as Facebook, Google, Amazon, or Apple\. After a user successfully authenticates with the social provider, AWS Amplify creates a new user in your user pool if needed, and then provides the user's OIDC token to your app\.
 
 For more information, see the AWS Amplify framework documentation for your app platform:
 + [AWS Amplify authentication for JavaScript\.](https://aws-amplify.github.io/docs/js/authentication)
@@ -58,7 +59,7 @@ For more information, see the AWS Amplify framework documentation for your app p
 
 **Configure the app**
 
-1. Choose **App client settings** from the navigation bar on the leftside of the console page\.
+1. Choose **App client settings** from the navigation bar on the left side of the console page\.
 
 1. Select **Cognito User Pool** as one of the **Enabled Identity Providers**\.
 **Note**  
@@ -95,7 +96,7 @@ To sign in with external identity providers \(IdPs\), such as Facebook, Amazon, 
 
 **Create an app client**
 
-1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\. YIf prompted, enter your AWS credentials\.
+1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\. If prompted, enter your AWS credentials\.
 
 1. Choose **User Pools**\.
 
@@ -110,6 +111,8 @@ To sign in with external identity providers \(IdPs\), such as Facebook, Amazon, 
 1. Enter an **App client name**\.
 
 1. Select the **Authentication flows** you want to allow in your app client\.
+
+1. Configure the **Authentication flow session duration**\. This is the amount of time your users have to complete each authentication challenge before their session token expires\.
 
 1. \(Optional\) Configure token expiration\.
 
@@ -167,16 +170,26 @@ If you use the hosted UI and configure a token lifetime of less than an hour, yo
 
 **To view your sign\-in page**
 
-You can view the hosted UI sign\-in webpage with the following URL\. Note the `response_type`\. In this case, **response\_type=code** for the authorization code grant\.
+In the Amazon Cognito console, select the **View Hosted UI** button in the configuration of your app client, under **App clients and analytics** in the **App integration** tab\. This button takes you to a sign\-in page in your hosted UI with the following basic parameters\.
++ The app client id
++ An authorization code grant request
++ A request for all scopes that you have activated for the current app client
++ The first callback URL in the list for the current app client
+
+The **View hosted UI** button is useful when you want to test the basic functions of your hosted UI\. You can customize your sign\-in URL with additional and modified parameters\. In most cases, the automatically\-generated parameters of the **View hosted UI** link don’t fully match the needs of your app\. In these cases, you must customize the URL that your app invokes when it signs in your users\. For more information about sign\-in parameter keys and values, see [User pool OIDC and hosted UI API endpoints reference](cognito-userpools-server-contract-reference.md)\.
+
+The hosted UI sign\-in webpage uses the following URL format\. Note the `response_type`\. In this case, **response\_type=code** for the authorization code grant\.
 
 ```
-https://<your_domain>/login?response_type=code&client_id=<your_app_client_id>&redirect_uri=<your_callback_url>
+https://<your_domain>/oauth2/authorize?response_type=code&client_id=<your_app_client_id>&redirect_uri=<your_callback_url>
 ```
+
+When you navigate to the `/oauth2/authorize` endpoint with your custom parameters, Amazon Cognito either redirects you to the `/oauth2/login` endpoint or, if you have an `identity_provider` or `idp_identifier` parameter, silently redirects you to your IdP sign\-in page\. For an example URL that bypasses the hosted UI, see [SAML session initiation in Amazon Cognito user pools](cognito-user-pools-SAML-session-initiation.md)\.
 
 You can view the hosted UI sign\-in webpage with the following URL for the implicit code grant where **response\_type=token**\. After a successful sign\-in, Amazon Cognito returns user pool tokens to your web browser's address bar\.
 
 ```
-https://<your_domain>/login?response_type=token&client_id=<your_app_client_id>&redirect_uri=<your_callback_url>
+            https://<your_domain>/login?response_type=token&client_id=<your_app_client_id>&redirect_uri=<your_callback_url>
 ```
 
 You can find the JSON web token \(JWT\) identity token after the `#idtoken=` parameter in the response\.
@@ -184,14 +197,14 @@ You can find the JSON web token \(JWT\) identity token after the `#idtoken=` par
 Here's a sample response from an implicit grant request\. Your identity token string will be much longer\.
 
 ```
-https://www.example.com/#id_token=123456789tokens123456789&expires_in=3600&token_type=Bearer  
+            https://www.example.com/#id_token=123456789tokens123456789&expires_in=3600&token_type=Bearer  
 ```
 
-If changes to your hosted UI pages do not immediately appear, wait a few minutes and then refresh the page\. Amazon Cognito user pools tokens are signed using an RS256 algorithm\. You can decode and verify user pool tokens using AWS Lambda, see [Decode and verify Amazon Cognito JWT tokens](https://github.com/awslabs/aws-support-tools/tree/master/Cognito/decode-verify-jwt) on the AWS GitHub website\.
-
-
+If changes to your hosted UI pages do not immediately appear, wait a few minutes and then refresh the page\. Amazon Cognito user pools tokens are signed using an RS256 algorithm\. You can decode and verify user pool tokens using AWS Lambda, see [Decode and verify Amazon Cognito JWT tokens](https://github.com/awslabs/aws-support-tools/tree/master/Cognito/decode-verify-jwt) on GitHub\.
 
 Your domain is shown on the **Domain name** page\. Your app client ID and callback URL are shown on the **App client settings** page\.
 
 **Note**  
-The Amazon Cognito hosted sign\-in web page does not support the custom authentication flow\.
+The Amazon Cognito hosted UI does not support the custom authentication flow\.
+
+The Amazon Cognito hosted UI doesn't support custom cross\-origin resource sharing \(CORS\) origin policies\. Amazon Cognito returns an `Access-Control-Allow-Origin: *` response header to all requests\. A CORS policy in the hosted UI would prevent users from passing authentication parameters in their requests\. Instead, implement a CORS policy in the web frontend of your app\.

@@ -1,13 +1,19 @@
 # Customizing email verification messages<a name="cognito-user-pool-settings-email-verification-message-customization"></a>
 
-You can choose one of two methods for your user pool's users to verify their email address with Amazon Cognito\. They can enter a code, or click on a link, sent to them in an email message\.
+To verify the email address of a user in your user pool with Amazon Cognito, you can send the user an email message with a link that they can select, or you can send them a code that they can enter\.
 
 **Note**  
-In the new Amazon Cognito console experience, you can customize email verification messages in the **Messaging** tab under the **Message templates** heading\.
+In the new Amazon Cognito console, you can customize email verification messages under the **Message Templates** heading in the **Messaging** tab of your user pool\.
 
-You can customize the email subject and message content for email address verification messages by editing the template under the **Do you want to customize your email verification messages?** heading\.
+To customize the email subject and message content for email address verification messages, edit the template under the **Do you want to customize your email verification messages?** heading\.
 
 **Important**  
-If you have chosen code as the verification type, your custom message must contain the `{####}` placeholder\. This placeholder is replaced with the verification code when the message is sent\.
+If you choose `code` as the verification type, your custom message must contain the `{####}` placeholder\. When you send the message, the verification code replaces this placeholder\. If you choose `link` as the verification type, your custom message must include a placeholder in the format `{##Verify Your Email##}`\. A verification link titled *Verify Your Email* replaces this placeholder\.
+
+The link for an email verification message directs your user to a URL like the following example\.
+
+```
+https://<your user pool domain>/confirmUser/?client_id=abcdefg12345678&user_name=emailtest&confirmation_code=123456
+```
 
 The maximum length for the message, including the verification code \(if present\), is 20,000 UTF\-8 characters\. You can use HTML tags in this message to format the contents\.

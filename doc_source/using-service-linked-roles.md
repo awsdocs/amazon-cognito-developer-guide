@@ -11,15 +11,17 @@ For information about other services that support service\-linked roles, see [AW
 ## Service\-linked role permissions for Amazon Cognito<a name="slr-permissions"></a>
 
 Amazon Cognito uses the following service\-linked roles:
-+ ** AmazonCognitoIdpEmailService** – Allows Amazon Cognito user pools service to use your Amazon SES identities for sending email\.
-+ ** AmazonCognitoIdp** – Allows Amazon Cognito user pools to publish events and configure endpoints for your Amazon Pinpoint projects\.
++ ** AWSServiceRoleForAmazonCognitoIdpEmailService** – Allows Amazon Cognito user pools service to use your Amazon SES identities for sending email\.
++ ** AWSServiceRoleForAmazonCognitoIdp** – Allows Amazon Cognito user pools to publish events and configure endpoints for your Amazon Pinpoint projects\.
 
-The `AmazonCognitoIdpEmailService` service\-linked role trusts the following services to assume the role:
+**AWSServiceRoleForAmazonCognitoIdpEmailService**
+
+The `AWSServiceRoleForAmazonCognitoIdpEmailService` service\-linked role trusts the following services to assume the role:
 + `email.cognito-idp.amazonaws.com`
 
 The role permissions policy allows Amazon Cognito to complete the following actions on the specified resources:
 
-**Allowed Actions for AmazonCognitoidpEmailService**
+**Allowed Actions for AWSServiceRoleForAmazonCognitoIdpEmailService:**
 + Action: `ses:SendEmail` and `ses:SendRawEmail`
 + Resource: `*`
 
@@ -33,14 +35,14 @@ With these permissions, Amazon Cognito can use your verified email addresses in 
 
 You must configure permissions to allow an IAM entity \(such as a user, group, or role\) to create, edit, or delete a service\-linked role\. For more information, see [Service\-linked role permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#service-linked-role-permissions) in the *IAM User Guide*\.
 
-**AmazonCognitoIdp**
+**AWSServiceRoleForAmazonCognitoIdp**
 
-The AmazonCognitoIdp service\-linked role trusts the following services to assume the role:
+The AWSServiceRoleForAmazonCognitoIdp service\-linked role trusts the following services to assume the role:
 + `email.cognito-idp.amazonaws.com`
 
 The role permissions policy allows Amazon Cognito to complete the following actions on the specified resources:
 
-**Allowed Actions for AmazonCognitoIdp**
+**Allowed Actions for AWSServiceRoleForAmazonCognitoIdp**
 + Action: `cognito-idp:Describe` 
 + Resource: `*`
 
@@ -59,15 +61,15 @@ Before Amazon Cognito can create this role, the IAM permissions that you use to 
 
 ## Editing a service\-linked role for Amazon Cognito<a name="edit-slr"></a>
 
-Amazon Cognito doesn't allow you to edit the AmazonCognitoIdpEmailService or AmazonCognitoIdpEmailService service\-linked roles\. After you create a service\-linked role, you can't change the name of the role because various entities might reference the role\. However, you can edit the description of the role using IAM\. For more information, see [Editing a service\-linked role](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#edit-service-linked-role) in the *IAM User Guide*\.
+ You can't edit the AmazonCognitoIdp or AmazonCognitoIdpEmailService service\-linked roles in AWS Identity and Access Management\. After you create a service\-linked role, you can't change the name of the role because various entities might reference the role\. However, you can edit the description of the role using IAM\. For more information, see [Editing a service\-linked role](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#edit-service-linked-role) in the *IAM User Guide*\.
 
 ## Deleting a service\-linked role for Amazon Cognito<a name="delete-slr"></a>
 
-If you no longer need to use a feature or service that requires a service\-linked role, we recommend that you delete that role\. That way you don’t have an unused entity that is not actively monitored or maintained\. Before you can delete AmazonCognitoIdpEmailService or AmazonCognitoIdpEmailService service\-linked roles, you must do either of the following for each user pool that uses the role:
+If you no longer need to use a feature or service that requires a service\-linked role, we recommend that you delete that role\. If you delete the role, you only retain entities that Amazon Cognito actively monitors or maintains\. Before you can delete AmazonCognitoIdp or AmazonCognitoIdpEmailService service\-linked roles, you must do one of the following for each user pool that uses the role:
 + Delete the user pool\.
-+ Update the email settings in the user pool to use the default email functionality\. The default setting does not use the service\-linked role\.
++ Update the email settings in the user pool to use the default email functionality\. The default setting doesn't use the service\-linked role\.
 
-Remember to do these actions in each AWS region that contains a user pool that uses the role\.
+Remember to perform the action in each AWS Region with a user pool that uses the role\.
 
 **Note**  
 If the Amazon Cognito service is using the role when you try to delete the resources, then the deletion might fail\. If that happens, wait for a few minutes and try the operation again\.
@@ -100,8 +102,8 @@ If the Amazon Cognito service is using the role when you try to delete the resou
 
 **To manually delete the service\-linked role using IAM**
 
-Use the IAM console, the AWS CLI, or the AWS API to delete AmazonCognitoIdpEmailService or AmazonCognitoIdpEmailService service\-linked roles\. For more information, see [Deleting a service\-linked role](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#delete-service-linked-role) in the *IAM User Guide*\.
+Use the IAM console, the AWS CLI, or the AWS API to delete AmazonCognitoIdp or AmazonCognitoIdpEmailService service\-linked roles\. For more information, see [Deleting a service\-linked role](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#delete-service-linked-role) in the *IAM User Guide*\.
 
 ## Supported Regions for Amazon Cognito service\-linked roles<a name="slr-regions"></a>
 
-Amazon Cognito supports using service\-linked roles in all of the regions where the service is available\. For more information, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#cognito_identity_region)\.
+Amazon Cognito supports service\-linked roles in all AWS Regions where the service is available\. For more information, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#cognito_identity_region)\.

@@ -1,19 +1,19 @@
 # Integrating third\-party SAML identity providers with Amazon Cognito user pools<a name="cognito-user-pools-integrating-3rd-party-saml-providers"></a>
 
-To configure third\-party SAML 2\.0 identity provider solutions to work with federation for Amazon Cognito user pools, you must enter the following redirect URL: `https://<yourDomainPrefix>.auth.<region>.amazoncognito.com/saml2/idpresponse`\. You can find your domain prefix and the region value for your user pool on the **Domain name** console page of the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\.
+To configure third\-party SAML 2\.0 identity provider \(IdP\) solutions to work with federation for Amazon Cognito user pools, you must enter the following redirect URL: `https://Your user pool domain/saml2/idpresponse`\. If your user pool has an Amazon Cognito domain, you can find your user pool domain path in the **App integration** tab of your user pool in the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\.
 
 **Note**  
-Any SAML identity providers that you created in a user pool during the public beta before August 10, 2017 have redirect URLs of `https://<yourDomainPrefix>.auth.<region>.amazoncognito.com/login/redirect`\. If you have one of these SAML identity providers from the public beta in your user pool, you must either:  
+Any SAML IdPs that you created in a user pool during the public beta before August 10, 2017 have redirect URLs of `https://<yourDomainPrefix>.auth.<region>.amazoncognito.com/login/redirect`\. If you have one of these SAML identity providers from the public beta in your user pool, you must either:  
 Replace it with a new one that uses the new redirect URL\.
-Update the configuration in your SAML identity provider to accept both the old and new redirect URLs\.
-All SAML identity providers in Amazon Cognito will switch to the new URLs\. The old URL will stop working on October 31, 2017\.
+Update the configuration in your SAML IdP to accept both the old and new redirect URLs\.
+All SAML IdPs in Amazon Cognito switch to the new URLs\. The old URL will stop working on October 31, 2017\.
 
-For some SAML Identity providers, you must provide the `urn` / Audience URI / SP Entity ID, in the form `urn:amazon:cognito:sp:<yourUserPoolID>`\. You can find your user pool ID on the **General settings** tab in the Amazon Cognito console\.
+For some SAML IdPs, provide the `urn` / Audience URI / SP Entity ID, in the form `urn:amazon:cognito:sp:<yourUserPoolID>`\. You can find your user pool ID on the **General settings** tab in the Amazon Cognito console\.
 
-You must also configure your SAML identity provider to provide attributes values for any attributes required in your user pool\. Typically, `email` is a required attribute for user pools, in which case the SAML identity provider will need to provide an `email` value \(claim\) in the SAML assertion\.
+You must also configure your SAML IdP to provide attributes values for any attributes required in your user pool\. Typically, `email` is a required attribute for user pools, in which case the SAML IdP must provide an `email` value \(claim\) in the SAML assertion\.
 
 **Note**  
-Amazon Cognito will not accept an emoji that your identity provider passes as an attribute value\. You can Base64 encode the emoji to pass it as text, and then decode it in your app\.  
+Amazon Cognito will not accept an emoji that your IdP passes as an attribute value\. You can Base64 encode the emoji to pass it as text, and then decode it in your app\.  
 In the following example, the attribute claim will not be accepted:  
 
 ```
@@ -29,10 +29,10 @@ In contrast to the preceding example, the following attribute claim will be acce
 </saml2:Attribute>
 ```
 
-The following links help you configure third\-party SAML 2\.0 identity provider solutions to work with federation for Amazon Cognito user pools\.
+The following links help you configure third\-party SAML 2\.0 IdP solutions to work with federation for Amazon Cognito user pools\.
 
 **Note**  
-Identity provider support is built in to Amazon Cognito, so you only need to go to the following provider sites to get the SAML metadata document\. You may see further instructions on the provider website about integrating with AWS, but you won't need those\.
+Amazon Cognito includes IdP support, so you only need to go to the following provider sites to get the SAML metadata document\. You might see further instructions on the provider website about integrating with AWS, but you won't need those\.
 
 
 | Solution | More information | 

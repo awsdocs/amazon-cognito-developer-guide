@@ -1,12 +1,18 @@
 # Tutorial: Creating an identity pool<a name="tutorial-create-identity-pool"></a>
 
+**Important**  
+Currently, you must configure Amazon Cognito identity pools in the original console, even if you have migrated to the new console for Amazon Cognito user pools\. From the new console, choose **Federated identities** to navigate to the identity pools console\.
+
 With an identity pool, your users can obtain temporary AWS credentials to access AWS services, such as Amazon S3 and DynamoDB\.
+
+**Note**  
+In the new Amazon Cognito console experience, you can manage identity pools from the **Federated identities** link on the left navigation bar\.
 
 **To create an identity pool**
 
-1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\. If prompted, enter your AWS credentials\.
+1. Go to the [Amazon Cognito console](https://console.aws.amazon.com/cognito/federated)\. If prompted, enter your AWS credentials\.
 
-1. Choose **Manage Identity Pools**
+1. Choose **Manage Identity Pools**\.
 
 1. Choose **Create new identity pool**\.
 
@@ -24,6 +30,6 @@ With an identity pool, your users can obtain temporary AWS credentials to access
 
 ## Related resources<a name="tutorial-related-resources-2"></a>
 
-For more information on identity pools, see [Amazon Cognito identity pools \(federated Identities\)](cognito-identity.md)\.
+For more information on identity pools, see [Amazon Cognito identity pools \(federated identities\)](cognito-identity.md)\.
 
 For an example of using an identity pool with Amazon S3, see [Uploading Photos to Amazon S3 from a Browser](https://docs.aws.amazon.com/sdk-for-javascript/latest/developer-guide/s3-example-photo-album.html)\.

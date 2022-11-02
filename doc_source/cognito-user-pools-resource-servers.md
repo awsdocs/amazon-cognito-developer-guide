@@ -30,7 +30,7 @@ Each of the custom scopes that you define appears on the **App client settings**
 **Note**  
 You can add **Resource servers** to your user pool after you create it\. Resource server configuration is not included in the new user pool wizard\.
 
-In the **App integration tab** tab, locate **Resource servers**, where you can define custom resource servers and scopes for your user pool\. For more information, see [Defining resource servers for your user pool](cognito-user-pools-define-resource-servers.md)\.
+In the **App integration** tab, locate **Resource servers**, where you can define custom resource servers and scopes for your user pool\. For more information, see [Defining resource servers for your user pool](cognito-user-pools-define-resource-servers.md)\.
 
 **To define a custom resource server**
 

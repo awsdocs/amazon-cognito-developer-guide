@@ -7,10 +7,4 @@ Monitoring is an important part of maintaining the reliability, availability, an
 
 **Topics**
 + [Tracking quotas and usage in CloudWatch and Service Quotas](tracking-quotas-and-usage-in-cloud-watch-and-service-quotas.md)
-+ [Metrics for Amazon Cognito user pools](metrics-for-cognito-user-pools.md)
-+ [Dimensions for Amazon Cognito user pools](dimensions-for-cognito-user-pools.md)
-+ [Use the Service Quotas console to track metrics](use-the-service-quota-console-to-track-metrics.md)
-+ [Use the CloudWatch console to track metrics](use-the-cloud-watch-console-to-track-metrics.md)
-+ [Create a CloudWatch alarm for a quota](create-a-cloud-watch-alarm.md)
 + [Logging Amazon Cognito API calls with AWS CloudTrail](logging-using-cloudtrail.md)
-+ [Analyzing Amazon Cognito CloudTrail events with Amazon CloudWatch Logs Insights](analyzingcteventscwinsight.md)

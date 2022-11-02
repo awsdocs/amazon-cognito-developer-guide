@@ -7,7 +7,7 @@ Amazon Cognito supports both authenticated and unauthenticated identities\. Unau
 Amazon Cognito identities are not credentials\. They are exchanged for credentials using web identity federation support in the AWS Security Token Service \(AWS STS\)\. The recommended way to obtain AWS credentials for your app users is to use `AWS.CognitoIdentityCredentials`\. The identity in the credentials object is then exchanged for credentials using AWS STS\.
 
 **Note**  
-If you created your identity pool before February 2015, you will need to reassociate your roles with your identity pool in order to use the `AWS.CognitoIdentityCredentials` constructor without the roles as parameters\. To do so, open the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), choose **Manage Identity Pools**, select your identity pool, choose **Edit Identity Pool**, specify your authenticated and unauthenticated roles, and save the changes\. 
+If you created your identity pool before February 2015, you must reassociate your roles with your identity pool in order to use the `AWS.CognitoIdentityCredentials` constructor without the roles as parameters\. To do so, open the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), choose **Manage identity pools**, select your identity pool, choose **Edit identity Pool**, specify your authenticated and unauthenticated roles, and save the changes\. 
 
 ## Android<a name="getting-credentials-1.android"></a>
 
@@ -15,7 +15,7 @@ If you created your identity pool before February 2015, you will need to reassoc
 
 You can use Amazon Cognito to deliver temporary, limited\-privilege credentials to your application, so that your users can access AWS resources\. Amazon Cognito supports both authenticated and unauthenticated identities\. To provide AWS credentials to your app, follow the steps below\.
 
-1. Choose **Manage Identity Pools** from the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), create an identity pool, and copy the starter code snippets\. 
+1. Choose **Manage identity pools** from the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), create an identity pool, and copy the starter code snippets\. 
 
 1.  If you haven't already done so, add the AWS Mobile SDK for Android to your project\. For instructions, see [Set Up the Mobile SDK for Android](https://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/setup.html)\. 
 
@@ -38,7 +38,7 @@ You can use Amazon Cognito to deliver temporary, limited\-privilege credentials 
 
 1.  Pass the initialized Amazon Cognito credentials provider to the constructor of the AWS client to be used\. The code required depends on the service to be initialized\. The client will use this provider to get credentials with which it will access AWS resources\. 
 **Note**  
- If you created your identity pool before February 2015, you will need to reassociate your roles with your identity pool in order to use this constructor without the roles as parameters\. To do so, open the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), choose **Manage Federated Identies**, select your identity pool, and choose **Edit Identity Pool**, specify your authenticated and unauthenticated roles, and save the changes\. 
+ If you created your identity pool before February 2015, you must reassociate your roles with your identity pool in order to use this constructor without the roles as parameters\. To do so, open the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), choose **Manage Federated Identies**, select your identity pool, and choose **Edit identity Pool**, specify your authenticated and unauthenticated roles, and save the changes\. 
 
 **Retrieving an Amazon Cognito identity**
 
@@ -50,7 +50,7 @@ Log.d("LogTag", "my ID is " + identityId);
 ```
 
 **Note**  
- Do not call `getIdentityId()`, `refresh()`, or `getCredentials()` in the main thread of your application\. As of Android 3\.0 \(API Level 11\), your app will automatically fail and throw a [NetworkOnMainThreadException](https://developer.android.com/reference/android/os/NetworkOnMainThreadException.html) if you perform network I/O on the main application thread\. You will need to move your code to a background thread using `AsyncTask`\. For more information, consult the [Android documentation](https://developer.android.com/training/basics/network-ops/connecting.html#AsyncTask)\. You can also call `getCachedIdentityId()` to retrieve an ID, but only if one is already cached locally\. Otherwise, the method will return null\. 
+ Do not call `getIdentityId()`, `refresh()`, or `getCredentials()` in the main thread of your application\. As of Android 3\.0 \(API Level 11\), your app will automatically fail and throw a [NetworkOnMainThreadException](https://developer.android.com/reference/android/os/NetworkOnMainThreadException.html) if you perform network I/O on the main application thread\. You must move your code to a background thread using `AsyncTask`\. For more information, consult the [Android documentation](https://developer.android.com/training/basics/network-ops/connecting.html#AsyncTask)\. You can also call `getCachedIdentityId()` to retrieve an ID, but only if one is already cached locally\. Otherwise, the method will return null\. 
 
 ## iOS \- Objective\-C<a name="getting-credentials-1.ios-objc"></a>
 
@@ -58,7 +58,7 @@ Log.d("LogTag", "my ID is " + identityId);
 
 You can use Amazon Cognito to deliver temporary, limited\-privilege credentials to your application, so that your users can access AWS resources\. Amazon Cognito identity pools support both authenticated and unauthenticated identities\. To provide AWS credentials to your app, follow the steps below\. 
 
-1. Choose **Manage Identity Pools** from the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), create an identity pool, and copy the starter code snippets\. 
+1. Choose **Manage identity pools** from the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), create an identity pool, and copy the starter code snippets\. 
 
 1.  If you haven't already done so, add the AWS Mobile SDK for iOS to your project\. For instructions, see [Set Up the Mobile SDK for iOS](https://docs.aws.amazon.com/mobile/sdkforios/developerguide/setup.html)\. 
 
@@ -78,9 +78,9 @@ You can use Amazon Cognito to deliver temporary, limited\-privilege credentials 
    AWSServiceManager.defaultServiceManager.defaultServiceConfiguration = configuration;
    ```
 **Note**  
- If you created your identity pool before February 2015, you will need to reassociate your roles with your identity pool in order to use this constructor without the roles as parameters\. To do so, open the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), choose **Manage Identity Pools**, select your identity pool, choose **Edit Identity Pool**, specify your authenticated and unauthenticated roles, and save the changes\. 
+ If you created your identity pool before February 2015, you must reassociate your roles with your identity pool in order to use this constructor without the roles as parameters\. To do so, open the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), choose **Manage identity pools**, select your identity pool, choose **Edit identity Pool**, specify your authenticated and unauthenticated roles, and save the changes\. 
 
-**Retrieving an Amazon Cognito Identity**
+**Retrieving an Amazon Cognito identity**
 
 You can retrieve a unique Amazon Cognito identifier \(identity ID\) for your end user immediately if you're allowing unauthenticated users or after you've set the login tokens in the credentials provider if you're authenticating users:
 
@@ -99,15 +99,15 @@ You can retrieve a unique Amazon Cognito identifier \(identity ID\) for your end
 ```
 
 **Note**  
- `getIdentityId` is an asynchronous call\. If an identity ID is already set on your provider, you can call `credentialsProvider.identityId` to retrieve that identity, which is cached locally\. However, if an identity ID is not set on your provider, calling `credentialsProvider.identityId` will return `nil`\. For more information, consult the [ Mobile SDK for iOS API Reference](https://docs.aws.amazon.com/AWSiOSSDK/latest/Classes/AWSCognitoCredentialsProvider.html#/api/name/getIdentityId)\. 
+ `getIdentityId` is an asynchronous call\. If an identity ID is already set on your provider, you can call `credentialsProvider.identityId` to retrieve that identity, which is cached locally\. However, if an identity ID is not set on your provider, calling `credentialsProvider.identityId` will return `nil`\. For more information, consult the [Amplify iOS SDK reference](https://github.com/aws-amplify/aws-sdk-ios)\. 
 
 ## iOS \- Swift<a name="getting-credentials-1.ios-swift"></a>
 
 
 
-You can use Amazon Cognito to deliver temporary, limited\-privilege credentials to your application, so that your users can access AWS resources\. Amazon Cognito supports both authenticated and unauthenticated identities\. To provide AWS credentials to your app, follow the steps below\. 
+You can use Amazon Cognito to deliver temporary, limited\-privilege credentials to your application so that your users can access AWS resources\. Amazon Cognito supports both authenticated and unauthenticated identities\. To provide AWS credentials to your app, follow the steps below\. 
 
-1. Choose **Manage Identity Pools** from the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), create an identity pool, and copy the starter code snippets\. 
+1. Choose **Manage identity pools** from the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), create an identity pool, and copy the starter code snippets\. 
 
 1.  If you haven't already done so, add the Mobile SDK for iOS to your project\. For instructions, see [Set Up the SDK for iOS](https://docs.aws.amazon.com/mobile/sdkforios/developerguide/setup.html)\. 
 
@@ -125,9 +125,9 @@ You can use Amazon Cognito to deliver temporary, limited\-privilege credentials 
    AWSServiceManager.default().defaultServiceConfiguration = configuration
    ```
 **Note**  
- If you created your identity pool before February 2015, you will need to reassociate your roles with your identity pool in order to use this constructor without the roles as parameters\. To do so, open the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), choose **Manage Identity Pools**, select your identity pool, choose **Edit Identity Pool**, specify your authenticated and unauthenticated roles, and save the changes\. 
+ If you created your identity pool before February 2015, you must reassociate your roles with your identity pool in order to use this constructor without the roles as parameters\. To do so, open the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), choose **Manage identity pools**, select your identity pool, choose **Edit identity Pool**, specify your authenticated and unauthenticated roles, and save the changes\. 
 
-**Retrieving an Amazon Cognito Identity**
+**Retrieving an Amazon Cognito identity**
 
 You can retrieve a unique Amazon Cognito identifier \(identity ID\) for your end user immediately if you're allowing unauthenticated users or after you've set the login tokens in the credentials provider if you're authenticating users:
 
@@ -147,7 +147,7 @@ credentialsProvider.getIdentityId().continueWith(block: { (task) -> AnyObject? i
 ```
 
 **Note**  
- `getIdentityId` is an asynchronous call\. If an identity ID is already set on your provider, you can call `credentialsProvider.identityId` to retrieve that identity, which is cached locally\. However, if an identity ID is not set on your provider, calling `credentialsProvider.identityId` will return `nil`\. For more information, consult the [Mobile SDK for iOS API Reference](https://docs.aws.amazon.com/AWSiOSSDK/latest/Classes/AWSCognitoCredentialsProvider.html#/api/name/getIdentityId)\. 
+ `getIdentityId` is an asynchronous call\. If an identity ID is already set on your provider, you can call `credentialsProvider.identityId` to retrieve that identity, which is cached locally\. However, if an identity ID is not set on your provider, calling `credentialsProvider.identityId` will return `nil`\. For more information, consult the [Amplify iOS SDK reference](https://github.com/aws-amplify/aws-sdk-ios)\. 
 
 ## JavaScript<a name="getting-credentials-1.javascript"></a>
 
@@ -214,24 +214,24 @@ var identityId = AWS.config.credentials.identityId;
 
  You can use Amazon Cognito to deliver temporary, limited\-privilege credentials to your application, so that your users can access AWS resources\. Amazon Cognito supports both authenticated and unauthenticated identities\. To provide AWS credentials to your app, follow the steps below\. 
 
-1. Choose **Manage Identity Pools**, from the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), create an identity pool, and copy the starter code snippets\. 
+1. Choose **Manage identity pools**, from the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), create an identity pool, and copy the starter code snippets\. 
 
 1.  If you haven't already done so, download and import the [AWS Mobile SDK for Unity](https://aws.amazon.com/mobile/sdk/) package into your project\. You can do so from the menu Assets > Import Package > Custom Package\. 
 
-1.  Paste the starter code snippet from the Console into the script you want to call Amazon Cognito from\. The value for `IDENTITY_POOL_ID` will be specific to your account: 
+1.  Paste the starter code snippet from the Console into the script from which you want to call Amazon Cognito\. The value for `IDENTITY_POOL_ID` will be specific to your account: 
 
    ```
    CognitoAWSCredentials credentials = new CognitoAWSCredentials (
-         "IDENTITY_POOL_ID",    // Cognito Identity Pool ID
+         "IDENTITY_POOL_ID",    // Cognito identity Pool ID
          RegionEndpoint.USEast1 // Region
        );
    ```
 
 1.  Pass the initialized Amazon Cognito credentials to the constructor of the AWS client to be used\. The code required depends on the service to be initialized\. The client will use this provider to get credentials with which it will access AWS resources\. 
 **Note**  
- If you created your identity pool before February 2015, you will need to reassociate your roles with your identity pool in order to use this constructor without the roles as parameters\. To do so, open the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), choose **Manage Identity Pools**, select your identity pool, choose **Edit Identity Pool**, specify your authenticated and unauthenticated roles, and save the changes\. 
+ If you created your identity pool before February 2015, you must to reassociate your roles with your identity pool in order to use this constructor without the roles as parameters\. To do so, open the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), choose **Manage identity pools**, select your identity pool, choose **Edit identity Pool**, specify your authenticated and unauthenticated roles, and save the changes\. 
 
-**Retrieving an Amazon Cognito Identity**
+**Retrieving an Amazon Cognito identity**
 
  You can retrieve a unique Amazon Cognito identifier \(identity ID\) for your end user immediately if you're allowing unauthenticated users or after you've set the login tokens in the credentials provider if you're authenticating users: 
 
@@ -248,9 +248,9 @@ credentials.GetIdentityIdAsync(delegate(AmazonCognitoIdentityResult<string> resu
 
 
 
-You can use Amazon Cognito to deliver temporary, limited\-privilege credentials to your application, so that your users can access AWS resources\. Amazon Cognito supports both authenticated and unauthenticated identities\. To provide AWS credentials to your app, follow the steps below\.
+You can use Amazon Cognito to deliver temporary, limited\-privilege credentials to your application so that your users can access AWS resources\. Amazon Cognito supports both authenticated and unauthenticated identities\. To provide AWS credentials to your app, follow the steps below\.
 
-1. Choose **Manage Identity Pools**, from the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), create an identity pool, and copy the starter code snippets\. 
+1. Choose **Manage identity pools**, from the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), create an identity pool, and copy the starter code snippets\. 
 
 1. If you haven't already done so, add the AWS Mobile SDK for Xamarin to your project\. For instructions, see [Set Up the SDK for Xamarin](https://docs.aws.amazon.com/mobile/sdkforxamarin/developerguide/getting-started.html)\.
 
@@ -260,11 +260,11 @@ You can use Amazon Cognito to deliver temporary, limited\-privilege credentials 
    using Amazon.CognitoIdentity;
    ```
 
-1.  Paste the starter code snippet from the Console into the script you want to call Amazon Cognito from\. The value for `IDENTITY_POOL_ID` will be specific to your account: 
+1.  Paste the starter code snippet from the Console into the script from which you want to call Amazon Cognito\. The value for `IDENTITY_POOL_ID` will be specific to your account: 
 
    ```
    CognitoAWSCredentials credentials = new CognitoAWSCredentials (
-     "IDENTITY_POOL_ID",    // Cognito Identity Pool ID
+     "IDENTITY_POOL_ID",    // Cognito identity Pool ID
      RegionEndpoint.USEast1 // Region
    );
    ```
@@ -272,7 +272,7 @@ You can use Amazon Cognito to deliver temporary, limited\-privilege credentials 
 1.  Pass the initialized Amazon Cognito credentials to the constructor of the AWS client to be used\. The code required depends on the service to be initialized\. The client will use this provider to get credentials with which it will access AWS resources\. 
 
 **Note**  
- **Note:** If you created your identity pool before February 2015, you will need to reassociate your roles with your identity pool in order to use this constructor without the roles as parameters\. To do so, open the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), choose **Manage Identity Pools**, select your identity pool, choose **Edit Identity Pool**, specify your authenticated and unauthenticated roles, and save the changes\. 
+ **Note:** If you created your identity pool before February 2015, you must reassociate your roles with your identity pool in order to use this constructor without the roles as parameters\. To do so, open the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), choose **Manage identity pools**, select your identity pool, choose **Edit identity Pool**, specify your authenticated and unauthenticated roles, and save the changes\. 
 
 **Retrieving an Amazon Cognito identity**
 

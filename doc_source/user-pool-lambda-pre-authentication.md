@@ -1,9 +1,9 @@
 # Pre authentication Lambda trigger<a name="user-pool-lambda-pre-authentication"></a>
 
-Amazon Cognito invokes this trigger when a user attempts to sign in, allowing custom validation to accept or deny the authentication request\.
+Amazon Cognito invokes this trigger when a user attempts to sign in so that you can create custom validation that accepts or denies the authentication request\.
 
 **Note**  
-Triggers are dependant on the user existing in the user pool before trigger activation\.
+Triggers depend on the user existing in the user pool before Amazon Cognito activates the trigger\.
 
 **Topics**
 + [Pre authentication Lambda flows](#user-pool-lambda-pre-authentication-flows)
@@ -21,13 +21,13 @@ Triggers are dependant on the user existing in the user pool before trigger acti
 
 ![\[Pre authentication Lambda trigger - server flow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Pre authentication Lambda trigger - server flow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[Pre authentication Lambda trigger - server flow\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
-The request includes validation data from the client which comes from the `ClientMetadata` values passed to the user pool InitiateAuth and AdminInitiateAuth API methods\.
+The request includes client validation data from the `ClientMetadata` values that your app passes to the user pool InitiateAuth and AdminInitiateAuth API operations\.
 
 For more information, see [User pool authentication flow](amazon-cognito-user-pools-authentication-flow.md)\.
 
 ## Pre authentication Lambda trigger parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-auth"></a>
 
-These are the parameters required by this Lambda function in addition to the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-sample-event-parameter-shared)\.
+These are the parameters that Amazon Cognito passes to this Lambda function along with the event information in the [common parameters](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html#cognito-user-pools-lambda-trigger-syntax-shared)\.
 
 ------
 #### [ JSON ]
@@ -54,21 +54,21 @@ These are the parameters required by this Lambda function in addition to the [co
 ### Pre authentication request parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-auth-request"></a>
 
 **userAttributes**  
-One or more name\-value pairs representing user attributes\.
+One or more name\-value pairs that represent user attributes\.
 
 **userNotFound**  
-This boolean is populated when `PreventUserExistenceErrors` is set to `ENABLED` for your User Pool client\.
+When you set `PreventUserExistenceErrors` to `ENABLED` for your user pool client, Amazon Cognito populates this Boolean\.
 
 **validationData**  
-One or more key\-value pairs containing the validation data in the user's sign\-in request\. You can pass this data to your Lambda function by using the ClientMetadata parameter in the [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html) and [AdminInitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) API actions\.
+One or more key\-value pairs that contain the validation data in the user's sign\-in request\. To pass this data to your Lambda function, use the ClientMetadata parameter in the [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_.html) and [AdminInitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) API actions\.
 
 ### Pre authentication response parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-auth-response"></a>
 
-No additional return information is expected in the response\.
+Amazon Cognito does not expect any additional return information in the response\. Your function can return an error to reject the sign\-in attempt, or use API operations to query and modify your resources\.
 
 ## Authentication tutorials<a name="aws-lambda-triggers-pre-authentication-tutorials"></a>
 
-The pre authentication Lambda function is triggered just before Amazon Cognito signs in a new user\. See these sign\-in tutorials for JavaScript, Android, and iOS\.
+Amazon Cognito activates the pre\-authentication Lambda function before Amazon Cognito signs in a new user\. See these sign\-in tutorials for JavaScript, Android, and iOS\.
 
 
 | Platform | Tutorial | 
@@ -79,7 +79,7 @@ The pre authentication Lambda function is triggered just before Amazon Cognito s
 
 ## Pre authentication example<a name="aws-lambda-triggers-pre-authentication-example"></a>
 
- This sample function prevents users from a specific user pool app client to sign\-in to the user pool\. 
+ This sample function prevents users from a specific user pool app client from signing in to the user pool\. 
 
 ------
 #### [ Node\.js ]
@@ -112,7 +112,7 @@ def lambda_handler(event, context):
 
 ------
 
-Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object back to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that’s relevant to your Lambda trigger\. The following is a test event for this code sample: 
+Amazon Cognito passes event information to your Lambda function\. The function then returns the same event object to Amazon Cognito, with any changes in the response\. In the Lambda console, you can set up a test event with data that is relevant to your Lambda trigger\. The following is a test event for this code sample: 
 
 ------
 #### [ JSON ]

@@ -4,10 +4,14 @@ You can enable your app users to sign in through a SAML identity provider \(IdP\
 
 You need to update your SAML identity provider and configure your user pool\. See the documentation for your SAML identity provider for information about how to add your user pool as a relying party or application for your SAML 2\.0 identity provider\.
 
-You also need to provide an assertion consumer endpoint to your SAML identity provider\. Configure this endpoint for SAML 2\.0 POST binding in your SAML identity provider:
+You also need to provide an assertion consumer endpoint to your SAML identity provider\. Configure the following endpoint in your user pool domain for SAML 2\.0 POST binding in your SAML identity provider\. See [Configuring a user pool domain](cognito-user-pools-assign-domain.md) for more information about user pool domains\.
 
 ```
+https://Your user pool domain/saml2/idpresponse
+With an Amazon Cognito domain:
 https://<yourDomainPrefix>.auth.<region>.amazoncognito.com/saml2/idpresponse
+With a custom domain:
+https://Your custom domain/saml2/idpresponse
 ```
 
 You can find your domain prefix and the region value for your user pool on the **Domain name** tab of the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\.
@@ -98,7 +102,7 @@ The SAML IdP will process the signed logout request and log your user out of the
 If this option is selected and your SAML identity provider expects a signed logout request, you will also need to configure the signing certificate provided by Amazon Cognito with your SAML IdP\.   
 The SAML IdP will process the signed logout request and logout your user from the Amazon Cognito session\.
 
-1. Choose a **Metadata document source**\. If your identity provider offers SAML metadata at a public URL, you can choose **Metadata document URL**and enter that public URL\. Otherwise, choose **Upload metadata document** and select a metadata file you downloaded from your provider earlier\.
+1. Choose a **Metadata document source**\. If your identity provider offers SAML metadata at a public URL, you can choose **Metadata document URL** and enter that public URL\. Otherwise, choose **Upload metadata document** and select a metadata file you downloaded from your provider earlier\.
 **Note**  
 We recommend that you enter a metadata document URL if your provider has a public endpoint, rather than uploading a file; this allows Amazon Cognito to refresh the metadata automatically\. Typically, metadata refresh happens every 6 hours or before the metadata expires, whichever is earlier\.
 
