@@ -12,8 +12,8 @@ The header contains two pieces of information: the key ID \(`kid`\), and the alg
 
 ```
 {
-"kid" : "1234example="
-"alg" : "RS256",
+"kid" : "1234example=",
+"alg" : "RS256"
 }
 ```
 
