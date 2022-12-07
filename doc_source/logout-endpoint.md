@@ -53,11 +53,11 @@ logout_uri=https://myclient/logout
 This example clears the existing session and shows the login screen\. The example uses the same parameters as you would use in a request to the [Authorize endpoint](authorization-endpoint.md)\.
 
 ```
-                    
-                    GET https://mydomain.auth.us-east-1.amazoncognito.com/logout?
-                        response_type=code&
-                        client_id=ad398u21ijw3s9w3939&
-                        redirect_uri=https://YOUR_APP/redirect_uri&
-                        state=STATE&
-                        scope=openid+profile+aws.cognito.signin.user.admin
+GET https://mydomain.auth.us-east-1.amazoncognito.com/logout?
+
+response_type=code&
+client_id=ad398u21ijw3s9w3939&
+redirect_uri=https://YOUR_APP/redirect_uri&
+state=STATE&
+scope=openid+profile+aws.cognito.signin.user.admin
 ```
