@@ -6,20 +6,6 @@ It enables user data like app preferences or game state to be synchronized\. It 
 
 Amazon Cognito Sync is an AWS service and client library that enable cross\-device syncing of application\-related user data\. You can use it to synchronize user profile data across mobile devices and web applications\. The client libraries cache data locally so your app can read and write data regardless of device connectivity status\. When the device is online, you can synchronize data, and if you set up push sync, notify other devices immediately that an update is available\.
 
-## Sign up for an AWS account<a name="aws-sign-up-sync"></a>
-
-To use Amazon Cognito Sync, you need an AWS account\. If you don't already have one, use the following procedure to sign up: 
-
-**To sign up for an AWS account**
-
-1. Open [https://portal\.aws\.amazon\.com/billing/signup](https://portal.aws.amazon.com/billing/signup)\.
-
-1. Follow the online instructions\.
-
-   Part of the sign\-up procedure involves receiving a phone call and entering a verification code on the phone keypad\.
-
-   When you sign up for an AWS account, an *AWS account root user* is created\. The root user has access to all AWS services and resources in the account\. As a security best practice, [assign administrative access to an administrative user](https://docs.aws.amazon.com/singlesignon/latest/userguide/getting-started.html), and use only the root user to perform [tasks that require root user access](https://docs.aws.amazon.com/general/latest/gr/root-vs-iam.html#aws_tasks-that-require-root)\.
-
 ## Set up an identity pool in Amazon Cognito<a name="set-up-an-identity-pool"></a>
 
 Amazon Cognito Sync requires an Amazon Cognito identity pool to provide user identities\. Before you use Amazon Cognito Syncyou must first set up an identity pool\. To create an identity pool and install the SDK, see [Getting started with Amazon Cognito identity pools \(federated identities\)](getting-started-with-identity-pools.md)\.

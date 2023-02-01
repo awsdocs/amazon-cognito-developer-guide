@@ -28,7 +28,7 @@ The user account is confirmed, but the user must request a code and reset their 
 User accounts that are imported by an administrator or developer start in this state\.
 
 **Force Change Password**  
-The user account is confirmed and the user can sign in using a temporary password, but on first sign\-in, the user must changetheir password to a new value before doing anything else\.  
+The user account is confirmed and the user can sign in using a temporary password, but on first sign\-in, the user must change their password to a new value before doing anything else\.  
 User accounts that are created by an administrator or developer start in this state\.
 
 **Disabled**  
@@ -91,7 +91,7 @@ If you require users to verify both an email address and a phone number, choose 
 If you choose this option, Amazon Cognito doesn't send verification codes when users sign up\. Choose this option if you are using a custom authentication flow that verifies at least one contact method without using verification codes from Amazon Cognito\. For example, you might use a pre sign\-up Lambda trigger that automatically verifies email addresses that belong to a specific domain\.  
 If you don't verify your users' contact information, they may be unable to use your app\. Remember that users require verified contact information to:  
    + **Reset their passwords** — When a user chooses an option in your app that calls the `ForgotPassword` API action, Amazon Cognito sends a temporary password to the user's email address or phone number\. Amazon Cognito sends this password only if the user has at least one verified contact method\.
-   + **Sign in by using an email address or phone number as an alias** — If you configure your user pool to allow these aliases, then a user can sign in with an alias only if the alias is verified\. For more information, see [Aliases](user-pool-settings-attributes.md#user-pool-settings-aliases)\.
+   + **Sign in by using an email address or phone number as an alias** — If you configure your user pool to allow these aliases, then a user can sign in with an alias only if the alias is verified\. For more information, see [Customizing sign\-in attributes](user-pool-settings-attributes.md#user-pool-settings-aliases)\.
 
 1. Choose **Save changes**\.
 
@@ -112,7 +112,7 @@ You can also disable **Cognito\-assisted verification and confirmation** and use
 If you choose this option, Amazon Cognito doesn't send verification codes when users sign up\. Choose this option if you are using a custom authentication flow that verifies at least one contact method without using verification codes from Amazon Cognito\. For example, you might use a pre sign\-up Lambda trigger that automatically verifies email addresses that belong to a specific domain\.  
 If you don't verify your users' contact information, they may be unable to use your app\. Remember that users require verified contact information to:  
 **Reset their passwords** — When a user chooses an option in your app that calls the `ForgotPassword` API action, Amazon Cognito sends a temporary password to the user's email address or phone number\. Amazon Cognito sends this password only if the user has at least one verified contact method\.
-**Sign in by using an email address or phone number as an alias** — If you configure your user pool to allow these aliases, then a user can sign in with an alias only if the alias is verified\. For more information, see [Aliases](user-pool-settings-attributes.md#user-pool-settings-aliases)\.
+**Sign in by using an email address or phone number as an alias** — If you configure your user pool to allow these aliases, then a user can sign in with an alias only if the alias is verified\. For more information, see [Customizing sign\-in attributes](user-pool-settings-attributes.md#user-pool-settings-aliases)\.
 
 1. Choose your **Attributes to verify**:  
 **Send SMS message, verify phone number**  
@@ -184,16 +184,28 @@ If you require your users to verify both email addresses and phone numbers, do t
 
 1. At this point the user's account is in a confirmed state, and the user can sign in\.
 
-## Computing SecretHash values<a name="cognito-user-pools-computing-secret-hash"></a>
+## Computing secret hash values<a name="cognito-user-pools-computing-secret-hash"></a>
 
-The following Amazon Cognito User Pools APIs have a `SecretHash` parameter:
-+ [ConfirmForgotPassword](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmForgotPassword.html)
-+ [ConfirmSignUp](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmSignUp.html)
-+ [ForgotPassword](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html)
-+ [ResendConfirmationCode](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ResendConfirmationCode.html)
-+ [SignUp](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignUp.html)
+Assign a client secret to your confidential app client as a best practice\. When you assign a client secret to your app client, your Amazon Cognito user pools API requests must include a hash that includes the client secret in the request body\. To validate your knowledge of the client secret for the API operations in the following lists, concatenate the client secret with your app client ID and your user's user name, then base64\-encode that string\.
 
-The `SecretHash` value is a Base 64\-encoded keyed\-hash message authentication code \(HMAC\) calculated using the secret key of a user pool client and username plus the client ID in the message\. The following pseudocode shows how this value is calculated\. In this pseudocode, `+` indicates concatenation, `HMAC_SHA256` represents a function that produces an HMAC value using HmacSHA256, and `Base64` represents a function that produces Base\-64\-encoded version of the hash output\.
+The following Amazon Cognito user pools APIs accept a client\-secret hash value in a `SecretHash` parameter\.
++ [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmForgotPassword.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmForgotPassword.html)
++ [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmSignUp.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmSignUp.html)
++ [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html)
++ [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ResendConfirmationCode.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ResendConfirmationCode.html)
++ [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignUp.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignUp.html)
+
+Additionally, the following APIs accept a client\-secret hash value in a `SECRET_HASH` parameter, either in authentication parameters or in a challenge response\.
+
+
+| API operation | Parent parameter for SECRET\_HASH | 
+| --- |--- |
+| InitiateAuth | AuthParameters | 
+| AdminInitiateAuth | AuthParameters | 
+| RespondToAuthChallenge | ChallengeResponses | 
+| AdminRespondToAuthChallenge | ChallengeResponses | 
+
+The secret hash value is a Base 64\-encoded keyed\-hash message authentication code \(HMAC\) calculated using the secret key of a user pool client and username plus the client ID in the message\. The following pseudocode shows how this value is calculated\. In this pseudocode, `+` indicates concatenation, `HMAC_SHA256` represents a function that produces an HMAC value using HmacSHA256, and `Base64` represents a function that produces Base\-64\-encoded version of the hash output\.
 
 ```
 Base64 ( HMAC_SHA256 ( "Client Secret Key", "Username" + "Client Id" ) )
@@ -201,7 +213,10 @@ Base64 ( HMAC_SHA256 ( "Client Secret Key", "Username" + "Client Id" ) )
 
 For a detailed overview of how to calculate and use the `SecretHash` parameter, see [How do I troubleshoot "Unable to verify secret hash for client <client\-id>" errors from my Amazon Cognito user pools API?](https://aws.amazon.com/premiumsupport/knowledge-center/cognito-unable-to-verify-secret-hash/) in the AWS Knowledge Center\.
 
-You can use the following code example in your server\-side Java application code:
+You can use the following code examples in your server\-side app code\.
+
+------
+#### [ Java ]
 
 ```
 import javax.crypto.Mac;
@@ -224,6 +239,23 @@ public static String calculateSecretHash(String userPoolClientId, String userPoo
     }
 }
 ```
+
+------
+#### [ Python ]
+
+```
+import sys
+import hmac, hashlib, base64 
+username = sys.argv[1] 
+app_client_id = sys.argv[2] 
+key = sys.argv[3] 
+message = bytes(sys.argv[1]+sys.argv[2],'utf-8') 
+key = bytes(sys.argv[3],'utf-8') 
+secret_hash = base64.b64encode(hmac.new(key, message, digestmod=hashlib.sha256).digest()).decode() 
+print("SECRET HASH:",secret_hash)
+```
+
+------
 
 ## Confirming user accounts without verifying email or phone number<a name="confirming-user-without-verification-of-email-or-phone-number"></a>
 

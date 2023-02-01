@@ -2,7 +2,7 @@
 
 Because Amazon Cognito invokes this trigger before token generation, you can customize identity token claims\.
 
-You can use this AWS Lambda trigger to customize an identity token before Amazon Cognito generates it\. You can use this trigger to add new claims, update claims, or suppress claims in the identity token\. To use this feature, associate a Lambda function from the Amazon Cognito user pools console or update your user pool through the AWS Command Line Interface \(AWS CLI\)\.
+You can use this Lambda trigger to customize an identity token before Amazon Cognito generates it\. You can use this trigger to add new claims, update claims, or suppress claims in the identity token\. To use this feature, associate a Lambda function from the Amazon Cognito user pools console or update your user pool through the AWS Command Line Interface \(AWS CLI\)\.
 
 You can't modify the following claims:
 + `acr`
@@ -32,7 +32,7 @@ You can't modify the following claims:
 ## Pre token generation Lambda trigger sources<a name="user-pool-lambda-pre-token-generation-trigger-source"></a>
 
 
-| triggerSource value | Triggering event | 
+| triggerSource value | Event | 
 | --- | --- | 
 | TokenGeneration\_HostedAuth | Called during authentication from the Amazon Cognito hosted UI sign\-in page\. | 
 | TokenGeneration\_Authentication | Called after user authentication flows have completed\. | 
@@ -106,7 +106,7 @@ A list of the current AWS Identity and Access Management \(IAM\) roles that corr
 A string that indicates the preferred IAM role\.
 
 **clientMetadata**  
-One or more key\-value pairs that you can specify and provide as custom input to the Lambda function  for the pre token generation trigger\. To pass this data to your Lambda function, use the ClientMetadata parameter in the [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) and [RespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html) API operations\. Amazon Cognito doesn't include data from the ClientMetadata parameter in [AdminInitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) and [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html) API operations in the request that it passes to the pre token generation function\.
+One or more key\-value pairs that you can specify and provide as custom input to the Lambda function for the pre token generation trigger\. To pass this data to your Lambda function, use the ClientMetadata parameter in the [AdminRespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRespondToAuthChallenge.html) and [RespondToAuthChallenge](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html) API operations\. Amazon Cognito doesn't include data from the ClientMetadata parameter in [AdminInitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) and [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html) API operations in the request that it passes to the pre token generation function\.
 
 ### Pre token generation response parameters<a name="cognito-user-pools-lambda-trigger-syntax-pre-token-generation-response"></a>
 
@@ -130,20 +130,21 @@ This example uses the Pre Token Generation Lambda function to add a new claim an
 #### [ Node\.js ]
 
 ```
-exports.handler = (event, context, callback) => {
-    event.response = {
-        "claimsOverrideDetails": {
-            "claimsToAddOrOverride": {
-                "attribute_key2": "attribute_value2",
-                "attribute_key": "attribute_value"
-            },
-            "claimsToSuppress": ["email"]
-        }
-    };
+const handler = async (event) => {
+  event.response = {
+    claimsOverrideDetails: {
+      claimsToAddOrOverride: {
+        my_first_attribute: "first_value",
+        my_second_attribute: "second_value",
+      },
+      claimsToSuppress: ["email"],
+    },
+  };
 
-    // Return to Amazon Cognito
-    callback(null, event);
+  return event;
 };
+
+export { handler };
 ```
 
 ------
@@ -170,25 +171,25 @@ This example uses the Pre Token Generation Lambda function to modify the user's 
 #### [ Node\.js ]
 
 ```
-exports.handler = (event, context, callback) => {
-    event.response = {
-        "claimsOverrideDetails": {
-            "claimsToAddOrOverride": {
-                "attribute_key2": "attribute_value2",
-                "attribute_key": "attribute_value"
-            },
-            "claimsToSuppress": ["email"],
-            "groupOverrideDetails": {
-                "groupsToOverride": ["group-A", "group-B", "group-C"],
-                "iamRolesToOverride": ["arn:aws:iam::XXXXXXXXXXXX:role/sns_callerA", "arn:aws:iam::XXXXXXXXX:role/sns_callerB", "arn:aws:iam::XXXXXXXXXX:role/sns_callerC"],
-                "preferredRole": "arn:aws:iam::XXXXXXXXXXX:role/sns_caller"
-            }
-        }
-    };
+const handler = async (event) => {
+  event.response = {
+    claimsOverrideDetails: {
+      groupOverrideDetails: {
+        groupsToOverride: ["group-A", "group-B", "group-C"],
+        iamRolesToOverride: [
+          "arn:aws:iam::XXXXXXXXXXXX:role/sns_callerA",
+          "arn:aws:iam::XXXXXXXXX:role/sns_callerB",
+          "arn:aws:iam::XXXXXXXXXX:role/sns_callerC",
+        ],
+        preferredRole: "arn:aws:iam::XXXXXXXXXXX:role/sns_caller",
+      },
+    },
+  };
 
-    // Return to Amazon Cognito
-    callback(null, event);
+  return event;
 };
+
+export { handler };
 ```
 
 ------

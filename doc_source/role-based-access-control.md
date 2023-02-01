@@ -34,7 +34,7 @@ This policy allows federated users from `cognito-identity.amazonaws.com` \(the i
 
 ## Granting pass role permission<a name="granting-pass-role-permission"></a>
 
-To allow an IAM user to set roles with permissions in excess of the user's existing permissions on an identity pool, you grant that user `iam:PassRole` permission to pass the role to the `set-identity-pool-roles` API\. For example, if the user cannot write to Amazon S3, but the IAM role that the user sets on the identity pool grants write permission to Amazon S3, the user can only set this role if `iam:PassRole` permission is granted for the role\. The following example policy shows how to allow `iam:PassRole` permission\.
+To allow a user to set roles with permissions in excess of the user's existing permissions on an identity pool, grant them `iam:PassRole` permission to pass the role to the `set-identity-pool-roles` API\. For example, if the user cannot write to Amazon S3, but the IAM role that the user sets on the identity pool grants write permission to Amazon S3, the user can only set this role if `iam:PassRole` permission is granted for the role\. The following example policy shows how to allow `iam:PassRole` permission\.
 
 ```
 {
@@ -54,7 +54,7 @@ To allow an IAM user to set roles with permissions in excess of the user's exist
 }
 ```
 
-In this policy example, the `iam:PassRole` permission is granted for the `myS3WriteAccessRole` role\. The role is specified using the role's Amazon Resource Name \(ARN\)\. You must also attach this policy to your IAM user or role to which your user belongs\. For more information, see [Working with Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html)\.
+In this policy example, the `iam:PassRole` permission is granted for the `myS3WriteAccessRole` role\. The role is specified using the role's Amazon Resource Name \(ARN\)\. You must also attach this policy to your user\. For more information, see [Working with Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html)\.
 
 **Note**  
 Lambda functions use resource\-based policy, where the policy is attached directly to the Lambda function itself\. When creating a rule that invokes a Lambda function, you do not pass a role, so the user creating the rule does not need the `iam:PassRole` permission\. For more information about Lambda function authorization, see [Manage Permissions: Using a Lambda Function Policy](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#intro-permission-model-access-policy)\.

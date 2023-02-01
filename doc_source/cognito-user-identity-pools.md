@@ -20,6 +20,7 @@ The two main components of Amazon Cognito are user pools and identity pools\. Id
 
 **Topics**
 + [Getting started with user pools](getting-started-with-cognito-user-pools.md)
++ [Using the Amazon Cognito native and OIDC APIs](user-pools-API-operations.md)
 + [Updating user pool configuration](cognito-user-pool-updating.md)
 + [Using the Amazon Cognito hosted UI for sign\-up and sign\-in](cognito-user-pools-app-integration.md)
 + [Adding user pool sign\-in through a third party](cognito-user-pools-identity-federation.md)

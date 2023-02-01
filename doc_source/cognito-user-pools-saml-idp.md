@@ -48,7 +48,7 @@ Amazon Cognito user pools support SAML 2\.0 federation with post\-binding endpoi
 
 **Amazon Cognito SAML requests**
 
-When the [Authorize endpoint](authorization-endpoint.md) directs your user to your IdP sign\-in page, Amazon Cognito provides a *SAML request* that your user sends in a POST body\. A SAML request contains information about your user pool and your `saml2/idpresponse` endpoint\. Amazon Cognito doesn't sign SAML requests\.
+When the [Authorize endpoint](authorization-endpoint.md) redirects your user to your IdP sign\-in page, Amazon Cognito includes a *SAML request* in a URL parameter of the `HTTP GET` request\. A SAML request contains information about your user pool and your `saml2/idpresponse` endpoint\. Amazon Cognito doesn't sign SAML requests\.
 
 Amazon Cognito signs *logout* requests that your user passes to the logout endpoint of your IdP\. To establish trust with these logout requests, you can provide your IdP with a copy of your user pool SAML 2\.0 signing certificate that you downloaded in the Amazon Cognito console **Sign\-in experience** tab\.
 

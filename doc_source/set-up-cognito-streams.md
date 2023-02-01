@@ -1,3 +1,0 @@
-# Set up Amazon Cognito Streams<a name="set-up-cognito-streams"></a>
-
- Amazon Cognito Streams gives developers control and insight into their data stored in Amazon Cognito Sync\. Developers can now configure a Kinesis stream to receive events as data\. Amazon Cognito can push each dataset change to a Kinesis stream you own in real time\. For instructions on how to set up Amazon Cognito Streams in the Amazon Cognito console, see [Amazon Cognito Streams](cognito-streams.md)\. 

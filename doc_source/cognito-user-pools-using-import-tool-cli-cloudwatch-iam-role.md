@@ -1,75 +1,47 @@
-# Creating the CloudWatch Logs IAM role \(AWS CLI, API\)<a name="cognito-user-pools-using-import-tool-cli-cloudwatch-iam-role"></a>
+# Creating the CloudWatch Logs IAM role<a name="cognito-user-pools-using-import-tool-cli-cloudwatch-iam-role"></a>
 
-If you're using the Amazon Cognito CLI or API, then you need to create a CloudWatch IAM role\. The following procedure describes how to enable Amazon Cognito to record information in CloudWatch Logs about your user pool import job\. 
+If you're using the Amazon Cognito CLI or API, then you need to create a CloudWatch IAM role\. The following procedure describes how to create an IAM role that Amazon Cognito can use to write the results of your import job to CloudWatch Logs\. 
 
 **Note**  
-You don't need to use this procedure if you are using the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home), because the console creates the role for you\.
+When you create an import job in the Amazon Cognito console, you can create the IAM role at the same time\. When you choose to **Create a new IAM role**, Amazon Cognito automatically applies the appropriate trust policy and IAM policy to the role\.
 
-**To create the CloudWatch Logs IAM Role for user pool import \(AWS CLI, API\)**
+**To create the CloudWatch Logs IAM role for user pool import \(AWS CLI, API\)**
 
 1. Sign in to the AWS Management Console and open the IAM console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/)\.
 
-1. In the navigation pane of the IAM console, choose **Roles**\.
+1. Create a new IAM role for an AWS service\. For detailed instructions, see [Creating a role for an AWS service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html#roles-creatingrole-service-console) in the *AWS Identity and Access Management User Guide*\.
 
-1. For a new role, choose **Create role**\.
+   1. When you select a **Use case** for your **Trusted entity type**, choose any service\. Amazon Cognito isn't currently listed in service use cases\.
 
-1. For **Select type of trusted entity**, choose **AWS service**\.
+   1. In the **Add permissions** screen, choose **Create policy** and insert the following policy statement\. Replace *REGION* with the AWS Region of your user pool, for example `us-east-1`\. Replace *ACCOUNT* with your AWS account ID, for example `111122223333`\.
 
-1. In **Common use cases**, choose **EC2**\.
+      ```
+      {
+          "Version": "2012-10-17",
+          "Statement": [
+              {
+                  "Effect": "Allow",
+                  "Action": [
+                      "logs:CreateLogGroup",
+                      "logs:CreateLogStream",
+                      "logs:DescribeLogStreams",
+                      "logs:PutLogEvents"
+                  ],
+                  "Resource": [
+                      "arn:aws:logs:REGION:ACCOUNT:log-group:/aws/cognito/*"
+                  ]
+              }
+          ]    
+      }
+      ```
 
-1. Choose** Next: Permissions**\.
+1. Because you didn't choose Amazon Cognito as the trusted entity when you created the role, you now must manually edit the trust relationship of the role\. Choose **Roles** from navigation pane of the IAM console, then choose the new role that you created\.
 
-1. In **Attach permissions policy**, choose **Create policy** to open a new browser tab and create a new policy from scratch\.
+1. Choose the **Trust relationships** tab\.
 
-1. On the **Create policy** page, choose the **JSON** tab\.
+1. Choose **Edit trust policy**\.
 
-1. In the **JSON** tab, copy and paste the following text as your role access policy, replacing any existing text: 
-
-   ```
-   {
-       "Version": "2012-10-17",
-       "Statement": [
-           {
-               "Effect": "Allow",
-               "Action": [
-                   "logs:CreateLogGroup",
-                   "logs:CreateLogStream",
-                   "logs:DescribeLogStreams",
-                   "logs:PutLogEvents"
-               ],
-               "Resource": [
-                   "arn:aws:logs:REGION:ACCOUNT:log-group:/aws/cognito/*"
-               ]
-           }
-       ]    
-   }
-   ```
-
-1. Choose **Review policy**\. Add a name and optional description and choose **Create policy**\.
-
-   After you create the policy, close that browser tab and return to your original tab\.
-
-1. In **Attach Policy**, choose **Next: Tags**\.
-
-1. \(Optional\) In **Tags**, add metadata to the role by entering tags as key–value pairs\. 
-
-1. Choose **Next: Review**\.
-
-1. In **Review**, enter a **Role Name**\. 
-
-1. \(Optional\) Enter a **Role Description**\.
-
-1. Choose **Create role**\.
-
-1. In the navigation pane of the IAM console, choose **Roles**\.
-
-1. In **Roles**, choose the role you created\.
-
-1. In **Summary**, choose the **Trust relationships** tab\.
-
-1. In the **Trust relationships** tab, choose **Edit trust relationship**\.
-
-1. Copy and paste the following trust relationship text into the **Policy Document** text box, replacing any existing text: 
+1. Paste the following policy statement into **Edit trust policy**, replacing any existing text: 
 
    ```
    {
@@ -86,6 +58,6 @@ You don't need to use this procedure if you are using the [Amazon Cognito consol
        }
    ```
 
-1. Choose **Update Trust Policy**\. You are now finished creating the role\.
+1. Choose **Update policy**\. 
 
-1. Note the role ARN\. You need this later when you're creating an import job\.
+1. Note the role ARN\. You'll provide the ARN when you create your import job\.

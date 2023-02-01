@@ -79,11 +79,11 @@ Set to `true` to auto\-confirm the user, or `false` otherwise\.
 
 **autoVerifyEmail**  
 Set to `true` to set as verified the email address of a user who is signing up, or `false` otherwise\. If `autoVerifyEmail` is set to `true`, the `email` attribute must have a valid, non\-null value\. Otherwise an error will occur and the user will not be able to complete sign\-up\.  
-If the `email` attribute is selected as an alias, an alias will be created for the user's email address when `autoVerifyEmail` is set\. If an alias with that email address already exists, the alias will be moved to the new user and the previous user's email address will be marked as unverified\. For more information, see [Aliases](user-pool-settings-attributes.md#user-pool-settings-aliases)\.
+If the `email` attribute is selected as an alias, an alias will be created for the user's email address when `autoVerifyEmail` is set\. If an alias with that email address already exists, the alias will be moved to the new user and the previous user's email address will be marked as unverified\. For more information, see [Customizing sign\-in attributes](user-pool-settings-attributes.md#user-pool-settings-aliases)\.
 
 **autoVerifyPhone**  
 Set to `true` to set as verified the phone number of a user who is signing up, or `false` otherwise\. If `autoVerifyPhone` is set to `true`, the `phone_number` attribute must have a valid, non\-null value\. Otherwise an error will occur and the user will not be able to complete sign\-up\.  
-If the `phone_number` attribute is selected as an alias, an alias will be created for the user's phone number when `autoVerifyPhone` is set\. If an alias with that phone number already exists, the alias will be moved to the new user and the previous user's phone number will be marked as unverified\. For more information, see [Aliases](user-pool-settings-attributes.md#user-pool-settings-aliases)\.
+If the `phone_number` attribute is selected as an alias, an alias will be created for the user's phone number when `autoVerifyPhone` is set\. If an alias with that phone number already exists, the alias will be moved to the new user and the previous user's phone number will be marked as unverified\. For more information, see [Customizing sign\-in attributes](user-pool-settings-attributes.md#user-pool-settings-aliases)\.
 
 ## Sign\-up tutorials<a name="aws-lambda-triggers-pre-registration-tutorials"></a>
 
@@ -219,24 +219,23 @@ If an alias with the same phone number already exists, the alias will be moved t
 #### [ Node\.js ]
 
 ```
-exports.handler = (event, context, callback) => {
+const handler = async (event) => {
+  // Confirm the user
+  event.response.autoConfirmUser = true;
+  // Set the email as verified if it is in the request
+  if (event.request.userAttributes.hasOwnProperty("email")) {
+    event.response.autoVerifyEmail = true;
+  }
 
-    // Confirm the user
-        event.response.autoConfirmUser = true;
+  // Set the phone number as verified if it is in the request
+  if (event.request.userAttributes.hasOwnProperty("phone_number")) {
+    event.response.autoVerifyPhone = true;
+  }
 
-    // Set the email as verified if it is in the request
-    if (event.request.userAttributes.hasOwnProperty("email")) {
-        event.response.autoVerifyEmail = true;
-    }
-
-    // Set the phone number as verified if it is in the request
-    if (event.request.userAttributes.hasOwnProperty("phone_number")) {
-        event.response.autoVerifyPhone = true;
-    }
-
-    // Return to Amazon Cognito
-    callback(null, event);
+  return event;
 };
+
+export { handler };
 ```
 
 ------

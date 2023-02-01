@@ -16,7 +16,7 @@ A custom message Lambda function with the `CustomMessage_AdminCreateUser` trigge
 ## Custom message Lambda trigger sources<a name="cognito-user-pools-lambda-trigger-syntax-custom-message-trigger-source"></a>
 
 
-| triggerSource value | Triggering event | 
+| triggerSource value | Event | 
 | --- | --- | 
 | CustomMessage\_SignUp | Custom message – To send the confirmation code post sign\-up\. | 
 | CustomMessage\_AdminCreateUser | Custom message – To send the temporary password to a new user\. | 
@@ -106,23 +106,17 @@ The maximum length of SMS messages is 140 UTF\-8 characters\. This length includ
 #### [ Node\.js ]
 
 ```
-exports.handler = (event, context, callback) => {
-    //
-    if(event.userPoolId === "theSpecialUserPool") {
-        // Identify why was this function invoked
-        if(event.triggerSource === "CustomMessage_SignUp") {
-            // Ensure that your message contains event.request.codeParameter. This is the placeholder for code that will be sent
-            event.response.smsMessage = "Welcome to the service. Your confirmation code is " + event.request.codeParameter;
-            event.response.emailSubject = "Welcome to the service";
-            event.response.emailMessage = "Thank you for signing up. " + event.request.codeParameter + " is your verification code";
-        }
-        // Create custom message for other events
-    }
-    // Customize messages for other user pools
-
-    // Return to Amazon Cognito
-    callback(null, event);
+const handler = async (event) => {
+  if (event.triggerSource === "CustomMessage_SignUp") {
+    const message = `Thank you for signing up. Your confirmation code is ${event.request.codeParameter}.`;
+    event.response.smsMessage = message;
+    event.response.emailMessage = message;
+    event.response.emailSubject = "Welcome to the service.";
+  }
+  return event;
 };
+
+export { handler };
 ```
 
 ------
@@ -176,23 +170,17 @@ The response includes messages for both SMS and email\.
 #### [ Node\.js ]
 
 ```
-exports.handler = (event, context, callback) => {
-    //
-    if(event.userPoolId === "theSpecialUserPool") {
-        // Identify why was this function invoked
-        if(event.triggerSource === "CustomMessage_AdminCreateUser") {
-            // Ensure that your message contains event.request.codeParameter event.request.usernameParameter. This is the placeholder for the code and username that will be sent to your user.
-            event.response.smsMessage = "Welcome to the service. Your user name is " + event.request.usernameParameter + " Your temporary password is " + event.request.codeParameter;
-            event.response.emailSubject = "Welcome to the service";
-            event.response.emailMessage = "Welcome to the service. Your user name is " + event.request.usernameParameter + " Your temporary password is " + event.request.codeParameter;
-        }
-        // Create custom message for other events
-    }
-    // Customize messages for other user pools
-
-    // Return to Amazon Cognito
-    callback(null, event);
+const handler = async (event) => {
+  if (event.triggerSource === "CustomMessage_AdminCreateUser") {
+    const message = `Welcome to the service. Your user name is ${event.request.usernameParameter}. Your temporary password is ${event.request.codeParameter}`;
+    event.response.smsMessage = message;
+    event.response.emailMessage = message;
+    event.response.emailSubject = "Welcome to the service";
+  }
+  return event;
 };
+
+export { handler }
 ```
 
 ------

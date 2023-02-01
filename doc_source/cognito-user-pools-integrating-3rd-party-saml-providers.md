@@ -1,6 +1,6 @@
 # Integrating third\-party SAML identity providers with Amazon Cognito user pools<a name="cognito-user-pools-integrating-3rd-party-saml-providers"></a>
 
-To configure third\-party SAML 2\.0 identity provider \(IdP\) solutions to work with federation for Amazon Cognito user pools, you must enter the following redirect URL: `https://Your user pool domain/saml2/idpresponse`\. If your user pool has an Amazon Cognito domain, you can find your user pool domain path in the **App integration** tab of your user pool in the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\.
+To configure third\-party SAML 2\.0 identity provider \(IdP\) solutions to work with federation for Amazon Cognito user pools, you must configure your SAML IdP to redirect to the following URL: `https://Your user pool domain/saml2/idpresponse`\. If your user pool has an Amazon Cognito domain, you can find your user pool domain path in the **App integration** tab of your user pool in the [Amazon Cognito console](https://console.aws.amazon.com/cognito/home)\.
 
 **Note**  
 Any SAML IdPs that you created in a user pool during the public beta before August 10, 2017 have redirect URLs of `https://<yourDomainPrefix>.auth.<region>.amazoncognito.com/login/redirect`\. If you have one of these SAML identity providers from the public beta in your user pool, you must either:  
@@ -13,7 +13,7 @@ For some SAML IdPs, provide the `urn` / Audience URI / SP Entity ID, in the form
 You must also configure your SAML IdP to provide attributes values for any attributes required in your user pool\. Typically, `email` is a required attribute for user pools, in which case the SAML IdP must provide an `email` value \(claim\) in the SAML assertion\.
 
 **Note**  
-Amazon Cognito will not accept an emoji that your IdP passes as an attribute value\. You can Base64 encode the emoji to pass it as text, and then decode it in your app\.  
+Amazon Cognito doesn't accept 4\-byte UTF\-8 characters \(such as 😐 or 𠮷\) that your IdP passes as an attribute value\. You can Base64 encode the character to pass it as text, and then decode it in your app\.  
 In the following example, the attribute claim will not be accepted:  
 
 ```

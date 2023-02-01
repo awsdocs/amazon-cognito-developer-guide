@@ -12,7 +12,7 @@ To migrate users from your existing user directory into Amazon Cognito user pool
 ## Migrate user Lambda trigger sources<a name="user-pool-lambda-migrate-user-trigger-source"></a>
 
 
-| triggerSource value | Triggering event | 
+| triggerSource value | Event | 
 | --- | --- | 
 | UserMigration\_Authentication | User migration at sign\-in\. | 
 | UserMigration\_ForgotPassword | User migration during forgot\-password flow\. | 
@@ -103,51 +103,58 @@ This example Lambda function migrates the user with an existing password and sup
 #### [ Node\.js ]
 
 ```
-exports.handler = (event, context, callback) => {
-
-    var user;
-
-    if ( event.triggerSource == "UserMigration_Authentication" ) {
-
-        // authenticate the user with your existing user directory service
-        user = authenticateUser(event.userName, event.request.password);
-        if ( user ) {
-            event.response.userAttributes = {
-                "email": user.emailAddress,
-                "email_verified": "true"
-            };
-            event.response.finalUserStatus = "CONFIRMED";
-            event.response.messageAction = "SUPPRESS";
-            context.succeed(event);
-        }
-        else {
-            // Return error to Amazon Cognito
-            callback("Bad password");
-        }
-    }
-    else if ( event.triggerSource == "UserMigration_ForgotPassword" ) {
-
-        // Lookup the user in your existing user directory service
-        user = lookupUser(event.userName);
-        if ( user ) {
-            event.response.userAttributes = {
-                "email": user.emailAddress,
-                // required to enable password-reset code to be sent to user
-                "email_verified": "true"  
-            };
-            event.response.messageAction = "SUPPRESS";
-            context.succeed(event);
-        }
-        else {
-            // Return error to Amazon Cognito
-            callback("Bad password");
-        }
-    }
-    else { 
-        // Return error to Amazon Cognito
-        callback("Bad triggerSource " + event.triggerSource);
-    }
+const validUsers = {
+  belladonna: { password: "Test123", emailAddress: "bella@example.com" },
 };
+
+// Replace this mock with a call to a real authentication service.
+const authenticateUser = (username, password) => {
+  if (validUsers[username] && validUsers[username].password === password) {
+    return validUsers[username];
+  } else {
+    return null;
+  }
+};
+
+const lookupUser = (username) => {
+  const user = validUsers[username];
+
+  if (user) {
+    return { emailAddress: user.emailAddress };
+  } else {
+    return null;
+  }
+};
+
+const handler = async (event) => {
+  if (event.triggerSource == "UserMigration_Authentication") {
+    // Authenticate the user with your existing user directory service
+    const user = authenticateUser(event.userName, event.request.password);
+    if (user) {
+      event.response.userAttributes = {
+        email: user.emailAddress,
+        email_verified: "true",
+      };
+      event.response.finalUserStatus = "CONFIRMED";
+      event.response.messageAction = "SUPPRESS";
+    }
+  } else if (event.triggerSource == "UserMigration_ForgotPassword") {
+    // Look up the user in your existing user directory service
+    const user = lookupUser(event.userName);
+    if (user) {
+      event.response.userAttributes = {
+        email: user.emailAddress,
+        // Required to enable password-reset code to be sent to user
+        email_verified: "true",
+      };
+      event.response.messageAction = "SUPPRESS";
+    }
+  }
+
+  return event;
+};
+
+export { handler };
 ```
 
 ------

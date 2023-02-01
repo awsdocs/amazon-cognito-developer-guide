@@ -93,15 +93,40 @@ You can't change required attributes after you create a user pool\.
 
 The `username` value is a separate attribute and not the same as the `name` attribute\. Each user has a `username` attribute\. Amazon Cognito automatically generates a user name for federated users\. You must provide a `username` attribute to create a native user in the Amazon Cognito directory\. After you create a user, you can't change the value of the `username` attribute\.
 
-Developers can use the `preferred_username` attribute to give users user names that they can change\. For more information, see [Aliases](#user-pool-settings-aliases)\.
+Developers can use the `preferred_username` attribute to give users user names that they can change\. For more information, see [Customizing sign\-in attributes](#user-pool-settings-aliases)\.
 
-If your application doesn't require a user name, you don't need to ask users to provide one\. Your app can create a unique username for users in the background\. This can be useful if you want users to register and sign in with an email address and password\. For more information, see [Aliases](#user-pool-settings-aliases)\.
+If your application doesn't require a user name, you don't need to ask users to provide one\. Your app can create a unique username for users in the background\. This can be useful if you want users to register and sign in with an email address and password\. For more information, see [Customizing sign\-in attributes](#user-pool-settings-aliases)\.
 
 The `username` must be unique within a user pool\. A `username` can be reused, but only after you delete it and it is no longer in use\.
 
-## Aliases<a name="user-pool-settings-aliases"></a>
+## Customizing sign\-in attributes<a name="user-pool-settings-aliases"></a>
+
+When you create a user pool, you can set up *user name attributes* if you want your users to be able to sign up and sign in with an email address or phone number as their user name\. Alternatively, you can set up *alias attributes* to give your users the option: they can include multiple attributes when they sign up, and then sign in with a user name, preferred user name, email address, or phone number\.
+
+**Important**  
+After you create a user pool, you can't change this setting\.
+
+### How to choose between alias attributes and user name attributes<a name="user-pool-settings-aliases-settings"></a>
+
+
+| Your requirement | Alias attributes | User name attributes | 
+| --- |--- |--- |
+| Users have multiple sign\-in attributes | Yes¹ | No² | 
+| Users must verify email address or phone number before they can sign in with it | Yes | No | 
+| Prevent UsernameExistsException when user signs up | Yes | No | 
+| Can assign the same sign\-in attribute to more than one user | Yes³ | No | 
+
+¹ Available sign\-in attributes are user name, email address, phone number, and preferred user name\.
+
+² Can sign in with either email address or phone number\.
+
+³ Only the the last user who has verified the attribute can sign in with it\.
+
+#### Option 1: Multiple sign\-in attributes \(alias attributes\)<a name="user-pool-settings-aliases-settings-option-1"></a>
 
 If you want, your users can use aliases to enter other attributes when they sign in\. By default, users sign in with their user name and password\. The user name is a fixed value that users can't change\. If you mark an attribute as an alias, users can sign in with that attribute in place of the user name\. You can mark the email address, phone number, and preferred username attributes as aliases\. For example, if you select email address and phone number as aliases for a user pool, users in that user pool can sign in with their user name, email address, or phone number, along with their password\.
+
+To choose alias attributes, select **User name** and at least one additional sign\-in option when you create your user pool\.
 
 **Note**  
 When you configure your user pool to be case insensitive, a user can use either lowercase or uppercase letters to sign up or sign in with their alias\. For more information, see [CreateUserPool](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateUserPool.html) in the *Amazon Cognito user pools API Reference*\.
@@ -111,20 +136,13 @@ If you select email address as an alias, Amazon Cognito doesn't accept a user na
 **Note**  
 Alias values must be unique in a user pool\. If you configure an alias for an email address or phone number, the value that you provide can be in a verified state in only one account\. During sign\-up, if your user provides an email address or phone number as an alias value and another user has already used that alias value, registration succeeds\. However, when a user tries to confirm the account with this email \(or phone number\) and enters the valid code, Amazon Cognito returns an `AliasExistsException` error\. The error indicates to the user that an account with this email address \(or phone number\) already exists\. At this point, the user can abandon their attempt to create the new account and instead try to reset the password for the old account\. If the user continues to create the new account, your app must call the `ConfirmSignUp` API with the `forceAliasCreation` option\. `ConfirmSignUp` with `forceAliasCreation` moves the alias from the previous account to the newly created account, and marks the attribute unverified in the previous account\.
 
-Phone numbers and email addresses only become active aliases for a user after your user verifies the phone numbers and email addresses\. Therefore, we recommend that you choose automatic verification of email addresses and phone numbers if you use them as aliases\. 
+Phone numbers and email addresses only become active aliases for a user after your user verifies the phone numbers and email addresses\. We recommend that you choose automatic verification of email addresses and phone numbers if you use them as aliases\.
+
+Choose alias attributes to prevent `UsernameExistsException` errors for email address and phone number attributes when your users sign up\.
 
 Activate the `preferred_username` attribute so that your user can change the user name that they use to sign in while their `username` attribute value doesn't change\. If you want to set up this user experience, submit the new `username` value as a `preferred_username` and choose `preferred_username` as an alias\. Then users can sign in with the new value that they entered\. If you select `preferred_username` as an alias, your user can provide the value only when they confirm an account\. They can't provide the value during registration\.
 
-### Using aliases to simplify user sign\-up and sign\-in<a name="user-pool-settings-aliases-settings"></a>
-
-When you create a user pool, you can choose if you want your user to sign up with an email address or phone number as their user name\.
-
-**Note**  
-After you create a user pool, you can't change this setting\.
-
-#### Option 1: User signs up with user name and signs in with user name or alias<a name="user-pool-settings-aliases-settings-option-1"></a>
-
-When the user signs up with a user name, you can choose if they can sign in with one or more of the following aliases:
+When the user signs up with a user name, you can choose if they can sign in with one or more of the following aliases\.
 + Verified email address
 + Verified phone number
 + Preferred user name
@@ -174,9 +192,11 @@ Include the following steps when you create the user pool so that users can sign
 
 ------
 
-#### Option 2: User signs up and signs in with email address or phone number instead of user name<a name="user-pool-settings-aliases-settings-option-2"></a>
+#### Option 2: Email address or phone number as a sign\-in attribute \(user name attributes\)<a name="user-pool-settings-aliases-settings-option-2"></a>
 
-When the user signs up with an email address or phone number as their user name, you can choose if they can sign up with only email addresses, only phone numbers, or either one\.
+When the user signs up with an email address or phone number as their user name, you can choose if they can sign up with only email addresses, only phone numbers, or either one\. 
+
+To choose user name attributes, don't select **User name** as a sign\-in option when you create your user pool\.
 
 The email address or phone number must be unique, and it must not already be in use by another user\. It doesn't have to be verified\. After the user has signed up with an email address or phone number, the user can't create a new account with the same email address or phone number\. The user can only reuse the existing account and reset the account password, if needed\. However, the user can change the email address or phone number to a new email address or phone number\. If the email address or phone number isn't already in use, it becomes the new user name\.
 
@@ -216,15 +236,9 @@ Use the following steps during the user pool creation process to set up sign\-up
 
 1. In the top\-right corner of the page, choose **Create a user pool** to start the user pool creation wizard\.
 
-1. Under **Cognito user pool sign\-in options**, choose any combination of **User name**, **Email**, and **Phone number** that represents the alias attributes that the user can use to sign in\.
+1. Under **Cognito user pool sign\-in options**, choose any combination of **Email** and **Phone number** that represents the attributes that the user can use to sign in\.
 
-1. Under **User name requirements**, choose one or both of the following options:  
-****Allow users to sign in with a preferred user name****  
-Allows the user to sign in with a preferred user name\. The user can change this user name\.  
-****Make user name case sensitive****  
-Sets the user name as case sensitive, where **ExampleUser** and **exampleuser** are unique user names\.
-
-1. Choose **Next**, and then complete all the steps in the wizard\.
+1. Choose **Next**, and then complete the remaining steps in the wizard\.
 
 ------
 

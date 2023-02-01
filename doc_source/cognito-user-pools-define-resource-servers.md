@@ -20,7 +20,7 @@ With Amazon Cognito, app developers can create their own OAuth2\.0 resource serv
 To get an access token with custom scopes, your app must make a request to the [Token endpoint](token-endpoint.md) to redeem an authorization code or to request a client credentials grant\. In the hosted UI, you can also request custom scopes in an access token from an implicit grant\.
 
 **Note**  
-Because they are designed for human\-interactive authentication, [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html) and [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) requests produce access tokens that don't contain any custom scopes\.
+Because they are designed for human\-interactive authentication, [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html) and [AdminInitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html) requests produce access tokens that don't contain any custom scopes\.
 
 **Managing the Resource Server and Custom Scopes**
 

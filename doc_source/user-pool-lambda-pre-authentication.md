@@ -79,23 +79,23 @@ Amazon Cognito activates the pre\-authentication Lambda function before Amazon C
 
 ## Pre authentication example<a name="aws-lambda-triggers-pre-authentication-example"></a>
 
- This sample function prevents users from a specific user pool app client from signing in to the user pool\. 
+This example function prevents users from a specific user pool app client from signing in to the user pool\. 
 
 ------
 #### [ Node\.js ]
 
 ```
-exports.handler = (event, context, callback) => {
-    if (event.callerContext.clientId === "user-pool-app-client-id-to-be-blocked") {
-        var error = new Error("Cannot authenticate users from this user pool app client");
+const handler = async (event) => {
+  if (
+    event.callerContext.clientId === "user-pool-app-client-id-to-be-blocked"
+  ) {
+    throw new Error("Cannot authenticate users from this user pool app client");
+  }
 
-        // Return error to Amazon Cognito
-        callback(error, event);
-    }
-
-    // Return to Amazon Cognito
-    callback(null, event);
+  return event;
 };
+
+export { handler };
 ```
 
 ------

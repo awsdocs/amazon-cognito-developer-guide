@@ -10,7 +10,7 @@ After you configure the advanced security features for your user pool, you must 
 
 1. Set `AdvancedSecurityDataCollectionFlag` to `true`\. Also, set `UserPoolId` to your user pool ID\.
 
-1. In your application replace <region> with your AWS Region such asUS East \(N\. Virginia\), and add this source reference to your JavaScript file:
+1. Add this source reference to your app's JavaScript file\. Replace `<region>` with an AWS Region like `us-east-1`\.
 
    ```
    <script src="https://amazon-cognito-assets.<region>.amazoncognito.com/amazon-cognito-advanced-security-data.min.js"></script>

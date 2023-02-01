@@ -67,54 +67,78 @@ For example, an app that trusts only Facebook would have the following amr claus
 
 ## Access policies<a name="access-policies"></a>
 
-The permissions attached to a role are effective across all users that assume that role\. If you want to partition your users' access, you can do so through policy variables\. Be careful when including your users' identity IDs in your access policies, particularly for unauthenticated identities, as these may change if the user logs in\.
+The permissions that you attach to a role apply to all users who assume that role\. To partition your users' access, use policy conditions and variables\. For more information, see [IAM policy elements: Variables and tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html)\. You can use the `sub` condition to restrict actions to Amazon Cognito identity IDs in your access policies\. Use this option with caution, particularly for unauthenticated identities, which lack a consistent user ID\. For more information about the IAM policy variables for web federation with Amazon Cognito, see [IAM and AWS STS condition context keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html#condition-keys-wif) in the *AWS Identity and Access Management User Guide*\.
 
-For additional security protection, Amazon Cognito applies a scope\-down policy to credentials vended by `GetCredentialForIdentity` to prevent access to services other than the following ones for your unauthenticated users\. You can create an identity using these credentials with access to only the following services: 
-+ Amazon API Gateway
-+ AWS AppSync
-+ Amazon CloudWatch
-+ Amazon CloudWatch Logs
-+ Amazon Cognito Identity
-+ Amazon Cognito Sync
-+ Amazon Cognito user pools
-+ Amazon Comprehend
-+ Amazon DynamoDB
-+ Amazon GameLift
-+ AWS IoT
-+ AWS Key Management Service \(AWS KMS\)
-+ Amazon Kinesis Data Firehose
-+ Amazon Kinesis Data Streams
-+ AWS Lambda
-+ Amazon Lex
-+ Amazon Location Service
-+ Amazon Machine Learning
-+ Amazon Mobile Analytics
-+ Amazon Personalize
-+ Amazon Pinpoint
-+ Amazon Polly
-+ Amazon Rekognition
-+ Amazon SageMaker
-+ Amazon SimpleDB
-+ Amazon Simple Email Service \(Amazon SES\)
-+ Amazon Simple Notification Service \(Amazon SNS\)
-+ Amazon Simple Queue Service \(Amazon SQS\)
-+ Amazon Simple Storage Service \(Amazon S3\)
-+ Amazon Sumerian
-+ Amazon Textract
-+ Amazon Transcribe
-+ Amazon Translate
+For additional security protection, Amazon Cognito applies a scope\-down policy to credentials that you assign your unauthenticated users in the [enhanced flow](https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flow.html), using `GetCredentialsForIdentity`\. The scope\-down policy adds an [Inline session policy](#access-policies-inline-policy) and an [AWS managed session policy](#access-policies-managed-policy) to the IAM policies that you apply to your unauthenticated role\. Because you must grant access in both the IAM policies for your role and the session policies, the scope\-down policy limits users' access to services other than those in the following list\.
 
-In addition, there are services that grant access to unauthenticated users, but don't permit all the service's actions for these users\. The following table shows the services with restricted actions\.
+**Note**  
+In the basic \(classic\) flow, you make your own [https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html) API request, and can apply these restrictions to the request\. As a best security practice, don't assign any permissions above this scope\-down policy to unauthenticated users\.
+
+In a successful request with the enhanced flow, Amazon Cognito makes an `AssumeRoleWithWebIdentity` API request in the background\. Among the parameters in this request, Amazon Cognito includes the following\.
+
+1. Your user's identity ID\.
+
+1. The ARN of the IAM role that your user wants to assume\.
+
+1. A `policy` parameter that adds an *inline session policy*\.
+
+1. A `PolicyArns.member.N` parameter whose value is an *AWS managed policy* that grants additional permissions in Amazon CloudWatch\.
+
+### The inline session policy<a name="access-policies-inline-policy"></a>
+
+The inline session policy restricts your user's effective permissions from including access to any AWS services outside those in the following list\. You must also grant permissions to these AWS services in the policies that you apply to the user's IAM role\. A user's effective permissions for an assumed\-role session are the intersection of the policies assigned to their role, and their session policy\. For more information, see [Session policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) in the *AWS Identity and Access Management User Guide*\.
+
+#### Services that unauthenticated enhanced flow users can access<a name="access-policies-scope-down-services"></a>
 
 
-| Service | Permission granted for unauthenticated users | 
+| Category | Service | 
 | --- | --- | 
-| AWS Key Management Service | Encrypt, Decrypt, ReEncrypt , GenerateDataKey | 
-| Amazon SageMaker | InvokeEndpoint | 
-| Amazon Textract | DetectDocumentText, AnalyzeDocument | 
-| Amazon Sumerian | View\* | 
+|  Analytics  |  Amazon Kinesis Data Firehose Amazon Kinesis Data Analytics  | 
+|  Application Integration  |  Amazon Simple Queue Service  | 
+| AR & VR |  Amazon Sumerian¹  | 
+| Business Applications |  Amazon Mobile Analytics Amazon Simple Email Service  | 
+| Compute |  AWS Lambda  | 
+| Cryptography & PKI |  AWS Key Management Service¹  | 
+| Database |  Amazon DynamoDB Amazon SimpleDB  | 
+| Front\-end Web & Mobile |  AWS AppSync Amazon Location Service Amazon Simple Notification Service  | 
+| Game Development |  Amazon GameLift  | 
+| Internet of Things \(IoT\) |  AWS IoT  | 
+| Machine Learning |  Amazon CodeWhisperer Amazon Comprehend Amazon Lex Amazon Machine Learning Amazon Personalize Amazon Polly Amazon Rekognition Amazon SageMaker¹ Amazon Textract¹ Amazon Transcribe Amazon Translate  | 
+| Management & Governance |  Amazon CloudWatch Amazon CloudWatch Logs  | 
+| Neworking & Content Delivery |  Amazon API Gateway  | 
+| Security, Identity, & Compliance |  Amazon Cognito Identity Amazon Cognito user pools Amazon Cognito Sync  | 
+| Storage |  Amazon Simple Storage Service  | 
 
-If you need access to something other than these services for your unauthenticated users, you must use the basic authentication flow\. If you are getting `NotAuthorizedException` and you have enabled access to the service in your unauthenticated role policy, this is likely the reason\.
+¹ For the AWS services in the following table, the inline policy grants a subset of actions\. The table displays the available actions in each\.
+
+
+| AWS service | Maximum permissions for unauthenticated enhanced flow users | 
+| --- | --- | 
+| AWS Key Management Service |  `Encrypt` `Decrypt` `ReEncrypt` `GenerateDataKey`  | 
+| Amazon SageMaker |  `InvokeEndpoint`  | 
+| Amazon Textract |  `DetectDocumentText` `AnalyzeDocument`  | 
+| Amazon Sumerian |  `View*`  | 
+
+To grant access to [Services that unauthenticated enhanced flow users can access](#access-policies-scope-down-services), activate the basic \(classic\) authentication flow in your identity pool\. If your users see `NotAuthorizedException` errors from AWS services that are allowed by the policies assigned to the IAM role for unauthenticated users, evaluate whether you can eliminate that service from your use case or switch to the basic flow\.
+
+### The AWS managed session policy<a name="access-policies-managed-policy"></a>
+
+Amazon Cognito also attaches the AWS managed policy `AmazonCognitoUnauthenticatedIdentities` to your unauthenticated users in the enhanced flow\. The policy grants permissions to send metrics to CloudWatch RUM\. You must also grant this permission in the policies that you attach to your unauthenticated IAM role\.
+
+You can create an app monitor in CloudWatch RUM, and send performance data and other events from your app to the monitor\. When you assign access to CloudWatch RUM in your IAM policies for the unauthenticated users, use the `Resource` element to scope that policy to the app monitor that you want to associate with your app\. For more information about CloudWatch RUM, see [Use CloudWatch RUM](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-RUM.html) in the *Amazon CloudWatch User Guide*\.
+
+Amazon Cognito adds the following session policy to your unauthenticated enhanced flow user sessions\. It adds CloudWatch RUM [https://docs.aws.amazon.com/cloudwatchrum/latest/APIReference/API_PutRumEvents.html](https://docs.aws.amazon.com/cloudwatchrum/latest/APIReference/API_PutRumEvents.html) permissions\.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Effect": "Allow",
+        "Action": "rum:PutRumEvents",
+        "Resource": "*"
+    }]
+}
+```
 
 ### Access policy examples<a name="access-policy-examples"></a>
 

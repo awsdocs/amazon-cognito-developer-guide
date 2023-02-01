@@ -8,6 +8,7 @@ You can customize the user pool settings to the needs of your app\. This section
 + [User pool attributes](user-pool-settings-attributes.md)
 + [Adding user pool password requirements](user-pool-settings-policies.md)
 + [Configuring an admin create user policy](user-pool-settings-admin-create-user-policy.md)
++ [User pool deletion protection](user-pool-settings-deletion-protection.md)
 + [Configuring email or phone verification](user-pool-settings-email-phone-verification.md)
 + [Configuring SMS and email verification messages and user invitation messages](cognito-user-pool-settings-message-customizations.md)
 + [Adding cost allocation tags to your user pool](cognito-user-pools-cost-allocation-tagging.md)

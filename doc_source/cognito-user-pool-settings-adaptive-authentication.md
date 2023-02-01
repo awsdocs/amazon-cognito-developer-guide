@@ -1,6 +1,6 @@
 # Using adaptive authentication<a name="cognito-user-pool-settings-adaptive-authentication"></a>
 
-With adaptive authentication, you can configure your user pool to block suspicious sign\-ins or add second factor authentication in response to an increased risk level\. For each sign\-in attempt, Amazon Cognito generates a risk score for how likely the sign\-in request is to be from a compromised source\. This risk score is based on many factors, including whether it detects a new device, user location, or IP address\. Adaptive Authentication adds MFA based on risk level for users who don't have an MFA type enabled at the user level\. When an MFA type is enabled at the user level, those users will always receive the second factor challenge during authentication regardless of how you configured adaptive authentication\.
+With adaptive authentication, you can configure your user pool to block suspicious sign\-ins or add second factor authentication in response to an increased risk level\. For each sign\-in attempt, Amazon Cognito generates a risk score for how likely the sign\-in request is to be from a compromised source\. This risk score is based on factors that include device and user information\. Adaptive authentication can turn on or require multi\-factor authentication \(MFA\) for a user in your user pool when Amazon Cognito detects risk in a user's session, and the user hasn't yet chosen an MFA method\. When you activate MFA for a user, they always receive a challenge to provide or set up a second factor during authentication, regardless of how you configured adaptive authentication\. From your user's perspective, your app offers to help them set up MFA, and optionally Amazon Cognito prevents them from signing in again until they have configured an additional factor\.
 
 Amazon Cognito publishes sign\-in attempts, their risk levels, and failed challenges to Amazon CloudWatch\. For more information, see [Viewing advanced security metrics](user-pool-settings-viewing-advanced-security-metrics.md)\.
 
@@ -15,9 +15,9 @@ To add adaptive authentication to your user pool, see [Adding advanced security 
 
 ## Adaptive authentication overview<a name="security-cognito-user-pool-settings-adaptive-authentication-overview"></a>
 
-From the **Advanced security** page in the Amazon Cognito console, you can choose settings for adaptive authentication, including what actions to take at different risk levels and customization of notification messages to users\.
+From **Advanced security** in the **App integration** tab of the Amazon Cognito console, you can choose settings for adaptive authentication, including what actions to take at different risk tlevels and customization of notification messages to users\. You can assign a global advanced security configuration to all of your app clients, but apply a client\-level configuration to individual app clients\.
 
-
+Consider your options carefully when you change your **Enforcement method** from **Audit\-only** to **Full\-function**\. The automatic responses that you apply to risk levels influence the risk level that Amazon Cognito assigns to subsequent user sessions with the same characteristics\. For example, after you choose to take no action, or **Allow**, user sessions that Amazon Cognito initially evaluates to be high\-risk, Amazon Cognito considers similar sessions to have a lower risk\.
 
 
 **For each risk level, you can choose from the following options:**  
@@ -93,7 +93,7 @@ When you design your app to use adaptive authentication, we recommend that you i
 **Note**  
 In the new Amazon Cognito console, you can view user event history in the **Users** tab\.
 
-To see the sign\-in history for a user, you can choose the user from **Users and groups** in the Amazon Cognito console\. Amazon Cognito retains user event history for two years\.
+To see the sign\-in history for a user, you can choose the user from the **Users** tab in the Amazon Cognito console\. Amazon Cognito retains user event history for two years\.
 
 ![\[User event history\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[User event history\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)![\[User event history\]](http://docs.aws.amazon.com/cognito/latest/developerguide/)
 
@@ -103,9 +103,16 @@ You can also correlate the event ID with the token that Amazon Cognito issued at
 
 ## Providing event feedback<a name="user-pool-settings-adaptive-authentication-feedback"></a>
 
-Event feedback affects risk evaluation in real time and improves the risk evaluation algorithm over time\. You can provide feedback on the validity of sign\-in attempts through the Amazon Cognito console and API operations\.
+Event feedback affects risk evaluation in real time and improves the risk evaluation algorithm over time\. You can provide feedback on the validity of sign\-in attempts through the Amazon Cognito console and API operations\. 
 
-The console lists the sign\-in history on the **Users and groups** tab\. If you select an entry, you can mark the event as valid or not valid\. You can also provide feedback through the user pool API operation [AdminUpdateAuthEventFeedback](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminUpdateAuthEventFeedback.html), and through the AWS CLI command [admin\-update\-auth\-event\-feedback](https://docs.aws.amazon.com/cli/latest/reference/cognito-idp/admin-update-auth-event-feedback.html)\.
+**Note**  
+Your event feedback influences the risk level that Amazon Cognito assigns to subsequent user sessions with the same characteristics\.
+
+In the Amazon Cognito console, choose a user from the **Users** tab and select **Provide event feedback**\. You can review the event details and **Set as valid** or **Set as invalid**\.
+
+The console lists the sign\-in history on the **Users and groups** tab\. If you select an entry, you can mark the event as valid or not valid\. You can also provide feedback through the user pool API operation [AdminUpdateAuthEventFeedback](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminUpdateAuthEventFeedback.html), and through the AWS CLI command [admin\-update\-auth\-event\-feedback](https://docs.aws.amazon.com/cli/latest/reference/cognito-idp/admin-update-auth-event-feedback.html)\. 
+
+When you select **Set as valid** in the Amazon Cognito console or provide a `FeedbackValue` value of `valid` in the API, you tell Amazon Cognito that you trust a user session where Amazon Cognito has evaluated some level of risk\. When you select **Set as invalid** in the Amazon Cognito console or provide a `FeedbackValue` value of `invalid` in the API, you tell Amazon Cognito that you don't trust a user session, or you don't believe that Amazon Cognito evaluated a high\-enough risk level\.
 
 ## Sending notification messages<a name="user-pool-settings-adaptive-authentication-messages"></a>
 

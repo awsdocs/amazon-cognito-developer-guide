@@ -4,12 +4,16 @@ You can use the AWS Management Console, or the AWS CLI or API, to specify custom
 
 You can specify app UI customization settings for a single client \(with a specific `clientId`\) or for all clients \(by setting the `clientId` to `ALL`\)\. If you specify `ALL`, the default configuration will be used for every client that has no UI customization set previously\. If you specify UI customization settings for a particular client, it will no longer fall back to the `ALL` configuration\.
 
+The request that sets your UI customization must not exceed 135 KB in size\. In rare cases, the sum of request headers, your CSS file, and your logo might exceed 135KB\. Amazon Cognito encodes the image file to Base64\. This increases the size of a 100 KB image to 130 KB, leaving five KB for request headers and your CSS\. If the request is too large, the AWS Management Console or your `SetUICustomization` API request returns a `request parameters too large` error\. Adjust your logo image to be no greater than 100KB and your CSS file to be no larger than 3 KB\. You can't set CSS and logo customization separately\.
+
 **Note**  
-To use this feature, your user pool must have a domain associated with it\.
+To customize your UI, you must set up a domain for your user pool\.
 
 ## Specifying a custom logo for the app<a name="cognito-user-pools-app-ui-customization-logo"></a>
 
-The maximum allowable size for a logo image file is 100 KB\.
+Amazon Cognito centers your custom logo above the input fields at the [Login endpoint](login-endpoint.md)\.
+
+Choose a PNG, JPG, or JPEG file that can scale to 350 by 178 pixels for your custom hosted UI logo\. Your logo file can be no larger than 100 KB in size, or 130 KB after Amazon Cognito encodes to to Base64\. To set an `ImageFile` in [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUICustomization.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUICustomization.html) in the API, you can convert your file to a Base64\-encoded text string or, in the AWS CLI, provide a file path and let Amazon Cognito encode it for you\.
 
 ## Specifying CSS customizations for the app<a name="cognito-user-pools-app-ui-customization-css"></a>
 
@@ -177,10 +181,11 @@ Your domain is shown on the **App integration** tab under **Domain**\. Your app 
 
 Use the following commands to specify app UI customization settings for your user pool\.
 
-**To get the UI customization settings for a user pool's built\-in app UI**
+**To get the UI customization settings for a user pool's built\-in app UI, use the following API operations\.**
 + AWS CLI: `aws cognito-idp get-ui-customization`
-+ AWS API: [GetUICustomization](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_GetUICustomization.html)
++ AWS API: [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_GetUICustomization.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_GetUICustomization.html)
 
-**To set the UI customization settings for a user pool's built\-in app UI**
-+ AWS CLI: `aws cognito-idp set-ui-customization --user-pool-id <your-user-pool-id> --client-id <your-app-client-id> --image-file <path-to-logo-image-file> --css ".label-customizable{ color: <color>;}"`
-+ AWS API: [SetUICustomization](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUICustomization.html)
+**To set the UI customization settings for a user pool's built\-in app UI, use the following API operations\.**
++ AWS CLI from image file: `aws cognito-idp set-ui-customization --user-pool-id <your-user-pool-id> --client-id <your-app-client-id> --image-file fileb://"<path-to-logo-image-file>" --css ".label-customizable{ color: <color>;}"`
++ AWS CLI with image encoded as Base64 binary text: `aws cognito-idp set-ui-customization --user-pool-id <your-user-pool-id> --client-id <your-app-client-id> --image-file <base64-encoded-image-file> --css ".label-customizable{ color: <color>;}"`
++ AWS API: [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUICustomization.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUICustomization.html)

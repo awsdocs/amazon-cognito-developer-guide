@@ -26,6 +26,7 @@ Amazon Cognito is compliant with SOC 1\-3, PCI DSS, ISO 27001, and is HIPAA\-BAA
 + [Regional availability](#getting-started-regional-availability)
 + [Pricing for Amazon Cognito](#pricing-for-amazon-cognito)
 + [Using the Amazon Cognito console](cognito-console.md)
++ [Using this service with an AWS SDK](sdk-general-information-section.md)
 
 ## Features of Amazon Cognito<a name="feature-overview"></a>
 

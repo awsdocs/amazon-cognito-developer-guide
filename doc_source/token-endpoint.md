@@ -1,6 +1,8 @@
 # Token endpoint<a name="token-endpoint"></a>
 
-The `/oauth2/token` endpoint gets the user's tokens\.
+Generate a POST request to the `/oauth2/token` endpoint to get JSON web tokens \(JWTs\) for a user or service\. When you add a domain to your user pool, Amazon Cognito activates an OAuth 2\.0 [token endpoint](http://amazonaws.com/https://www.rfc-editor.org/rfc/rfc6749#section-3.2) that's dedicated to your user pool\. In a user\-based model, your app sends authorization codes to your token endpoint in exchange for ID, access, and refresh tokens\. In a machine\-to\-machine model, you app sends a client secret to your token endpoint in exchange for access tokens\.
+
+To retrieve information about a user from their access token, you can pass it to your [UserInfo endpoint](userinfo-endpoint.md), or to a [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_GetUser.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_GetUser.html) API request\.
 
 ## POST /oauth2/token<a name="post-token"></a>
 
@@ -61,13 +63,13 @@ Required if `grant_type` is `authorization_code` and the authorization code was 
 
 ```
 POST https://mydomain.auth.us-east-1.amazoncognito.com/oauth2/token&
-                       Content-Type='application/x-www-form-urlencoded'&
-                       Authorization=Basic aSdxd892iujendek328uedj
-                       
-                       grant_type=authorization_code&
-                       client_id=djc98u3jiedmi283eu928&
-                       code=AUTHORIZATION_CODE&
-                       redirect_uri=com.myclientapp://myclient/redirect
+                            Content-Type='application/x-www-form-urlencoded'&
+                            Authorization=Basic ZGpjOTh1M2ppZWRtaTI4M2V1OTI4OmFiY2RlZjAxMjM0NTY3ODkw
+                            
+                            grant_type=authorization_code&
+                            client_id=1example23456789&
+                            code=AUTHORIZATION_CODE&
+                            redirect_uri=com.myclientapp://myclient/redirect
 ```
 
 **Sample response**
@@ -78,8 +80,9 @@ HTTP/1.1 200 OK
                            Content-Type: application/json
                            
                            { 
-                            "access_token":"eyJz9sdfsdfsdfsd", 
-                            "id_token":"dmcxd329ujdmkemkd349r",
+                            "access_token":"eyJra1example", 
+                            "id_token":"eyJra2example",
+                            "refresh_token":"eyJj3example",
                             "token_type":"Bearer", 
                             "expires_in":3600
                            }
@@ -94,24 +97,25 @@ The token endpoint returns `refresh_token` only when the `grant_type` is `author
 
 ```
 POST https://mydomain.auth.us-east-1.amazoncognito.com/oauth2/token >
-                           Content-Type='application/x-www-form-urlencoded'&
-                           Authorization=Basic aSdxd892iujendek328uedj
-                           
-                           grant_type=client_credentials&
-                           scope={resourceServerIdentifier1}/{scope1} {resourceServerIdentifier2}/{scope2}
+                            Content-Type='application/x-www-form-urlencoded'&
+                            Authorization=Basic ZGpjOTh1M2ppZWRtaTI4M2V1OTI4OmFiY2RlZjAxMjM0NTY3ODkw
+                            
+                            grant_type=client_credentials&
+                            client_id=1example23456789&
+                            scope={resourceServerIdentifier1}/{scope1} {resourceServerIdentifier2}/{scope2}
 ```
 
 **Sample response**
 
 ```
 HTTP/1.1 200 OK
-                        Content-Type: application/json
-                        
-                        {
-                         "access_token":"eyJz9sdfsdfsdfsd", 
-                         "token_type":"Bearer", 
-                         "expires_in":3600
-                        }
+                            Content-Type: application/json
+                            
+                            {
+                            "access_token":"eyJra1example", 
+                            "token_type":"Bearer", 
+                            "expires_in":3600
+                            }
 ```
 
 #### Exchanging an authorization code grant with PKCE for tokens<a name="post-token-positive-exchanging-authorization-code-grant-with-pkce-for-tokens"></a>
@@ -121,10 +125,10 @@ HTTP/1.1 200 OK
 ```
 POST https://mydomain.auth.us-east-1.amazoncognito.com/oauth2/token
                                 Content-Type='application/x-www-form-urlencoded'&
-                                Authorization=Basic aSdxd892iujendek328uedj
+                                Authorization=Basic ZGpjOTh1M2ppZWRtaTI4M2V1OTI4OmFiY2RlZjAxMjM0NTY3ODkw
                                 
                                 grant_type=authorization_code&
-                                client_id=djc98u3jiedmi283eu928&
+                                client_id=1example23456789&
                                 code=AUTHORIZATION_CODE&
                                 code_verifier=CODE_VERIFIER&
                                 redirect_uri=com.myclientapp://myclient/redirect
@@ -134,15 +138,15 @@ POST https://mydomain.auth.us-east-1.amazoncognito.com/oauth2/token
 
 ```
 HTTP/1.1 200 OK
-                                    Content-Type: application/json
-                                    
-                                    {
-                                     "access_token":"eyJz9sdfsdfsdfsd",
-                                     "refresh_token":"dn43ud8uj32nk2je",
-                                     "id_token":"dmcxd329ujdmkemkd349r",
-                                     "token_type":"Bearer", 
-                                     "expires_in":3600
-                                    }
+                            Content-Type: application/json
+                            
+                            {
+                            "access_token":"eyJra1example", 
+                            "id_token":"eyJra2example",
+                            "refresh_token":"eyJj3example",
+                            "token_type":"Bearer", 
+                            "expires_in":3600
+                            }
 ```
 
 **Note**  
@@ -155,24 +159,24 @@ The token endpoint returns `refresh_token` only when the `grant_type` is `author
 ```
 POST https://mydomain.auth.us-east-1.amazoncognito.com/oauth2/token >
                            Content-Type='application/x-www-form-urlencoded'&
-                           Authorization=Basic aSdxd892iujendek328uedj
+                           Authorization=Basic ZGpjOTh1M2ppZWRtaTI4M2V1OTI4OmFiY2RlZjAxMjM0NTY3ODkw
                            
                            grant_type=refresh_token&
-                           client_id=djc98u3jiedmi283eu928&
-                           refresh_token=REFRESH_TOKEN
+                           client_id=1example23456789&
+                           refresh_token=eyJj3example
 ```
 
 **Sample response**
 
 ```
 HTTP/1.1 200 OK
-                                 Content-Type: application/json
-                                 
-                                 {
-                                  "id_token":"eyJz9sdfsdfsdfsd", 
-                                  "access_token":"dmcxd329ujdmkemkd349r",
-                                  "token_type":"Bearer", 
-                                  "expires_in":3600
+                           Content-Type: application/json
+                           
+                           {
+                           "access_token":"eyJra1example", 
+                           "id_token":"eyJra2example",
+                           "token_type":"Bearer", 
+                           "expires_in":3600
                                  }
 ```
 
@@ -185,11 +189,11 @@ The token endpoint returns `refresh_token` only when the `grant_type` is `author
 
 ```
 HTTP/1.1 400 Bad Request
-                        Content-Type: application/json;charset=UTF-8
-                        
-                        {
-                        "error":"invalid_request|invalid_client|invalid_grant|unauthorized_client|unsupported_grant_type|"
-                        }
+                           Content-Type: application/json;charset=UTF-8
+                           
+                           {
+                           "error":"invalid_request|invalid_client|invalid_grant|unauthorized_client|unsupported_grant_type"
+                           }
 ```
 
 *invalid\_request*  

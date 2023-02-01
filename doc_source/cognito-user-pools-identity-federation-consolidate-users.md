@@ -2,6 +2,8 @@
 
 Often, the same user has a profile with multiple identity providers \(IdPs\) that you have connected to your user pool\. Amazon Cognito can link each occurrence of a user to the same user profile in your directory\. This way, one person who has multiple IdP users can have a consistent experience in your app\. [AdminLinkProviderForUser](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminLinkProviderForUser.html) tells Amazon Cognito to recognize a user's unique ID in your federated directory as a user in the user pool\. A user in your user pool counts as one monthly active user \(MAU\) for the purposes of [billing](http://aws.amazon.com/cognito/pricing/) when you have zero or more federated identities associated with the user profile\.
 
+When a federated user signs in to a user pool, Amazon Cognito creates a user profile that it prefixes with the name of your IdP\. You can find both the linked native user and the automatically\-created federated user when you search users in your user pool\. In their tokens, your linked user's identity claims originate from their federated profile\. Their access claims originate from their native profile\.
+
 **Important**  
 Because `AdminLinkProviderForUser` allows a user with an external federated identity to sign in as an existing user in the user pool, it is critical that it only be used with external IdPs and provider attributes that have been trusted by the application owner\.
 

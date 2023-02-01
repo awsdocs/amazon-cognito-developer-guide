@@ -80,18 +80,18 @@ This post authentication sample Lambda function sends data from a successful sig
 #### [ Node\.js ]
 
 ```
-exports.handler = (event, context, callback) => {
+const handler = async (event) => {
+  // Send post authentication data to Amazon CloudWatch logs
+  console.log("Authentication successful");
+  console.log("Trigger function =", event.triggerSource);
+  console.log("User pool = ", event.userPoolId);
+  console.log("App client ID = ", event.callerContext.clientId);
+  console.log("User ID = ", event.userName);
 
-    // Send post authentication data to Cloudwatch logs
-    console.log ("Authentication successful");
-    console.log ("Trigger function =", event.triggerSource);
-    console.log ("User pool = ", event.userPoolId);
-    console.log ("App client ID = ", event.callerContext.clientId);
-    console.log ("User ID = ", event.userName);
-
-    // Return to Amazon Cognito
-    callback(null, event);
+  return event;
 };
+
+export { handler }
 ```
 
 ------

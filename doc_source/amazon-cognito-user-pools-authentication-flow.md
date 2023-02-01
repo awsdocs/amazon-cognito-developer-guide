@@ -1,6 +1,8 @@
 # User pool authentication flow<a name="amazon-cognito-user-pools-authentication-flow"></a>
 
-To verify the identity of users, modern authentication flows incorporate new challenge types, in addition to passwords\. Amazon Cognito authentication typically requires that you implement two API operations in the following order: 
+Amazon Cognito includes several methods to authenticate your users\. All user pools, whether you have a domain or not, can authenticate users in the native API\. If you add a domain to your user pool, you can use the [OIDC API endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html)\. The native API supports a variety of authorization models and request flows for API requests\.
+
+To verify the identity of users, Amazon Cognito supports authentication flows that incorporate new challenge types, in addition to passwords\. Amazon Cognito authentication typically requires that you implement two API operations in the following order: 
 
 1. `InitiateAuth`
 
@@ -54,8 +56,8 @@ You can use AWS Lambda triggers to customize the way users authenticate\. These 
 
 You can also use the admin authentication flow for secure backend servers\. You can use the user migration authentication flow to make user migration possible without the requirement that your users to reset their passwords\.
 
-**Note**  
-Users can attempt but fail to sign in correctly five times before Amazon Cognito temporarily locks them out\. Lockout time starts at one second and increases exponentially, doubling after each subsequent failed attempt, up to about 15 minutes\. Amazon Cognito ignores attempts to log in during a temporary lockout period, and these attempts don't initiate a new lockout period\. After a user waits 15 minutes, Amazon Cognito resets the temporary lockout\. This behavior is subject to change\.
+**Amazon Cognito lockout behavior for failed sign\-in attempts**  
+After five failed sign\-in attempts, Amazon Cognito locks out your user for one second\. The lockout duration then doubles after each additional one failed attempt, up to a maximum of approximately 15 minutes\. Attempts made during a lockout period generate a `Password attempts exceeded` exception, and don't affect the duration of subsequent lockout periods\. For a cumulative number of failed sign\-in attempts *n*, not including `Password attempts exceeded` exceptions, Amazon Cognito locks out your user for *2^\(n\-5\)* seconds\. To reset the lockout to its initial state, your user must not initiate any sign\-in attempts for 15 consecutive minutes at any time after a lockout\. This behavior is subject to change\.
 
 **Topics**
 + [Client\-side authentication flow](#amazon-cognito-user-pools-client-side-authentication-flow)
@@ -69,7 +71,7 @@ Users can attempt but fail to sign in correctly five times before Amazon Cognito
 
 ## Client\-side authentication flow<a name="amazon-cognito-user-pools-client-side-authentication-flow"></a>
 
-The following process works for user client\-side apps that you create with the [AWS Mobile SDK for Android, AWS Mobile SDK for iOS, or AWS SDK for JavaScript](https://aws.amazon.com/mobile/resources/):
+The following process works for user client\-side apps that you create with [AWS Amplify](https://docs.amplify.aws/lib/auth/getting-started/) or the [AWS SDKs](http://aws.amazon.com/developer/tools/)\.
 
 1. The user enters their user name and password into the app\.
 

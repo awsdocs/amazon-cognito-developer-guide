@@ -7,6 +7,9 @@ The following table describes important additions to the documentation for Amazo
 
 | Change | Description | Date | 
 | --- | --- | --- | 
+| Added information about API models and authentication with Amazon Cognito user pools\. | Amazon Cognito user pools have multiple API interfaces and formats for request authorization\. See [Using the Amazon Cognito native and OIDC APIs](user-pools-API-operations.md) for more information\. | December 15, 2022 | 
+| Amazon Cognito is now available in the Europe \(Milan\) AWS Region\. | You can now create Amazon Cognito user pools in the Europe \(Milan\) Region\. | December 6, 2022 | 
+| Added information about user pool deletion protection\. | When you create a new user pool with the AWS Management Console, it's now [protected against deletion](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-deletion-protection.html) by default\. | October 20, 2022 | 
 | Added a user guide for the hosted UI, and information about TOTP MFA in the hosted UI\. | Your users can now register a [TOTP MFA device](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-mfa-totp.html) in the Amazon Cognito hosted UI\. You can now preview the default hosted UI in [Signing up and signing in with the hosted UI](cognito-user-pools-hosted-ui-user-experience.md)\. | September 8, 2022 | 
 | Added information about AWS WAF and Amazon Cognito\. | You can now associate a AWS WAF web ACL with a Amazon Cognito user pool\. See [Associating an AWS WAF web ACL with a user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-waf.html)\. | August 3, 2022 | 
 | Added more example AWS CloudTrail events\. | Amazon Cognito now logs federation and hosted UI requests to your trail\. | June 15, 2022 | 

@@ -43,9 +43,8 @@ This example clears the existing session and redirects the user to the client\. 
 
 ```
 GET https://mydomain.auth.us-east-1.amazoncognito.com/logout?
-
-client_id=ad398u21ijw3s9w3939&
-logout_uri=https://myclient/logout
+   client_id=ad398u21ijw3s9w3939&
+   logout_uri=https://myclient/logout
 ```
 
 **Example 2: Log out and prompt the user to sign in as another user**
@@ -54,10 +53,9 @@ This example clears the existing session and shows the login screen\. The exampl
 
 ```
 GET https://mydomain.auth.us-east-1.amazoncognito.com/logout?
-
-response_type=code&
-client_id=ad398u21ijw3s9w3939&
-redirect_uri=https://YOUR_APP/redirect_uri&
-state=STATE&
-scope=openid+profile+aws.cognito.signin.user.admin
+   response_type=code&
+   client_id=ad398u21ijw3s9w3939&
+   redirect_uri=https://YOUR_APP/redirect_uri&
+   state=STATE&
+   scope=openid+profile+aws.cognito.signin.user.admin
 ```

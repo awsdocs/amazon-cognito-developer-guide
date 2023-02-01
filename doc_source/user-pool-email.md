@@ -59,6 +59,7 @@ The following table shows the AWS Regions where you can use Amazon SES identitie
 |  Europe \(Paris\)  |  Europe \(Paris\)  | 
 |  Europe \(Frankfurt\)  |  Europe \(Frankfurt\), US East \(N\. Virginia\), US West \(Oregon\), Europe \(Ireland\)  | 
 |  Europe \(Stockholm\)  |  Europe \(Stockholm\)  | 
+| Europe \(Milan\) | Europe \(Milan\) | 
 |  Middle East \(Bahrain\)  |  Middle East \(Bahrain\)  | 
 |  South America \(São Paulo\)  |  South America \(São Paulo\)  | 
 
@@ -152,7 +153,7 @@ If you configure your user pool to use your Amazon SES configuration, Amazon Cog
 
 When you configure your user pool with this option, Amazon Cognito creates a *service\-linked role*, which is a type of IAM role, in your AWS account\. This role contains the permissions that allow Amazon Cognito to access Amazon SES and send email with your address\.
 
-Before Amazon Cognito can create this role, the IAM permissions that you use to set up your user pool must include the `iam:CreateServiceLinkedRole` action\. For more information about updating permissions in IAM, see [Changing permissions for an IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_change-permissions.html) in the *IAM User Guide*\.
+Before Amazon Cognito can create this role, the IAM permissions that you use to set up your user pool must include the `iam:CreateServiceLinkedRole` action\. For more information about permissions in IAM, see [Access management for AWS resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html) in the *IAM User Guide*\.
 
 For more information about the service\-linked role that Amazon Cognito creates, see [Using service\-linked roles for Amazon Cognito](using-service-linked-roles.md)\.
 

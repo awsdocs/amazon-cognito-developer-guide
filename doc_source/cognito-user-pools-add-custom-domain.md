@@ -21,7 +21,7 @@ You might need to obtain a new certificate for your custom domain's subdomain if
 + A Secure Sockets Layer \(SSL\) certificate managed by ACM\.
 **Note**  
 You must change the AWS region to US East \(N\. Virginia\) in the ACM console before you request or import a certificate\. 
-+ To set up a custom domain name or to update its certificate, you must have permission to update Amazon CloudFront distributions\. You can do so by attaching the following IAM policy statement to an IAM user, group, or role in your AWS account:
++ To set up a custom domain name or to update its certificate, you must have permission to update Amazon CloudFront distributions\. You can do so by attaching the following IAM policy statement to a user in your AWS account:
 
   ```
   {
@@ -41,7 +41,7 @@ You must change the AWS region to US East \(N\. Virginia\) in the ACM console be
   }
   ```
 
-  For more information about authorizing actions in CloudFront, ee [Using Identity\-Based Policies \(IAM Policies\) for CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/access-control-managing-permissions.html)\.
+  For more information about authorizing actions in CloudFront, see [Using Identity\-Based Policies \(IAM Policies\) for CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/access-control-managing-permissions.html)\.
 
   Amazon Cognito initially uses your IAM permissions to configure the CloudFront distribution, but the distribution is managed by AWS\. You can't change the configuration of the CloudFront distribution that Amazon Cognito associated with your user pool\. For example, you can't update the supported TLS versions in the security policy\.
 

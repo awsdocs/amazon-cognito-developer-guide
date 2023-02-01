@@ -2,7 +2,7 @@
 
 You can import users into an Amazon Cognito user pool\. The user information is imported from a specially formatted \.csv file\. The import process sets values for all user attributes except **password**\. Password import is not supported, because security best practices require that passwords are not available as plain text, and we don't support importing hashes\. This means that your users must change their passwords the first time they sign in\. So, your users will be in a RESET\_REQUIRED state when imported using this method\.
 
-You can use a [Pre authentication Lambda trigger](user-pool-lambda-pre-authentication.md) to set an imported user's password\. In your function code, set your user's password with an [AdminSetUserPassword](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminSetUserPassword.html) API request that sets the `Permanent` parameter to `true`\.
+You can set your users' passwords with an [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminSetUserPassword.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminSetUserPassword.html) API request that sets the `Permanent` parameter to `true`\.
 
 **Note**  
 The creation date for each user is the time when that user was imported into the user pool\. Creation date is not one of the imported attributes\.
@@ -24,8 +24,8 @@ The basic steps are:
 1. Require the imported users to reset their passwords\.
 
 **Topics**
-+ [Creating the CloudWatch Logs IAM role \(AWS CLI, API\)](cognito-user-pools-using-import-tool-cli-cloudwatch-iam-role.md)
-+ [Creating the user import \.csv file](cognito-user-pools-using-import-tool-csv-header.md)
++ [Creating the CloudWatch Logs IAM role](cognito-user-pools-using-import-tool-cli-cloudwatch-iam-role.md)
++ [Creating the user import CSV file](cognito-user-pools-using-import-tool-csv-header.md)
 + [Creating and running the Amazon Cognito user pool import job](cognito-user-pools-creating-import-job.md)
 + [Viewing the user pool import results in the CloudWatch console](cognito-user-pools-using-import-tool-cloudwatch.md)
 + [Requiring imported users to reset their passwords](cognito-user-pools-using-import-tool-password-reset.md)

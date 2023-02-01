@@ -29,7 +29,7 @@ The original and new versions of the Amazon Cognito console have different under
 
 ## Using the Cognito console<a name="security_iam_id-based-policy-examples-console"></a>
 
-To access the Amazon Cognito console, you must have a minimum set of permissions\. These permissions must allow you to list and view details about the Cognito resources in your AWS account\. If you create an identity\-based policy that is more restrictive than the minimum required permissions, the console won't function as intended for entities \(IAM users or roles\) with that policy\.
+To access the Amazon Cognito console, you must have a minimum set of permissions\. These permissions must allow you to list and view details about the Cognito resources in your AWS account\. If you create an identity\-based policy that is more restrictive than the minimum required permissions, the console won't function as intended for entities \(users or roles\) with that policy\.
 
 You don't need to allow minimum console permissions for users that are making calls only to the AWS CLI or the AWS API\. Instead, allow access to only the actions that match the API operation that you're trying to perform\.
 

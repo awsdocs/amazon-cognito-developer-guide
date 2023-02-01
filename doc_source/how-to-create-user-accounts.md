@@ -19,7 +19,7 @@ This action cannot currently be performed using the AWS Management Console\.
 
 The authentication flow for these users includes the extra step to submit the new password and provide any missing values for required attributes\. The steps are outlined next; steps 5, 6, and 7 are specific to these users\.
 
-1. The user starts to sign in for the first time by submitting the user name and password provided to him or her\.
+1. The user starts to sign in for the first time by submitting their user name and password\.
 
 1. The SDK calls `InitiateAuth(Username, USER_SRP_AUTH)`\.
 

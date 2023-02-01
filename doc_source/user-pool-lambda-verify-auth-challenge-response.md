@@ -79,16 +79,20 @@ In this example, the Lambda function checks whether the user's response to a cha
 #### [ Node\.js ]
 
 ```
-exports.handler = (event, context, callback) => {
-    if (event.request.privateChallengeParameters.answer == event.request.challengeAnswer) {
-        event.response.answerCorrect = true;
-    } else {
-        event.response.answerCorrect = false;
-    }
+const handler = async (event) => {
+  if (
+    event.request.privateChallengeParameters.answer ==
+    event.request.challengeAnswer
+  ) {
+    event.response.answerCorrect = true;
+  } else {
+    event.response.answerCorrect = false;
+  }
 
-    // Return to Amazon Cognito
-    callback(null, event);
-}
+  return event;
+};
+
+export { handler };
 ```
 
 ------

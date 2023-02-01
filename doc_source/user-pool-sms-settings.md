@@ -90,6 +90,7 @@ You can send SMS messages for any **Amazon Cognito Region** in the following tab
 | Europe \(Ireland\) | Europe \(Ireland\) | 
 | Europe \(Paris\) | Europe \(Paris\) | 
 | Europe \(Stockholm\) | Europe \(Stockholm\) | 
+| Europe \(Milan\) | Europe \(Milan\) | 
 | Middle East \(Bahrain\) | Middle East \(Bahrain\) | 
 | South America \(São Paulo\) | South America \(São Paulo\) | 
 
@@ -102,8 +103,9 @@ Starting June 1, 2021, US carriers require an origination identity to send messa
 If you operate in the following AWS Regions, you must open an AWS Support ticket to obtain an origination identity\. For instructions, see [Requesting support for SMS messaging](https://docs.aws.amazon.com/sns/latest/dg/channels-sms-awssupport.html) in the *Amazon Simple Notification Service Developer Guide*\.
 + US East \(Ohio\)
 + Europe \(Stockholm\)
-+ Middle East \(Bahrain\)
 + Europe \(Paris\)
++ Europe \(Milan\)
++ Middle East \(Bahrain\)
 + South America \(São Paulo\)
 + US West \(N\. California\)
 

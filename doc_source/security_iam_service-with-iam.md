@@ -182,7 +182,7 @@ arn:aws:cognito-sync:REGION:ACCOUNT_ID:identitypool/IDENTITY_POOL_ID/identity/ID
 
 **ARNs for Amazon Cognito user pools**
 
-For Amazon Cognito Your User Pools, it is possible to restrict an IAM user's access to a specific user pool, using the following ARN format:
+For Amazon Cognito Your User Pools, it is possible to restrict a user's access to a specific user pool, using the following ARN format:
 
 ```
 arn:aws:cognito-idp:REGION:ACCOUNT_ID:userpool/USER_POOL_ID
@@ -274,7 +274,7 @@ You can manually create temporary credentials using the AWS CLI or AWS API\. You
 
   A service role is an [IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) that a service assumes to perform actions on your behalf\. An IAM administrator can create, modify, and delete a service role from within IAM\. For more information, see [Creating a role to delegate permissions to an AWS service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html) in the *IAM User Guide*\. 
 
-For details about Cognito service roles, see [Enable push synchronization](enable-push-synchronization.md) and [Push sync](push-sync.md)\.
+For details about Cognito service roles, see [Enable push synchronization](identity-pools-sync.md#enable-push-synchronization) and [Push sync](push-sync.md)\.
 
 **Warning**  
 Changing the permissions for a service role might break Cognito functionality\. Edit service roles only when Cognito provides guidance to do so\.
