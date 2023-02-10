@@ -24,7 +24,7 @@ Along with the endpoints in this guide, Amazon Cognito creates the following end
 | https://Your user pool domain/confirmUser | Confirms users who have selected an email link to verify their user account\. | Hosted UI | 
 | https://Your user pool domain/signup | Signs up a new user\. The /login page directs your user to /signup when they select Sign up\. | Hosted UI | 
 | https://Your user pool domain/forgotPassword | Prompts your user for their user name and sends a password\-reset code\. The /login page directs your user to /forgotPassword when they select Forgot your password?\. | Hosted UI | 
-| https://Your user pool domain/confirmforgotPassword | Prompts your user for their password\-reset code and a new password\. The /forgotPassword page directs your user to /confirmforgotPassword when they select Reset your password\. | Hosted UI | 
+| https://Your user pool domain/confirmForgotPassword | Prompts your user for their password\-reset code and a new password\. The /forgotPassword page directs your user to /confirmForgotPassword when they select Reset your password\. | Hosted UI | 
 
 For more information on the OpenID and OAuth standards, see [OpenID Connect 1\.0](http://openid.net/specs/openid-connect-core-1_0.html) and [OAuth 2\.0](https://tools.ietf.org/html/rfc6749)\.
 
