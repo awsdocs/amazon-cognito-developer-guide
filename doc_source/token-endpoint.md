@@ -1,6 +1,6 @@
 # Token endpoint<a name="token-endpoint"></a>
 
-Generate a POST request to the `/oauth2/token` endpoint to get JSON web tokens \(JWTs\) for a user or service\. When you add a domain to your user pool, Amazon Cognito activates an OAuth 2\.0 [token endpoint](http://amazonaws.com/https://www.rfc-editor.org/rfc/rfc6749#section-3.2) that's dedicated to your user pool\. In a user\-based model, your app sends authorization codes to your token endpoint in exchange for ID, access, and refresh tokens\. In a machine\-to\-machine model, you app sends a client secret to your token endpoint in exchange for access tokens\.
+Generate a POST request to the `/oauth2/token` endpoint to get JSON web tokens \(JWTs\) for a user or service\. When you add a domain to your user pool, Amazon Cognito activates an OAuth 2\.0 [token endpoint](https://www.rfc-editor.org/rfc/rfc6749#section-3.2) that's dedicated to your user pool\. In a user\-based model, your app sends authorization codes to your token endpoint in exchange for ID, access, and refresh tokens\. In a machine\-to\-machine model, you app sends a client secret to your token endpoint in exchange for access tokens\.
 
 To retrieve information about a user from their access token, you can pass it to your [UserInfo endpoint](userinfo-endpoint.md), or to a [https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_GetUser.html](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_GetUser.html) API request\.
 
