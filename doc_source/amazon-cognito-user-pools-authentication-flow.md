@@ -71,7 +71,7 @@ After five failed sign\-in attempts, Amazon Cognito locks out your user for one 
 
 ## Client\-side authentication flow<a name="amazon-cognito-user-pools-client-side-authentication-flow"></a>
 
-The following process works for user client\-side apps that you create with [AWS Amplify](https://docs.amplify.aws/lib/auth/getting-started/) or the [AWS SDKs](http://aws.amazon.com/developer/tools/)\.
+The following process works for user client\-side apps that you create with [AWS Amplify](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js/) or the [AWS SDKs](http://aws.amazon.com/developer/tools/)\.
 
 1. The user enters their user name and password into the app\.
 
