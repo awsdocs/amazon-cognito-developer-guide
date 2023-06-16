@@ -1,7 +1,0 @@
-# Multi\-tenancy security recommendations<a name="multi-tenancy-security-recommendations"></a>
-
- To help make your application more secure, we recommend the following: 
-+ Use only a verified email address to authorize user access to a tenant based on domain match\. Do not trust email addresses and phone numbers unless your app verifies them, or the external IdP gives a proof of verification\. For more details on setting these permissions, see [Attribute Permissions and Scopes](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html#user-pool-settings-attribute-                     permissions-and-scopes.html)\.
-+  Use immutable or mutable attributes for the user profile attributes that identify tenants\. Administrators must be able to change these attributes\. Also, give app clients read\-only access to the attributes\.
-+ Use 1:1 mapping between external IdP and application client to prevent unauthorized cross\-tenant access\. A user who has been authenticated by an external IdP, and who has a valid Amazon Cognito session cookie, can access other tenant apps that trust the same IdP\. 
-+ When you implement tenant\-matching and authorization logic in your application, restrict users so that they can't modify the criteria that authorize user access to the tenants\. Also, if an external IdP is being used for federation, restrict tenant identity provider administrators so that they can't modify user access\.

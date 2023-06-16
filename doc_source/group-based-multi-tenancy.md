@@ -1,3 +1,0 @@
-# Group\-based multi\-tenancy<a name="group-based-multi-tenancy"></a>
-
-With group\-based multi\-tenancy, you can associate an Amazon Cognito [ user pool group](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-user-groups.html) with a tenant\. That way, you can use additional functionality through role\-based access control \(RBAC\)\. For more information see, [ Role\-based access control](https://docs.aws.amazon.com/cognito/latest/developerguide/role-based-access-control.html)\.
